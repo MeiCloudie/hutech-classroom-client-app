@@ -10,8 +10,13 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import HomeIcon from "@mui/icons-material/Home";
+import PersonIcon from "@mui/icons-material/Person";
+import SchoolIcon from '@mui/icons-material/School';
+import SettingsIcon from '@mui/icons-material/Settings';
+import HelpIcon from '@mui/icons-material/Help';
+import LinkIcon from '@mui/icons-material/Link';
+import InventoryIcon from '@mui/icons-material/Inventory';
 
 const drawerWidth = 240;
 
@@ -62,7 +67,7 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-const pages = ["Inbox", "Starred", "Send email", "Drafts"];
+const pages = ["Home", "Profile", "Classrooms", "Settings", "Help", "Links"];
 
 interface SidebarProps {
   open: boolean;
@@ -110,7 +115,21 @@ const Sidebar = (props: SidebarProps) => {
                   justifyContent: "center",
                 }}
               >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {text === "Home" ? (
+                  <HomeIcon />
+                ) : text === "Profile" ? (
+                  <PersonIcon />
+                ) : text === "Classrooms" ? (
+                  <SchoolIcon />
+                ) : text === "Settings" ? (
+                  <SettingsIcon />
+                ) : text === "Help" ? (
+                  <HelpIcon />
+                ) : text === "Links" ? (
+                  <LinkIcon />
+                ) : (
+                  <InventoryIcon />
+                )}
               </ListItemIcon>
               <ListItemText
                 primary={text}

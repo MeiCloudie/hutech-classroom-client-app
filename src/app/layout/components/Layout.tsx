@@ -6,7 +6,6 @@ import Typography from '@mui/material/Typography';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
-import Divider from "@mui/material/Divider";
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',

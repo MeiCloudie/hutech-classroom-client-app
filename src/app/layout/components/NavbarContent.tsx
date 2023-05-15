@@ -13,7 +13,7 @@ const NavbarContent = () => {
         image="logoHutech.png"
         alt="Ảnh không tồn tại"
         sx={{
-          width: "100px",
+          width: "60px",
           height: "auto",
         }}
       />
