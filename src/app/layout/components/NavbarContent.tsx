@@ -32,7 +32,7 @@ const NavbarContent = () => {
           textDecoration: "none",
         }}
       >
-        HUTECH LỚP HỌC
+        HUTECH CLASSROOM
       </Typography>
 
       {/* RESPONSIVE */}
@@ -50,7 +50,7 @@ const NavbarContent = () => {
           textDecoration: "none",
         }}
       >
-        HUTECH LỚP HỌC
+        HUTECH CLASSROOM
       </Typography>
       <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
         {/* some contents */}
