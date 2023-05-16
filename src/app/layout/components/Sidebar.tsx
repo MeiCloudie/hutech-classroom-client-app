@@ -112,7 +112,8 @@ const Sidebar = (props: SidebarProps) => {
       open={props.open}
       PaperProps={{
         sx: {
-          backgroundColor: "darkgray",
+          backgroundColor: "#ffc80f",
+          color: "#101331"
         },
       }}
     >
@@ -143,6 +144,7 @@ const Sidebar = (props: SidebarProps) => {
                   minWidth: 0,
                   mr: props.open ? 3 : "auto",
                   justifyContent: "center",
+                  color: "#101331"
                 }}
               >
                 {p.icon}
