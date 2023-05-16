@@ -6,6 +6,7 @@ import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
 import HomePage from '../../../features/home/HomePage';
+import { Outlet, useLocation } from 'react-router-dom';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -18,6 +19,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 const Layout = () => {
   const [open, setOpen] = React.useState(false);
+  const location = useLocation()
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -36,7 +38,7 @@ const Layout = () => {
 
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <HomePage />
+        {location.pathname === '/' ? <HomePage /> : <Outlet />}
       </Box>
 
       <Footer />
