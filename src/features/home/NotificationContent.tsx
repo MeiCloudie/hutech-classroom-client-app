@@ -17,10 +17,12 @@ const NotificationContent = () => {
           Hệ Thống
         </Typography>
 
-        <Typography variant="subtitle1" gutterBottom sx={{ display: "flex" }}>
-          Dữ liệu được cập nhật vào lúc:&nbsp;
+        <Box sx={{ display: "flex" }}>
+          <Typography variant="subtitle1" gutterBottom>
+            Dữ liệu được cập nhật vào lúc:&nbsp;
+          </Typography>
           <CurrentDate />
-        </Typography>
+        </Box>
 
         <Typography variant="subtitle1" gutterBottom sx={{ display: "flex" }}>
           Đang truy cập: {Math.floor(Math.random() * (10 - 1)) + 1}
