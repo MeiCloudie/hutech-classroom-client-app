@@ -16,7 +16,6 @@ import SchoolIcon from '@mui/icons-material/School';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HelpIcon from '@mui/icons-material/Help';
 import LinkIcon from '@mui/icons-material/Link';
-import InventoryIcon from '@mui/icons-material/Inventory';
 
 const drawerWidth = 240;
 
@@ -67,7 +66,38 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-const pages = ["Home", "Profile", "Classrooms", "Settings", "Help", "Links"];
+const pages = [
+  {
+    text: "Trang Chủ",
+    link: "home",
+    icon: <HomeIcon />
+  },
+  {
+    text: "Hồ Sơ",
+    link: "profile",
+    icon: <PersonIcon />
+  },
+  {
+    text: "Lớp Học",
+    link: "classrooms",
+    icon: <SchoolIcon />
+  },
+  {
+    text: "Cài Đặt",
+    link: "settings",
+    icon: <SettingsIcon />
+  },
+  {
+    text: "Hỗ Trợ",
+    link: "help",
+    icon: <HelpIcon />
+  },
+  {
+    text: "Liên Kết",
+    link: "links",
+    icon: <LinkIcon />
+  },
+]
 
 interface SidebarProps {
   open: boolean;
@@ -99,8 +129,8 @@ const Sidebar = (props: SidebarProps) => {
       <Divider />
 
       <List>
-        {pages.map((text, index) => (
-          <ListItem key={text} disablePadding sx={{ display: "block" }}>
+        {pages.map((p, index) => (
+          <ListItem key={p.link} disablePadding sx={{ display: "block" }}>
             <ListItemButton
               sx={{
                 minHeight: 48,
@@ -115,24 +145,10 @@ const Sidebar = (props: SidebarProps) => {
                   justifyContent: "center",
                 }}
               >
-                {text === "Home" ? (
-                  <HomeIcon />
-                ) : text === "Profile" ? (
-                  <PersonIcon />
-                ) : text === "Classrooms" ? (
-                  <SchoolIcon />
-                ) : text === "Settings" ? (
-                  <SettingsIcon />
-                ) : text === "Help" ? (
-                  <HelpIcon />
-                ) : text === "Links" ? (
-                  <LinkIcon />
-                ) : (
-                  <InventoryIcon />
-                )}
+                {p.icon}
               </ListItemIcon>
               <ListItemText
-                primary={text}
+                primary={p.text}
                 sx={{ opacity: props.open ? 1 : 0 }}
               />
             </ListItemButton>
