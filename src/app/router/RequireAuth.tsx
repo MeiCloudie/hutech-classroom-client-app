@@ -7,7 +7,7 @@ export default function RequireAuth() {
     const test = true;
 
     // if (!isLoggedIn) {
-    if (test) {
+    if (!test) {
         return <Navigate to='/' state={{ from: location }} />
     }
 

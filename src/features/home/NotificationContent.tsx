@@ -29,7 +29,7 @@ const NotificationContent = () => {
         </Typography>
       </Box>
 
-      <Divider />
+      <Divider /> 	
 
       <Box sx={{ p: "10px 0" }}>
         <Typography variant="h6" fontWeight={600} gutterBottom>

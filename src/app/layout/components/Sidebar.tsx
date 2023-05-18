@@ -74,7 +74,7 @@ const pages = [
   },
   {
     text: "Hồ Sơ",
-    link: "profile",
+    link: "profiles",
     icon: <PersonIcon />
   },
   {
@@ -89,7 +89,7 @@ const pages = [
   },
   {
     text: "Hỗ Trợ",
-    link: "help",
+    link: "helps",
     icon: <HelpIcon />
   },
   {
