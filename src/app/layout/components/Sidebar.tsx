@@ -16,6 +16,8 @@ import SchoolIcon from '@mui/icons-material/School';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HelpIcon from '@mui/icons-material/Help';
 import LinkIcon from '@mui/icons-material/Link';
+import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -69,32 +71,32 @@ const Drawer = styled(MuiDrawer, {
 const pages = [
   {
     text: "Trang Chủ",
-    link: "home",
+    link: "/home",
     icon: <HomeIcon />
   },
   {
     text: "Hồ Sơ",
-    link: "profiles",
+    link: "/profiles",
     icon: <PersonIcon />
   },
   {
     text: "Lớp Học",
-    link: "classrooms",
+    link: "/classrooms",
     icon: <SchoolIcon />
   },
   {
     text: "Cài Đặt",
-    link: "settings",
+    link: "/settings",
     icon: <SettingsIcon />
   },
   {
     text: "Hỗ Trợ",
-    link: "helps",
+    link: "/helps",
     icon: <HelpIcon />
   },
   {
     text: "Liên Kết",
-    link: "links",
+    link: "/links",
     icon: <LinkIcon />
   },
 ]
@@ -131,13 +133,14 @@ const Sidebar = (props: SidebarProps) => {
 
       <List>
         {pages.map((p, index) => (
-          <ListItem key={p.link} disablePadding sx={{ display: "block" }}>
+          <ListItem key={index} disablePadding sx={{ display: "block" }}>
             <ListItemButton
               sx={{
                 minHeight: 48,
                 justifyContent: props.open ? "initial" : "center",
                 px: 2.5,
               }}
+              component={Link} to={p.link}
             >
               <ListItemIcon
                 sx={{

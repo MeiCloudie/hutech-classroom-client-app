@@ -6,8 +6,22 @@ import Menu from "@mui/material/Menu";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import { Link } from "react-router-dom";
 
-const settings = ["Profile", "Setting", "Logout"];
+const settings = [
+  {
+    text: "Hồ Sơ",
+    link: "/profiles"
+  },
+  {
+    text: "Cài Đặt",
+    link: "/settings"
+  },
+  {
+    text: "Đăng Xuất",
+    link: "/home"
+  },
+]
 
 const MenuUserSettings = () => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
@@ -47,9 +61,9 @@ const MenuUserSettings = () => {
           open={Boolean(anchorElUser)}
           onClose={handleCloseUserMenu}
         >
-          {settings.map((setting) => (
-            <MenuItem key={setting} onClick={handleCloseUserMenu}>
-              <Typography textAlign="center">{setting}</Typography>
+          {settings.map((setting, index) => (
+            <MenuItem key={index} onClick={handleCloseUserMenu} component={Link} to={setting.link}>
+              <Typography textAlign="center">{setting.text}</Typography>
             </MenuItem>
           ))}
         </Menu>

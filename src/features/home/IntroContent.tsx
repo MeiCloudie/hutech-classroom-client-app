@@ -1,6 +1,7 @@
 import { Box, Button, Divider, Typography } from "@mui/material";
 import SchoolIcon from "@mui/icons-material/School";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const IntroContent = () => {
   return (
@@ -18,7 +19,7 @@ const IntroContent = () => {
           hỗ trợ sẽ giúp việc tổ chức lớp học trở nên đơn giản và tiết kiệm thời
           gian.
         </Typography>
-        <Button variant="contained" startIcon={<SchoolIcon />}>
+        <Button variant="contained" startIcon={<SchoolIcon />} component={Link} to="/classrooms">
           Classrooms
         </Button>
       </Box>
