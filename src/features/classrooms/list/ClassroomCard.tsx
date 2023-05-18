@@ -15,9 +15,10 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import GroupsIcon from "@mui/icons-material/Groups";
 import { Divider } from "@mui/material";
 
-import { Classroom } from "../../../app/models/Classroom";
+// import { Classroom } from "../../../app/models/Classroom";
 
-const classroom: Classroom = {
+// const classroom: Classroom = {
+const classroom = {
   id: "123",
   title: "CMP123",
   description: "Thuc hanh Java",
