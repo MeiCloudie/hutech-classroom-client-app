@@ -15,6 +15,17 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import GroupsIcon from "@mui/icons-material/Groups";
 import { Divider } from "@mui/material";
 
+import { Classroom } from "../../../app/models/Classroom";
+
+const classroom: Classroom = {
+  id: "123",
+  title: "CMP123",
+  description: "Thuc hanh Java",
+  lecturerName: "Nguyen Van A",
+  room: "E1-01.03",
+  class: "20DTHD3",
+};
+
 const ClassroomCard = () => {
   return (
     <Card
@@ -49,24 +60,24 @@ const ClassroomCard = () => {
             <MoreVertIcon />
           </IconButton>
         }
-        title="Ma Mon"
-        subheader="Ten Mon"
+        title={classroom.title}
+        subheader={classroom.description}
       />
       <CardMedia
         component="img"
         height="194"
-        image={`banner${Math.floor(Math.random() * (4 - 1 + 1)) + 1}.png`}
+        image={`banner${Math.floor(Math.random() * (3 - 1 + 1)) + 1}.png`}
         alt="banner-classroom"
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          Giang vien
+          {`Giang vien: ${classroom.lecturerName}`}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Ten phong
+          {`Phong: ${classroom.room}`}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Lop
+          {`Lop: ${classroom.class}`}
         </Typography>
       </CardContent>
       <Divider />

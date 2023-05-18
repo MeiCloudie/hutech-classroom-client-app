@@ -1,11 +1,11 @@
 import React from "react";
-import ClassroomCard from "./ClassroomCard";
+import ClassroomList from "./ClassroomList";
 
 const ClassroomPage = () => {
   return (
     <React.Fragment>
-      <h1>ClassroomPage</h1>
-      <ClassroomCard />
+        <h1>ClassroomPage</h1>
+      <ClassroomList />
     </React.Fragment>
   );
 };
