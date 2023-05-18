@@ -25,7 +25,7 @@ const NotificationContent = () => {
         </Box>
 
         <Typography variant="subtitle1" gutterBottom sx={{ display: "flex" }}>
-          Đang truy cập: {Math.floor(Math.random() * (10 - 1)) + 1}
+          Đang truy cập: {Math.floor(Math.random() * (10 - 1 + 1)) + 1}
         </Typography>
       </Box>
 
