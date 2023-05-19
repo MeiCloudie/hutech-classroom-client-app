@@ -1,6 +1,6 @@
 import { ClassroomSemester } from "../layout/enums/ClassroomSemesters";
 import { ClassroomTypes } from "../layout/enums/ClassroomTypes";
-import Entity from "./Entity";
+import Entity from "../common/models/Entity";
 
 export interface Classroom extends Entity {
     title: string,
