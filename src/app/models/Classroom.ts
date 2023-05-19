@@ -49,7 +49,7 @@ export class ClassroomFormValues {
             this.id = Classroom.id
             this.title = Classroom.title
             this.description = Classroom.description
-            this.lecturerName = Classroom.lecturerName
+            // this.lecturerName = Classroom.lecturerName
             this.room = Classroom.room
             this.class = Classroom.class
             // this.createDate = Classroom.createDate
