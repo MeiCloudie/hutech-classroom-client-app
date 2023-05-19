@@ -14,12 +14,17 @@
     "@types/node": "^16.18.23",
     "@types/react": "^18.0.34",
     "@types/react-dom": "^18.0.11",
+    "axios": "^1.4.0",
+    "formik": "^2.2.9",
+    "mobx": "^6.9.0",
+    "mobx-react-lite": "^3.4.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.1",
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^1.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
