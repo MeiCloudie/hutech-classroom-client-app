@@ -2,6 +2,8 @@ import { ClassroomSemester } from "../layout/enums/ClassroomSemesters";
 import { ClassroomTypes } from "../layout/enums/ClassroomTypes";
 import Entity from "../common/models/Entity";
 import Member from "../common/models/Member";
+import { Subject } from "./Subject";
+import { Faculty } from "./Faculty";
 
 export interface Classroom extends Entity {
   title: string;
@@ -17,7 +19,7 @@ export interface Classroom extends Entity {
 
   subject?: Subject;
   faculty?: Faculty;
-  lecturer?: User;
+  lecturer?: Member;
 }
 
 export class Classroom implements Classroom {
@@ -57,9 +59,9 @@ export class ClassroomFormValues {
   practicalStudyGroup: string = "";
   createDate: Date = new Date();
 
-  subject?: Subject = undefined;
-  faculty?: Faculty = undefined;
-  lecturer?: Member = undefined;
+  subjectId?: string = undefined;
+  facultyId?: string = undefined;
+  lecturerName?: string = undefined;
 
   constructor(classroom?: Classroom) {
     if (classroom) {
@@ -75,8 +77,6 @@ export class ClassroomFormValues {
       this.studyGroup = classroom.studyGroup;
       this.practicalStudyGroup = classroom.practicalStudyGroup;
       this.createDate = classroom.createDate;
-      this.subject = classroom.subject;
-      this.lecturer = classroom.lecturer;
     }
   }
 }
