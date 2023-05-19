@@ -1,27 +1,34 @@
+import { ClassroomSemester } from "../layout/enums/ClassroomSemesters";
+import { ClassroomTypes } from "../layout/enums/ClassroomTypes";
 import Entity from "./Entity";
 
 export interface Classroom extends Entity {
     title: string,
-    description: string,
-    lecturerName: string,
     room: string,
+    type: ClassroomTypes,
+    studyPeriod: string,
     class: string,
+    schoolYear: string,
+    semester: ClassroomSemester,
+    description: string,
+    studyGroup: string,
+    practicalStudyGroup: string,
 
-    // createDate: Date,
-    // groupName?: string,
-    // processes: Process[]
+
 }
 
 export class Classroom implements Classroom {
     title = ''
-    description = ''
-    lecturerName = ''
     room = ''
+    type = ClassroomTypes.TheoryRoom
+    studyPeriod = ''
     class = ''
+    schoolYear = ''
+    semester = ClassroomSemester.I
+    description = ''
+    studyGroup = ''
+    practicalStudyGroup = ''
 
-    // createDate = new Date()
-    // groupName?: string | undefined;
-    // // processes: Process[] = []
     constructor(init?: ClassroomFormValues) {
         Object.assign(this, init)
     }
