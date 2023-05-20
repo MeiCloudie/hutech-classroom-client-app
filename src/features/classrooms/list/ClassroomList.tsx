@@ -1,8 +1,6 @@
 import React from "react";
 import ClassroomCard from "./ClassroomCard";
 
-
-
 const ClassroomList = () => {
   return (
     <React.Fragment>

@@ -13,11 +13,9 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import SchoolIcon from "@mui/icons-material/School";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import GroupsIcon from "@mui/icons-material/Groups";
+import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import { Divider } from "@mui/material";
 
-// import { Classroom } from "../../../app/models/Classroom";
-
-// const classroom: Classroom = {
 const classroom = {
   id: "123",
   title: "CMP123",
@@ -82,7 +80,34 @@ const ClassroomCard = () => {
         </Typography>
       </CardContent>
       <Divider />
-      <CardActions disableSpacing sx={{ justifyContent: "flex-end" }}>
+      <CardActions
+        disableSpacing
+        sx={{ display: "flex", justifyContent: "space-between" }}
+      >
+        <div>
+          <IconButton
+            aria-label="assignment"
+            sx={{
+              transition: "color 0.2s",
+              "&:hover": {
+                color: blue[800],
+              },
+            }}
+          >
+            <AssignmentIcon />
+          </IconButton>
+          <IconButton
+            aria-label="everybody"
+            sx={{
+              transition: "color 0.2s",
+              "&:hover": {
+                color: blue[800],
+              },
+            }}
+          >
+            <GroupsIcon />
+          </IconButton>
+        </div>
         <IconButton
           aria-label="assignment"
           sx={{
@@ -92,18 +117,7 @@ const ClassroomCard = () => {
             },
           }}
         >
-          <AssignmentIcon />
-        </IconButton>
-        <IconButton
-          aria-label="everybody"
-          sx={{
-            transition: "color 0.2s",
-            "&:hover": {
-              color: blue[800],
-            },
-          }}
-        >
-          <GroupsIcon />
+          <ArrowCircleRightIcon />
         </IconButton>
       </CardActions>
     </Card>
