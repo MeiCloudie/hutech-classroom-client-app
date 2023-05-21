@@ -18,7 +18,7 @@ import { Divider } from "@mui/material";
 import { Classroom } from "../../../app/models/Classroom";
 
 interface ClassroomCardProps {
-  classroom: Classroom
+  classroom: Classroom;
 }
 
 const ClassroomCard = (props: ClassroomCardProps) => {
@@ -80,7 +80,14 @@ const ClassroomCard = (props: ClassroomCardProps) => {
       <CardMedia
         component="img"
         height="194"
-        image={`banner${Math.floor(Math.random() * (3 - 1 + 1)) + 1}.png`}
+        // image={`banner${Math.floor(Math.random() * (3 - 1 + 1)) + 1}.png`}
+        image={
+          props.classroom.type === 0
+            ? "banner1.png"
+            : props.classroom.type === 1
+            ? "banner2.png"
+            : "banner3.png"
+        }
         alt="banner-classroom"
       />
       <CardContent>
