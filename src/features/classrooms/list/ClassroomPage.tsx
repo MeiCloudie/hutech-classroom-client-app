@@ -4,7 +4,7 @@ import ClassroomList from "./ClassroomList";
 const ClassroomPage = () => {
   return (
     <React.Fragment>
-        <h1>ClassroomPage</h1>
+      <h1>LỚP HỌC</h1>
       <ClassroomList />
     </React.Fragment>
   );
