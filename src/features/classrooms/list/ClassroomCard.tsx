@@ -19,6 +19,7 @@ import { Classroom } from "../../../app/models/Classroom";
 import { Link } from "react-router-dom";
 import React from "react";
 import MenuMini from "../../common/MenuMini";
+import IconButtonTooltip from "../../common/IconButtonTooltip";
 
 interface ClassroomCardProps {
   classroom: Classroom;
@@ -142,40 +143,25 @@ const ClassroomCard = (props: ClassroomCardProps) => {
         sx={{ display: "flex", justifyContent: "space-between" }}
       >
         <div>
-          <IconButton
-            aria-label="assignment"
-            sx={{
-              transition: "color 0.2s",
-              "&:hover": {
-                color: blue[800],
-              },
-            }}
-          >
-            <AssignmentIcon />
-          </IconButton>
-          <IconButton
-            aria-label="everybody"
-            sx={{
-              transition: "color 0.2s",
-              "&:hover": {
-                color: blue[800],
-              },
-            }}
-          >
-            <GroupsIcon />
-          </IconButton>
+          <IconButtonTooltip
+            titleTooltip={`Mở bài tập của bạn tại lớp "${props.classroom.description}"`}
+            ariaLabel="exercise"
+            icon={<AssignmentIcon />}
+            link="/cr/:id/exercises"
+          />
+          <IconButtonTooltip
+            titleTooltip={`Xem thành viên tại lớp "${props.classroom.description}"`}
+            ariaLabel="everybody"
+            icon={<GroupsIcon />}
+            link="/cr/:id/everybody"
+          />
         </div>
-        <IconButton
-          aria-label="go-details"
-          sx={{
-            transition: "color 0.2s",
-            "&:hover": {
-              color: blue[800],
-            },
-          }}
-        >
-          <ArrowCircleRightIcon />
-        </IconButton>
+        <IconButtonTooltip
+            titleTooltip={`Đến lớp "${props.classroom.description}"`}
+            ariaLabel="go-details"
+            icon={<ArrowCircleRightIcon />}
+            link="/cr/:id"
+          />
       </CardActions>
     </Card>
   );
