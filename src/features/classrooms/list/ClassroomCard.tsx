@@ -109,7 +109,7 @@ const ClassroomCard = () => {
           </IconButton>
         </div>
         <IconButton
-          aria-label="assignment"
+          aria-label="go-details"
           sx={{
             transition: "color 0.2s",
             "&:hover": {
