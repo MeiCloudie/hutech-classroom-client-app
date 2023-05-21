@@ -15,7 +15,7 @@ const Footer = () => {
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "#f5f5f5",
-        borderTop: "1px solid #dddddd"
+        borderTop: "1px solid #dddddd",
       }}
     >
       © 2023 Khoa Công nghệ thông tin - Trường ĐH Công nghệ TP.HCM HUTECH

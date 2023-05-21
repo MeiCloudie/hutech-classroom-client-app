@@ -36,7 +36,7 @@ const Layout = () => {
       <Navbar open={open} handleDrawerOpen={handleDrawerOpen} />
       <Sidebar open={open} handleDrawerClose={handleDrawerClose} />
 
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, marginBottom: 10 }}>
         <DrawerHeader />
         {location.pathname === '/' ? <HomePage /> : <Outlet />}
       </Box>

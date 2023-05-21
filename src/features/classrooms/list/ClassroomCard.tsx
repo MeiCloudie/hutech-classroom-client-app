@@ -15,6 +15,7 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import GroupsIcon from "@mui/icons-material/Groups";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import { Divider } from "@mui/material";
+import { Classroom } from "../../../app/models/Classroom";
 
 const classroom = {
   id: "123",
@@ -25,7 +26,11 @@ const classroom = {
   class: "20DTHD3",
 };
 
-const ClassroomCard = () => {
+interface ClassroomCardProps {
+  classroom: Classroom
+}
+
+const ClassroomCard = (props: ClassroomCardProps) => {
   return (
     <Card
       sx={{
@@ -59,8 +64,8 @@ const ClassroomCard = () => {
             <MoreVertIcon />
           </IconButton>
         }
-        title={classroom.title}
-        subheader={classroom.description}
+        title={props.classroom.title}
+        subheader={props.classroom.description}
       />
       <CardMedia
         component="img"
@@ -70,13 +75,13 @@ const ClassroomCard = () => {
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {`Giang vien: ${classroom.lecturerName}`}
+          {`Giang vien: ${props.classroom.lecturer?.firstName} ${props.classroom.lecturer?.lastName}`}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {`Phong: ${classroom.room}`}
+          {`Phong: ${props.classroom.room}`}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {`Lop: ${classroom.class}`}
+          {`Lop: ${props.classroom.class}`}
         </Typography>
       </CardContent>
       <Divider />
