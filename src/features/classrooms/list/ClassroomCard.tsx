@@ -14,14 +14,43 @@ import SchoolIcon from "@mui/icons-material/School";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import GroupsIcon from "@mui/icons-material/Groups";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
-import { Divider } from "@mui/material";
+import { Divider, Menu, MenuItem } from "@mui/material";
 import { Classroom } from "../../../app/models/Classroom";
+import { Link } from "react-router-dom";
+import React from "react";
+import MenuMini from "../../common/MenuMini";
 
 interface ClassroomCardProps {
   classroom: Classroom;
 }
 
+const moreOptions = [
+  {
+    text: "Xem chi tiết",
+    link: "/cr/:id",
+  },
+  {
+    text: "Xem bài tập",
+    link: "/cr/:id/exercises",
+  },
+  {
+    text: "Hỗ trợ",
+    link: "/helps",
+  },
+];
+
 const ClassroomCard = (props: ClassroomCardProps) => {
+  const [anchorElMore, setAnchorElMore] = React.useState<null | HTMLElement>(
+    null
+  );
+
+  const handleOpenMoreMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElMore(event.currentTarget);
+  };
+
+  const handleCloseMoreMenu = () => {
+    setAnchorElMore(null);
+  };
   return (
     <Card
       sx={{
@@ -58,6 +87,7 @@ const ClassroomCard = (props: ClassroomCardProps) => {
               top: 8,
               right: 8,
             }}
+            onClick={handleOpenMoreMenu}
           >
             <MoreVertIcon />
           </IconButton>
@@ -77,10 +107,15 @@ const ClassroomCard = (props: ClassroomCardProps) => {
           </div>
         }
       />
+      <MenuMini
+        id="menu-more"
+        anchorEl={anchorElMore}
+        handleCloseMenu={handleCloseMoreMenu}
+        options={moreOptions}
+      />
       <CardMedia
         component="img"
         height="194"
-        // image={`banner${Math.floor(Math.random() * (3 - 1 + 1)) + 1}.png`}
         image={
           props.classroom.type === 0
             ? "banner1.png"

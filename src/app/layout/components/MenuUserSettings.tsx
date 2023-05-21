@@ -40,7 +40,7 @@ const MenuUserSettings = () => {
     <React.Fragment>
       <p>Username&nbsp;&nbsp;</p>
       <Box sx={{ flexGrow: 0 }}>
-        <Tooltip title="Open settings">
+        <Tooltip title="Cài dặt">
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
             <Avatar alt="User Image" />
           </IconButton>
@@ -51,12 +51,12 @@ const MenuUserSettings = () => {
           anchorEl={anchorElUser}
           anchorOrigin={{
             vertical: "top",
-            horizontal: "right",
+            horizontal: "left",
           }}
           keepMounted
           transformOrigin={{
             vertical: "top",
-            horizontal: "right",
+            horizontal: "left",
           }}
           open={Boolean(anchorElUser)}
           onClose={handleCloseUserMenu}
