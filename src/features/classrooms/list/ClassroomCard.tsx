@@ -17,15 +17,6 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import { Divider } from "@mui/material";
 import { Classroom } from "../../../app/models/Classroom";
 
-const classroom = {
-  id: "123",
-  title: "CMP123",
-  description: "Thuc hanh Java",
-  lecturerName: "Nguyen Van A",
-  room: "E1-01.03",
-  class: "20DTHD3",
-};
-
 interface ClassroomCardProps {
   classroom: Classroom
 }
@@ -34,14 +25,18 @@ const ClassroomCard = (props: ClassroomCardProps) => {
   return (
     <Card
       sx={{
-        maxWidth: 345,
+        maxWidth: 420,
+        width: "100%",
+        height: "100%",
         textAlign: "start",
         borderWidth: 2,
-        transition: "border-color 0.3s, box-shadow 0.3s",
+        transition: "transform 0.3s, border-color 0.3s, box-shadow 0.3s",
         "&:hover": {
           borderColor: "primary.main",
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.4)",
+          transform: "translateY(-4px)",
         },
+        position: "relative",
       }}
       variant="outlined"
     >
@@ -59,13 +54,28 @@ const ClassroomCard = (props: ClassroomCardProps) => {
               "&:hover": {
                 color: blue[800],
               },
+              position: "absolute",
+              top: 8,
+              right: 8,
             }}
           >
             <MoreVertIcon />
           </IconButton>
         }
         title={props.classroom.title}
-        subheader={props.classroom.description}
+        subheader={
+          <div
+            style={{
+              maxWidth: "80%",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+            title={props.classroom.description}
+          >
+            {props.classroom.description}
+          </div>
+        }
       />
       <CardMedia
         component="img"

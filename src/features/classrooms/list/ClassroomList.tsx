@@ -8,6 +8,26 @@ import { Major } from "../../../app/models/Major";
 import { Faculty } from "../../../app/models/Faculty";
 import Member from "../../../app/common/models/Member";
 
+import { Grid, styled } from '@mui/material';
+
+const ResponsiveGrid = styled(Grid)(({ theme }) => ({
+  [theme.breakpoints.only('xs')]: {
+    '& .MuiGrid-item': {
+      width: '100%',
+    },
+  },
+  [theme.breakpoints.only('sm')]: {
+    '& .MuiGrid-item': {
+      width: '50%',
+    },
+  },
+  [theme.breakpoints.up('md')]: {
+    '& .MuiGrid-item': {
+      width: '33.33%',
+    },
+  },
+}));
+
 // const types = ["Phòng Lý Thuyết", "Phòng Thực Hành"];
 // const semesters = ["1", "2", "3"];
 
@@ -80,17 +100,17 @@ const classrooms: Classroom[] = [
     lecturer: member,
   },
   {
-    id: "c2",
-    title: "CMP111",
-    room: "E1-09.05",
-    type: ClassroomTypes.TheoryRoom,
+    id: "c3",
+    title: "CMP222",
+    room: "E1-04.06/2",
+    type: ClassroomTypes.PracticeRoom,
     studyPeriod: "01/01/2023 - 06/06/2023",
     class: "20DTHD3",
     schoolYear: "2022",
     semester: ClassroomSemester.II,
-    description: "Lập trình Web",
+    description: "Thực Hành Lập trình Web",
     studyGroup: "20",
-    practicalStudyGroup: "0",
+    practicalStudyGroup: "2",
     createDate: new Date(2022, 11, 1),
 
     subject: subject,
@@ -101,11 +121,13 @@ const classrooms: Classroom[] = [
 
 const ClassroomList = () => {
   return (
-    <React.Fragment>
+    <ResponsiveGrid container spacing={2}>
       {classrooms.map((c, index) => (
-        <ClassroomCard key={index} classroom={c} />
+        <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+          <ClassroomCard key={index} classroom={c} />
+        </Grid>
       ))}
-    </React.Fragment>
+    </ResponsiveGrid>
   );
 };
 
