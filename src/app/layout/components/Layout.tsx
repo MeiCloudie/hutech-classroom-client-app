@@ -7,7 +7,7 @@ import Sidebar from './Sidebar';
 import Footer from './Footer';
 import HomePage from '../../../features/home/HomePage';
 import { Outlet, useLocation } from 'react-router-dom';
-import agent from '../../api/agent';
+// import agent from '../../api/agent';
 import { useStore } from '../../stores/store';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
