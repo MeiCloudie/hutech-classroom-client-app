@@ -24,3 +24,8 @@ export interface RegisterFormValues {
     password: string,
     facultyId?: string
 }
+
+export class ChangePasswordFormValues {
+    password: string = ''
+    newPassword: string = ''
+}

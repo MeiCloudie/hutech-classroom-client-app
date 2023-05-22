@@ -6,7 +6,7 @@ import { ClassroomSemester } from "../../../app/layout/enums/ClassroomSemesters"
 import { Subject } from "../../../app/models/Subject";
 import { Major } from "../../../app/models/Major";
 import { Faculty } from "../../../app/models/Faculty";
-import Member from "../../../app/common/models/Member";
+import Profile from "../../../app/common/models/Profile";
 
 import { Grid, styled } from '@mui/material';
 
@@ -55,7 +55,7 @@ const faculty: Faculty = {
   createDate: new Date(2022, 11, 1),
 };
 
-const member: Member = {
+const member: Profile = {
   userName: "nguyenvana",
   email: "nguyenvana@gmail.com",
   firstName: "Nguyen Van",

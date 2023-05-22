@@ -1,7 +1,7 @@
 import { ClassroomSemester } from "../layout/enums/ClassroomSemesters";
 import { ClassroomTypes } from "../layout/enums/ClassroomTypes";
 import Entity from "../common/models/Entity";
-import Member from "../common/models/Member";
+import Profile from "../common/models/Profile";
 import { Subject } from "./Subject";
 import { Faculty } from "./Faculty";
 
@@ -19,7 +19,7 @@ export interface Classroom extends Entity {
 
   subject?: Subject;
   faculty?: Faculty;
-  lecturer?: Member;
+  lecturer?: Profile;
 }
 
 export class Classroom implements Classroom {
@@ -38,7 +38,7 @@ export class Classroom implements Classroom {
 
   subject?: Subject = undefined;
   faculty?: Faculty = undefined;
-  lecturer?: Member = undefined;
+  lecturer?: Profile = undefined;
 
   constructor(init?: ClassroomFormValues) {
     Object.assign(this, init);

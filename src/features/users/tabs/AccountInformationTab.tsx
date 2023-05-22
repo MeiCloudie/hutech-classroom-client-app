@@ -1,8 +1,8 @@
 import React from "react";
 import { Typography, Box, Alert, AlertTitle } from "@mui/material";
-import Member from "../../../app/common/models/Member";
+import Profile from "../../../app/common/models/Profile";
 
-const member: Member = {
+const member: Profile = {
   userName: "2080600803",
   email: "truongthucvan1242@gmail.com",
   firstName: "Trương Thục",
