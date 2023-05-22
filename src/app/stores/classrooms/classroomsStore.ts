@@ -33,8 +33,10 @@ export default class ClassroomStore {
     try {
       const classroom = await agent.Classrooms.create(classroomFormValues);
       this.classrooms.push(classroom);
+      return classroom;
     } catch (error) {
       handleRequestError(error);
+      return null;
     }
   };
 
@@ -52,10 +54,12 @@ export default class ClassroomStore {
 
   deleteClassroom = async (id: string) => {
     try {
-      await agent.Classrooms.delete(id);
+      const classroom = await agent.Classrooms.delete(id);
       this.classrooms = this.classrooms.filter((c) => c.id !== id);
+      return classroom;
     } catch (error) {
       handleRequestError(error);
+      return null;
     }
   };
 }

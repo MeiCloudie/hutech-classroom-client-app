@@ -1,4 +1,4 @@
-import Entity from "../common/models/Entity";
+import Entity, { EntityFormValues } from "../common/models/Entity";
 
 export interface Faculty extends Entity {
   name: string;
@@ -14,7 +14,7 @@ export class Faculty implements Faculty {
   }
 }
 
-export class FacultyFormValues {
+export class FacultyFormValues implements EntityFormValues {
   id?: string = "";
   createDate: Date = new Date();
   name: string = "";

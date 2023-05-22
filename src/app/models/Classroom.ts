@@ -1,6 +1,6 @@
 import { ClassroomSemester } from "../layout/enums/ClassroomSemesters";
 import { ClassroomTypes } from "../layout/enums/ClassroomTypes";
-import Entity from "../common/models/Entity";
+import Entity, { EntityFormValues } from "../common/models/Entity";
 import Profile from "../common/models/Profile";
 import { Subject } from "./Subject";
 import { Faculty } from "./Faculty";
@@ -45,7 +45,7 @@ export class Classroom implements Classroom {
   }
 }
 
-export class ClassroomFormValues {
+export class ClassroomFormValues implements EntityFormValues {
   id?: string = undefined;
   title: string = "";
   room: string = "";

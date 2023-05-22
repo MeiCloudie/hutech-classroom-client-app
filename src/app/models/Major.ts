@@ -1,4 +1,4 @@
-import Entity from "../common/models/Entity";
+import Entity, { EntityFormValues } from "../common/models/Entity";
 
 export interface Major extends Entity {
   code: string;
@@ -20,7 +20,7 @@ export class Major implements Major {
   }
 }
 
-export class MajorFormValues {
+export class MajorFormValues implements EntityFormValues {
   id?: string = "";
   createDate: Date = new Date();
   code: string = "";

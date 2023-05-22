@@ -4,9 +4,9 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { CardMedia } from "@mui/material";
-import AccountInformationTab from "./tabs/AccountInformationTab";
 import EditAccountInfoTab from "./tabs/EditAccountInfoTab";
 import ChangePasswordTab from "./tabs/ChangePasswordTab";
+import AccountInfoTab from "./tabs/AccountInfoTab";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -27,7 +27,7 @@ function TabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography component="div">{children}</Typography>
         </Box>
       )}
     </div>
@@ -85,7 +85,7 @@ const SettingPage = () => {
         {/* <Tab label="Hình đại diện" {...a11yProps(2)} /> */}
       </Tabs>
       <TabPanel value={value} index={0}>
-        <AccountInformationTab />
+          <AccountInfoTab />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <EditAccountInfoTab />

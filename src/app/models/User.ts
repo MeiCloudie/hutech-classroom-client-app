@@ -25,7 +25,7 @@ export interface RegisterFormValues {
     facultyId?: string
 }
 
-export class ChangePasswordFormValues {
-    password: string = ''
-    newPassword: string = ''
+export interface ChangePasswordFormValues {
+    password: string,
+    newPassword: string
 }

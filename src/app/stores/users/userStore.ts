@@ -1,5 +1,5 @@
 import { makeAutoObservable, runInAction } from "mobx"
-import { LoginFormValues, RegisterFormValues, User } from "../../models/User"
+import { ChangePasswordFormValues, LoginFormValues, RegisterFormValues, User } from "../../models/User"
 import agent from "../../api/agent"
 import { store } from "../store"
 import { router } from "../../router/Routes"
@@ -50,6 +50,16 @@ export default class UserStore {
             runInAction(() => this.user = user)
         } catch (error) {
             handleRequestError(error)
+        }
+    }
+
+    changePassword = async (creds: ChangePasswordFormValues) => {
+        try {
+            await agent.Account.changePassword(creds)
+            return true;
+        } catch (error) {
+            handleRequestError(error)
+            return false;
         }
     }
 }
