@@ -6,6 +6,7 @@ import { ChangePasswordFormValues, LoginFormValues, RegisterFormValues, User } f
 import { store } from "../stores/store";
 import Entity, { EntityFormValues } from "../common/models/Entity";
 import { Faculty } from "../models/Faculty";
+import { BaseResource, BaseUserResource } from "./baseResource";
 
 
 axios.defaults.baseURL = "https://hutechclassroom.azurewebsites.net/api/";
@@ -26,7 +27,41 @@ const requests = {
     patch: <T>(url: string, body: {}) => axios.patch(url, body).then(responseBody)
 }
 
-const Classrooms = {
+const createResource = <
+  TEntity extends Entity,
+  TEntityFormValues extends EntityFormValues
+>(
+    entityName: string
+): BaseResource<TEntity, TEntityFormValues> => {
+  const resource: BaseResource<TEntity, TEntityFormValues> = {
+    list: (params?: PaginationParams) =>
+      requests.get<TEntity[]>(`v1/${entityName}`, params),
+    details: (id: string) => requests.get<TEntity>(`v1/${entityName}/${id}`),
+    create: (formValues: TEntityFormValues) =>
+      requests.post<TEntity>(`v1/${entityName}`, formValues),
+    update: (id: string, formValues: TEntityFormValues) =>
+      requests.put(`v1/${entityName}/${id}`, formValues),
+    delete: (id: string) => requests.delete(`v1/${entityName}/${id}`),
+  };
+  return resource;
+};
+
+
+const createUserResource = <
+  TEntity extends Entity,
+  TEntityFormValues extends EntityFormValues
+>(
+  entityName: string
+): BaseUserResource<TEntity, TEntityFormValues> => {
+  const resource: BaseUserResource<TEntity, TEntityFormValues> = {
+    ...createResource<TEntity, TEntityFormValues>(entityName),
+    listByUser: (params?: PaginationParams) => requests.get<TEntity[]>(`v1/@me/${entityName}`, params)
+  };
+  return resource;
+};
+
+
+const Classrooms : BaseUserResource<Classroom, ClassroomFormValues> = {
     list: (params?: PaginationParams) => requests.get<Classroom[]>("v1/Classrooms", params),
     listByUser: (params?: PaginationParams) => requests.get<Classroom[]>("v1/Users/@me/Classrooms", params),
     details: (id: string) => requests.get<Classroom>(`v1/Classrooms/${id}`),
@@ -60,43 +95,6 @@ const Results = {
     forbid: () => requests.get("v1/Results/forbid"),
     internalServerError: () => requests.get("v1/Results/internal-server-error"),
 }
-
-
-
-class EntityApi<TEntity extends Entity, TEntityFormValues extends EntityFormValues> {
-    constructor(private readonly baseUrl: string) {}
-  
-    list(params?: PaginationParams): Promise<TEntity[]> {
-      return requests.get<TEntity[]>(this.baseUrl, params);
-    }
-  
-    details(id: string): Promise<TEntity> {
-      return requests.get<TEntity>(`${this.baseUrl}/${id}`);
-    }
-  
-    create(entity: TEntityFormValues): Promise<TEntity> {
-      return requests.post<TEntity>(this.baseUrl, entity);
-    }
-  
-    update(id: string, entity: TEntityFormValues): Promise<TEntity> {
-      return requests.put<TEntity>(`${this.baseUrl}/${id}`, entity);
-    }
-  
-    delete(id: string): Promise<void> {
-      return requests.delete<void>(`${this.baseUrl}/${id}`);
-    }
-  }
-
-  class ClassroomApi extends EntityApi<Classroom, ClassroomFormValues> {
-    constructor() {
-        super("v1/Classrooms")
-    }
-    listByUser(params?: PaginationParams) {
-        return requests.get<Classroom[]>("v1/Users/@me/Classrooms", params);
-    }
-  }
-
-const Faculties = new EntityApi<Classroom, ClassroomFormValues>("v1/Faculties");
 
 const agent = {
     Account,

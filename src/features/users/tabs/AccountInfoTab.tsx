@@ -1,5 +1,4 @@
-import React from "react";
-import { Typography, Box, Alert, AlertTitle } from "@mui/material";
+import { Typography, Box, TextField, Alert, AlertTitle } from "@mui/material";
 import { User } from "../../../app/models/User";
 
 const account: User = {
@@ -10,37 +9,66 @@ const account: User = {
   email: "truongthucvan1242@gmail.com",
 };
 
-const contactInfo = {
-  department: "PHÒNG ĐÀO TẠO - KHẢO THÍ",
-  address: "475A (số cũ:144/24) Điện Biên Phủ, P.25, Q.Bình Thạnh, TP.HCM",
-  phone: "(028) 3 5120782",
-  fax: "(028) 3 5120784",
-  email: "daotao@hutech.edu.vn",
-};
-
 const AccountInfoTab = () => {
   return (
     <Box sx={{ textAlign: "start" }}>
-      <Typography variant="h4">
-        Thông tin tài khoản
-      </Typography>
-      <Typography variant="body1">Tài khoản: {account.userName}</Typography>
-      <Typography variant="body1">Email: {account.email}</Typography>
-      <Typography variant="body1">
-        Họ tên: {account.firstName} {account.lastName}
+      <Typography
+        variant="h5"
+        gutterBottom
+        sx={{
+          fontWeight: 600,
+          color: (theme) => theme.palette.primary.main,
+          textAlign: "start",
+          marginBottom: 2,
+        }}
+      >
+        Thông tin tài khoản:
       </Typography>
 
-      <Alert severity="info" sx={{ mt: 4 }}>
-        <AlertTitle>
-          Yêu cầu chỉnh sửa các thông tin khác xin liên hệ:
-        </AlertTitle>
-        <Typography variant="body1">
-          Phòng ban: {contactInfo.department}
-        </Typography>
-        <Typography variant="body1">Trụ sở: {contactInfo.address}</Typography>
-        <Typography variant="body1">ĐT: {contactInfo.phone}</Typography>
-        <Typography variant="body1">Fax: {contactInfo.fax}</Typography>
-        <Typography variant="body1">Email: {contactInfo.email}</Typography>
+      <TextField
+        label="Tài khoản"
+        variant="outlined"
+        value={account.userName}
+        fullWidth
+        sx={{ marginTop: 2 }}
+        InputProps={{
+          readOnly: true,
+        }}
+      />
+
+      <TextField
+        label="Họ tên"
+        variant="outlined"
+        value={`${account.firstName} ${account.lastName}`}
+        fullWidth
+        sx={{ marginTop: 2 }}
+        InputProps={{
+          readOnly: true,
+        }}
+      />
+
+      <TextField
+        label="Email"
+        variant="outlined"
+        value={account.email}
+        fullWidth
+        sx={{ marginTop: 2 }}
+        InputProps={{
+          readOnly: true,
+        }}
+      />
+
+      <Alert severity="info" sx = {{ mt: 2 }}>
+        <AlertTitle>HỆ THỐNG</AlertTitle>
+        Hiện tại chưa thể cập nhật email tại đây! Hãy truy cập{" "}
+        <a
+          href="https://sinhvien.hutech.edu.vn/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Trang Sinh Viên
+        </a>{" "}
+        hoặc liên hệ Phòng Đào Tạo để cập nhật email! Xin cảm ơn!
       </Alert>
     </Box>
   );

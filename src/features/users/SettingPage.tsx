@@ -4,7 +4,7 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { CardMedia } from "@mui/material";
-import EditAccountInfoTab from "./tabs/EditAccountInfoTab";
+import InformationTab from "./tabs/InformationTab";
 import ChangePasswordTab from "./tabs/ChangePasswordTab";
 import AccountInfoTab from "./tabs/AccountInfoTab";
 
@@ -54,7 +54,7 @@ const SettingPage = () => {
         flexGrow: 1,
         bgcolor: "background.paper",
         display: "flex",
-        height: 500,
+        height: 400,
       }}
     >
       <Tabs
@@ -85,10 +85,10 @@ const SettingPage = () => {
         {/* <Tab label="Hình đại diện" {...a11yProps(2)} /> */}
       </Tabs>
       <TabPanel value={value} index={0}>
-          <AccountInfoTab />
+        <InformationTab />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <EditAccountInfoTab />
+        <AccountInfoTab />
       </TabPanel>
       <TabPanel value={value} index={2}>
         <ChangePasswordTab />
