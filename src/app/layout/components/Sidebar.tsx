@@ -20,7 +20,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import HelpIcon from '@mui/icons-material/Help';
 import LinkIcon from '@mui/icons-material/Link';
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -111,6 +111,7 @@ interface SidebarProps {
 
 const Sidebar = (props: SidebarProps) => {
   const theme = useTheme();
+  const location = useLocation();
   return (
     <Drawer
       variant="permanent"
@@ -142,6 +143,7 @@ const Sidebar = (props: SidebarProps) => {
                 minHeight: 48,
                 justifyContent: props.open ? "initial" : "center",
                 px: 2.5,
+                backgroundColor: location.pathname === p.link ? "#ffd964" : "inherit",
               }}
               component={Link} to={p.link}
             >
