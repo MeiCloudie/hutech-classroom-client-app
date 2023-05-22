@@ -1,8 +1,9 @@
 import { makeAutoObservable, runInAction } from "mobx"
-import { LoginFormValues, RegisterFormValues, User } from "../models/User"
-import { store } from "./store"
-import { router } from "../router/Routes"
-import agent from "../api/agent"
+import { LoginFormValues, RegisterFormValues, User } from "../../models/User"
+import agent from "../../api/agent"
+import { store } from "../store"
+import { router } from "../../router/Routes"
+import { handleRequestError } from "../../api/apiUtils"
 
 export default class UserStore {
     user: User | null = null
@@ -22,7 +23,7 @@ export default class UserStore {
             runInAction(() => this.user = user)
             router.navigate('/home')
         } catch (error) {
-            throw error
+            handleRequestError(error)
         }
     }
 
@@ -33,7 +34,7 @@ export default class UserStore {
             runInAction(() => this.user = user)
             router.navigate('/home')
         } catch (error) {
-            throw error
+            handleRequestError(error)
         }
     }
 
@@ -48,7 +49,7 @@ export default class UserStore {
             const user = await agent.Account.current()
             runInAction(() => this.user = user)
         } catch (error) {
-            console.log(this.user)
+            handleRequestError(error)
         }
     }
 }
