@@ -1,10 +1,8 @@
 import { makeAutoObservable } from "mobx";
 import { Classroom } from "../../models/Classroom";
 import agent from "../../api/agent";
+import { handleRequestError } from "../../api/apiUtils";
 
-const handleRequestError = (error: any) => {
-  console.error("Request error:", error);
-};
 export default class ClassroomStore {
   selectedClassroom: Classroom | undefined = undefined;
 

@@ -1,8 +1,8 @@
 import { createContext, useContext } from "react";
 import CommonStore from "./commonStore";
-import UserStore from "./userStore";
 import ClassroomStore from "./classrooms/classroomStore";
 import ClassroomsStore from "./classrooms/classroomsStore";
+import UserStore from "./users/userStore";
 
 interface Store {
     classroomsStore: ClassroomsStore,
