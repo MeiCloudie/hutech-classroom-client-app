@@ -52,9 +52,9 @@ const SettingPage = () => {
     <Box
       sx={{
         flexGrow: 1,
-        bgcolor: "background.paper",
+        bgcolor: "#f5f5f5",
         display: "flex",
-        height: 400,
+        height: 500,
       }}
     >
       <Tabs
@@ -80,8 +80,24 @@ const SettingPage = () => {
           }
           {...a11yProps(0)}
         />
-        <Tab label="Tài khoản" {...a11yProps(1)} />
-        <Tab label="Mật khẩu" {...a11yProps(2)} />
+        <Tab
+          label="Tài khoản"
+          {...a11yProps(1)}
+          sx={{
+            "&:hover": {
+              backgroundColor: "#e5e5e5",
+            },
+          }}
+        />
+        <Tab
+          label="Mật khẩu"
+          {...a11yProps(2)}
+          sx={{
+            "&:hover": {
+              backgroundColor: "#e5e5e5",
+            },
+          }}
+        />
         {/* <Tab label="Hình đại diện" {...a11yProps(2)} /> */}
       </Tabs>
       <TabPanel value={value} index={0}>

@@ -44,7 +44,10 @@ const ChangePasswordForm = () => {
       )
       .required("Hãy điền mật khẩu mới!"),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref("newPassword")], "Mật khẩu xác nhận phải trùng với mật khẩu mới!")
+      .oneOf(
+        [Yup.ref("newPassword")],
+        "Mật khẩu xác nhận phải trùng với mật khẩu mới!"
+      )
       .required("Phải điền mật khẩu xác nhận!"),
   });
   return (
@@ -71,9 +74,6 @@ const ChangePasswordForm = () => {
       {({ handleSubmit, isSubmitting }) => (
         <Box
           component="form"
-          sx={{
-            "& > :not(style)": { mt: 1, mb: 1, width: "100ch" },
-          }}
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit}
@@ -95,6 +95,7 @@ const ChangePasswordForm = () => {
                   type="submit"
                   variant="contained"
                   disabled={isSubmitting}
+                  sx={{ m: "10px 0" }}
                   //   onClick={handleClick}
                 >
                   THAY ĐỔI MẬT KHẨU

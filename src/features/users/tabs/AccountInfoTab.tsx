@@ -11,7 +11,7 @@ const account: User = {
 
 const AccountInfoTab = () => {
   return (
-    <Box sx={{ textAlign: "start" }}>
+    <Box sx={{ textAlign: "start"}}>
       <Typography
         variant="h5"
         gutterBottom
@@ -25,41 +25,43 @@ const AccountInfoTab = () => {
         Thông tin tài khoản:
       </Typography>
 
-      <TextField
-        label="Tài khoản"
-        variant="outlined"
-        value={account.userName}
-        fullWidth
-        sx={{ marginTop: 2 }}
-        InputProps={{
-          readOnly: true,
-        }}
-      />
+      <Box sx={{ width: "100ch" }}>
+        <TextField
+          label="Tài khoản"
+          variant="outlined"
+          value={account.userName}
+          fullWidth
+          sx={{ marginTop: 2 }}
+          InputProps={{
+            readOnly: true,
+          }}
+        />
 
-      <TextField
-        label="Họ tên"
-        variant="outlined"
-        value={`${account.firstName} ${account.lastName}`}
-        fullWidth
-        sx={{ marginTop: 2 }}
-        InputProps={{
-          readOnly: true,
-        }}
-      />
+        <TextField
+          label="Họ tên"
+          variant="outlined"
+          value={`${account.firstName} ${account.lastName}`}
+          fullWidth
+          sx={{ marginTop: 2 }}
+          InputProps={{
+            readOnly: true,
+          }}
+        />
 
-      <TextField
-        label="Email"
-        variant="outlined"
-        value={account.email}
-        fullWidth
-        sx={{ marginTop: 2 }}
-        InputProps={{
-          readOnly: true,
-        }}
-      />
+        <TextField
+          label="Email"
+          variant="outlined"
+          value={account.email}
+          fullWidth
+          sx={{ marginTop: 2 }}
+          InputProps={{
+            readOnly: true,
+          }}
+        />
+      </Box>
 
-      <Alert severity="info" sx = {{ mt: 2 }}>
-        <AlertTitle>HỆ THỐNG</AlertTitle>
+      <Alert severity="info" sx={{ mt: 2 }}>
+        <AlertTitle>Hệ Thống</AlertTitle>
         Hiện tại chưa thể cập nhật email tại đây! Hãy truy cập{" "}
         <a
           href="https://sinhvien.hutech.edu.vn/"
