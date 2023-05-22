@@ -1,11 +1,8 @@
 import axios, { AxiosResponse } from "axios";
-import { Classroom, ClassroomFormValues } from "../models/Classroom";
-import { Subject, SubjectFormValues } from "../models/Subject";
 import { PaginationParams } from "../common/models/paginationPrams";
 import { ChangePasswordFormValues, LoginFormValues, RegisterFormValues, User } from "../models/User";
 import { store } from "../stores/store";
 import Entity, { EntityFormValues } from "../common/models/Entity";
-import { Faculty, FacultyFormValues } from "../models/Faculty";
 import { BaseResource, BaseUserResource } from "./baseResource";
 
 
@@ -24,7 +21,7 @@ const requests = {
     post: <T>(url: string, body: {}) => axios.post<T>(url, body).then(responseBody),
     put: <T>(url: string, body: {}) => axios.put<T>(url, body).then(responseBody),
     delete: <T>(url: string) => axios.delete<T>(url).then(responseBody),
-    patch: <T>(url: string, body: {}) => axios.patch(url, body).then(responseBody)
+    patch: <T>(url: string, body: {}) => axios.patch<T>(url, body).then(responseBody)
 }
 
 const createResource = <
@@ -60,12 +57,6 @@ const createUserResource = <
   return resource;
 };
 
-const Classrooms = createUserResource<Classroom, ClassroomFormValues>("Classrooms");
-
-const Faculties = createResource<Faculty, FacultyFormValues>("Faculties");
-
-const Subjects = createUserResource<Subject, SubjectFormValues>("Subjects");
-
 const Account = {
     login: (creds: LoginFormValues) => requests.post<User>("v1/Account/login", creds),
     register: (creds: RegisterFormValues) => requests.post<User>("v1/Account/register", creds),
@@ -86,10 +77,9 @@ const Results = {
 
 const agent = {
     Account,
-    Classrooms,
-    Subjects,
-    Faculties,
-    Results
+    Results,
+    createResource,
+    createUserResource
 };
 
 export default agent;
