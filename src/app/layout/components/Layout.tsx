@@ -7,6 +7,8 @@ import Sidebar from './Sidebar';
 import Footer from './Footer';
 import HomePage from '../../../features/home/HomePage';
 import { Outlet, useLocation } from 'react-router-dom';
+import agent from '../../api/agent';
+import { PaginationParams } from '../../common/models/paginationPrams';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -28,6 +30,12 @@ const Layout = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  React.useEffect(() => {
+    let params = new PaginationParams(0, 0, "AAA");
+    agent.Classrooms.list(params)
+    .then(classrooms => console.log(classrooms));
+  }, [])
 
   return (
     <Box sx={{ display: 'flex' }}>
