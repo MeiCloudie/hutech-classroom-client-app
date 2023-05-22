@@ -8,7 +8,7 @@ import Footer from './Footer';
 import HomePage from '../../../features/home/HomePage';
 import { Outlet, useLocation } from 'react-router-dom';
 import agent from '../../api/agent';
-import { PaginationParams } from '../../common/models/paginationPrams';
+import { useStore } from '../../stores/store';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -31,11 +31,15 @@ const Layout = () => {
     setOpen(false);
   };
 
+  const { commonStore, userStore } = useStore()
+
   React.useEffect(() => {
-    let params = new PaginationParams(0, 0, "AAA");
-    agent.Classrooms.list(params)
-    .then(classrooms => console.log(classrooms));
-  }, [])
+    if (commonStore.token) {
+      userStore.getUser().finally(() => commonStore.setAppLoaded())
+    } else {
+      commonStore.setAppLoaded()
+    }
+  }, [commonStore, userStore])
 
   return (
     <Box sx={{ display: 'flex' }}>
