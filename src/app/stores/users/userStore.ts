@@ -21,9 +21,10 @@ export default class UserStore {
             const user = await agent.Account.login(creds)
             store.commonStore.setToken(user.token)
             runInAction(() => this.user = user)
-            router.navigate('/home')
+            router.navigate('/classrooms')
         } catch (error) {
             handleRequestError(error)
+            throw error;
         }
     }
 
@@ -32,9 +33,10 @@ export default class UserStore {
             const user = await agent.Account.register(creds)
             store.commonStore.setToken(user.token)
             runInAction(() => this.user = user)
-            router.navigate('/home')
+            router.navigate('/classrooms')
         } catch (error) {
             handleRequestError(error)
+            throw error;
         }
     }
 
@@ -50,6 +52,7 @@ export default class UserStore {
             runInAction(() => this.user = user)
         } catch (error) {
             handleRequestError(error)
+            throw error;
         }
     }
 

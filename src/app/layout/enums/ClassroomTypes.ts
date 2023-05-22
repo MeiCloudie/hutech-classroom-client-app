@@ -1,4 +1,4 @@
 export enum ClassroomTypes {
-    TheoryRoom, 
-    PracticeRoom
+    TheoryRoom = 'TheoryRoom', 
+    PracticeRoom = 'PracticeRoom' 
 }

@@ -19,6 +19,7 @@ import { Classroom } from "../../../app/models/Classroom";
 import React from "react";
 import MenuMini from "../../common/MenuMini";
 import IconButtonTooltip from "../../common/IconButtonTooltip";
+import { ClassroomTypes } from "../../../app/layout/enums/ClassroomTypes";
 
 interface ClassroomCardProps {
   classroom: Classroom;
@@ -117,9 +118,9 @@ const ClassroomCard = (props: ClassroomCardProps) => {
         component="img"
         height="194"
         image={
-          props.classroom.type === 0
+          props.classroom.type === ClassroomTypes.TheoryRoom
             ? "banner1.png"
-            : props.classroom.type === 1
+            : props.classroom.type === ClassroomTypes.PracticeRoom
             ? "banner2.png"
             : "banner3.png"
         }

@@ -1,5 +1,5 @@
 export enum ClassroomSemester {
-    I,
-    II,
-    III
+    I = "I",
+    II = "II",
+    III = "III"
 }

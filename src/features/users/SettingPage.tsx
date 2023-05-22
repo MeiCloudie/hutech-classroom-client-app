@@ -55,6 +55,12 @@ const SettingPage = () => {
         bgcolor: "#f5f5f5",
         display: "flex",
         height: 500,
+        transition: "transform 0.3s, border-color 0.3s, box-shadow 0.3s",
+        "&:hover": {
+          borderColor: "primary.main",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.4)",
+          transform: "translateY(-4px)",
+        },
       }}
     >
       <Tabs
