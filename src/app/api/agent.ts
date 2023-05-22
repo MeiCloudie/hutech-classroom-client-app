@@ -27,7 +27,7 @@ const Classrooms = {
     list: (params?: PaginationParams) => requests.get<Classroom[]>("/v1/Classrooms", params),
     listByUser: (params?: PaginationParams) => requests.get<Classroom[]>("/v1/Users/@me/Classrooms", params),
     details: (id: string) => requests.get<Classroom>(`v1/Classrooms/${id}`),
-    create: (classroomFormValues: ClassroomFormValues) => requests.post('/v1/Classrooms', classroomFormValues),
+    create: (classroomFormValues: ClassroomFormValues) => requests.post<Classroom>('/v1/Classrooms', classroomFormValues),
     update: (id: string, classroomFormValues: ClassroomFormValues) => requests.put(`/v1/Classrooms/${id}`, classroomFormValues),
     delete: (id: string) => requests.delete(`/v1/Classrooms/${id}`)
 }

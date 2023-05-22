@@ -6,7 +6,6 @@ import agent from "../api/agent"
 
 export default class UserStore {
     user: User | null = null
-    fbLoading = false
 
     constructor() {
         makeAutoObservable(this)

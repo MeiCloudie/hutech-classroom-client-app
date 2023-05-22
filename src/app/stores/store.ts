@@ -1,15 +1,18 @@
 import { createContext, useContext } from "react";
-import ClassroomStore from "./classroomStore";
 import CommonStore from "./commonStore";
 import UserStore from "./userStore";
+import ClassroomStore from "./classrooms/classroomStore";
+import ClassroomsStore from "./classrooms/classroomsStore";
 
 interface Store {
-    classroomStore: ClassroomStore,
+    classroomsStore: ClassroomsStore,
+    classroomStore: ClassroomStore
     commonStore: CommonStore,
     userStore: UserStore
 }
 
 export const store: Store = {
+    classroomsStore: new ClassroomsStore(),
     classroomStore: new ClassroomStore(),
     commonStore: new CommonStore(),
     userStore: new UserStore()
