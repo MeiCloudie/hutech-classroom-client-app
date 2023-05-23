@@ -38,7 +38,7 @@ const createResource = <
       requests.post<TEntity>(`v1/${entityName}`, formValues),
     update: (id: string, formValues: TEntityFormValues) =>
       requests.put(`v1/${entityName}/${id}`, formValues),
-    delete: (id: string) => requests.delete(`v1/${entityName}/${id}`),
+    delete: (id: string) => requests.delete<TEntity>(`v1/${entityName}/${id}`),
   };
   return resource;
 };

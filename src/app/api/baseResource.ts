@@ -9,7 +9,7 @@ export interface BaseResource<
   details: (id: string) => Promise<TEntity>;
   create: (formValues: TEntityFormValues) => Promise<TEntity>;
   update: (id: string, formValues: TEntityFormValues) => Promise<void>;
-  delete: (id: string) => Promise<void>;
+  delete: (id: string) => Promise<TEntity>;
 }
 
 export interface BaseUserResource<

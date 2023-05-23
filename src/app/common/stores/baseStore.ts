@@ -1,4 +1,4 @@
-import { action, makeObservable, observable } from "mobx";
+import { action, computed, makeObservable, observable } from "mobx";
 import agent from "../../api/agent";
 import { handleRequestError } from "../../api/apiUtils";
 import Entity, { EntityFormValues } from "../../common/models/Entity";
@@ -6,14 +6,21 @@ import { BaseResource } from "../../api/baseResource";
 import { PaginationParams } from "../models/paginationPrams";
 
 export default class BaseStore<TEntity extends Entity, TEntityFormValues extends EntityFormValues> {
-    items: TEntity[] = [];
-    selectedItem: TEntity | undefined = undefined;
+    _items: TEntity[] = [];
+    _selectedItem: TEntity | undefined = undefined;
     resource: BaseResource<TEntity, TEntityFormValues>
 
     constructor(entityType: string) {
         makeObservable(this, {
-            items: observable,
-            selectedItem: observable,
+            _items: observable,
+            _selectedItem: observable,
+            items: computed,
+            selectedItem: computed,
+            setItems: action,
+            createItem: action,
+            updateItem: action,
+            deleteItem: action,
+            setSelectedItem: action,
             load: action,
             get: action,
             create: action,
@@ -21,13 +28,47 @@ export default class BaseStore<TEntity extends Entity, TEntityFormValues extends
             delete: action
         });
 
-        this.resource = agent.createResource<TEntity, TEntityFormValues>(entityType);
+        this.resource = agent.createUserResource<TEntity, TEntityFormValues>(entityType);
+    }
+
+    get items(): TEntity[] {
+        return this._items;
+    }
+
+    setItems(items: TEntity[]): void {
+        this._items.splice(0, this._items.length)
+        this._items.push(...items)
+    }
+
+    createItem(item: TEntity): void {
+        this._items.push(item)
+    }
+
+    updateItem(id: string, formValues: TEntityFormValues): void {
+        const index = this._items.findIndex((e) => e.id === id);
+        if (index !== -1) {
+            this._items[index] = { ...this._items[index], ...formValues };
+        }
+    }
+
+    deleteItem(id: string): void {
+        const itemIndex = this._items.findIndex(item => item.id === id);
+        this._items.splice(itemIndex)
+        // this._items = this._items.filter((item) => item.id !== id);
+    }
+
+    get selectedItem(): TEntity | undefined {
+        return this._selectedItem;
+    }
+
+    setSelectedItem(item: TEntity | undefined): void {
+        this._selectedItem = item;
     }
 
     load = async (params?: PaginationParams) => {
         try {
             const items = await this.resource.list(params);
-            this.items = items;
+            this.setItems(items);
         } catch (error) {
             handleRequestError(error);
         }
@@ -36,16 +77,16 @@ export default class BaseStore<TEntity extends Entity, TEntityFormValues extends
     get = async (id: string) => {
         try {
             const item = await this.resource.details(id);
-            this.selectedItem = item;
+            this.setSelectedItem(item);
         } catch (error) {
             handleRequestError(error);
         }
     };
 
-    create = async (item: TEntityFormValues) => {
+    create = async (formValues: TEntityFormValues) => {
         try {
-            const createdItem = await this.resource.create(item);
-            this.items.push(createdItem);
+            const createdItem = await this.resource.create(formValues);
+            this.createItem(createdItem);
             return createdItem;
         } catch (error) {
             handleRequestError(error);
@@ -53,13 +94,10 @@ export default class BaseStore<TEntity extends Entity, TEntityFormValues extends
         }
     };
 
-    update = async (id: string, updatedItem: TEntityFormValues) => {
+    update = async (id: string, formValues: TEntityFormValues) => {
         try {
-            await this.resource.update(id, updatedItem);
-            const index = this.items.findIndex((item) => item.id === id);
-            if (index !== -1) {
-                this.items[index] = { ...this.items[index], ...updatedItem };
-            }
+            await this.resource.update(id, formValues);
+            this.updateItem(id, formValues)
         } catch (error) {
             handleRequestError(error);
         }
@@ -68,7 +106,7 @@ export default class BaseStore<TEntity extends Entity, TEntityFormValues extends
     delete = async (id: string) => {
         try {
             const deletedItem = await this.resource.delete(id);
-            this.items = this.items.filter((item) => item.id !== id);
+            this.deleteItem(id);
             return deletedItem;
         } catch (error) {
             handleRequestError(error);
