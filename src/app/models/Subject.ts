@@ -34,11 +34,8 @@ export class SubjectFormValues {
 
   constructor(subject?: Subject) {
     if (subject) {
-      this.id = subject.id;
-      this.createDate = subject.createDate;
-      this.code = subject.code;
-      this.title = subject.title;
-      this.totalCredits = subject.totalCredits;
+      const { major, ...rest } = subject
+      Object.assign(this, rest)
     }
   }
 }

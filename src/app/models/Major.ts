@@ -30,12 +30,7 @@ export class MajorFormValues implements EntityFormValues {
 
   constructor(major?: Major) {
     if (major) {
-      this.id = major.id;
-      this.createDate = major.createDate;
-      this.code = major.code;
-      this.title = major.title;
-      this.totalCredits = major.totalCredits;
-      this.nonCumulativeCredits = major.nonCumulativeCredits;
+      Object.assign(this, major)
     }
   }
 }

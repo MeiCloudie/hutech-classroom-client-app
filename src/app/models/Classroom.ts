@@ -65,18 +65,8 @@ export class ClassroomFormValues implements EntityFormValues {
 
   constructor(classroom?: Classroom) {
     if (classroom) {
-      this.id = classroom.id;
-      this.title = classroom.title;
-      this.room = classroom.room;
-      this.type = classroom.type;
-      this.studyPeriod = classroom.studyPeriod;
-      this.class = classroom.class;
-      this.schoolYear = classroom.schoolYear;
-      this.semester = classroom.semester;
-      this.description = classroom.description;
-      this.studyGroup = classroom.studyGroup;
-      this.practicalStudyGroup = classroom.practicalStudyGroup;
-      this.createDate = classroom.createDate;
+      const { subject, faculty, lecturer, ...rest} = classroom
+      Object.assign(this, {...rest })
     }
   }
 }

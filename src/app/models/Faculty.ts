@@ -21,9 +21,7 @@ export class FacultyFormValues implements EntityFormValues {
 
   constructor(faculty?: Faculty) {
     if (faculty) {
-      this.id = faculty.id;
-      this.createDate = faculty.createDate;
-      this.name = faculty.name;
+      Object.assign(this, faculty)
     }
   }
 }
