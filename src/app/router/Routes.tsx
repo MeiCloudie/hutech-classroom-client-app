@@ -11,7 +11,7 @@ import SettingPage from "../../features/users/SettingPage";
 import HelpPage from "../../features/helps/HelpPage";
 import LinkPage from "../../features/helps/LinkPage";
 import ClassroomPage from "../../features/classrooms/list/ClassroomPage";
-import ClassroomLayout from "../../features/classrooms/details/ClassroomLayout";
+import ClassroomLayout from "../../features/classrooms/layout/ClassroomLayout";
 import ClassroomEverybody from "../../features/classrooms/everybody/ClassroomEverybody";
 import ExercisePage from "../../features/classrooms/exercises/list/ExercisePage";
 import ExerciseDetails from "../../features/classrooms/exercises/details/ExerciseDetails";
