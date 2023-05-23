@@ -25,6 +25,7 @@ import MissionPage from "../../features/classrooms/groups/projects/missions/list
 import MissionDetails from "../../features/classrooms/groups/projects/missions/details/MissionDetials";
 import PostPage from "../../features/classrooms/posts/list/PostPage";
 import PostDetails from "../../features/classrooms/posts/details/PostDetails";
+import ClassroomDetails from "../../features/classrooms/details/ClassroomDetails";
 
 export const routes: RouteObject[] = [
   {
@@ -43,8 +44,9 @@ export const routes: RouteObject[] = [
           { path: "classrooms", element: <ClassroomPage /> },
           {
             path: "cr/:id",
+            element: <ClassroomLayout />,
             children: [
-              { path: "", element: <ClassroomLayout /> },
+              { path: "", element: <ClassroomDetails /> },
               { path: "everybody", element: <ClassroomEverybody /> },
 
               { path: "posts", element: <PostPage /> },
