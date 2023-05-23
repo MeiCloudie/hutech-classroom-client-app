@@ -25,14 +25,16 @@ const MyPasswordForm = ({ label, ...props }: any) => {
 
   return (
     <div>
-      <FormControl sx={{ mt: 2, width: "100ch" }} variant="outlined" error={meta.touched && meta.error !== undefined}>
-        <InputLabel htmlFor={`outlined-adornment-${props.name}`}>
-          {label}
-        </InputLabel>
+      <FormControl
+        sx={{ mt: 2, width: "100ch" }}
+        variant="outlined"
+        error={meta.touched && meta.error !== undefined}
+      >
+        <InputLabel htmlFor={`${props.name}-password-form`}>{label}</InputLabel>
         <OutlinedInput
           {...field}
           {...props}
-          id={`outlined-adornment-${props.name}`}
+          id={`${props.name}-password-form`}
           type={showPassword ? "text" : "password"}
           endAdornment={
             <InputAdornment position="end">

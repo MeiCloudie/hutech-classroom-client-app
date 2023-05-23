@@ -7,8 +7,8 @@ import { Box, Button, Stack } from "@mui/material";
 import React from "react";
 
 import { useStore } from "../../../app/stores/store";
-import MyPasswordForm from "../../common/MyPasswordForm";
-import SnackbarAlert from "../../common/SnackbarAlert";
+import MyPasswordForm from "../../common/forms/MyPasswordForm";
+import SnackbarAlert from "../../common/UI/SnackbarAlert";
 
 const ChangePasswordForm = () => {
   const [open, setOpen] = React.useState(false);

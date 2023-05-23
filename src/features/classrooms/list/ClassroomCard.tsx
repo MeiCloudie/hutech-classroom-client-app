@@ -17,8 +17,8 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import { Divider } from "@mui/material";
 import { Classroom } from "../../../app/models/Classroom";
 import React from "react";
-import MenuMini from "../../common/MenuMini";
-import IconButtonTooltip from "../../common/IconButtonTooltip";
+import MenuMini from "../../common/UI/MenuMini";
+import IconButtonTooltip from "../../common/UI/IconButtonTooltip";
 import { ClassroomTypes } from "../../../app/layout/enums/ClassroomTypes";
 
 interface ClassroomCardProps {

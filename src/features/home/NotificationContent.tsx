@@ -1,5 +1,5 @@
 import { Box, Divider, Typography } from "@mui/material";
-import CurrentDate from "../common/CurrentDate";
+import CurrentDate from "../common/formatting/CurrentDate";
 import React from "react";
 
 const NotificationContent = () => {
