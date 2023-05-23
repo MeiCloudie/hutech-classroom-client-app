@@ -11,7 +11,7 @@ import SettingPage from "../../features/users/SettingPage";
 import HelpPage from "../../features/helps/HelpPage";
 import LinkPage from "../../features/helps/LinkPage";
 import ClassroomPage from "../../features/classrooms/list/ClassroomPage";
-import ClassroomDetails from "../../features/classrooms/details/ClassroomDetails";
+import ClassroomLayout from "../../features/classrooms/details/ClassroomLayout";
 import ClassroomEverybody from "../../features/classrooms/everybody/ClassroomEverybody";
 import ExercisePage from "../../features/classrooms/exercises/list/ExercisePage";
 import ExerciseDetails from "../../features/classrooms/exercises/details/ExerciseDetails";
@@ -44,8 +44,11 @@ export const routes: RouteObject[] = [
           {
             path: "cr/:id",
             children: [
-              { path: "", element: <ClassroomDetails /> },
+              { path: "", element: <ClassroomLayout /> },
               { path: "everybody", element: <ClassroomEverybody /> },
+
+              { path: "posts", element: <PostPage /> },
+              { path: "po/:id", element: <PostDetails /> },
 
               { path: "exercises", element: <ExercisePage /> },
               {
@@ -78,9 +81,6 @@ export const routes: RouteObject[] = [
                   },
                 ],
               },
-
-              { path: "posts", element: <PostPage /> },
-              { path: "po/:id", element: <PostDetails /> },
             ],
           },
           { path: "errors", element: <TestErrors /> },
