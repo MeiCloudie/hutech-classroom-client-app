@@ -6,49 +6,45 @@ import * as Yup from "yup";
 import { useStore } from "../../../app/stores/store";
 
 const LoginForm = () => {
-
-    const { userStore } = useStore()
-    const validationSchema = Yup.object({
-        userName: Yup.string().required("Hãy nhập tên đăng nhập"),
-        password: Yup.string().required("Hãy nhập mật khẩu"),
-    })
-    return (
-        <Formik
-            key="login-form"
-            initialValues={{ userName: "", password: "", error: null }}
-            onSubmit={(
-                loginFormValues,
-                actions
-            ) => {
-                userStore.login(loginFormValues)
-                .catch(e => actions.setSubmitting(false))
-            }}
-            validationSchema={validationSchema}
-        >
-
-{({ handleSubmit, handleChange, isSubmitting, errors }) => (
+  const { userStore } = useStore();
+  const validationSchema = Yup.object({
+    userName: Yup.string().required("Hãy nhập tên đăng nhập"),
+    password: Yup.string().required("Hãy nhập mật khẩu"),
+  });
+  return (
+    <Formik
+      key="login-form"
+      initialValues={{ userName: "", password: "", error: null }}
+      onSubmit={(loginFormValues, actions) => {
+        userStore
+          .login(loginFormValues)
+          .catch((e) => actions.setSubmitting(false));
+      }}
+      validationSchema={validationSchema}
+    >
+      {({ handleSubmit, handleChange, isSubmitting, errors }) => (
         <Box
           component="form"
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-            <TextField
-              helperText={errors.userName}
-              id="email-username-outlined-basic"
-              name="userName"
-              label="Email/Username"
-              variant="outlined"
-              placeholder="Enter your email or username here!"
-              onChange={handleChange}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <AccountCircleRoundedIcon />
-                  </InputAdornment>
-                ),
-              }}
-            />
+          <TextField
+            helperText={errors.userName}
+            id="email-username-outlined-basic"
+            name="userName"
+            label="Email/Username"
+            variant="outlined"
+            placeholder="Enter your email or username here!"
+            onChange={handleChange}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <AccountCircleRoundedIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
           <MyPasswordForm label="Mật khẩu hiện tại" name="password" />
 
           <Stack sx={{ width: "100%" }} spacing={2}>
@@ -73,9 +69,8 @@ const LoginForm = () => {
           </Stack>
         </Box>
       )}
-        </Formik>
-    
-    )
-}
+    </Formik>
+  );
+};
 
 export default LoginForm;

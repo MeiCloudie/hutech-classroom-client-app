@@ -1,5 +1,6 @@
-import { Typography, Box, TextField, Alert, AlertTitle } from "@mui/material";
+import { Typography, Box, Alert, AlertTitle } from "@mui/material";
 import { User } from "../../../app/models/User";
+import AccountForm from "../forms/AccountForm";
 
 const account: User = {
   id: "a1",
@@ -11,7 +12,7 @@ const account: User = {
 
 const AccountInfoTab = () => {
   return (
-    <Box sx={{ textAlign: "start"}}>
+    <Box sx={{ textAlign: "start" }}>
       <Typography
         variant="h5"
         gutterBottom
@@ -25,40 +26,13 @@ const AccountInfoTab = () => {
         Thông tin tài khoản:
       </Typography>
 
-      <Box sx={{ width: "100ch" }}>
-        <TextField
-          label="Tài khoản"
-          variant="outlined"
-          value={account.userName}
-          fullWidth
-          sx={{ marginTop: 2 }}
-          InputProps={{
-            readOnly: true,
-          }}
-        />
-
-        <TextField
-          label="Họ tên"
-          variant="outlined"
-          value={`${account.firstName} ${account.lastName}`}
-          fullWidth
-          sx={{ marginTop: 2 }}
-          InputProps={{
-            readOnly: true,
-          }}
-        />
-
-        <TextField
-          label="Email"
-          variant="outlined"
-          value={account.email}
-          fullWidth
-          sx={{ marginTop: 2 }}
-          InputProps={{
-            readOnly: true,
-          }}
-        />
-      </Box>
+      <AccountForm
+        id={account.id}
+        userName={account.userName}
+        firstName={account.firstName}
+        lastName={account.lastName}
+        email={account.email}
+      />
 
       <Alert severity="info" sx={{ mt: 2 }}>
         <AlertTitle>Hệ Thống</AlertTitle>
