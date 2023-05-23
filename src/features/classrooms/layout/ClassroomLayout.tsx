@@ -9,6 +9,11 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import GroupsIcon from '@mui/icons-material/Groups';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PeopleIcon from '@mui/icons-material/People';
+import ClassroomDetails from "../details/ClassroomDetails";
+import ClassroomEverybody from "../everybody/ClassroomEverybody";
+import PostPage from "../posts/list/PostPage";
+import ExercisePage from "../exercises/list/ExercisePage";
+import GroupPage from "../groups/list/GroupPage";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -23,8 +28,8 @@ function TabPanel(props: TabPanelProps) {
     <div
       role="tabpanel"
       hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
+      id={`classroom-tabpanel-${index}`}
+      aria-labelledby={`classroom-tab-${index}`}
       {...other}
     >
       {value === index && (
@@ -38,8 +43,8 @@ function TabPanel(props: TabPanelProps) {
 
 function a11yProps(index: number) {
   return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    id: `classroom-tab-${index}`,
+    "aria-controls": `classroom-tabpanel-${index}`,
   };
 }
 
@@ -94,19 +99,19 @@ const ClassroomLayout = () => {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        Item One
+        <ClassroomDetails />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <ClassroomEverybody />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Three
+        <PostPage />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        Item FOUR
+        <ExercisePage />
       </TabPanel>
       <TabPanel value={value} index={4}>
-        Item FIVE
+        <GroupPage />
       </TabPanel>
     </Box>
   );
