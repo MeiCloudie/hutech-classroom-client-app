@@ -8,7 +8,7 @@ import { handleRequestError } from "../api/apiUtils";
 import UserRelatedStore from "../common/stores/userRelatedStore";
 
 export default class ClassroomStore extends UserRelatedStore<Classroom, ClassroomFormValues> {
-    hasManyRelationshipResource: BaseHasManyRelationshipResource<Profile>
+    classroomUserResource: BaseHasManyRelationshipResource<Profile>
     constructor() {
         super("Classrooms")
 
@@ -17,7 +17,7 @@ export default class ClassroomStore extends UserRelatedStore<Classroom, Classroo
             setClassroomUsers: action
         })
 
-        this.hasManyRelationshipResource = agent.createHasManyRelationshipResource<Profile>("Classrooms", "Members")
+        this.classroomUserResource = agent.createHasManyRelationshipResource<Profile>("Classrooms", "Members")
     }
 
     get classroomUsers(): Profile[] {
@@ -28,14 +28,14 @@ export default class ClassroomStore extends UserRelatedStore<Classroom, Classroo
         if (!this.selectedItem)
             return;
         this.selectedItem.classroomUsers = []
-        this.selectedItem?.classroomUsers.push(...items)
+        this.selectedItem.classroomUsers.push(...items)
     }
 
     loadClassroomUsers = async (params?: PaginationParams) => {
         try {
             const id = this.selectedItem?.id;
             if (!id) return;
-            const items = await this.hasManyRelationshipResource.listEntities(id, params);
+            const items = await this.classroomUserResource.listEntities(id, params);
             this.setClassroomUsers(items);
         } catch (error) {
             handleRequestError(error);

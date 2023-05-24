@@ -4,20 +4,23 @@ import UserStore from "./users/userStore";
 import ClassroomStore from "./classroomStore";
 import FacultyStore from "./facultyStore";
 import SubjectStore from "./subjectStore";
+import PostStore from "./postStore";
 
 interface Store {
     classroomStore: ClassroomStore,
-    facultyStore: FacultyStore,
-    subjectStore: SubjectStore,
     commonStore: CommonStore,
+    facultyStore: FacultyStore,
+    postStore: PostStore
+    subjectStore: SubjectStore,
     userStore: UserStore
 }
 
 export const store: Store = {
     classroomStore: new ClassroomStore(),
-    facultyStore: new FacultyStore(),
-    subjectStore: new SubjectStore(),
     commonStore: new CommonStore(),
+    facultyStore: new FacultyStore(),
+    postStore: new PostStore(),
+    subjectStore: new SubjectStore(),
     userStore: new UserStore()
 }
 

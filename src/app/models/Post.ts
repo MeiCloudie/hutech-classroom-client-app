@@ -1,6 +1,7 @@
 import Entity, { Auditable } from "../common/models/Entity";
 import Profile from "../common/models/Profile";
 import { Classroom } from "./Classroom";
+import { Comment } from "./Comment";
 
 export interface Post extends Entity, Auditable {
     id: string;
@@ -10,6 +11,8 @@ export interface Post extends Entity, Auditable {
 
     user?: Profile;
     classroom?: Classroom;
+
+    comments: Comment[]
 }
 
 export class Post implements Post {
@@ -19,6 +22,8 @@ export class Post implements Post {
     link = "";
     user?: Profile = undefined;
     classroom?: Classroom = undefined;
+
+    comments: Comment[] = [];
 
     constructor(init?: PostFormValues) {
         Object.assign(this, init);

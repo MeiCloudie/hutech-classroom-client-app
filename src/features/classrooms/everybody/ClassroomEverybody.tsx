@@ -13,7 +13,7 @@ const ClassroomEverybody = () => {
     console.log("Render");
     Promise.all([
       classroomStore.get("4369943e-050e-4ef5-af26-64d94f38660f"),
-      classroomStore.load(),
+      classroomStore.loadUserRelatedItems(),
       facultyStore.load(),
       subjectStore.load(),
     ])

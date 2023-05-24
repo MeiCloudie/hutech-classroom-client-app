@@ -19,7 +19,7 @@ export default class UserRelatedStore<TEntity extends Entity, TEntityFormValues 
         })
     }
 
-    load = async (params?: PaginationParams): Promise<void> => {
+    loadUserRelatedItems = async (params?: PaginationParams): Promise<void> => {
         try {
             const items = await this.userResource.listByUser(params);
             this.setItems(items);
