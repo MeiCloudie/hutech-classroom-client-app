@@ -46,6 +46,7 @@ export class Classroom implements Classroom {
 
   constructor(init?: ClassroomFormValues) {
     Object.assign(this, init);
+    this.classroomUsers = []
   }
 }
 

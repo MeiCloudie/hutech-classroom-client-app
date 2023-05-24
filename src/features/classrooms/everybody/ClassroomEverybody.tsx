@@ -7,11 +7,12 @@ import MemberList from "./MemberList";
 import MiniClassroomDetails from "../details/MiniClassroomDetails";
 
 const ClassroomEverybody = () => {
-  const { classroomStore, facultyStore, subjectStore } = useStore();
+  const { classroomStore, facultyStore, subjectStore, postStore } = useStore();
   const [classrooms, setClassrooms] = React.useState<Classroom[]>([]);
   React.useEffect(() => {
     console.log("Render");
     Promise.all([
+      postStore.load(),
       classroomStore.get("4369943e-050e-4ef5-af26-64d94f38660f"),
       classroomStore.loadUserRelatedItems(),
       facultyStore.load(),
@@ -19,14 +20,25 @@ const ClassroomEverybody = () => {
     ])
     .then(() => {
       console.log(classroomStore.selectedItem)
-      classroomStore.loadClassroomUsers()
+
+      Promise.all([
+        classroomStore.get(classroomStore.items[classroomStore.items.length - 1].id),
+        postStore.get(postStore.items[postStore.items.length - 1].id)
+      ])
       .then(() => {
-        console.log(classroomStore.classroomUsers)
-        var classroomFormValues = new ClassroomFormValues(
-          classroomStore.items[classroomStore.items.length - 1]
-        );
-        console.log(classroomFormValues);
-        setClassrooms(classroomStore.items);
+
+        Promise.all([
+          classroomStore.loadClassroomUsers(),
+          postStore.loadComments()
+        ])
+        .then(() => {
+          console.log(classroomStore.classroomUsers)
+          var classroomFormValues = new ClassroomFormValues(
+            classroomStore.items[classroomStore.items.length - 1]
+          );
+          console.log(classroomFormValues);
+          setClassrooms(classroomStore.items);
+        })
       });
     })
     
@@ -98,6 +110,7 @@ const ClassroomEverybody = () => {
             <h1>ClassroomEverybody</h1>
             {classroomStore.classroomUsers.length}
             {classroomStore.classroomUsers.map((u) => <div>{u.id} - {u.firstName} {u.lastName} - {u.userName}</div>)}
+            {postStore.comments.map((c) => <div>Comment of last post ({c.id}): {c.content}</div>)}
             <MemberList />
             {/* <Button onClick={testCreate}>Test Create</Button>
             <Button onClick={testUpdate}>Test Update</Button>

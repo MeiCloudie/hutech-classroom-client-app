@@ -15,7 +15,7 @@ export default class UserRelatedStore<TEntity extends Entity, TEntityFormValues 
         this.userResource = agent.createUserResource<TEntity>(entityType);
 
         makeObservable(this, {
-            load: action
+            loadUserRelatedItems: action
         })
     }
 
