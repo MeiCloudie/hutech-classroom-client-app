@@ -6,9 +6,6 @@ import Profile from "../../../app/common/models/Profile";
 import { Classroom } from "../../../app/models/Classroom";
 import { ClassroomTypes } from "../../../app/layout/enums/ClassroomTypes";
 import { ClassroomSemester } from "../../../app/layout/enums/ClassroomSemesters";
-import IconButtonTooltip from "../../common/UI/IconButtonTooltip";
-
-import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 
 const major: Major = {
   id: "m1",
@@ -87,13 +84,6 @@ const ClassroomDetails = () => {
         >
           Thông tin chi tiết về lớp học:
         </Typography>
-
-        <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-          {/* some contents */}
-        </Box>
-
-        {/* Create setting button here */}
-        <ArrowCircleRightIcon />
       </Box>
 
       <Divider />
