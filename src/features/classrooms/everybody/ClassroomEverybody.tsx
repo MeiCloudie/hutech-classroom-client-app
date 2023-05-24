@@ -12,16 +12,24 @@ const ClassroomEverybody = () => {
   React.useEffect(() => {
     console.log("Render");
     Promise.all([
+      classroomStore.get("4369943e-050e-4ef5-af26-64d94f38660f"),
       classroomStore.load(),
       facultyStore.load(),
       subjectStore.load(),
-    ]).then(() => {
-      var classroomFormValues = new ClassroomFormValues(
-        classroomStore.items[classroomStore.items.length - 1]
-      );
-      console.log(classroomFormValues);
-      setClassrooms(classroomStore.items);
-    });
+    ])
+    .then(() => {
+      console.log(classroomStore.selectedItem)
+      classroomStore.loadClassroomUsers()
+      .then(() => {
+        console.log(classroomStore.classroomUsers)
+        var classroomFormValues = new ClassroomFormValues(
+          classroomStore.items[classroomStore.items.length - 1]
+        );
+        console.log(classroomFormValues);
+        setClassrooms(classroomStore.items);
+      });
+    })
+    
   }, []);
   const testCreate = () => {
     var lastClassroom = classroomStore.items[classroomStore.items.length - 1];
@@ -88,6 +96,8 @@ const ClassroomEverybody = () => {
             }}
           >
             <h1>ClassroomEverybody</h1>
+            {classroomStore.classroomUsers.length}
+            {classroomStore.classroomUsers.map((u) => <div>{u.id} - {u.firstName} {u.lastName} - {u.userName}</div>)}
             <MemberList />
             {/* <Button onClick={testCreate}>Test Create</Button>
             <Button onClick={testUpdate}>Test Update</Button>

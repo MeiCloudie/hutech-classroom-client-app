@@ -35,10 +35,12 @@ const faculty: Faculty = {
 };
 
 const member: Profile = {
+  id: "1",
   userName: "nguyenvana",
   email: "nguyenvana@gmail.com",
   firstName: "Nguyen Van",
   lastName: "A",
+  createDate: new Date()
 };
 
 const classroom: Classroom = {
@@ -58,6 +60,8 @@ const classroom: Classroom = {
   subject: subject,
   faculty: faculty,
   lecturer: member,
+
+  classroomUsers: []
 };
 
 const MiniClassroomDetails = () => {

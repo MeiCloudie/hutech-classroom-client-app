@@ -4,7 +4,6 @@ import Entity, { EntityFormValues } from "../common/models/Entity";
 import Profile from "../common/models/Profile";
 import { Subject } from "./Subject";
 import { Faculty } from "./Faculty";
-import { visitLexicalEnvironment } from "typescript";
 
 export interface Classroom extends Entity {
   title: string;
@@ -21,6 +20,8 @@ export interface Classroom extends Entity {
   subject?: Subject;
   faculty?: Faculty;
   lecturer?: Profile;
+
+  classroomUsers: Profile[];
 }
 
 export class Classroom implements Classroom {
@@ -40,6 +41,8 @@ export class Classroom implements Classroom {
   subject?: Subject = undefined;
   faculty?: Faculty = undefined;
   lecturer?: Profile = undefined;
+
+  classroomUsers: Profile[] = [];
 
   constructor(init?: ClassroomFormValues) {
     Object.assign(this, init);

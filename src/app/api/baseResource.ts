@@ -13,8 +13,13 @@ export interface BaseResource<
 }
 
 export interface BaseUserResource<
-  TEntity extends Entity,
-  TEntityFormValues extends EntityFormValues
-> extends BaseResource<TEntity, TEntityFormValues> {
+  TEntity extends Entity
+> {
     listByUser: (params?: PaginationParams) => Promise<TEntity[]>;
+}
+
+export interface BaseHasManyRelationshipResource<
+TManyEntity extends Entity
+> {
+  listEntities: (id: String, params?: PaginationParams) => Promise<TManyEntity[]>;
 }

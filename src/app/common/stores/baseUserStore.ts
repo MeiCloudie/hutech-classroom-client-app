@@ -2,13 +2,14 @@ import { action, computed, makeObservable, observable } from "mobx";
 import agent from "../../api/agent";
 import { handleRequestError } from "../../api/apiUtils";
 import Entity, { EntityFormValues } from "../../common/models/Entity";
-import { BaseUserResource } from "../../api/baseResource";
+import { BaseResource, BaseUserResource } from "../../api/baseResource";
 import { PaginationParams } from "../models/paginationPrams";
 
 export default class BaseUserStore<TEntity extends Entity, TEntityFormValues extends EntityFormValues> {
     _items: TEntity[] = [];
     _selectedItem: TEntity | undefined = undefined;
-    resource: BaseUserResource<TEntity, TEntityFormValues>
+    resource: BaseResource<TEntity, TEntityFormValues>;
+    userResource: BaseUserResource<TEntity>;
 
     constructor(entityType: string) {
         makeObservable(this, {
@@ -28,7 +29,8 @@ export default class BaseUserStore<TEntity extends Entity, TEntityFormValues ext
             delete: action
         });
 
-        this.resource = agent.createUserResource<TEntity, TEntityFormValues>(entityType);
+        this.resource = agent.createResource<TEntity, TEntityFormValues>(entityType);
+        this.userResource = agent.createUserResource<TEntity>(entityType);
     }
 
     get items(): TEntity[] {
@@ -36,7 +38,7 @@ export default class BaseUserStore<TEntity extends Entity, TEntityFormValues ext
     }
 
     setItems(items: TEntity[]): void {
-        this._items.splice(0, this._items.length)
+        this._items = []
         this._items.push(...items)
     }
 
@@ -54,7 +56,6 @@ export default class BaseUserStore<TEntity extends Entity, TEntityFormValues ext
     deleteItem(id: string): void {
         const itemIndex = this._items.findIndex(item => item.id === id);
         this._items.splice(itemIndex)
-        // this._items = this._items.filter((item) => item.id !== id);
     }
 
     get selectedItem(): TEntity | undefined {
@@ -67,7 +68,7 @@ export default class BaseUserStore<TEntity extends Entity, TEntityFormValues ext
 
     load = async (params?: PaginationParams) => {
         try {
-            const items = await this.resource.listByUser(params);
+            const items = await this.userResource.listByUser(params);
             this.setItems(items);
         } catch (error) {
             handleRequestError(error);

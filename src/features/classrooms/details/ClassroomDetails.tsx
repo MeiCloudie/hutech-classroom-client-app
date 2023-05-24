@@ -32,6 +32,8 @@ const faculty: Faculty = {
 };
 
 const member: Profile = {
+  id: "",
+  createDate: new Date(),
   userName: "nguyenvana",
   email: "nguyenvana@gmail.com",
   firstName: "Nguyen Van",
@@ -55,6 +57,8 @@ const classroom: Classroom = {
   subject: subject,
   faculty: faculty,
   lecturer: member,
+
+  classroomUsers: []
 };
 
 const ClassroomDetails = () => {
