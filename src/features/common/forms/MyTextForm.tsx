@@ -11,6 +11,7 @@ const MyTextForm = ({ label, icon, ...props }: any) => {
       id={`${props.name}-text-form`}
       label={label}
       variant="outlined"
+      sx={{ mt: 2, width: "100ch" }}
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">{icon}</InputAdornment>

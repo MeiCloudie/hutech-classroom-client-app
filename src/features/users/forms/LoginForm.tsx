@@ -4,6 +4,7 @@ import { Box, Button, InputAdornment, Stack, TextField } from "@mui/material";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import * as Yup from "yup";
 import { useStore } from "../../../app/stores/store";
+import MyTextForm from "../../common/forms/MyTextForm";
 
 const LoginForm = () => {
   const { userStore } = useStore();
@@ -29,12 +30,10 @@ const LoginForm = () => {
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-          <TextField
+          <MyTextForm
             helperText={errors.userName}
-            id="email-username-outlined-basic"
             name="userName"
             label="Email/Username"
-            variant="outlined"
             placeholder="Enter your email or username here!"
             onChange={handleChange}
             InputProps={{
@@ -45,6 +44,7 @@ const LoginForm = () => {
               ),
             }}
           />
+
           <MyPasswordForm label="Mật khẩu hiện tại" name="password" />
 
           <Stack sx={{ width: "100%" }} spacing={2}>
