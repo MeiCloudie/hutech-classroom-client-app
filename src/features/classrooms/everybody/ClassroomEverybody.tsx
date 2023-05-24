@@ -67,13 +67,13 @@ const ClassroomEverybody = () => {
     });
   };
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={4} lg={3} key="mini-classroom-details">
-          <MiniClassroomDetails />
-        </Grid>
+    // <Box sx={{ flexGrow: 1 }}>
+    //   <Grid container spacing={2}>
+    //     <Grid item xs={12} md={4} lg={3} key="mini-classroom-details">
+    //       <MiniClassroomDetails />
+    //     </Grid>
 
-        <Grid item xs={12} md={8} lg={9} key="main-classroom-everybody">
+    //     <Grid item xs={12} md={8} lg={9} key="main-classroom-everybody">
           <Box
             sx={{
               bgcolor: "#f5f5f5",
@@ -94,9 +94,9 @@ const ClassroomEverybody = () => {
             <Button onClick={testDelete}>Test Delete</Button>
             {classrooms.map(c => <div key={c.id}>{c.id} --- Description {c.description}</div>)} */}
           </Box>
-        </Grid>
-      </Grid>
-    </Box>
+    //     </Grid>
+    //   </Grid>
+    // </Box>
   );
 };
 

@@ -15,6 +15,7 @@ import PostPage from "../posts/list/PostPage";
 import ExercisePage from "../exercises/list/ExercisePage";
 import GroupPage from "../groups/list/GroupPage";
 import { Link, useLocation } from "react-router-dom";
+import MiniDetailsLayout from "./MiniDetailsLayout";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -48,6 +49,25 @@ function a11yProps(index: number) {
     "aria-controls": `classroom-tabpanel-${index}`,
   };
 }
+
+const pages = [
+  {
+    index: 1,
+    component: <ClassroomEverybody />,
+  },
+  {
+    index: 2,
+    component: <PostPage />,
+  },
+  {
+    index: 3,
+    component: <ExercisePage />,
+  },
+  {
+    index: 4,
+    component: <GroupPage />,
+  },
+];
 
 const ClassroomLayout = () => {
   const location = useLocation();
@@ -129,18 +149,11 @@ const ClassroomLayout = () => {
         <TabPanel value={value} index={0}>
           <ClassroomDetails />
         </TabPanel>
-        <TabPanel value={value} index={1}>
-          <ClassroomEverybody />
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          <PostPage />
-        </TabPanel>
-        <TabPanel value={value} index={3}>
-          <ExercisePage />
-        </TabPanel>
-        <TabPanel value={value} index={4}>
-          <GroupPage />
-        </TabPanel>
+        {pages.map((p, i) => (
+          <TabPanel key={i} value={value} index={p.index}>
+            <MiniDetailsLayout component={p.component} />
+          </TabPanel>
+        ))}
       </Box>
     </Box>
   );
