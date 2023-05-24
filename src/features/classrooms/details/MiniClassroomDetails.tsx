@@ -39,8 +39,7 @@ const member: Profile = {
   userName: "nguyenvana",
   email: "nguyenvana@gmail.com",
   firstName: "Nguyen Van",
-  lastName: "A",
-  createDate: new Date()
+  lastName: "A"
 };
 
 const classroom: Classroom = {

@@ -33,7 +33,6 @@ const faculty: Faculty = {
 
 const member: Profile = {
   id: "",
-  createDate: new Date(),
   userName: "nguyenvana",
   email: "nguyenvana@gmail.com",
   firstName: "Nguyen Van",

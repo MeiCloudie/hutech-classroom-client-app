@@ -1,11 +1,11 @@
 import { ClassroomSemester } from "../layout/enums/ClassroomSemesters";
 import { ClassroomTypes } from "../layout/enums/ClassroomTypes";
-import Entity, { EntityFormValues } from "../common/models/Entity";
+import Entity, { Auditable, EntityFormValues } from "../common/models/Entity";
 import Profile from "../common/models/Profile";
 import { Subject } from "./Subject";
 import { Faculty } from "./Faculty";
 
-export interface Classroom extends Entity {
+export interface Classroom extends Entity, Auditable {
   title: string;
   room: string;
   type: ClassroomTypes;
