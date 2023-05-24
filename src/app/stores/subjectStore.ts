@@ -1,7 +1,7 @@
-import BaseStore from "../common/stores/baseStore";
+import EntityStore from "../common/stores/entityStore";
 import { Subject, SubjectFormValues } from "../models/Subject";
 
-export default class SubjectStore extends BaseStore<Subject, SubjectFormValues> {
+export default class SubjectStore extends EntityStore<Subject, SubjectFormValues> {
     constructor() {
         super("Subjects")
     }

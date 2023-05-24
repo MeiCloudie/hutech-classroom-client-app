@@ -5,7 +5,7 @@ import Entity, { EntityFormValues } from "../../common/models/Entity";
 import { BaseResource } from "../../api/baseResource";
 import { PaginationParams } from "../models/paginationPrams";
 
-export default class BaseStore<TEntity extends Entity, TEntityFormValues extends EntityFormValues> {
+export default class EntityStore<TEntity extends Entity, TEntityFormValues extends EntityFormValues> {
     _items: TEntity[] = [];
     _selectedItem: TEntity | undefined = undefined;
     resource: BaseResource<TEntity, TEntityFormValues>
