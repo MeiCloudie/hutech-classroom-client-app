@@ -113,7 +113,7 @@ const ClassroomLayout = () => {
           <Tab
             icon={<GroupsIcon />}
             iconPosition="start"
-            label="MỌI NGƯỜI"
+            label="THÀNH VIÊN"
             component={Link}
             to="/cr/:id/everybody"
             {...a11yProps(1)}

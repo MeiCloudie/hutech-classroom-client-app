@@ -1,7 +1,7 @@
 import React from "react";
 import { useStore } from "../../../app/stores/store";
 import { Classroom, ClassroomFormValues } from "../../../app/models/Classroom";
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import MemberList from "./MemberList";
 import MiniClassroomDetails from "../details/MiniClassroomDetails";
@@ -67,36 +67,36 @@ const ClassroomEverybody = () => {
     });
   };
   return (
-    // <Box sx={{ flexGrow: 1 }}>
-    //   <Grid container spacing={2}>
-    //     <Grid item xs={12} md={4} lg={3} key="mini-classroom-details">
-    //       <MiniClassroomDetails />
-    //     </Grid>
-
-    //     <Grid item xs={12} md={8} lg={9} key="main-classroom-everybody">
-          <Box
-            sx={{
-              bgcolor: "#f5f5f5",
-              p: 2,
-              border: "1px solid #e8e8e8",
-              borderRadius: "5px",
-              transition: "transform 0.3s, border-color 0.3s, box-shadow 0.3s",
-              "&:hover": {
-                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.4)",
-                transform: "translateY(-4px)",
-              },
-            }}
-          >
-            <h1>ClassroomEverybody</h1>
-            <MemberList />
-            {/* <Button onClick={testCreate}>Test Create</Button>
+    <Box
+      sx={{
+        bgcolor: "#f5f5f5",
+        p: 2,
+        border: "1px solid #e8e8e8",
+        borderRadius: "5px",
+        transition: "transform 0.3s, border-color 0.3s, box-shadow 0.3s",
+        "&:hover": {
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.4)",
+          transform: "translateY(-4px)",
+        },
+      }}
+    >
+      <Typography
+        variant="h5"
+        gutterBottom
+        sx={{
+          fontWeight: 600,
+          color: (theme) => theme.palette.primary.main,
+          textAlign: "start",
+        }}
+      >
+        DANH SÁCH SINH VIÊN
+      </Typography>
+      <MemberList />
+      {/* <Button onClick={testCreate}>Test Create</Button>
             <Button onClick={testUpdate}>Test Update</Button>
             <Button onClick={testDelete}>Test Delete</Button>
             {classrooms.map(c => <div key={c.id}>{c.id} --- Description {c.description}</div>)} */}
-          </Box>
-    //     </Grid>
-    //   </Grid>
-    // </Box>
+    </Box>
   );
 };
 
