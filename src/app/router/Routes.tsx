@@ -43,25 +43,25 @@ export const routes: RouteObject[] = [
 
           { path: "classrooms", element: <ClassroomPage /> },
           {
-            path: "cr/:id",
+            path: "cr/:classroomId",
             element: <ClassroomLayout />,
             children: [
               { path: "", element: <ClassroomDetails /> },
               { path: "everybody", element: <ClassroomEverybody /> },
 
               { path: "posts", element: <PostPage /> },
-              { path: "po/:id", element: <PostDetails /> },
+              { path: "po/:postId", element: <PostDetails /> },
 
               { path: "exercises", element: <ExercisePage /> },
               {
-                path: "ex/:id",
+                path: "ex/:exerciseId",
                 children: [
                   { path: "", element: <ExerciseDetails /> },
                   {
                     path: "answers",
                     children: [
                       { path: "all", element: <AnswerPage /> },
-                      { path: "student/:id", element: <AnswerDetails /> },
+                      { path: "student/:studentId", element: <AnswerDetails /> },
                     ],
                   },
                 ],
@@ -69,16 +69,16 @@ export const routes: RouteObject[] = [
 
               { path: "groups", element: <GroupPage /> },
               {
-                path: "gr/:id",
+                path: "gr/:groupId",
                 children: [
                   { path: "", element: <GroupDetails /> },
                   { path: "projects-of-group", element: <ProjectPage /> },
                   {
-                    path: "pj/:id",
+                    path: "pj/:projectId",
                     children: [
                       { path: "", element: <ProjectDetails /> },
                       { path: "missions-of-group", element: <MissionPage /> },
-                      { path: "ms/:id", element: <MissionDetails /> },
+                      { path: "ms/:missionId", element: <MissionDetails /> },
                     ],
                   },
                 ],

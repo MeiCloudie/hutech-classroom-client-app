@@ -4,20 +4,35 @@ import { useField } from "formik";
 const MyTextInput = ({ label, icon, ...props }: any) => {
   const [field, meta] = useField(props);
   return (
-    <TextField
-      {...field}
-      {...props}
-      helperText={meta.touched ?? meta.error}
-      id={`${props.name}-text-form`}
-      label={label}
-      variant="outlined"
-      sx={{ mt: 2, width: "100ch" }}
-      InputProps={{
-        startAdornment: (
-          <InputAdornment position="start">{icon}</InputAdornment>
-        ),
-      }}
-    />
+    <div>
+      <TextField
+        {...field}
+        {...props}
+        helperText={meta.touched && meta.error}
+        id={`${props.name}-text-form`}
+        label={label}
+        variant="outlined"
+        sx={{
+          mt: 2,
+          width: "100%",
+          maxWidth: "100ch",
+          "@media (max-width: 400px)": {
+            width: "120ch",
+            maxWidth: "100%",
+          },
+          "@media (min-width: 1280px)": {
+            width: "100ch",
+            maxWidth: "100%",
+          },
+        }}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">{icon}</InputAdornment>
+          ),
+        }}
+        error={meta.touched && meta.error !== undefined}
+      />
+    </div>
   );
 };
 

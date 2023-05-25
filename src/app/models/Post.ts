@@ -36,11 +36,10 @@ export class PostFormValues {
     link: string = "";
     userName?: string;
     classroomId?: string;
-    createDate: Date = new Date();
 
     constructor(post?: Post) {
         if (post) {
-            const { user, classroom, ...rest } = post;
+            const { user, classroom, createDate, ...rest } = post;
             Object.assign(this, { ...rest });
         }
     }

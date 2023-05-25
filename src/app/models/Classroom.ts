@@ -62,7 +62,6 @@ export class ClassroomFormValues implements EntityFormValues {
   description: string = "";
   studyGroup: string = "";
   practicalStudyGroup: string = "";
-  createDate: Date = new Date();
 
   subjectId?: string = undefined;
   facultyId?: string = undefined;
@@ -70,7 +69,7 @@ export class ClassroomFormValues implements EntityFormValues {
 
   constructor(classroom?: Classroom) {
     if (classroom) {
-      const { subject, faculty, lecturer, ...rest} = classroom
+      const { subject, faculty, lecturer, createDate, ...rest} = classroom
       Object.assign(this, {...rest })
     }
   }

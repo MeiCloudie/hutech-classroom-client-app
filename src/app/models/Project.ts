@@ -26,11 +26,10 @@ export class ProjectFormValues {
     name: string = "";
     description: string = "";
     groupId?: string;
-    createDate: Date = new Date();
 
     constructor(project?: Project) {
         if (project) {
-            const { group, ...rest } = project;
+            const { group, createDate, ...rest } = project;
             Object.assign(this, { ...rest });
         }
     }

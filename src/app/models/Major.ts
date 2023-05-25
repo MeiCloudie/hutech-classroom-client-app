@@ -22,7 +22,6 @@ export class Major implements Major {
 
 export class MajorFormValues implements EntityFormValues {
   id?: string = "";
-  createDate: Date = new Date();
   code: string = "";
   title: string = "";
   totalCredits: number = 0;
@@ -30,7 +29,8 @@ export class MajorFormValues implements EntityFormValues {
 
   constructor(major?: Major) {
     if (major) {
-      Object.assign(this, major)
+      const { createDate, ...rest } = major;
+      Object.assign(this, rest);
     }
   }
 }

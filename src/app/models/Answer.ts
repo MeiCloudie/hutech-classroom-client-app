@@ -33,11 +33,10 @@ export class AnswerFormValues {
     score: number = 0;
     userName?: string;
     exerciseId?: string;
-    createDate: Date = new Date();
 
     constructor(answer?: Answer) {
         if (answer) {
-            const { user, exercise, ...rest } = answer;
+            const { user, exercise, createDate, ...rest } = answer;
             Object.assign(this, { ...rest });
         }
     }

@@ -66,8 +66,9 @@ export default class EntityStore<TEntity extends Entity, TEntityFormValues exten
 
     load = async (params?: PaginationParams) => {
         try {
-            const items = await this.resource.list(params);
-            this.setItems(items);
+            const list = await this.resource.list(params);
+            this.setItems(list);
+            return list;
         } catch (error) {
             handleRequestError(error);
         }
@@ -77,6 +78,7 @@ export default class EntityStore<TEntity extends Entity, TEntityFormValues exten
         try {
             const item = await this.resource.details(id);
             this.setSelectedItem(item);
+            return item;
         } catch (error) {
             handleRequestError(error);
         }

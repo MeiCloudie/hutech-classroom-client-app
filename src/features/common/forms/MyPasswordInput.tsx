@@ -26,7 +26,19 @@ const MyPasswordInput = ({ label, ...props }: any) => {
   return (
     <div>
       <FormControl
-        sx={{ mt: 2, width: "100ch" }}
+        sx={{
+          mt: 2,
+          width: "100%",
+          maxWidth: "100ch",
+          "@media (max-width: 400px)": {
+            width: "120ch",
+            maxWidth: "100%",
+          },
+          "@media (min-width: 1280px)": {
+            width: "100ch",
+            maxWidth: "100%",
+          },
+        }}
         variant="outlined"
         error={meta.touched && meta.error !== undefined}
       >

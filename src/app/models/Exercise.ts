@@ -41,11 +41,10 @@ export class ExerciseFormValues {
     topic: string = "";
     criteria: string = "";
     classroomId?: string;
-    createDate: Date = new Date();
 
     constructor(exercise?: Exercise) {
         if (exercise) {
-            const { classroom, ...rest } = exercise;
+            const { classroom, createDate, ...rest } = exercise;
             Object.assign(this, { ...rest });
         }
     }

@@ -25,7 +25,6 @@ export class Subject implements Subject {
 
 export class SubjectFormValues {
   id?: string = "";
-  createDate: Date = new Date();
   code: string = "";
   title: string = "";
   totalCredits: number = 0;
@@ -34,7 +33,7 @@ export class SubjectFormValues {
 
   constructor(subject?: Subject) {
     if (subject) {
-      const { major, ...rest } = subject
+      const { major, createDate, ...rest } = subject
       Object.assign(this, rest)
     }
   }

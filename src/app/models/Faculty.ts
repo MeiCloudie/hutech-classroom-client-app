@@ -16,12 +16,12 @@ export class Faculty implements Faculty {
 
 export class FacultyFormValues implements EntityFormValues {
   id?: string = "";
-  createDate: Date = new Date();
   name: string = "";
 
   constructor(faculty?: Faculty) {
     if (faculty) {
-      Object.assign(this, faculty)
+      const { createDate, ...rest } = faculty;
+      Object.assign(this, rest);
     }
   }
 }

@@ -30,11 +30,10 @@ export class GroupFormValues {
     description: string = "";
     leaderUserName?: string;
     classroomId?: string;
-    createDate: Date = new Date();
 
     constructor(group?: Group) {
         if (group) {
-            const { leader, classroom, ...rest } = group;
+            const { leader, classroom, createDate, ...rest } = group;
             Object.assign(this, { ...rest });
         }
     }

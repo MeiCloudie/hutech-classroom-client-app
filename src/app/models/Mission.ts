@@ -29,11 +29,10 @@ export class MissionFormValues {
     description: string = "";
     isDone: boolean = false;
     projectId?: string;
-    createDate: Date = new Date();
 
     constructor(mission?: Mission) {
         if (mission) {
-            const { project, ...rest } = mission;
+            const { project, createDate, ...rest } = mission;
             Object.assign(this, { ...rest });
         }
     }

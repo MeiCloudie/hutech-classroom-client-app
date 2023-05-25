@@ -28,11 +28,10 @@ export class CommentFormValues {
     content: string = "";
     userName?: string;
     postId?: string;
-    createDate: Date = new Date();
 
     constructor(comment?: Comment) {
         if (comment) {
-            const { user, post, ...rest } = comment;
+            const { user, post, createDate, ...rest } = comment;
             Object.assign(this, { ...rest });
         }
     }

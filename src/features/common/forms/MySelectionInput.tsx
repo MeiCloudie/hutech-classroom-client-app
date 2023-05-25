@@ -18,7 +18,22 @@ const MySelectionInput = (props: MySelectionFormProps) => {
   const { icon, options, ...selectProps } = props;
   const showError = meta.touched && !!meta.error;
   return (
-    <FormControl fullWidth sx={{ mt: 2, width: "100ch" }}>
+    <FormControl
+      fullWidth
+      sx={{
+        mt: 2,
+        width: "100%",
+        maxWidth: "100ch",
+        "@media (max-width: 400px)": {
+          width: "120ch",
+          maxWidth: "100%",
+        },
+        "@media (min-width: 1280px)": {
+          width: "100ch",
+          maxWidth: "100%",
+        },
+      }}
+    >
       <InputLabel id={`${props.name}-selection-form`}>{props.label}</InputLabel>
       <Select
         {...selectProps}
