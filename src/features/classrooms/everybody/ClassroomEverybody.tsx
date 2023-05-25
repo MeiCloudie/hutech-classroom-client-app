@@ -7,21 +7,41 @@ import MemberList from "./MemberList";
 import MiniClassroomDetails from "../details/MiniClassroomDetails";
 
 const ClassroomEverybody = () => {
-  const { classroomStore, facultyStore, subjectStore } = useStore();
+  const { classroomStore, facultyStore, subjectStore, postStore } = useStore();
   const [classrooms, setClassrooms] = React.useState<Classroom[]>([]);
   React.useEffect(() => {
     console.log("Render");
     Promise.all([
-      classroomStore.load(),
+      postStore.load(),
+      classroomStore.get("4369943e-050e-4ef5-af26-64d94f38660f"),
+      classroomStore.loadUserRelatedItems(),
       facultyStore.load(),
       subjectStore.load(),
-    ]).then(() => {
-      var classroomFormValues = new ClassroomFormValues(
-        classroomStore.items[classroomStore.items.length - 1]
-      );
-      console.log(classroomFormValues);
-      setClassrooms(classroomStore.items);
-    });
+    ])
+    .then(() => {
+      console.log(classroomStore.selectedItem)
+
+      Promise.all([
+        classroomStore.get(classroomStore.items[classroomStore.items.length - 1].id),
+        postStore.get(postStore.items[postStore.items.length - 1].id)
+      ])
+      .then(() => {
+
+        Promise.all([
+          classroomStore.loadClassroomUsers(),
+          postStore.loadComments()
+        ])
+        .then(() => {
+          console.log(classroomStore.classroomUsers)
+          var classroomFormValues = new ClassroomFormValues(
+            classroomStore.items[classroomStore.items.length - 1]
+          );
+          console.log(classroomFormValues);
+          setClassrooms(classroomStore.items);
+        })
+      });
+    })
+    
   }, []);
   const testCreate = () => {
     var lastClassroom = classroomStore.items[classroomStore.items.length - 1];

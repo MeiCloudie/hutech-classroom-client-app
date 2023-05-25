@@ -1,6 +1,6 @@
-import Entity, { EntityFormValues } from "../common/models/Entity";
+import Entity, { Auditable, EntityFormValues } from "../common/models/Entity";
 
-export interface Faculty extends Entity {
+export interface Faculty extends Entity, Auditable {
   name: string;
 }
 

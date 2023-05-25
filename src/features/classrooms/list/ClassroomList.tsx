@@ -124,7 +124,7 @@ const ClassroomList = () => {
   const { classroomStore } = useStore();
   const [ classrooms, setClassrooms ] = React.useState<Classroom[]>([]);
   React.useEffect(() => {
-    classroomStore.load().then(() => {
+    classroomStore.loadUserRelatedItems().then(() => {
       setClassrooms(classroomStore.items)
     })
   })

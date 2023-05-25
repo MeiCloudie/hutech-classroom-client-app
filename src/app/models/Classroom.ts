@@ -1,12 +1,11 @@
 import { ClassroomSemester } from "../layout/enums/ClassroomSemesters";
 import { ClassroomTypes } from "../layout/enums/ClassroomTypes";
-import Entity, { EntityFormValues } from "../common/models/Entity";
+import Entity, { Auditable, EntityFormValues } from "../common/models/Entity";
 import Profile from "../common/models/Profile";
 import { Subject } from "./Subject";
 import { Faculty } from "./Faculty";
-import { visitLexicalEnvironment } from "typescript";
 
-export interface Classroom extends Entity {
+export interface Classroom extends Entity, Auditable {
   title: string;
   room: string;
   type: ClassroomTypes;
@@ -21,6 +20,8 @@ export interface Classroom extends Entity {
   subject?: Subject;
   faculty?: Faculty;
   lecturer?: Profile;
+
+  classroomUsers: Profile[];
 }
 
 export class Classroom implements Classroom {
@@ -41,8 +42,11 @@ export class Classroom implements Classroom {
   faculty?: Faculty = undefined;
   lecturer?: Profile = undefined;
 
+  classroomUsers: Profile[] = [];
+
   constructor(init?: ClassroomFormValues) {
     Object.assign(this, init);
+    this.classroomUsers = []
   }
 }
 

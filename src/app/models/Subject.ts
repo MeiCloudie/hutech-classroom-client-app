@@ -1,7 +1,7 @@
-import Entity from "../common/models/Entity";
+import Entity, { Auditable } from "../common/models/Entity";
 import { Major } from "./Major";
 
-export interface Subject extends Entity {
+export interface Subject extends Entity, Auditable {
   code: string;
   title: string;
   totalCredits: number;

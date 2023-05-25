@@ -3,7 +3,7 @@ import { PaginationParams } from "../common/models/paginationPrams";
 import { ChangePasswordFormValues, LoginFormValues, RegisterFormValues, User } from "../models/User";
 import { store } from "../stores/store";
 import Entity, { EntityFormValues } from "../common/models/Entity";
-import { BaseResource, BaseUserResource } from "./baseResource";
+import { BaseHasManyRelationshipResource, BaseResource, BaseUserResource } from "./baseResource";
 
 
 axios.defaults.baseURL = "https://hutechclassroom.azurewebsites.net/api/";
@@ -45,17 +45,25 @@ const createResource = <
 
 
 const createUserResource = <
-  TEntity extends Entity,
-  TEntityFormValues extends EntityFormValues
+  TEntity extends Entity
 >(
   entityName: string
-): BaseUserResource<TEntity, TEntityFormValues> => {
-  const resource: BaseUserResource<TEntity, TEntityFormValues> = {
-    ...createResource<TEntity, TEntityFormValues>(entityName),
+) => {
+  const resource: BaseUserResource<TEntity> = {
     listByUser: (params?: PaginationParams) => requests.get<TEntity[]>(`v1/Users/@me/${entityName}`, params)
   };
   return resource;
 };
+
+const createHasManyRelationshipResource = <
+  TManyEntity extends Entity
+>(firstEntityName: String,
+  secondEntityName: String) => {
+    const resource: BaseHasManyRelationshipResource<TManyEntity> = {
+      listEntities: (id: String, params?: PaginationParams) => requests.get<TManyEntity[]>(`v1/${firstEntityName}/${id}/${secondEntityName}`, params)
+    }
+    return resource;
+  }
 
 const Account = {
     login: (creds: LoginFormValues) => requests.post<User>("v1/Account/login", creds),
@@ -79,7 +87,8 @@ const agent = {
     Account,
     Results,
     createResource,
-    createUserResource
+    createUserResource,
+    createHasManyRelationshipResource
 };
 
 export default agent;

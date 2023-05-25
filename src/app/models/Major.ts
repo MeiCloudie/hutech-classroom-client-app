@@ -1,6 +1,6 @@
-import Entity, { EntityFormValues } from "../common/models/Entity";
+import Entity, { Auditable, EntityFormValues } from "../common/models/Entity";
 
-export interface Major extends Entity {
+export interface Major extends Entity, Auditable {
   code: string;
   title: string;
   totalCredits: number;

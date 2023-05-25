@@ -5,7 +5,7 @@ import Entity, { EntityFormValues } from "../../common/models/Entity";
 import { BaseResource } from "../../api/baseResource";
 import { PaginationParams } from "../models/paginationPrams";
 
-export default class BaseStore<TEntity extends Entity, TEntityFormValues extends EntityFormValues> {
+export default class EntityStore<TEntity extends Entity, TEntityFormValues extends EntityFormValues> {
     _items: TEntity[] = [];
     _selectedItem: TEntity | undefined = undefined;
     resource: BaseResource<TEntity, TEntityFormValues>
@@ -28,7 +28,7 @@ export default class BaseStore<TEntity extends Entity, TEntityFormValues extends
             delete: action
         });
 
-        this.resource = agent.createUserResource<TEntity, TEntityFormValues>(entityType);
+        this.resource = agent.createResource<TEntity, TEntityFormValues>(entityType);
     }
 
     get items(): TEntity[] {
@@ -36,7 +36,7 @@ export default class BaseStore<TEntity extends Entity, TEntityFormValues extends
     }
 
     setItems(items: TEntity[]): void {
-        this._items.splice(0, this._items.length)
+        this._items = []
         this._items.push(...items)
     }
 
@@ -54,7 +54,6 @@ export default class BaseStore<TEntity extends Entity, TEntityFormValues extends
     deleteItem(id: string): void {
         const itemIndex = this._items.findIndex(item => item.id === id);
         this._items.splice(itemIndex)
-        // this._items = this._items.filter((item) => item.id !== id);
     }
 
     get selectedItem(): TEntity | undefined {
