@@ -1,7 +1,7 @@
 import { InputAdornment, TextField } from "@mui/material";
 import { useField } from "formik";
 
-const MyTextForm = ({ label, icon, ...props }: any) => {
+const MyTextInput = ({ label, icon, ...props }: any) => {
   const [field, meta] = useField(props);
   return (
     <TextField
@@ -21,4 +21,4 @@ const MyTextForm = ({ label, icon, ...props }: any) => {
   );
 };
 
-export default MyTextForm;
+export default MyTextInput;

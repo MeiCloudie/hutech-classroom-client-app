@@ -7,7 +7,7 @@ import { Box, Button, Stack } from "@mui/material";
 import React from "react";
 
 import { useStore } from "../../../app/stores/store";
-import MyPasswordForm from "../../common/forms/MyPasswordForm";
+import MyPasswordInput from "../../common/forms/MyPasswordInput";
 import SnackbarAlert from "../../common/UI/SnackbarAlert";
 
 const ChangePasswordForm = () => {
@@ -78,9 +78,9 @@ const ChangePasswordForm = () => {
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-          <MyPasswordForm label="Mật khẩu hiện tại" name="password" />
-          <MyPasswordForm label="Mật khẩu mới" name="newPassword" />
-          <MyPasswordForm label="Mật khẩu xác nhận" name="confirmPassword" />
+          <MyPasswordInput label="Mật khẩu hiện tại" name="password" />
+          <MyPasswordInput label="Mật khẩu mới" name="newPassword" />
+          <MyPasswordInput label="Mật khẩu xác nhận" name="confirmPassword" />
 
           <Stack sx={{ width: "100%" }} spacing={2}>
             <div

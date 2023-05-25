@@ -13,7 +13,7 @@ interface MySelectionFormProps extends SelectProps {
   options: { label: string; value: any }[];
 }
 
-const MySelectionForm = (props: MySelectionFormProps) => {
+const MySelectionInput = (props: MySelectionFormProps) => {
   const [field, meta] = useField(props.name!);
   const { icon, options, ...selectProps } = props;
   const showError = meta.touched && !!meta.error;
@@ -41,4 +41,4 @@ const MySelectionForm = (props: MySelectionFormProps) => {
   );
 };
 
-export default MySelectionForm;
+export default MySelectionInput;

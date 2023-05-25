@@ -1,10 +1,10 @@
 import { Formik } from "formik";
-import MyPasswordForm from "../../common/forms/MyPasswordForm";
+import MyPasswordInput from "../../common/forms/MyPasswordInput";
 import { Box, Button, InputAdornment, Stack } from "@mui/material";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import * as Yup from "yup";
 import { useStore } from "../../../app/stores/store";
-import MyTextForm from "../../common/forms/MyTextForm";
+import MyTextInput from "../../common/forms/MyTextInput";
 
 const LoginForm = () => {
   const { userStore } = useStore();
@@ -30,7 +30,7 @@ const LoginForm = () => {
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-          <MyTextForm
+          <MyTextInput
             helperText={errors.userName}
             name="userName"
             label="Email/Username"
@@ -45,7 +45,7 @@ const LoginForm = () => {
             }}
           />
 
-          <MyPasswordForm label="Mật khẩu hiện tại" name="password" />
+          <MyPasswordInput label="Mật khẩu hiện tại" name="password" />
 
           <Stack sx={{ width: "100%" }} spacing={2}>
             <div

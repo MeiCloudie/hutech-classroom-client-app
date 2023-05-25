@@ -96,7 +96,7 @@ const LinkPage = () => {
   return (
     <React.Fragment>
       <h1>LIÊN KẾT HỖ TRỢ SINH VIÊN</h1>
-      <TableContainer component={Paper} sx={{ backgroundColor: "#ffffff" }}>
+      <TableContainer component={Paper} sx={{ backgroundColor: "#ffffff", boxShadow: 6, }}>
         <Table sx={{ border: "4px solid #101331" }}>
           <TableHead sx={{ backgroundColor: "#ffc80f" }}>
             <TableRow>

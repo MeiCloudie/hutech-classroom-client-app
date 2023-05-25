@@ -11,7 +11,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import React from "react";
 import { useField } from "formik";
 
-const MyPasswordForm = ({ label, ...props }: any) => {
+const MyPasswordInput = ({ label, ...props }: any) => {
   const [field, meta] = useField(props);
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -58,4 +58,4 @@ const MyPasswordForm = ({ label, ...props }: any) => {
   );
 };
 
-export default MyPasswordForm;
+export default MyPasswordInput;
