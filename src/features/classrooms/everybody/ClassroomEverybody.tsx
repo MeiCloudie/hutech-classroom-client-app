@@ -7,7 +7,7 @@ import MemberList from "./MemberList";
 import MiniClassroomDetails from "../details/MiniClassroomDetails";
 
 const ClassroomEverybody = () => {
-  const { classroomStore, facultyStore, subjectStore, postStore } = useStore();
+  const { classroomStore, facultyStore, subjectStore, postStore, commentStore } = useStore();
   const [classrooms, setClassrooms] = React.useState<Classroom[]>([]);
   React.useEffect(() => {
     console.log("Render");
@@ -28,6 +28,7 @@ const ClassroomEverybody = () => {
       .then(() => {
 
         Promise.all([
+          commentStore.createHubConnection(postStore.selectedItem!.id),
           classroomStore.loadClassroomUsers(),
           postStore.loadComments()
         ])
@@ -41,7 +42,9 @@ const ClassroomEverybody = () => {
         })
       });
     })
-    
+    return () => {
+      commentStore.clearComments();
+    }
   }, []);
   const testCreate = () => {
     var lastClassroom = classroomStore.items[classroomStore.items.length - 1];
@@ -125,6 +128,8 @@ const ClassroomEverybody = () => {
       </Typography>
 
       <MemberList />
+      {commentStore.comments.length.toString()}
+      {commentStore.comments.map(c => <div>Comment ({c.id}) --- Content: {c.content}</div>)}
       {/* <Button onClick={testCreate}>Test Create</Button>
             <Button onClick={testUpdate}>Test Update</Button>
             <Button onClick={testDelete}>Test Delete</Button>

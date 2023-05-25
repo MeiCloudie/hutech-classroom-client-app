@@ -1,6 +1,5 @@
 import { action, computed, makeObservable, observable } from "mobx";
 import agent from "../../api/agent";
-import { handleRequestError } from "../../api/apiUtils";
 import Entity, { EntityFormValues } from "../../common/models/Entity";
 import { BaseResource } from "../../api/baseResource";
 import { PaginationParams } from "../models/paginationPrams";
@@ -70,7 +69,7 @@ export default class EntityStore<TEntity extends Entity, TEntityFormValues exten
             this.setItems(list);
             return list;
         } catch (error) {
-            handleRequestError(error);
+            console.error("Request error:", error);
         }
     };
 
@@ -80,7 +79,7 @@ export default class EntityStore<TEntity extends Entity, TEntityFormValues exten
             this.setSelectedItem(item);
             return item;
         } catch (error) {
-            handleRequestError(error);
+            console.error("Request error:", error);
         }
     };
 
@@ -90,7 +89,7 @@ export default class EntityStore<TEntity extends Entity, TEntityFormValues exten
             this.createItem(createdItem);
             return createdItem;
         } catch (error) {
-            handleRequestError(error);
+            console.error("Request error:", error);
             return null;
         }
     };
@@ -100,7 +99,7 @@ export default class EntityStore<TEntity extends Entity, TEntityFormValues exten
             await this.resource.update(id, formValues);
             this.updateItem(id, formValues)
         } catch (error) {
-            handleRequestError(error);
+            console.error("Request error:", error);
         }
     };
 
@@ -110,7 +109,7 @@ export default class EntityStore<TEntity extends Entity, TEntityFormValues exten
             this.deleteItem(id);
             return deletedItem;
         } catch (error) {
-            handleRequestError(error);
+            console.error("Request error:", error);
             return null;
         }
     };
