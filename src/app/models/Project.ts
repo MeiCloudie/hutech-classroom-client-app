@@ -22,10 +22,10 @@ export class Project implements Project {
 }
 
 export class ProjectFormValues {
-    id?: string;
+    id?: string = "";
     name: string = "";
     description: string = "";
-    groupId?: string;
+    groupId?: string = "";
 
     constructor(project?: Project) {
         if (project) {

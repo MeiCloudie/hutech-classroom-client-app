@@ -32,7 +32,7 @@ export class Exercise implements Exercise {
 }
 
 export class ExerciseFormValues {
-    id?: string;
+    id?: string = "";
     title: string = "";
     instruction: string = "";
     link: string = "";
@@ -40,7 +40,7 @@ export class ExerciseFormValues {
     deadline: Date = new Date();
     topic: string = "";
     criteria: string = "";
-    classroomId?: string;
+    classroomId?: string = "";
 
     constructor(exercise?: Exercise) {
         if (exercise) {

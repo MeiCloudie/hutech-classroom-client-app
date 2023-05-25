@@ -51,7 +51,7 @@ export class Classroom implements Classroom {
 }
 
 export class ClassroomFormValues implements EntityFormValues {
-  id?: string = undefined;
+  id?: string = "";
   title: string = "";
   room: string = "";
   type: ClassroomTypes = ClassroomTypes.TheoryRoom;
@@ -63,9 +63,9 @@ export class ClassroomFormValues implements EntityFormValues {
   studyGroup: string = "";
   practicalStudyGroup: string = "";
 
-  subjectId?: string = undefined;
-  facultyId?: string = undefined;
-  lecturerName?: string = undefined;
+  subjectId?: string = "";
+  facultyId?: string = "";
+  lecturerName?: string = "";
 
   constructor(classroom?: Classroom) {
     if (classroom) {

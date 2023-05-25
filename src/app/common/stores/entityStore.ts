@@ -63,17 +63,18 @@ export default class EntityStore<TEntity extends Entity, TEntityFormValues exten
         this._selectedItem = item;
     }
 
-    load = async (params?: PaginationParams) => {
+    load = async (params?: PaginationParams) : Promise<TEntity[]> => {
         try {
             const list = await this.resource.list(params);
             this.setItems(list);
             return list;
         } catch (error) {
             console.error("Request error:", error);
+            return []
         }
     };
 
-    get = async (id: string) => {
+    get = async (id: string) : Promise<TEntity | undefined> => {
         try {
             const item = await this.resource.details(id);
             this.setSelectedItem(item);
@@ -83,18 +84,17 @@ export default class EntityStore<TEntity extends Entity, TEntityFormValues exten
         }
     };
 
-    create = async (formValues: TEntityFormValues) => {
+    create = async (formValues: TEntityFormValues) : Promise<TEntity | undefined> => {
         try {
             const createdItem = await this.resource.create(formValues);
             this.createItem(createdItem);
             return createdItem;
         } catch (error) {
             console.error("Request error:", error);
-            return null;
         }
     };
 
-    update = async (id: string, formValues: TEntityFormValues) => {
+    update = async (id: string, formValues: TEntityFormValues) : Promise<void> => {
         try {
             await this.resource.update(id, formValues);
             this.updateItem(id, formValues)
@@ -103,14 +103,13 @@ export default class EntityStore<TEntity extends Entity, TEntityFormValues exten
         }
     };
 
-    delete = async (id: string) => {
+    delete = async (id: string) : Promise<TEntity | undefined>=> {
         try {
             const deletedItem = await this.resource.delete(id);
             this.deleteItem(id);
             return deletedItem;
         } catch (error) {
             console.error("Request error:", error);
-            return null;
         }
     };
 }

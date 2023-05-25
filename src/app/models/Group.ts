@@ -28,8 +28,8 @@ export class GroupFormValues {
     id?: string;
     name: string = "";
     description: string = "";
-    leaderUserName?: string;
-    classroomId?: string;
+    leaderUserName?: string = "";
+    classroomId?: string = "";
 
     constructor(group?: Group) {
         if (group) {

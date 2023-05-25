@@ -31,11 +31,11 @@ export class Post implements Post {
 }
 
 export class PostFormValues {
-    id?: string;
+    id?: string = "";
     content: string = "";
     link: string = "";
-    userName?: string;
-    classroomId?: string;
+    userName?: string = "";
+    classroomId?: string = "";
 
     constructor(post?: Post) {
         if (post) {
