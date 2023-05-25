@@ -3,84 +3,98 @@ import Profile from "../../../app/common/models/Profile";
 
 const members: Profile[] = [
   {
+    id: "m1",
     userName: "2080600803",
     email: "truongthucvan@gmail.com",
     firstName: "Truong Thuc",
     lastName: "Van",
   },
   {
+    id: "m2",
     userName: "2080600914",
     email: "nguyehongthai@gmail.com",
     firstName: "Nguyen Hong",
     lastName: "Thai",
   },
   {
+    id: "m3",
     userName: "2080600803",
     email: "truongthucvan@gmail.com",
     firstName: "Truong Thuc",
     lastName: "Van",
   },
   {
+    id: "m4",
     userName: "2080600914",
     email: "nguyehongthai@gmail.com",
     firstName: "Nguyen Hong",
     lastName: "Thai",
   },
   {
+    id: "m5",
     userName: "2080600803",
     email: "truongthucvan@gmail.com",
     firstName: "Truong Thuc",
     lastName: "Van",
   },
   {
+    id: "m6",
     userName: "2080600914",
     email: "nguyehongthai@gmail.com",
     firstName: "Nguyen Hong",
     lastName: "Thai",
   },
   {
+    id: "m7",
     userName: "2080600803",
     email: "truongthucvan@gmail.com",
     firstName: "Truong Thuc",
     lastName: "Van",
   },
   {
+    id: "m8",
     userName: "2080600914",
     email: "nguyehongthai@gmail.com",
     firstName: "Nguyen Hong",
     lastName: "Thai",
   },
   {
+    id: "m9",
     userName: "2080600803",
     email: "truongthucvan@gmail.com",
     firstName: "Truong Thuc",
     lastName: "Van",
   },
   {
+    id: "m10",
     userName: "2080600914",
     email: "nguyehongthai@gmail.com",
     firstName: "Nguyen Hong",
     lastName: "Thai",
   },
   {
+    id: "m11",
     userName: "2080600803",
     email: "truongthucvan@gmail.com",
     firstName: "Truong Thuc",
     lastName: "Van",
   },
   {
+    id: "m12",
     userName: "2080600914",
     email: "nguyehongthai@gmail.com",
     firstName: "Nguyen Hong",
     lastName: "Thai",
   },
   {
+    id: "m13",
     userName: "2080600803",
     email: "truongthucvan@gmail.com",
     firstName: "Truong Thuc",
     lastName: "Van",
   },
   {
+    id: "m14",
     userName: "2080600914",
     email: "nguyehongthai@gmail.com",
     firstName: "Nguyen Hong",
@@ -98,7 +112,7 @@ const columns: GridColDef[] = [
 
 const rows = members.map((m, i) => {
   return {
-    id: i,
+    id: m.id,
     role: "Sinh Viên",
     username: m.userName,
     fullName: `${m.firstName} ${m.lastName}`,
