@@ -116,10 +116,10 @@ const ClassroomEverybody = () => {
       </Typography>
       <MemberList />
       {commentStore.comments.length.toString()}
+      {commentStore.comments.map(c => <div>Comment ({c.id}) --- Content: {c.content}</div>)}
       {/* <Button onClick={testCreate}>Test Create</Button>
             <Button onClick={testUpdate}>Test Update</Button>
             <Button onClick={testDelete}>Test Delete</Button>
-            {commentStore.comments.map(c => <div>Comment ({c.id}) --- Content: {c.content}</div>)}
             {classrooms.map(c => <div key={c.id}>{c.id} --- Description {c.description}</div>)} */}
     </Box>
   );

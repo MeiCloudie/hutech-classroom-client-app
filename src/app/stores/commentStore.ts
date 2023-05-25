@@ -24,17 +24,14 @@ export default class CommentStore {
 
             this.hubConnection.start().catch(error => console.log('Error establishing the connection: ', error))
 
-            this.hubConnection.on('LoadComments', (comments: Comment[]) => {
+            this.hubConnection.on('LoadComments', (comments: Comment[], pagination: { pageIndex: number, pageSize: number, count: number, totalCount: number, totalPages: number, hasPreviousPage: boolean, hasNextPage: boolean }) => {
                 runInAction(() => {
                     if (comments != null) {
-                        console.log(comments)
-
                         comments.forEach(comment => {
                             comment.createDate = new Date(comment.createDate + 'Z')
                         })
+                        this.comments = comments
                     }
-                    console.log(comments)
-                    this.comments = comments
                 })
             })
 
