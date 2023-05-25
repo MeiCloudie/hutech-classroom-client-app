@@ -24,11 +24,11 @@ export class Mission implements Mission {
 }
 
 export class MissionFormValues {
-    id?: string;
+    id?: string = "";
     title: string = "";
     description: string = "";
     isDone: boolean = false;
-    projectId?: string;
+    projectId?: string = "";
 
     constructor(mission?: Mission) {
         if (mission) {

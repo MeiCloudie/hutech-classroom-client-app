@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { useField } from "formik";
 
-interface MySelectionFormProps extends SelectProps {
+export interface MySelectionFormProps extends SelectProps {
   icon: React.ReactNode;
   options: { label: string; value: any }[];
 }

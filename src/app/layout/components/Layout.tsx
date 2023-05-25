@@ -8,7 +8,15 @@ import Footer from './Footer';
 import HomePage from '../../../features/home/HomePage';
 import { Outlet, useLocation } from 'react-router-dom';
 // import agent from '../../api/agent';
-import { useStore } from '../../stores/store';
+import { store, useStore } from '../../stores/store';
+import EntityForm from '../../../features/common/forms/EntityForm';
+import { Faculty, FacultyFormValues } from '../../models/Faculty';
+import { Classroom, ClassroomFormValues } from '../../models/Classroom';
+import { Exercise, ExerciseFormValues } from '../../models/Exercise';
+import { Mission, MissionFormValues } from '../../models/Mission';
+import MySelectionInput from '../../../features/common/forms/MySelectionInput';
+import { semesterOptions } from '../../common/options/semesterOptions';
+import { classroomTypesOptions } from '../../common/options/classroomTypesOptions';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -50,9 +58,20 @@ const Layout = () => {
 
       <Box component="main" sx={{ flexGrow: 1, p: 3, marginBottom: 10 }}>
         <DrawerHeader />
+        <EntityForm<Classroom, ClassroomFormValues>
+          entityStore={store.classroomStore}
+          toFormValues={(entity) => new ClassroomFormValues(entity)}
+          entityId='4369943e-050e-4ef5-af26-64d94f38660f'
+          modifyFields={[
+            { fieldKey: 'semester', options: semesterOptions },
+            { fieldKey: 'type', options: classroomTypesOptions },
+          ]}
+          onCreate={() => { }}
+          onUpdate={() => { }}
+          onSetAdditionalValues={(classroomFormValues) => { }}
+        />
         {location.pathname === '/' ? <HomePage /> : <Outlet />}
       </Box>
-
       <Footer />
     </Box>
   );
