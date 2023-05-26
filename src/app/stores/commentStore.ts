@@ -13,7 +13,7 @@ export default class CommentStore {
     createHubConnection = (postId: string) => {
         if (store.postStore.selectedItem) {
             this.hubConnection = new HubConnectionBuilder()
-                .withUrl(`https://hutechclassroom.azurewebsites.net/hubs/comments?postId=${postId}`, {
+                .withUrl(`${process.env.REACT_APP_HUTECH_CLASSROOM_HUBS}comments?postId=${postId}`, {
                     skipNegotiation: true,
                     transport: HttpTransportType.WebSockets,
                     accessTokenFactory: () => store.userStore.user?.token!

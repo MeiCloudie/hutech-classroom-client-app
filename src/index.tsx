@@ -5,7 +5,9 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider } from 'react-router-dom';
 import { router } from './app/router/Routes';
-
+console.log(process.env.REACT_APP_HUTECH_CLASSROOM_BASE_URL)
+console.log(process.env.REACT_APP_HUTECH_CLASSROOM_HUBS)
+console.log(process.env.REACT_APP_TINYMCE_API_KEY)
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

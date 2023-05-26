@@ -6,7 +6,7 @@ import Entity, { EntityFormValues } from "../common/models/Entity";
 import { BaseHasManyRelationshipResource, BaseResource, BaseUserResource } from "./baseResource";
 
 
-axios.defaults.baseURL = "https://hutechclassroom.azurewebsites.net/api/";
+axios.defaults.baseURL = process.env.REACT_APP_HUTECH_CLASSROOM_BASE_URL;
 
 axios.interceptors.request.use(config => {
     const token = store.commonStore.token

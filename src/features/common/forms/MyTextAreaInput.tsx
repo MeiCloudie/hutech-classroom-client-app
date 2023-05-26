@@ -12,7 +12,7 @@ const MyTextAreaInput = ({ label, icon, ...props }: any) => {
   return (
     <div>
       <Editor
-        apiKey="xekc15gke11qin6cwkvv4jha5qamongkxqxqkige4s3m32yr"
+        apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
         init={{
           plugins: [
             "autoresize",
