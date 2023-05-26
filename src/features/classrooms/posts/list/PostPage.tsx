@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import CreatePostDialog from "./CreatePostDialog";
+import PostList from "./PostList";
 
 const PostPage = () => {
   return (
@@ -29,6 +30,8 @@ const PostPage = () => {
       </Typography>
 
       <CreatePostDialog />
+
+      <PostList />
     </Box>
   );
 };
