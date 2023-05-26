@@ -29,7 +29,7 @@ export class SubjectFormValues {
   title: string = "";
   totalCredits: number = 0;
   
-  majorId?: string = undefined;
+  majorId?: string = "";
 
   constructor(subject?: Subject) {
     if (subject) {

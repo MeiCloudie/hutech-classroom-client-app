@@ -6,12 +6,16 @@ import FacultyStore from "./facultyStore";
 import SubjectStore from "./subjectStore";
 import PostStore from "./postStore";
 import CommentStore from "./commentStore";
+import ExerciseStore from "./exerciseStore";
+import MissionStore from "./missionStore";
 
 interface Store {
     classroomStore: ClassroomStore,
     commentStore: CommentStore,
     commonStore: CommonStore,
+    exerciseStore: ExerciseStore,
     facultyStore: FacultyStore,
+    missionStore: MissionStore,
     postStore: PostStore
     subjectStore: SubjectStore,
     userStore: UserStore
@@ -21,7 +25,9 @@ export const store: Store = {
     classroomStore: new ClassroomStore(),
     commentStore: new CommentStore(),
     commonStore: new CommonStore(),
+    exerciseStore: new ExerciseStore(),
     facultyStore: new FacultyStore(),
+    missionStore: new MissionStore(),
     postStore: new PostStore(),
     subjectStore: new SubjectStore(),
     userStore: new UserStore()

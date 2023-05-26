@@ -18,6 +18,8 @@
     "@types/react-dom": "^18.0.11",
     "axios": "^1.4.0",
     "formik": "^2.2.9",
+    "humanize-string": "^3.0.0",
+    "levn": "^0.4.1",
     "mobx": "^6.9.0",
     "mobx-react-lite": "^3.4.3",
     "react": "^18.2.0",

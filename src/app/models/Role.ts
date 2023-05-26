@@ -15,7 +15,7 @@ export class Role implements Role {
 }
 
 export class RoleFormValues {
-    id?: string;
+    id?: string = "";
     name: string = "";
 
     constructor(role?: Role) {

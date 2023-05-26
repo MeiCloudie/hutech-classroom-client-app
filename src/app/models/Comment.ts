@@ -24,10 +24,10 @@ export class Comment implements Comment {
 }
 
 export class CommentFormValues {
-    id?: string;
+    id?: string = "";
     content: string = "";
-    userName?: string;
-    postId?: string;
+    userName?: string = "";
+    postId?: string = "";
 
     constructor(comment?: Comment) {
         if (comment) {
