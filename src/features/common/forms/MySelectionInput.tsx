@@ -8,12 +8,17 @@ import {
 } from "@mui/material";
 import { useField } from "formik";
 
-export interface MySelectionFormProps extends SelectProps {
+export interface MySelectionInputProps extends SelectProps {
   icon: React.ReactNode;
-  options: { label: string; value: any }[];
+  options: MySelectionInputOption[];
 }
 
-const MySelectionInput = (props: MySelectionFormProps) => {
+export interface MySelectionInputOption {
+  label: string,
+  value: any
+}
+
+const MySelectionInput = (props: MySelectionInputProps) => {
   const [field, meta] = useField(props.name!);
   const { icon, options, ...selectProps } = props;
   const showError = meta.touched && !!meta.error;
