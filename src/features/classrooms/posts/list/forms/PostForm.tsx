@@ -8,6 +8,7 @@ import { Box, Button, Stack } from "@mui/material";
 import MyTextInput from "../../../../common/forms/MyTextInput";
 
 import LinkIcon from '@mui/icons-material/Link';
+import MyTextAreaInput from "../../../../common/forms/MyTextAreaInput";
 
 const PostForm = () => {
   const { postStore } = useStore();
@@ -66,7 +67,7 @@ const PostForm = () => {
           noValidate
           onSubmit={handleSubmit}
         >
-          <MyTextInput
+          <MyTextAreaInput
             name="content"
             label="Nội Dung"
             placeholder="Hãy nhập nội dung tại đây!"

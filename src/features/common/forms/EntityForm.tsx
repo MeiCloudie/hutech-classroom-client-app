@@ -9,6 +9,7 @@ import humanizeString from "humanize-string";
 import MyCheckboxInput from "./MyCheckboxInput";
 import MyPasswordInput from "./MyPasswordInput";
 import MySelectionInput from "./MySelectionInput";
+import MyTextAreaInput from "./MyTextAreaInput";
 
 interface EntityFormProps<
   TEntity extends Entity,
@@ -32,6 +33,7 @@ interface EntityFormProps<
 export interface FieldProps {
   placeholder: string;
   label: string;
+  textarea?: boolean
 }
 const EntityForm = <
   TEntity extends Entity,
@@ -94,6 +96,7 @@ const EntityForm = <
     const fieldConfig = fieldConfigs.find((field) => field.fieldKey === key);
     const label = fieldConfig?.props.label ?? humanizeString(key);
     const placeholder = fieldConfig?.props.placeholder ?? key;
+    const isTextarea = fieldConfig?.props.textarea ?? false;
     if (excludeFields.includes(key)) return null;
     const enumField = selectionFields.find((field) => field.fieldKey === key);
     if (enumField)
@@ -124,9 +127,18 @@ const EntityForm = <
           placeholder={placeholder}
         />
       );
-    if (typeof value === "string")
+    if (typeof value === "string" && !isTextarea)
       return (
         <MyTextInput
+          name={key}
+          label={label}
+          key={index}
+          placeholder={placeholder}
+        />
+      );
+      if (typeof value === "string" && isTextarea)
+      return (
+        <MyTextAreaInput
           name={key}
           label={label}
           key={index}
