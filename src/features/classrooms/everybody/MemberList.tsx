@@ -1,5 +1,9 @@
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
 import Profile from "../../../app/common/models/Profile";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { store } from "../../../app/stores/store";
+import { PaginationParams } from "../../../app/common/models/paginationPrams";
 
 const members: Profile[] = [
   {
@@ -121,6 +125,24 @@ const rows = members.map((m, i) => {
 });
 
 const MemberList = () => {
+  // const { classroomId } = useParams<{ classroomId: string }>()
+  // const [members, setMembers ] = useState<Profile[]>([])
+  // const [rows, setRows] = useState<GridRowsProp>([])
+  // useEffect(() => {
+  //   store.classroomStore.loadClassroomUsers(new PaginationParams(1, 100, ""))
+  //   .then((list) => {
+  //     setMembers(list ?? [])
+  //     setRows(members.map((m, i) => {
+  //       return {  
+  //         id: i,
+  //         role: "Sinh Viên",
+  //         username: m.userName,
+  //         fullName: `${m.firstName} ${m.lastName}`,
+  //         email: m.email,
+  //       };
+  //     }))
+  //   })
+  // })
   return (
     <div style={{ height: "100%", width: "100%" }}>
       <DataGrid

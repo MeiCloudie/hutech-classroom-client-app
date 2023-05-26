@@ -44,15 +44,31 @@ export const routes: RouteObject[] = [
           { path: "classrooms", element: <ClassroomPage /> },
           {
             path: "cr/:classroomId",
-            element: <ClassroomLayout />,
+            // element: <ClassroomLayout />,
             children: [
-              { path: "", element: <ClassroomDetails /> },
-              { path: "everybody", element: <ClassroomEverybody /> },
+              {
+                path: "",
+                element: <ClassroomLayout />,
+                children: [{ element: <ClassroomDetails /> }],
+              },
+              {
+                path: "everybody",
+                element: <ClassroomLayout />,
+                children: [{ element: <ClassroomEverybody /> }],
+              },
 
-              { path: "posts", element: <PostPage /> },
+              {
+                path: "posts",
+                element: <ClassroomLayout />,
+                children: [{ element: <PostPage /> }],
+              },
               { path: "po/:postId", element: <PostDetails /> },
 
-              { path: "exercises", element: <ExercisePage /> },
+              {
+                path: "exercises",
+                element: <ClassroomLayout />,
+                children: [{ element: <ExercisePage /> }],
+              },
               {
                 path: "ex/:exerciseId",
                 children: [
@@ -61,13 +77,20 @@ export const routes: RouteObject[] = [
                     path: "answers",
                     children: [
                       { path: "all", element: <AnswerPage /> },
-                      { path: "student/:studentId", element: <AnswerDetails /> },
+                      {
+                        path: "student/:studentId",
+                        element: <AnswerDetails />,
+                      },
                     ],
                   },
                 ],
               },
 
-              { path: "groups", element: <GroupPage /> },
+              {
+                path: "groups",
+                element: <ClassroomLayout />,
+                children: [{ element: <GroupPage /> }],
+              },
               {
                 path: "gr/:groupId",
                 children: [

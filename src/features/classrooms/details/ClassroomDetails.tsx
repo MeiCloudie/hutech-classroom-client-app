@@ -6,6 +6,9 @@ import Profile from "../../../app/common/models/Profile";
 import { Classroom } from "../../../app/models/Classroom";
 import { ClassroomTypes } from "../../../app/layout/enums/ClassroomTypes";
 import { ClassroomSemester } from "../../../app/layout/enums/ClassroomSemesters";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useStore } from "../../../app/stores/store";
 
 const major: Major = {
   id: "m1",
@@ -61,6 +64,15 @@ const classroom: Classroom = {
 };
 
 const ClassroomDetails = () => {
+  const { classroomStore } = useStore()
+  const [ classroom, setClassroom ] = useState<Classroom>(new Classroom())
+  const { classroomId } = useParams<{classroomId: string}>()
+  useEffect(() => {
+    if (classroomId) {
+      classroomStore.get(classroomId).then((classroom) => { setClassroom(classroom ?? new Classroom())})
+    }
+
+  })
   return (
     <Box
       sx={{

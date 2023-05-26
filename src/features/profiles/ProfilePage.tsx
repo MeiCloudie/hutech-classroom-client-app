@@ -1,5 +1,6 @@
 import { User } from "../../app/models/User";
 import { Alert, AlertTitle, Box, CardMedia, Typography } from "@mui/material";
+import { store } from "../../app/stores/store";
 
 const user: User = {
   id: "1",
@@ -65,15 +66,15 @@ const ProfilePage = () => {
         <Typography
           variant="h6"
           gutterBottom
-        >{`Họ tên: ${user.firstName} ${user.lastName}`}</Typography>
+        >{`Họ tên: ${store.userStore.user?.firstName} ${store.userStore.user?.lastName}`}</Typography>
         <Typography variant="subtitle1" gutterBottom>
-          Mã số sinh viên: <strong>{user.userName}</strong>
+          Mã số sinh viên: <strong>{store.userStore.user?.userName}</strong>
         </Typography>
         <Typography variant="subtitle1" gutterBottom>
-          Email: <strong>{user.email}</strong>
+          Email: <strong>{store.userStore.user?.email}</strong>
         </Typography>
         <Typography variant="subtitle1" gutterBottom>
-          Khoa/Viện: <strong>Khoa {user.faculty?.name}</strong>
+          Khoa/Viện: <strong>Khoa {store.userStore.user?.faculty?.name}</strong>
         </Typography>
 
         <Alert severity="info" sx={{ mt: 2 }}>

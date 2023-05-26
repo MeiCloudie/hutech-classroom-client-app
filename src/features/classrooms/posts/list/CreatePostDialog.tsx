@@ -13,6 +13,12 @@ import AddIcon from "@mui/icons-material/Add";
 import { Box, DialogContent } from "@mui/material";
 import PostForm from "./forms/PostForm";
 import MiniDetailsLayout from "../../layout/MiniDetailsLayout";
+import { Post, PostFormValues } from "../../../../app/models/Post";
+import { store } from "../../../../app/stores/store";
+import EntityForm from "../../../common/forms/EntityForm";
+import { router } from "../../../../app/router/Routes";
+import { useParams } from "react-router-dom";
+import * as Yup from "yup";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -24,6 +30,7 @@ const Transition = React.forwardRef(function Transition(
 });
 
 const CreatePostDialog = () => {
+  const { classroomId } = useParams<{classroomId: string}>()
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -96,7 +103,25 @@ const CreatePostDialog = () => {
                   justifyContent: "center",
                 }}
               >
-                <PostForm />
+                <EntityForm<Post, PostFormValues>
+                  entityStore={store.postStore}
+                  toFormValues={(entity) => new PostFormValues(entity)}
+                  selectionFields={[]}
+                  validateObject={{
+                    content: Yup.string().required("Hãy nhập nội dung"),
+                  }}
+                  fieldConfigs={[
+                    { fieldKey: 'content', props: { label: "Nội Dung", placeholder: "Hãy nhập nội dung bài đăng tại đây"}},
+                    { fieldKey: 'link', props: { label: "Liên Kết", placeholder: "Hãy thêm đường dẫn liên kết tại đây!"}},
+                  ]}
+                  excludeFields={['classroomId', 'userName']}
+                  onCreate={handleClose}
+                  onUpdate={handleClose}
+                  onSetAdditionalValues={(postFormValues) => { 
+                    postFormValues.userName = store.userStore.user?.userName
+                    postFormValues.classroomId = classroomId
+                  }}
+                />
               </Box>
             }
           />

@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PostCard from "./PostCard";
 import { Post } from "../../../../app/models/Post";
 import Profile from "../../../../app/common/models/Profile";
+import { Box } from "@mui/material";
+import { useParams } from "react-router-dom";
+import { useStore } from "../../../../app/stores/store";
+import { PaginationParams } from "../../../../app/common/models/paginationPrams";
 
 const member: Profile = {
     id: "m1",
@@ -27,17 +31,27 @@ const posts: Post[] = [
     link: "https://sinhvien.hutech.edu.vn/",
     createDate: new Date(),
 
+    user: member,
     comments: [],
   },
 ];
 
 const PostList = () => {
+  const [ posts, setPosts ] = useState<Post[]>([]);
+  const { postStore } = useStore()
+  const { classroomId } = useParams<{classroomId: string}>()
+
+  useEffect(() => {
+    postStore.load(new PaginationParams(1, 1000, "")).then((items) => {
+      setPosts(items ?? [])
+    })
+  })
   return (
-    <React.Fragment>
+    <Box>
       {posts.map((p, index) => (
         <PostCard key={index} post={p} />
       ))}
-    </React.Fragment>
+    </Box>
   );
 };
 

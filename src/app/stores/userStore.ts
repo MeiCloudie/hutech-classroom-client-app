@@ -1,9 +1,9 @@
 import { makeAutoObservable, runInAction } from "mobx"
-import { ChangePasswordFormValues, LoginFormValues, RegisterFormValues, User } from "../../models/User"
-import agent from "../../api/agent"
-import { store } from "../store"
-import { router } from "../../router/Routes"
-import { handleRequestError } from "../../api/apiUtils"
+import { ChangePasswordFormValues, LoginFormValues, RegisterFormValues, User } from "../models/User"
+import agent from "../api/agent"
+import { router } from "../router/Routes"
+import { handleRequestError } from "../api/apiUtils"
+import { store } from "./store"
 
 export default class UserStore {
     user: User | null = null

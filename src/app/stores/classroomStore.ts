@@ -37,6 +37,7 @@ export default class ClassroomStore extends UserRelatedStore<Classroom, Classroo
             if (!id) return;
             const items = await this.classroomUserResource.listEntities(id, params);
             this.setClassroomUsers(items);
+            return items;
         } catch (error) {
             handleRequestError(error);
         }

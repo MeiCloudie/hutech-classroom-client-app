@@ -147,20 +147,20 @@ const ClassroomCard = (props: ClassroomCardProps) => {
             titleTooltip={`Mở bài tập của bạn tại lớp "${props.classroom.description}"`}
             ariaLabel="exercise"
             icon={<AssignmentIcon />}
-            link="/cr/:id/exercises"
+            link={`/cr/${props.classroom.id}/exercises`}
           />
           <IconButtonTooltip
             titleTooltip={`Xem thành viên tại lớp "${props.classroom.description}"`}
             ariaLabel="everybody"
             icon={<GroupsIcon />}
-            link="/cr/:id/everybody"
+            link={`/cr/${props.classroom.id}/everybody`}
           />
         </div>
         <IconButtonTooltip
             titleTooltip={`Đến lớp "${props.classroom.description}"`}
             ariaLabel="go-details"
             icon={<ArrowCircleRightIcon />}
-            link="/cr/:id"
+            link={`/cr/${props.classroom.id}`}
           />
       </CardActions>
     </Card>

@@ -14,7 +14,7 @@ import ClassroomEverybody from "../everybody/ClassroomEverybody";
 import PostPage from "../posts/list/PostPage";
 import ExercisePage from "../exercises/list/ExercisePage";
 import GroupPage from "../groups/list/GroupPage";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import MiniDetailsLayout from "./MiniDetailsLayout";
 
 interface TabPanelProps {
@@ -71,16 +71,17 @@ const pages = [
 
 const ClassroomLayout = () => {
   const location = useLocation();
+  const { classroomId } = useParams<{ classroomId: string }>()
   const [value, setValue] = React.useState(0);
 
   React.useEffect(() => {
-    if (location.pathname.includes("/cr/:id/everybody")) {
+    if (location.pathname.includes(`/cr/${classroomId}/everybody`)) {
       setValue(1);
-    } else if (location.pathname.includes("/cr/:id/posts")) {
+    } else if (location.pathname.includes(`/cr/${classroomId}/posts`)) {
       setValue(2);
-    } else if (location.pathname.includes("/cr/:id/exercises")) {
+    } else if (location.pathname.includes(`/cr/${classroomId}/exercises`)) {
       setValue(3);
-    } else if (location.pathname.includes("/cr/:id/groups")) {
+    } else if (location.pathname.includes(`/cr/${classroomId}/groups`)) {
       setValue(4);
     } else {
       setValue(0);
@@ -107,7 +108,7 @@ const ClassroomLayout = () => {
             iconPosition="start"
             label="THÔNG TIN LỚP"
             component={Link}
-            to="/cr/:id"
+            to={`/cr/${classroomId}`}
             {...a11yProps(0)}
           />
           <Tab
@@ -115,7 +116,7 @@ const ClassroomLayout = () => {
             iconPosition="start"
             label="THÀNH VIÊN"
             component={Link}
-            to="/cr/:id/everybody"
+            to={`/cr/${classroomId}/everybody`}
             {...a11yProps(1)}
           />
           <Tab
@@ -123,7 +124,7 @@ const ClassroomLayout = () => {
             iconPosition="start"
             label="THÔNG BÁO"
             component={Link}
-            to="/cr/:id/posts"
+            to={`/cr/${classroomId}/posts`}
             {...a11yProps(2)}
           />
           <Tab
@@ -131,7 +132,7 @@ const ClassroomLayout = () => {
             iconPosition="start"
             label="BÀI TẬP"
             component={Link}
-            to="/cr/:id/exercises"
+            to={`/cr/${classroomId}/exercises`}
             {...a11yProps(3)}
           />
           <Tab
@@ -139,7 +140,7 @@ const ClassroomLayout = () => {
             iconPosition="start"
             label="NHÓM"
             component={Link}
-            to="/cr/:id/groups"
+            to={`/cr/${classroomId}/groups`}
             {...a11yProps(4)}
           />
         </Tabs>

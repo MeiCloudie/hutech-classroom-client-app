@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
 import CommonStore from "./commonStore";
-import UserStore from "./users/userStore";
+import UserStore from "./userStore";
 import ClassroomStore from "./classroomStore";
 import FacultyStore from "./facultyStore";
 import SubjectStore from "./subjectStore";

@@ -7,19 +7,30 @@ import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
+import { store } from "../../stores/store";
+import { router } from "../../router/Routes";
 
 const settings = [
   {
     text: "Hồ Sơ",
-    link: "/profiles"
+    link: "/profiles",
+    handleClick: () => {
+      router.navigate('/profiles')
+    }
   },
   {
     text: "Cài Đặt",
-    link: "/settings"
+    link: "/settings",
+    handleClick: () => {
+      router.navigate('/settings')
+    }
   },
   {
     text: "Đăng Xuất",
-    link: "/home"
+    link: "/home",
+    handleClick: () => {
+      store.userStore.logout()
+    }
   },
 ]
 
@@ -38,7 +49,7 @@ const MenuUserSettings = () => {
 
   return (
     <React.Fragment>
-      <p>Username&nbsp;&nbsp;</p>
+      <p>{store.userStore.user?.userName}&nbsp;&nbsp;</p>
       <Box sx={{ flexGrow: 0 }}>
         <Tooltip title="Cài dặt">
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -62,7 +73,10 @@ const MenuUserSettings = () => {
           onClose={handleCloseUserMenu}
         >
           {settings.map((setting, index) => (
-            <MenuItem key={index} onClick={handleCloseUserMenu} component={Link} to={setting.link}>
+            <MenuItem key={index} onClick={() => {
+              if (setting?.handleClick)  setting.handleClick() 
+              handleCloseUserMenu()
+            }} component={Link} to={setting.link}>
               <Typography textAlign="center">{setting.text}</Typography>
             </MenuItem>
           ))}

@@ -1,6 +1,5 @@
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
-import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
@@ -10,13 +9,12 @@ import Typography from "@mui/material/Typography";
 import { blue } from "@mui/material/colors";
 
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import PersonIcon from '@mui/icons-material/Person';
-import AssignmentIcon from "@mui/icons-material/Assignment";
-import GroupsIcon from "@mui/icons-material/Groups";
-import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
-import { Divider } from "@mui/material";
+import PersonIcon from "@mui/icons-material/Person";
+import { Button, Divider } from "@mui/material";
 import React from "react";
 import { Post } from "../../../../app/models/Post";
+import MenuMini from "../../../common/UI/MenuMini";
+import { Link } from "react-router-dom";
 
 interface PostCardProps {
   post: Post;
@@ -48,7 +46,6 @@ const PostCard = (props: PostCardProps) => {
   return (
     <Card
       sx={{
-        maxWidth: 420,
         width: "100%",
         height: "100%",
         textAlign: "start",
@@ -60,6 +57,7 @@ const PostCard = (props: PostCardProps) => {
           transform: "translateY(-4px)",
         },
         position: "relative",
+        m: "10px 0"
       }}
       variant="outlined"
     >
@@ -86,20 +84,8 @@ const PostCard = (props: PostCardProps) => {
             <MoreVertIcon />
           </IconButton>
         }
-        title={props.classroom.title}
-        subheader={
-          <div
-            style={{
-              maxWidth: "80%",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-            }}
-            title={props.classroom.description}
-          >
-            {props.classroom.description}
-          </div>
-        }
+        title={`${props.post.user?.firstName} ${props.post.user?.lastName}`}
+        subheader={props.post.createDate.toString()}
       />
       <MenuMini
         id="menu-more"
@@ -107,54 +93,17 @@ const PostCard = (props: PostCardProps) => {
         handleCloseMenu={handleCloseMoreMenu}
         options={moreOptions}
       />
-      <CardMedia
-        component="img"
-        height="194"
-        image={
-          props.classroom.type === ClassroomTypes.TheoryRoom
-            ? "banner1.png"
-            : props.classroom.type === ClassroomTypes.PracticeRoom
-            ? "banner2.png"
-            : "banner3.png"
-        }
-        alt="banner-classroom"
-      />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {`Giang vien: ${props.classroom.lecturer?.firstName} ${props.classroom.lecturer?.lastName}`}
+          {props.post.content}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {`Phong: ${props.classroom.room}`}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {`Lop: ${props.classroom.class}`}
+          {props.post.link}
         </Typography>
       </CardContent>
       <Divider />
-      <CardActions
-        disableSpacing
-        sx={{ display: "flex", justifyContent: "space-between" }}
-      >
-        <div>
-          <IconButtonTooltip
-            titleTooltip={`Mở bài tập của bạn tại lớp "${props.classroom.description}"`}
-            ariaLabel="exercise"
-            icon={<AssignmentIcon />}
-            link="/cr/:id/exercises"
-          />
-          <IconButtonTooltip
-            titleTooltip={`Xem thành viên tại lớp "${props.classroom.description}"`}
-            ariaLabel="everybody"
-            icon={<GroupsIcon />}
-            link="/cr/:id/everybody"
-          />
-        </div>
-        <IconButtonTooltip
-            titleTooltip={`Đến lớp "${props.classroom.description}"`}
-            ariaLabel="go-details"
-            icon={<ArrowCircleRightIcon />}
-            link="/cr/:id"
-          />
+      <CardActions disableSpacing>
+        <Button variant="text" component={Link} to="/cr/:classroomId/po/:postId">Xem Chi Tiết</Button>
       </CardActions>
     </Card>
   );

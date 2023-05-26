@@ -17,17 +17,19 @@ const PostPage = () => {
         },
       }}
     >
-      <Typography
-        variant="h5"
-        gutterBottom
-        sx={{
-          fontWeight: 600,
-          color: (theme) => theme.palette.primary.main,
-          textAlign: "start",
-        }}
-      >
-        THÔNG BÁO
-      </Typography>
+      <Box>
+        <Typography
+          variant="h5"
+          gutterBottom
+          sx={{
+            fontWeight: 600,
+            color: (theme) => theme.palette.primary.main,
+            textAlign: "start",
+          }}
+        >
+          THÔNG BÁO
+        </Typography>
+      </Box>
 
       <CreatePostDialog />
 
