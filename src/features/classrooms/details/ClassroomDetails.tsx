@@ -9,6 +9,7 @@ import { ClassroomSemester } from "../../../app/layout/enums/ClassroomSemesters"
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useStore } from "../../../app/stores/store";
+import { observer } from "mobx-react-lite";
 
 const major: Major = {
   id: "m1",
@@ -69,10 +70,16 @@ const ClassroomDetails = () => {
   const { classroomId } = useParams<{classroomId: string}>()
   useEffect(() => {
     if (classroomId) {
-      classroomStore.get(classroomId).then((classroom) => { setClassroom(classroom ?? new Classroom())})
+      classroomStore.get(classroomId).then((classroom) => { 
+        setClassroom(classroom ?? new Classroom())
+        console.log(classroom)
+      })
     }
 
-  })
+  }, [])
+
+  if (classroomStore.isDetailsLoading) return <div>Loading....</div>
+
   return (
     <Box
       sx={{
@@ -178,4 +185,4 @@ const ClassroomDetails = () => {
   );
 };
 
-export default ClassroomDetails;
+export default observer(ClassroomDetails);
