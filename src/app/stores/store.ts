@@ -10,31 +10,31 @@ import ExerciseStore from "./exerciseStore";
 import MissionStore from "./missionStore";
 
 interface Store {
-    classroomStore: ClassroomStore,
-    commentStore: CommentStore,
-    commonStore: CommonStore,
-    exerciseStore: ExerciseStore,
-    facultyStore: FacultyStore,
-    missionStore: MissionStore,
-    postStore: PostStore
-    subjectStore: SubjectStore,
-    userStore: UserStore
+  classroomStore: ClassroomStore;
+  commentStore: CommentStore;
+  commonStore: CommonStore;
+  exerciseStore: ExerciseStore;
+  facultyStore: FacultyStore;
+  missionStore: MissionStore;
+  postStore: PostStore;
+  subjectStore: SubjectStore;
+  userStore: UserStore;
 }
 
 export const store: Store = {
-    classroomStore: new ClassroomStore(),
-    commentStore: new CommentStore(),
-    commonStore: new CommonStore(),
-    exerciseStore: new ExerciseStore(),
-    facultyStore: new FacultyStore(),
-    missionStore: new MissionStore(),
-    postStore: new PostStore(),
-    subjectStore: new SubjectStore(),
-    userStore: new UserStore()
-}
+  classroomStore: new ClassroomStore(),
+  commentStore: new CommentStore(),
+  commonStore: new CommonStore(),
+  exerciseStore: new ExerciseStore(),
+  facultyStore: new FacultyStore(),
+  missionStore: new MissionStore(),
+  postStore: new PostStore(),
+  subjectStore: new SubjectStore(),
+  userStore: new UserStore(),
+};
 
-export const StoreContext = createContext(store)
+export const StoreContext = createContext(store);
 
 export function useStore() {
-    return useContext(StoreContext)
+  return useContext(StoreContext);
 }

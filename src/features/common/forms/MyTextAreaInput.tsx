@@ -1,6 +1,6 @@
-import { InputAdornment, TextField, Typography } from "@mui/material";
+import { InputAdornment, Typography } from "@mui/material";
 import { Editor } from "@tinymce/tinymce-react";
-import { ErrorMessage, useField } from "formik";
+import { useField } from "formik";
 
 const MyTextAreaInput = ({ label, icon, ...props }: any) => {
   const [field, meta, helpers] = useField(props);
@@ -64,7 +64,7 @@ const MyTextAreaInput = ({ label, icon, ...props }: any) => {
         error={meta.touched && meta.error !== undefined}
       />
       {meta.error && <Typography>{meta.error}</Typography>}
-      <div dangerouslySetInnerHTML={{__html: field.value}}></div>
+      <div dangerouslySetInnerHTML={{ __html: field.value }}></div>
     </div>
   );
 };

@@ -8,36 +8,41 @@ import { PaginationParams } from "../common/models/paginationPrams";
 import { handleRequestError } from "../api/apiUtils";
 
 export default class PostStore extends EntityStore<Post, PostFormValues> {
-    postCommentResource: BaseHasManyRelationshipResource<Comment>
-    constructor() {
-        super("Posts")
+  postCommentResource: BaseHasManyRelationshipResource<Comment>;
+  constructor() {
+    super("Posts");
 
-        makeObservable(this, {
-            comments: computed
-        })
+    makeObservable(this, {
+      comments: computed,
+    });
 
-        this.postCommentResource = agent.createHasManyRelationshipResource<Comment>("Posts", "Comments");
+    this.postCommentResource = agent.createHasManyRelationshipResource<Comment>(
+      "Posts",
+      "Comments"
+    );
+  }
+
+  get comments(): Comment[] {
+    return this.selectedItem?.comments ?? [];
+  }
+
+  setComments(items: Comment[]): void {
+    if (!this.selectedItem) return;
+    this.selectedItem.comments = [];
+    this.selectedItem.comments.push(...items);
+  }
+
+  loadComments = async (params?: PaginationParams) => {
+    try {
+      this.setDetailsLoading(true);
+      const id = this.selectedItem?.id;
+      if (!id) return;
+      const items = await this.postCommentResource.listEntities(id, params);
+      this.setComments(items);
+    } catch (error) {
+      handleRequestError(error);
+    } finally {
+      this.setDetailsLoading(false);
     }
-
-    get comments(): Comment[] {
-        return this.selectedItem?.comments ?? [];
-    } 
-
-    setComments(items: Comment[]): void {
-        if (!this.selectedItem)
-            return;
-        this.selectedItem.comments = []
-        this.selectedItem.comments.push(...items)
-    }
-
-    loadComments= async (params?: PaginationParams) => {
-        try {
-            const id = this.selectedItem?.id;
-            if (!id) return;
-            const items = await this.postCommentResource.listEntities(id, params);
-            this.setComments(items);
-        } catch (error) {
-            handleRequestError(error);
-        }
-    }
+  };
 }
