@@ -6,46 +6,21 @@ import { Box } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useStore } from "../../../../app/stores/store";
 import { PaginationParams } from "../../../../app/common/models/paginationPrams";
-
-const member: Profile = {
-    id: "m1",
-    userName: "GV123",
-    email: "gv1@gmail.com",
-    firstName: "Nguyen",
-    lastName: "Van A",
-}
-
-const posts: Post[] = [
-  {
-    id: "p1",
-    content: "hello\n happy\n new\n year\n",
-    link: "https://sinhvien.hutech.edu.vn/",
-    createDate: new Date(),
-
-    user: member,
-    comments: [],
-  },
-  {
-    id: "p2",
-    content: "hello\n happy\n new\n year\n",
-    link: "https://sinhvien.hutech.edu.vn/",
-    createDate: new Date(),
-
-    user: member,
-    comments: [],
-  },
-];
+import { observer } from "mobx-react-lite";
 
 const PostList = () => {
-  const [ posts, setPosts ] = useState<Post[]>([]);
-  const { classroomStore } = useStore()
-  const { classroomId } = useParams<{classroomId: string}>()
+  const [posts, setPosts] = useState<Post[]>([]);
+  const { classroomStore } = useStore();
+  const { classroomId } = useParams<{ classroomId: string }>();
 
   useEffect(() => {
-    classroomStore.loadPosts(new PaginationParams(1, 100)).then((items) => {
-      setPosts(items ?? [])
-    })
-  })
+    if (classroomId)
+      classroomStore.get(classroomId).then(() => {
+        classroomStore.loadPosts(new PaginationParams(1, 100)).then((items) => {
+          setPosts(items ?? []);
+        });
+      });
+  }, [classroomId, classroomStore]);
   return (
     <Box>
       {posts.map((p, index) => (
@@ -55,4 +30,4 @@ const PostList = () => {
   );
 };
 
-export default PostList;
+export default observer(PostList);

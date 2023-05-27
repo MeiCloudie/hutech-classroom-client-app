@@ -17,8 +17,12 @@ export default class ClassroomStore extends UserRelatedStore<
     super("Classrooms");
 
     makeObservable(this, {
+      loadClassroomUsers: action,
       classroomUsers: computed,
+      posts: computed,
+      loadPosts: action,
       setClassroomUsers: action,
+      setPosts: action
     });
 
     this.classroomUserResource =

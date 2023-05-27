@@ -1,11 +1,5 @@
 import { Box, Divider, Typography } from "@mui/material";
-import { Major } from "../../../app/models/Major";
-import { Subject } from "../../../app/models/Subject";
-import { Faculty } from "../../../app/models/Faculty";
-import Profile from "../../../app/common/models/Profile";
 import { Classroom } from "../../../app/models/Classroom";
-import { ClassroomTypes } from "../../../app/layout/enums/ClassroomTypes";
-import { ClassroomSemester } from "../../../app/layout/enums/ClassroomSemesters";
 import IconButtonTooltip from "../../common/UI/IconButtonTooltip";
 
 import InfoIcon from "@mui/icons-material/Info";
@@ -21,7 +15,6 @@ const MiniClassroomDetails = () => {
     if (classroomId) {
       classroomStore.get(classroomId).then((classroom) => { 
         setClassroom(classroom ?? new Classroom())
-        console.log(classroom)
       })
     }
 
