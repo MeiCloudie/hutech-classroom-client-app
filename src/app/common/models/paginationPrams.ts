@@ -9,7 +9,7 @@ export class PaginationParams {
     pageSize = 10;
     searchString = "";
 
-    constructor(pageNumber: number, pageSize: number, searchString: string) {
+    constructor(pageNumber: number, pageSize: number, searchString: string = "") {
         this.pageNumber = pageNumber;
         this.pageSize = pageSize;
         this.searchString = searchString;

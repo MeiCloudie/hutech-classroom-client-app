@@ -38,11 +38,11 @@ const posts: Post[] = [
 
 const PostList = () => {
   const [ posts, setPosts ] = useState<Post[]>([]);
-  const { postStore } = useStore()
+  const { classroomStore } = useStore()
   const { classroomId } = useParams<{classroomId: string}>()
 
   useEffect(() => {
-    postStore.load(new PaginationParams(1, 1000, "")).then((items) => {
+    classroomStore.loadPosts(new PaginationParams(1, 100)).then((items) => {
       setPosts(items ?? [])
     })
   })

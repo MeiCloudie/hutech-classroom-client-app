@@ -4,6 +4,7 @@ import Entity, { Auditable, EntityFormValues } from "../common/models/Entity";
 import Profile from "../common/models/Profile";
 import { Subject } from "./Subject";
 import { Faculty } from "./Faculty";
+import { Post } from "./Post";
 
 export interface Classroom extends Entity, Auditable {
   title: string;
@@ -22,6 +23,7 @@ export interface Classroom extends Entity, Auditable {
   lecturer?: Profile;
 
   classroomUsers: Profile[];
+  posts: Post[];
 }
 
 export class Classroom implements Classroom {
@@ -43,10 +45,12 @@ export class Classroom implements Classroom {
   lecturer?: Profile = undefined;
 
   classroomUsers: Profile[] = [];
+  posts: Post[] = [];
 
   constructor(init?: ClassroomFormValues) {
     Object.assign(this, init);
-    this.classroomUsers = []
+    this.classroomUsers = [];
+    this.posts = [];
   }
 }
 
@@ -69,8 +73,8 @@ export class ClassroomFormValues implements EntityFormValues {
 
   constructor(classroom?: Classroom) {
     if (classroom) {
-      const { subject, faculty, lecturer, createDate, ...rest} = classroom
-      Object.assign(this, {...rest })
+      const { subject, faculty, lecturer, createDate, ...rest } = classroom;
+      Object.assign(this, { ...rest });
     }
   }
 }
