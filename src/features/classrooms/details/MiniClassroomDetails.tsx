@@ -6,6 +6,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import { useStore } from "../../../app/stores/store";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { observer } from "mobx-react-lite";
 
 const MiniClassroomDetails = () => {
   const { classroomStore } = useStore()
@@ -13,12 +14,12 @@ const MiniClassroomDetails = () => {
   const { classroomId } = useParams<{classroomId: string}>()
   useEffect(() => {
     if (classroomId) {
-      classroomStore.get(classroomId).then((classroom) => { 
-        setClassroom(classroom ?? new Classroom())
+      classroomStore.get(classroomId).then(() => { 
+        setClassroom(classroomStore.selectedItem ?? new Classroom())
       })
     }
 
-  }, [])
+  }, [classroomId, classroomStore])
   return (
     <Box
       sx={{
@@ -111,4 +112,4 @@ const MiniClassroomDetails = () => {
   );
 };
 
-export default MiniClassroomDetails;
+export default observer(MiniClassroomDetails);

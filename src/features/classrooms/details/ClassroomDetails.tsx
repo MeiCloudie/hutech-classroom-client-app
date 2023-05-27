@@ -11,12 +11,12 @@ const ClassroomDetails = () => {
   const { classroomId } = useParams<{classroomId: string}>()
   useEffect(() => {
     if (classroomId) {
-      classroomStore.get(classroomId).then((classroom) => { 
-        setClassroom(classroom ?? new Classroom())
+      classroomStore.get(classroomId).then(() => { 
+        setClassroom(classroomStore.selectedItem ?? new Classroom())
       })
     }
 
-  }, [])
+  }, [classroomId, classroomStore])
 
   if (classroomStore.isDetailsLoading) return <div>Loading....</div>
 

@@ -134,11 +134,10 @@ const MemberList = () => {
       classroomStore.get(classroomId).then(() => {
         classroomStore
           .loadClassroomUsers(new PaginationParams(1, 100, ""))
-          .then((list) => {
-            console.group(list);
-            if (list)
+          .then(() => {
+            if (classroomStore.classroomUsers)
               setRows(
-                list.map((m, i) => {
+                classroomStore.classroomUsers.map((m, i) => {
                   return {
                     id: i,
                     role: "Sinh Viên",
