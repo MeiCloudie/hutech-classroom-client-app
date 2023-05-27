@@ -141,8 +141,8 @@ export default class EntityStore<
     try {
       this.setDetailsLoading(true);
       const cachedItem = this.items.find((x) => x.id === id);
-
       if (!shouldRefresh && cachedItem) {
+        this.setSelectedItem(cachedItem);
         return cachedItem;
       }
 

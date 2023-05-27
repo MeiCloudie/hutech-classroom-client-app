@@ -150,7 +150,7 @@ const MemberList = () => {
               );
           });
       });
-  }, []);
+  }, [classroomId, classroomStore]);
   return (
     <div style={{ height: "100%", width: "100%" }}>
       <DataGrid
@@ -169,7 +169,7 @@ const MemberList = () => {
             paginationModel: { page: 0, pageSize: 10 },
           },
         }}
-        pageSizeOptions={[5, 100]}
+        pageSizeOptions={[5, 10]}
       />
     </div>
   );

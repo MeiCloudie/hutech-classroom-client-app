@@ -27,6 +27,7 @@ interface EntityFormProps<
   validateObject: {};
   onCreate?: (result?: TEntity) => void;
   onUpdate?: () => void;
+  onCancel?: () => void;
   onSetAdditionalValues: (entityFormValues: TEntityFormValues) => void;
 }
 
@@ -44,6 +45,7 @@ const EntityForm = <
   entityId,
   onCreate,
   onUpdate,
+  onCancel,
   onSetAdditionalValues,
   selectionFields,
   fieldConfigs,
@@ -194,6 +196,13 @@ const EntityForm = <
               }}
             >
               <Stack spacing={2} direction="row">
+                <Button
+                  onChange={onCancel}
+                  variant="contained"
+                  sx={{ m: "10px 0" }}
+                >
+                  "HUỶ"
+                </Button>
                 <Button
                   type="submit"
                   variant="contained"

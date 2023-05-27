@@ -45,7 +45,7 @@ export default class ClassroomStore extends UserRelatedStore<
     try {
       this.setDetailsLoading(true);
       const id = this.selectedItem?.id;
-      if (!id) return;
+      if (!id) return [];
       const items = await this.classroomUserResource.listEntities(id, params);
       runInAction(() => {
         this.setClassroomUsers(items);
@@ -74,7 +74,7 @@ export default class ClassroomStore extends UserRelatedStore<
     try {
       this.setDetailsLoading(true);
       const id = this.selectedItem?.id;
-      if (!id) return;
+      if (!id) return [];
       const items = await this.postResource.listEntities(id, params);
       runInAction(() => {
         this.setPosts(items);
