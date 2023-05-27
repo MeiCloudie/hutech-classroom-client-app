@@ -2,8 +2,9 @@ import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
 import Profile from "../../../app/common/models/Profile";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { store } from "../../../app/stores/store";
+import { store, useStore } from "../../../app/stores/store";
 import { PaginationParams } from "../../../app/common/models/paginationPrams";
+import { observer } from "mobx-react-lite";
 
 const members: Profile[] = [
   {
@@ -125,24 +126,31 @@ const rows = members.map((m, i) => {
 });
 
 const MemberList = () => {
-  // const { classroomId } = useParams<{ classroomId: string }>()
-  // const [members, setMembers ] = useState<Profile[]>([])
-  // const [rows, setRows] = useState<GridRowsProp>([])
-  // useEffect(() => {
-  //   store.classroomStore.loadClassroomUsers(new PaginationParams(1, 100, ""))
-  //   .then((list) => {
-  //     setMembers(list ?? [])
-  //     setRows(members.map((m, i) => {
-  //       return {  
-  //         id: i,
-  //         role: "Sinh Viên",
-  //         username: m.userName,
-  //         fullName: `${m.firstName} ${m.lastName}`,
-  //         email: m.email,
-  //       };
-  //     }))
-  //   })
-  // })
+  const { classroomId } = useParams<{ classroomId: string }>();
+  const { classroomStore } = useStore();
+  const [rows, setRows] = useState<GridRowsProp>([]);
+  useEffect(() => {
+    if (classroomId)
+      classroomStore.get(classroomId).then(() => {
+        classroomStore
+          .loadClassroomUsers(new PaginationParams(1, 100, ""))
+          .then((list) => {
+            console.group(list);
+            if (list)
+              setRows(
+                list.map((m, i) => {
+                  return {
+                    id: i,
+                    role: "Sinh Viên",
+                    username: m.userName,
+                    fullName: `${m.firstName} ${m.lastName}`,
+                    email: m.email,
+                  };
+                })
+              );
+          });
+      });
+  }, []);
   return (
     <div style={{ height: "100%", width: "100%" }}>
       <DataGrid
@@ -151,21 +159,20 @@ const MemberList = () => {
           border: "solid 2px #f5f5f5",
           "& .MuiDataGrid-cell:hover": {
             color: "primary.main",
-            fontWeight: "bold"
+            fontWeight: "bold",
           },
         }}
         rows={rows}
         columns={columns}
         initialState={{
           pagination: {
-            paginationModel: { page: 0, pageSize: 100 },
+            paginationModel: { page: 0, pageSize: 10 },
           },
         }}
         pageSizeOptions={[5, 100]}
-        // checkboxSelection
       />
     </div>
   );
 };
 
-export default MemberList;
+export default observer(MemberList);
