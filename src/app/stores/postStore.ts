@@ -36,15 +36,13 @@ export default class PostStore extends EntityStore<Post, PostFormValues> {
       return items;
     } catch (error) {
       console.error("Request error:", error);
+      return [];
     } finally {
       runInAction(() => {
         this.setListLoading(false);
       })
     }
   };
-
-
-
 
   get comments(): Comment[] {
     return this.selectedItem?.comments ?? [];

@@ -35,7 +35,7 @@ export default class UserStore {
     this.isGettingUser = value;
   }
 
-  login = async (creds: LoginFormValues) => {
+  login = async (creds: LoginFormValues) : Promise<void> => {
     try {
 			this.setLogginIn(true)
       const user = await agent.Account.login(creds);
@@ -52,7 +52,7 @@ export default class UserStore {
 		}
   };
 
-  register = async (creds: RegisterFormValues) => {
+  register = async (creds: RegisterFormValues) : Promise<void> => {
     try {
 			this.setRegistering(true)
       const user = await agent.Account.register(creds);
@@ -67,13 +67,13 @@ export default class UserStore {
 		}
   };
 
-  logout = () => {
+  logout = () : void => {
     store.commonStore.setToken(null);
     this.user = null;
     router.navigate("/");
   };
 
-  getUser = async () => {
+  getUser = async () : Promise<void> => {
     try {
 			this.setGettingUser(true)
       const user = await agent.Account.current();
@@ -88,7 +88,7 @@ export default class UserStore {
 		}
   };
 
-  changePassword = async (creds: ChangePasswordFormValues) => {
+  changePassword = async (creds: ChangePasswordFormValues) : Promise<boolean> => {
     try {
       await agent.Account.changePassword(creds);
       return true;

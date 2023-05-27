@@ -35,6 +35,6 @@ export const store: Store = {
 
 export const StoreContext = createContext(store);
 
-export function useStore() {
+export function useStore() : Store {
   return useContext(StoreContext);
 }

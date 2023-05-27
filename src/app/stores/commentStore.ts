@@ -10,7 +10,7 @@ export default class CommentStore {
         makeAutoObservable(this)
     }
 
-    createHubConnection = (postId: string) => {
+    createHubConnection = (postId: string) : void => {
         if (store.postStore.selectedItem) {
             this.hubConnection = new HubConnectionBuilder()
                 .withUrl(`${process.env.REACT_APP_HUTECH_CLASSROOM_HUBS}comments?postId=${postId}`, {
@@ -45,16 +45,16 @@ export default class CommentStore {
         }
     }
 
-    stopHubConnection = () => {
+    stopHubConnection = () : void => {
         this.hubConnection?.stop().catch(error => console.log('Error stopping connection: ', error))
     }
 
-    clearComments = () => {
+    clearComments = () : void => {
         this.comments = []
         this.stopHubConnection()
     }
 
-    addComment = async (values: CommentFormValues) => {
+    addComment = async (values: CommentFormValues) : Promise<void> => {
         values.postId = store.postStore.selectedItem?.id
         try {
             await this.hubConnection?.invoke('SendComment', values)

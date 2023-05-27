@@ -19,12 +19,12 @@ export default class CommonStore {
         )
     }
 
-    setToken = (token: string | null | undefined) => {
+    setToken = (token: string | null | undefined) : void => {
         if (token) localStorage.setItem('jwt', token)
         this.token = token
     }
 
-    setAppLoaded = () => {
+    setAppLoaded = () : void => {
         this.appLoaded = true
     }
 }
