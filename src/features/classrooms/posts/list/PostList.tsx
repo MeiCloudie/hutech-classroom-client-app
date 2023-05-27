@@ -10,17 +10,17 @@ import { observer } from "mobx-react-lite";
 
 const PostList = () => {
   const [posts, setPosts] = useState<Post[]>([]);
-  const { classroomStore } = useStore();
+  const { classroomStore, postStore } = useStore();
   const { classroomId } = useParams<{ classroomId: string }>();
 
   useEffect(() => {
     if (classroomId)
       classroomStore.get(classroomId).then(() => {
-        classroomStore.loadPosts(new PaginationParams(1, 100)).then((items) => {
-          setPosts(items ?? []);
+        postStore.loadClassroomPosts(classroomId, new PaginationParams(1, 100)).then(() => {
+          setPosts(postStore.items);
         });
       });
-  }, [classroomId, classroomStore]);
+  }, [classroomId, classroomStore, postStore]);
   return (
     <Box>
       {posts.map((p, index) => (

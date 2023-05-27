@@ -1,4 +1,4 @@
-import { computed, makeObservable } from "mobx";
+import { computed, makeObservable, runInAction } from "mobx";
 import agent from "../api/agent";
 import { BaseHasManyRelationshipResource } from "../api/baseResource";
 import EntityStore from "../common/stores/entityStore";
@@ -8,6 +8,7 @@ import { PaginationParams } from "../common/models/paginationPrams";
 
 export default class PostStore extends EntityStore<Post, PostFormValues> {
   postCommentResource: BaseHasManyRelationshipResource<Comment>;
+  classroomPostResource: BaseHasManyRelationshipResource<Post>;
   constructor() {
     super("Posts");
 
@@ -19,7 +20,31 @@ export default class PostStore extends EntityStore<Post, PostFormValues> {
       "Posts",
       "Comments"
     );
+    this.classroomPostResource = agent.createHasManyRelationshipResource<Post>(
+      "Classrooms",
+      "Posts"
+    )
   }
+
+  loadClassroomPosts = async (classroomId: string, params?: PaginationParams) => {
+    try {
+      this.setListLoading(true);
+      const items = await this.classroomPostResource.listEntities(classroomId, params);
+      runInAction(() => {
+        this.setItems(items);
+      })
+      return items;
+    } catch (error) {
+      console.error("Request error:", error);
+    } finally {
+      runInAction(() => {
+        this.setListLoading(false);
+      })
+    }
+  };
+
+
+
 
   get comments(): Comment[] {
     return this.selectedItem?.comments ?? [];
