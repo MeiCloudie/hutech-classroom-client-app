@@ -1,4 +1,4 @@
-import { action, makeObservable } from "mobx";
+import { action, makeObservable, runInAction } from "mobx";
 import agent from "../../api/agent";
 import { BaseUserResource } from "../../api/baseResource";
 import Entity, { EntityFormValues } from "../models/Entity";
@@ -27,13 +27,17 @@ export default class UserRelatedStore<
     try {
       this.setListLoading(true);
       const list = await this.userResource.listByUser(params);
-      this.setItems(list);
+      runInAction(() => {
+        this.setItems(list);
+      })
       return list;
     } catch (error) {
       console.error("Request error:", error);
       return [];
     } finally {
-      this.setListLoading(false);
+      runInAction(() => {
+        this.setListLoading(false);
+      })
     }
   };
 }

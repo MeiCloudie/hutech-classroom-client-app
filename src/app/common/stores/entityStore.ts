@@ -1,4 +1,10 @@
-import { action, computed, makeObservable, observable } from "mobx";
+import {
+  action,
+  computed,
+  makeObservable,
+  observable,
+  runInAction,
+} from "mobx";
 import agent from "../../api/agent";
 import Entity, { EntityFormValues } from "../../common/models/Entity";
 import { BaseResource } from "../../api/baseResource";
@@ -70,6 +76,13 @@ export default class EntityStore<
     }
   }
 
+  updateEntityItem(id: string, entity: TEntity): void {
+    const index = this._items.findIndex((e) => e.id === id);
+    if (index !== -1) {
+      this._items[index] = entity;
+    }
+  }
+
   deleteItem(id: string): void {
     const itemIndex = this._items.findIndex((item) => item.id === id);
     this._items.splice(itemIndex);
@@ -107,26 +120,45 @@ export default class EntityStore<
     try {
       this.setListLoading(true);
       const list = await this.resource.list(params);
-      this.setItems(list);
+      runInAction(() => {
+        this.setItems(list);
+      });
       return list;
     } catch (error) {
       console.error("Request error:", error);
       return [];
     } finally {
-      this.setListLoading(false);
+      runInAction(() => {
+        this.setListLoading(false);
+      });
     }
   };
 
-  get = async (id: string): Promise<TEntity | undefined> => {
+  get = async (
+    id: string,
+    shouldRefresh: boolean = false
+  ): Promise<TEntity | undefined> => {
     try {
       this.setDetailsLoading(true);
+      const cachedItem = this.items.find((x) => x.id === id);
+
+      if (!shouldRefresh && cachedItem) {
+        return cachedItem;
+      }
+
       const item = await this.resource.details(id);
-      this.setSelectedItem(item);
+      runInAction(() => {
+        this.setSelectedItem(item);
+        if (shouldRefresh && cachedItem) this.updateEntityItem(id, item);
+      });
+
       return item;
     } catch (error) {
       console.error("Request error:", error);
     } finally {
-      this.setDetailsLoading(false);
+      runInAction(() => {
+        this.setDetailsLoading(false);
+      });
     }
   };
 
@@ -136,12 +168,16 @@ export default class EntityStore<
     try {
       this.setCreateLoading(true);
       const createdItem = await this.resource.create(formValues);
-      this.createItem(createdItem);
+      runInAction(() => {
+        this.createItem(createdItem);
+      });
       return createdItem;
     } catch (error) {
       console.error("Request error:", error);
     } finally {
-      this.setCreateLoading(false);
+      runInAction(() => {
+        this.setCreateLoading(false);
+      });
     }
   };
 
@@ -149,11 +185,15 @@ export default class EntityStore<
     try {
       this.setUpdateLoading(true);
       await this.resource.update(id, formValues);
-      this.updateItem(id, formValues);
+      runInAction(() => {
+        this.updateItem(id, formValues);
+      });
     } catch (error) {
       console.error("Request error:", error);
     } finally {
-      this.setUpdateLoading(false);
+      runInAction(() => {
+        this.setUpdateLoading(false);
+      });
     }
   };
 
@@ -161,12 +201,16 @@ export default class EntityStore<
     try {
       this.setDeleteLoading(true);
       const deletedItem = await this.resource.delete(id);
-      this.deleteItem(id);
+      runInAction(() => {
+        this.deleteItem(id);
+      });
       return deletedItem;
     } catch (error) {
       console.error("Request error:", error);
     } finally {
-      this.setDeleteLoading(false);
+      runInAction(() => {
+        this.setDeleteLoading(false);
+      });
     }
   };
 }

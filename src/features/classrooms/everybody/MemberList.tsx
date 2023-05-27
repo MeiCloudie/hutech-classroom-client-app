@@ -161,7 +161,7 @@ const MemberList = () => {
             paginationModel: { page: 0, pageSize: 100 },
           },
         }}
-        pageSizeOptions={[5, 10]}
+        pageSizeOptions={[5, 100]}
         // checkboxSelection
       />
     </div>

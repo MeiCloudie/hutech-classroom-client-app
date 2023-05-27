@@ -1,10 +1,9 @@
-import { action, computed, makeObservable } from "mobx";
+import { action, computed, makeObservable, runInAction } from "mobx";
 import { Classroom, ClassroomFormValues } from "../models/Classroom";
 import { PaginationParams } from "../common/models/paginationPrams";
 import { BaseHasManyRelationshipResource } from "../api/baseResource";
 import Profile from "../common/models/Profile";
 import agent from "../api/agent";
-import { handleRequestError } from "../api/apiUtils";
 import UserRelatedStore from "../common/stores/userRelatedStore";
 
 export default class ClassroomStore extends UserRelatedStore<
@@ -40,12 +39,16 @@ export default class ClassroomStore extends UserRelatedStore<
       const id = this.selectedItem?.id;
       if (!id) return;
       const items = await this.classroomUserResource.listEntities(id, params);
-      this.setClassroomUsers(items);
+      runInAction(() => {
+        this.setClassroomUsers(items);
+      })
       return items;
     } catch (error) {
-      handleRequestError(error);
+      console.error("Request error:", error);
     } finally {
-      this.setDetailsLoading(false);
+      runInAction(() => {
+        this.setDetailsLoading(false);
+      })
     }
   };
 }

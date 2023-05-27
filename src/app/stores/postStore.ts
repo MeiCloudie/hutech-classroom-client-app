@@ -5,7 +5,6 @@ import EntityStore from "../common/stores/entityStore";
 import { Comment } from "../models/Comment";
 import { Post, PostFormValues } from "../models/Post";
 import { PaginationParams } from "../common/models/paginationPrams";
-import { handleRequestError } from "../api/apiUtils";
 
 export default class PostStore extends EntityStore<Post, PostFormValues> {
   postCommentResource: BaseHasManyRelationshipResource<Comment>;
@@ -32,7 +31,7 @@ export default class PostStore extends EntityStore<Post, PostFormValues> {
     this.selectedItem.comments.push(...items);
   }
 
-  loadComments = async (params?: PaginationParams) => {
+  loadComments = async (params?: PaginationParams, shouldRefresh: boolean = false) => {
     try {
       this.setDetailsLoading(true);
       const id = this.selectedItem?.id;
@@ -40,7 +39,7 @@ export default class PostStore extends EntityStore<Post, PostFormValues> {
       const items = await this.postCommentResource.listEntities(id, params);
       this.setComments(items);
     } catch (error) {
-      handleRequestError(error);
+      console.error("Request error:", error);
     } finally {
       this.setDetailsLoading(false);
     }
