@@ -1,8 +1,8 @@
 import { Box } from "@mui/material";
 import IntroContent from "./IntroContent";
 import NotificationContent from "./NotificationContent";
-import LoginForm from "../users/forms/LoginForm";
 import { useStore } from "../../app/stores/store";
+import LoginPage from "../users/LoginPage";
 
 const HomePage = () => {
   const { userStore } = useStore()
@@ -14,7 +14,7 @@ const HomePage = () => {
         <NotificationContent />
         
         </>
-      ) : (<LoginForm />)}
+      ) : (<LoginPage />)}
       
     </Box>
   );
