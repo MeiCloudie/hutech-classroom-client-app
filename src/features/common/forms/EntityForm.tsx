@@ -34,7 +34,7 @@ interface EntityFormProps<
 export interface FieldProps {
   placeholder: string;
   label: string;
-  textarea?: boolean
+  textarea?: boolean;
 }
 const EntityForm = <
   TEntity extends Entity,
@@ -138,7 +138,7 @@ const EntityForm = <
           placeholder={placeholder}
         />
       );
-      if (typeof value === "string" && isTextarea)
+    if (typeof value === "string" && isTextarea)
       return (
         <MyTextAreaInput
           name={key}
@@ -197,12 +197,14 @@ const EntityForm = <
             >
               <Stack spacing={2} direction="row">
                 <Button
-                  onChange={onCancel}
+                  onClick={onCancel}
                   variant="contained"
                   sx={{ m: "10px 0" }}
                 >
-                  "HUỶ"
+                  HUỶ
                 </Button>
+              </Stack>
+              <Stack spacing={2} direction="row">
                 <Button
                   type="submit"
                   variant="contained"

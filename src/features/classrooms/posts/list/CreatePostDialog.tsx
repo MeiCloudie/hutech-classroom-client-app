@@ -117,6 +117,7 @@ const CreatePostDialog = () => {
                   excludeFields={['classroomId', 'userName']}
                   onCreate={handleClose}
                   onUpdate={handleClose}
+                  onCancel={handleClose}
                   onSetAdditionalValues={(postFormValues) => { 
                     postFormValues.userName = store.userStore.user?.userName
                     postFormValues.classroomId = classroomId
