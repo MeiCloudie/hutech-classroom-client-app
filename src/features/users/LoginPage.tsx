@@ -26,12 +26,19 @@ const LoginPage = () => {
     >
       <Grid container spacing={2}>
         <Grid item xs={12} md={4} lg={5} key="logo-hutech-classroom">
-          <CardMedia
-            component="img"
-            image="logo-hutech-classroom.png"
-            alt="Ảnh không tồn tại"
-            sx={{ display: "flex", justifyContent: "center", mt: 10 }}
-          />
+          <Box sx={{
+                display: "flex",
+                justifyContent: "center",
+                m: "150px 30px",
+              }}>
+            <CardMedia
+              component="img"
+              image="logo-hutech-classroom.png"
+              alt="Ảnh không tồn tại"
+              sx={{
+              }}
+            />
+          </Box>
         </Grid>
 
         <Grid item xs={12} md={8} lg={7} key="login-form">
@@ -50,6 +57,8 @@ const LoginPage = () => {
               sx={{
                 display: "flex",
                 justifyContent: "center",
+                maxWidth: "100ch",
+          
               }}
             >
               <LoginForm />

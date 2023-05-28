@@ -45,7 +45,11 @@ const LoginForm = () => {
             }}
           />
 
-          <MyPasswordInput label="Mật khẩu hiện tại" name="password" />
+          <MyPasswordInput
+            label="Mật khẩu"
+            name="password"
+            placeholder="Nhập mật khẩu của bạn"
+          />
 
           <Stack sx={{ width: "100%" }} spacing={2}>
             <div
