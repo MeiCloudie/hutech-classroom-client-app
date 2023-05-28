@@ -5,6 +5,7 @@ import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import * as Yup from "yup";
 import { useStore } from "../../../app/stores/store";
 import MyTextInput from "../../common/forms/MyTextInput";
+import { toast } from "react-toastify";
 
 const LoginForm = () => {
   const { userStore } = useStore();
@@ -19,7 +20,31 @@ const LoginForm = () => {
       onSubmit={(loginFormValues, actions) => {
         userStore
           .login(loginFormValues)
-          .catch((e) => actions.setSubmitting(false));
+          .then(() => {
+            toast.success("Đăng nhập thành công!", {
+              position: "bottom-left",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
+          })
+          .catch(() => {
+            toast.error("Lỗi", {
+              position: "bottom-left",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
+            actions.setSubmitting(false);
+          });
       }}
       validationSchema={validationSchema}
     >

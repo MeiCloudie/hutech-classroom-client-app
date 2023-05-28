@@ -9,6 +9,8 @@ import HomePage from "../../../features/home/HomePage";
 import { Outlet, useLocation } from "react-router-dom";
 import { useStore } from "../../stores/store";
 import { observer } from "mobx-react-lite";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -55,6 +57,21 @@ const Layout = () => {
         {location.pathname === "/" ? <HomePage /> : <Outlet />}
       </Box>
       <Footer />
+      <Box sx={{ textAlign: "start" }}>
+        <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          limit={3}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
+      </Box>
     </Box>
   );
 };

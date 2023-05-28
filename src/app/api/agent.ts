@@ -1,9 +1,11 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { PaginationParams } from "../common/models/paginationPrams";
 import { ChangePasswordFormValues, LoginFormValues, RegisterFormValues, User } from "../models/User";
 import { store } from "../stores/store";
 import Entity, { EntityFormValues } from "../common/models/Entity";
 import { BaseHasManyRelationshipResource, BaseResource, BaseUserResource } from "./baseResource";
+import { toast } from "react-toastify";
+import { router } from "../router/Routes";
 
 
 axios.defaults.baseURL = process.env.REACT_APP_HUTECH_CLASSROOM_BASE_URL;
@@ -12,6 +14,49 @@ axios.interceptors.request.use(config => {
     const token = store.commonStore.token
     if (token && config.headers) config.headers.Authorization = `Bearer ${token}`
     return config
+})
+
+axios.interceptors.response.use(async response => {
+  // const pagination = response.headers['pagination']
+  // if (pagination) {
+  //     response.data = new PaginatedResult(response.data, JSON.parse(pagination))
+  //     return response as AxiosResponse<PaginatedResult<any>>
+  // }
+  return response;
+}, (error: AxiosError) => {
+  const { data, status, config } = error.response as AxiosResponse
+  switch (status) {
+      case 400:
+          if (config.method === 'get' && data.errors.hasOwnProperties('id')) {
+              router.navigate('/not-found')
+          }
+          if (data.errors) {
+              const modalStateErrors = []
+              for (const key in data.errors) {
+                  if (data.errors[key]) {
+                      modalStateErrors.push(data.errors[key])
+                  }
+                  throw modalStateErrors.flat()
+              }
+          } else {
+              toast.error(data)
+          }
+          break;
+      case 401:
+          toast.error('Xác thực thất bại')
+          break;
+      case 403:
+          toast.error('Bạn không có quyền truy cập!')
+          break;
+      case 404:
+          router.navigate('not-found')
+          break;
+      case 500:
+          // store.commonStore.setServerError(data)
+          router.navigate('/server-error')
+          break;
+  }
+  return Promise.reject(error)
 })
 
 const responseBody = <T>(response: AxiosResponse<T>) => response.data;
