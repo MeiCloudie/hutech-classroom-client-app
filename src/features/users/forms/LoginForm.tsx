@@ -33,8 +33,8 @@ const LoginForm = () => {
           <MyTextInput
             helperText={errors.userName}
             name="userName"
-            label="Email/Username"
-            placeholder="Enter your email or username here!"
+            label="Tài khoản"
+            placeholder="Hãy nhập tài khoản của bạn"
             onChange={handleChange}
             InputProps={{
               startAdornment: (
