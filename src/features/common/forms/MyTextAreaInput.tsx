@@ -63,8 +63,11 @@ const MyTextAreaInput = ({ label, icon, ...props }: any) => {
         }}
         error={meta.touched && meta.error !== undefined}
       />
-      {meta.error && <Typography>{meta.error}</Typography>}
-      <div dangerouslySetInnerHTML={{ __html: field.value }}></div>
+      {meta.error && (
+        <Typography variant="body2" color="#d32f2f" sx={{ m: "10px" }}>
+          {meta.error}
+        </Typography>
+      )}
     </div>
   );
 };

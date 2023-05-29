@@ -53,6 +53,7 @@ const PostForm = (props: PostFormProps) => {
               props: {
                 label: "Nội Dung",
                 placeholder: "Hãy nhập nội dung bài đăng tại đây!",
+                textarea: true,
               },
             },
             {

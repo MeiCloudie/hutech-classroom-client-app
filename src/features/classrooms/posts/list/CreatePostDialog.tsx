@@ -12,11 +12,6 @@ import { TransitionProps } from "@mui/material/transitions";
 import AddIcon from "@mui/icons-material/Add";
 import { Box, DialogContent } from "@mui/material";
 import MiniDetailsLayout from "../../layout/MiniDetailsLayout";
-import { Post, PostFormValues } from "../../../../app/models/Post";
-import { store } from "../../../../app/stores/store";
-import EntityForm from "../../../common/forms/EntityForm";
-import { useParams } from "react-router-dom";
-import * as Yup from "yup";
 import PostForm from "./form/PostForm";
 
 const Transition = React.forwardRef(function Transition(
