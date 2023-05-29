@@ -7,7 +7,7 @@ interface MenuMiniProps {
   handleCloseMenu: () => void;
   options: {
     text: string;
-    link: string;
+    link?: string | null;
   }[];
 }
 
@@ -29,16 +29,26 @@ const MenuMini = (props: MenuMiniProps) => {
       open={Boolean(props.anchorEl)}
       onClose={props.handleCloseMenu}
     >
-      {props.options.map((option, index) => (
-        <MenuItem
-          key={index}
-          onClick={props.handleCloseMenu}
-          component={Link}
-          to={option.link}
-        >
-          <Typography textAlign="center">{option.text}</Typography>
-        </MenuItem>
-      ))}
+      {props.options.map((option, index) => {
+        if (option.link) {
+          return (
+            <MenuItem
+              key={index}
+              onClick={props.handleCloseMenu}
+              component={Link}
+              to={option.link}
+            >
+              <Typography textAlign="center">{option.text}</Typography>
+            </MenuItem>
+          );
+        } else {
+          return (
+            <MenuItem key={index} onClick={props.handleCloseMenu}>
+              <Typography textAlign="center">{option.text}</Typography>
+            </MenuItem>
+          );
+        }
+      })}
     </Menu>
   );
 };
