@@ -17,6 +17,7 @@ import { store } from "../../../../app/stores/store";
 import EntityForm from "../../../common/forms/EntityForm";
 import { useParams } from "react-router-dom";
 import * as Yup from "yup";
+import PostForm from "./form/PostForm";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -28,7 +29,6 @@ const Transition = React.forwardRef(function Transition(
 });
 
 const CreatePostDialog = () => {
-  const { classroomId } = useParams<{classroomId: string}>()
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -80,49 +80,9 @@ const CreatePostDialog = () => {
           </Toolbar>
         </AppBar>
 
-        <DialogContent sx = {{ p: "20px 100px"}}>
+        <DialogContent sx={{ p: "20px 100px" }}>
           <MiniDetailsLayout
-            component={
-              <Box
-                sx={{
-                  flexGrow: 1,
-                  bgcolor: "#f5f5f5",
-                  display: "flex",
-                  width: "100%",
-                  p: 2,
-                  border: "1px solid #e8e8e8",
-                  borderRadius: "5px",
-                  transition:
-                    "transform 0.3s, border-color 0.3s, box-shadow 0.3s",
-                  "&:hover": {
-                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.4)",
-                    transform: "translateY(-4px)",
-                  },
-                  justifyContent: "center",
-                }}
-              >
-                <EntityForm<Post, PostFormValues>
-                  entityStore={store.postStore}
-                  toFormValues={(entity) => new PostFormValues(entity)}
-                  selectionFields={[]}
-                  validateObject={{
-                    content: Yup.string().required("Hãy nhập nội dung"),
-                  }}
-                  fieldConfigs={[
-                    { fieldKey: 'content', props: { label: "Nội Dung", placeholder: "Hãy nhập nội dung bài đăng tại đây"}},
-                    { fieldKey: 'link', props: { label: "Liên Kết", placeholder: "Hãy thêm đường dẫn liên kết tại đây!"}},
-                  ]}
-                  excludeFields={['classroomId', 'userName']}
-                  onCreate={handleClose}
-                  onUpdate={handleClose}
-                  onCancel={handleClose}
-                  onSetAdditionalValues={(postFormValues) => { 
-                    postFormValues.userName = store.userStore.user?.userName
-                    postFormValues.classroomId = classroomId
-                  }}
-                />
-              </Box>
-            }
+            component={<PostForm handleClose={handleClose} />}
           />
         </DialogContent>
       </Dialog>

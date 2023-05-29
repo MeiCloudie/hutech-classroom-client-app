@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PostCard from "./PostCard";
 import { Post } from "../../../../app/models/Post";
-import Profile from "../../../../app/common/models/Profile";
 import { Box } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useStore } from "../../../../app/stores/store";
