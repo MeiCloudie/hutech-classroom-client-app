@@ -102,8 +102,9 @@ const PostCard = (props: PostCardProps) => {
         </Typography>
       </CardContent>
       <Divider />
-      <CardActions disableSpacing>
+      <CardActions disableSpacing sx={{ display: "flex", justifyContent: "space-between" }}>
         <Button variant="text" component={Link} to="/cr/:classroomId/po/:postId">Xem Chi Tiết</Button>
+        <Button variant="contained" component={Link} to="/cr/:classroomId/po/:postId">Nhận Xét</Button>
       </CardActions>
     </Card>
   );

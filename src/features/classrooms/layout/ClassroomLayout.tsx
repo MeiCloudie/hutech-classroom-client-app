@@ -14,7 +14,7 @@ import ClassroomEverybody from "../everybody/ClassroomEverybody";
 import PostPage from "../posts/list/PostPage";
 import ExercisePage from "../exercises/list/ExercisePage";
 import GroupPage from "../groups/list/GroupPage";
-import { Link, Outlet, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import MiniDetailsLayout from "./MiniDetailsLayout";
 
 interface TabPanelProps {
@@ -86,7 +86,7 @@ const ClassroomLayout = () => {
     } else {
       setValue(0);
     }
-  }, [location.pathname]);
+  }, [location.pathname, classroomId]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -101,7 +101,7 @@ const ClassroomLayout = () => {
           aria-label="basic tabs example"
           variant="fullWidth"
           centered
-          sx={{ height: "60px" }}
+          sx={{ height: "60px"}}
         >
           <Tab
             icon={<InfoIcon />}
