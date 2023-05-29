@@ -199,7 +199,7 @@ const EntityForm = <
                 <Button
                   onClick={onCancel}
                   variant="contained"
-                  sx={{ m: "10px 0" }}
+                  sx={{ m: "10px" }}
                 >
                   HUỶ
                 </Button>
