@@ -66,7 +66,7 @@ export default class EntityStore<
   }
 
   createItem(item: TEntity): void {
-    this._items.push(item);
+    this._items.unshift(item);
   }
 
   updateItem(id: string, formValues: TEntityFormValues): void {

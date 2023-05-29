@@ -81,10 +81,13 @@ const LoginForm = () => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "flex-end",
+                justifyContent: "center",
               }}
             >
-              <Stack spacing={2} direction="row">
+              <Stack
+                spacing={2}
+                direction="row"
+              >
                 <Button
                   type="submit"
                   variant="contained"

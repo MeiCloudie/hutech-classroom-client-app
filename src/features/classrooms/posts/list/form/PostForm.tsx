@@ -39,13 +39,15 @@ const PostForm = (props: PostFormProps) => {
       >
         THÔNG TIN BÀI ĐĂNG
       </Typography>
-      <Box sx={{ display: "flex", flexGrow: 1, justifyContent: "center",}}>
+      <Box sx={{ display: "flex", flexGrow: 1, justifyContent: "center"}}>
         <EntityForm<Post, PostFormValues>
           entityStore={store.postStore}
           toFormValues={(entity) => new PostFormValues(entity)}
           selectionFields={[]}
           validateObject={{
-            content: Yup.string().required("Hãy nhập nội dung!"),
+            content: Yup.string()
+            .required("Hãy nhập nội dung!")
+            .max(2000, "Nội dung không được vượt quá 100 ký tự!"),
           }}
           fieldConfigs={[
             {
@@ -64,7 +66,7 @@ const PostForm = (props: PostFormProps) => {
               },
             },
           ]}
-          excludeFields={["classroomId", "userName"]}
+          excludeFields={["classroomId", "userId"]}
           onCreate={props.handleClose}
           onUpdate={props.handleClose}
           onCancel={props.handleClose}

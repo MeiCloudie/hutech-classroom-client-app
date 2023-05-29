@@ -95,7 +95,7 @@ const PostCard = (props: PostCardProps) => {
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {props.post.content}
+          <div dangerouslySetInnerHTML={{ __html: props.post.content }} style={{ padding: "0"}}/>
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {props.post.link}

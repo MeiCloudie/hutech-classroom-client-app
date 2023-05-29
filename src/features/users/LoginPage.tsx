@@ -22,21 +22,23 @@ const LoginPage = () => {
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.4)",
           transform: "translateY(-4px)",
         },
+        justifyContent: "center",
       }}
     >
       <Grid container spacing={2}>
         <Grid item xs={12} md={4} lg={5} key="logo-hutech-classroom">
-          <Box sx={{
-                display: "flex",
-                justifyContent: "center",
-                m: "150px 30px",
-              }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              m: "150px 30px",
+            }}
+          >
             <CardMedia
               component="img"
               image="logo-hutech-classroom.png"
               alt="Ảnh không tồn tại"
-              sx={{
-              }}
+              sx={{}}
             />
           </Box>
         </Grid>
@@ -53,16 +55,7 @@ const LoginPage = () => {
               ĐĂNG NHẬP
             </Typography>
 
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                maxWidth: "100ch",
-          
-              }}
-            >
-              <LoginForm />
-            </Box>
+            <LoginForm />
 
             <Alert
               severity="info"
