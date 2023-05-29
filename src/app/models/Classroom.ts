@@ -69,7 +69,7 @@ export class ClassroomFormValues implements EntityFormValues {
 
   subjectId?: string = "";
   facultyId?: string = "";
-  lecturerName?: string = "";
+  lecturerId?: string = "";
 
   constructor(classroom?: Classroom) {
     if (classroom) {

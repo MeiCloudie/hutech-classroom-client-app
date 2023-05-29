@@ -34,7 +34,7 @@ export class PostFormValues {
     id?: string = "";
     content: string = "";
     link: string = "";
-    userName?: string = "";
+    userId?: string = "";
     classroomId?: string = "";
 
     constructor(post?: Post) {

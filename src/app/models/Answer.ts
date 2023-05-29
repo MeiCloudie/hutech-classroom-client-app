@@ -31,7 +31,7 @@ export class AnswerFormValues {
     description: string = "";
     link: string = "";
     score: number = 0;
-    userName?: string = "";
+    userId?: string = "";
     exerciseId?: string = "";
 
     constructor(answer?: Answer) {

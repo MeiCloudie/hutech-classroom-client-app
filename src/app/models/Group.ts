@@ -28,7 +28,7 @@ export class GroupFormValues {
     id?: string;
     name: string = "";
     description: string = "";
-    leaderUserName?: string = "";
+    leaderId?: string = "";
     classroomId?: string = "";
 
     constructor(group?: Group) {

@@ -26,7 +26,7 @@ export class Comment implements Comment {
 export class CommentFormValues {
     id?: string = "";
     content: string = "";
-    userName?: string = "";
+    userId?: string = "";
     postId?: string = "";
 
     constructor(comment?: Comment) {

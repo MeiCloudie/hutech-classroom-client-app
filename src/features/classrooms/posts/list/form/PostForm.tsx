@@ -69,7 +69,7 @@ const PostForm = (props: PostFormProps) => {
           onUpdate={props.handleClose}
           onCancel={props.handleClose}
           onSetAdditionalValues={(postFormValues) => {
-            postFormValues.userName = store.userStore.user?.userName;
+            postFormValues.userId = store.userStore.user?.id;
             postFormValues.classroomId = classroomId;
           }}
         />
