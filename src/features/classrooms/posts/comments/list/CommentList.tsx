@@ -2,6 +2,10 @@ import { Box } from "@mui/material";
 import { Comment } from "../../../../../app/models/Comment";
 import Profile from "../../../../../app/common/models/Profile";
 import CommentCard from "./CommentCard";
+import { useEffect } from "react";
+import { useStore } from "../../../../../app/stores/store";
+import { useParams } from "react-router-dom";
+import { observer } from "mobx-react-lite";
 
 const member: Profile = {
   id: "m1",
@@ -26,13 +30,25 @@ const comments: Comment[] = [
 ];
 
 const CommentList = () => {
+  const { commentStore, postStore } = useStore();
+  const { postId } = useParams<{ postId: string }>();
+  useEffect(() => {
+    if (postId) {
+      postStore.get(postId).then(() => {
+        commentStore.createHubConnection(postId)
+      })
+    }
+    return () => {
+      commentStore.clearComments()
+    }
+  }, [commentStore, postId, postStore])
   return (
     <Box>
-      {comments.map((c, index) => (
+      {commentStore.comments.map((c, index) => (
         <CommentCard key={index} comment={c} />
       ))}
     </Box>
   );
 };
 
-export default CommentList;
+export default observer(CommentList);

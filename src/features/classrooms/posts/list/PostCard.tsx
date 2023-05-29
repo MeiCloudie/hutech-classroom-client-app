@@ -14,7 +14,8 @@ import { Button, Divider } from "@mui/material";
 import React from "react";
 import { Post } from "../../../../app/models/Post";
 import MenuMini from "../../../common/UI/MenuMini";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { Link as MuiLink } from "@mui/material";
 
 interface PostCardProps {
   post: Post;
@@ -32,6 +33,7 @@ const moreOptions = [
 ];
 
 const PostCard = (props: PostCardProps) => {
+  const { classroomId } = useParams<{ classroomId: string }>();
   const [anchorElMore, setAnchorElMore] = React.useState<null | HTMLElement>(
     null
   );
@@ -57,7 +59,7 @@ const PostCard = (props: PostCardProps) => {
           transform: "translateY(-4px)",
         },
         position: "relative",
-        m: "10px 0"
+        m: "10px 0",
       }}
       variant="outlined"
     >
@@ -94,17 +96,44 @@ const PostCard = (props: PostCardProps) => {
         options={moreOptions}
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          <div dangerouslySetInnerHTML={{ __html: props.post.content }} style={{ padding: "0"}}/>
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {props.post.link}
-        </Typography>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          dangerouslySetInnerHTML={{ __html: props.post.content }}
+          style={{ padding: "0" }}
+        ></Typography>
+        {props.post.link.startsWith("https://") ||
+        props.post.link.startsWith("http://") ? (
+          <MuiLink href={props.post.link}>
+            <Typography variant="body2" color="text.secondary">
+              {props.post.link}
+            </Typography>
+          </MuiLink>
+        ) : (
+          <Typography variant="body2" color="text.secondary">
+            {props.post.link}
+          </Typography>
+        )}
       </CardContent>
       <Divider />
-      <CardActions disableSpacing sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Button variant="text" component={Link} to="/cr/:classroomId/po/:postId">Xem Chi Tiết</Button>
-        <Button variant="contained" component={Link} to="/cr/:classroomId/po/:postId">Nhận Xét</Button>
+      <CardActions
+        disableSpacing
+        sx={{ display: "flex", justifyContent: "space-between" }}
+      >
+        <Button
+          variant="text"
+          component={Link}
+          to={`/cr/${classroomId}/po/${props.post.id}`}
+        >
+          Xem Chi Tiết
+        </Button>
+        <Button
+          variant="contained"
+          component={Link}
+          to={`/cr/${classroomId}/po/${props.post.id}`}
+        >
+          Nhận Xét
+        </Button>
       </CardActions>
     </Card>
   );

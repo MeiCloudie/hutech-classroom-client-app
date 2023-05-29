@@ -106,11 +106,8 @@ const PostContent = () => {
       <Divider color="#1976d2" />
 
       <Box>
-        <Typography variant="body2" color="text.secondary">
-          <div
-            dangerouslySetInnerHTML={{ __html: post.content }}
-            style={{ padding: "0" }}
-          />
+        <Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={{ __html: post.content }}
+            style={{ padding: "0" }}>
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {post.link}
