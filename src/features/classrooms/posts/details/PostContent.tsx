@@ -6,7 +6,6 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import MenuMini from "../../../common/UI/MenuMini";
 import React, { useEffect, useState } from "react";
 import { Post } from "../../../../app/models/Post";
-import { Comment } from "../../../../app/models/Comment";
 
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -18,16 +17,6 @@ import { useStore } from "../../../../app/stores/store";
 import { Link, useParams } from "react-router-dom";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-
-const moreOptions = [
-  {
-    text: "Chỉnh sửa",
-  },
-  {
-    text: "Xoá",
-    dialog: "delete" as "delete",
-  },
-];
 
 const PostContent = () => {
   const { postStore } = useStore();
@@ -56,6 +45,16 @@ const PostContent = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const moreOptions = [
+    {
+      text: "Chỉnh sửa",
+    },
+    {
+      text: "Xoá",
+      handleClickOpenDialog: handleClickOpen,
+    },
+  ];
 
   useEffect(() => {
     if (postId)
@@ -109,7 +108,6 @@ const PostContent = () => {
           anchorEl={anchorElMore}
           handleCloseMenu={handleCloseMoreMenu}
           options={moreOptions}
-          handleClickOpenDialog={handleClickOpen}
         />
       </Box>
 

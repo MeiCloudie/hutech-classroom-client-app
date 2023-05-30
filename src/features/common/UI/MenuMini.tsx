@@ -8,10 +8,8 @@ interface MenuMiniProps {
   options: {
     text: string;
     link?: string | null;
-    dialog?: "create" | "edit" | "delete" | null;
-    // dialog?: string | null;
+    handleClickOpenDialog?: () => void | null
   }[];
-  handleClickOpenDialog?: () => void;
 }
 
 const MenuMini = (props: MenuMiniProps) => {
@@ -50,8 +48,8 @@ const MenuMini = (props: MenuMiniProps) => {
               key={index}
               onClick={() => {
                 props.handleCloseMenu();
-                if (props.handleClickOpenDialog && option.dialog === "delete") {
-                  props.handleClickOpenDialog();
+                if (option.handleClickOpenDialog) {
+                  option.handleClickOpenDialog();
                 }
               }}
             >
