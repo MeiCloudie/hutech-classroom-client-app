@@ -5,6 +5,7 @@ import * as Yup from "yup";
 
 const CommentForm = () => {
   const { userStore, commentStore, postStore } = useStore();
+
   return (
     <EntityForm<Comment, CommentFormValues>
       initialEntityFormValues={new CommentFormValues()}
@@ -12,7 +13,7 @@ const CommentForm = () => {
       selectionFields={[]}
       validateObject={{
         content: Yup.string()
-          .required("Nội dung không được bỏ trống")
+          .required("Nội dung không được bỏ trống!")
           .max(800, "Nội dung không được vượt quá 800 ký tự!"),
       }}
       excludeFields={["userId", "postId"]}
@@ -26,8 +27,8 @@ const CommentForm = () => {
           },
         },
       ]}
-      onCreate={(commenFormValues) => {
-        commentStore.addComment(commenFormValues);
+      onCreate={(commentFormValues) => {
+        commentStore.addComment(commentFormValues);
       }}
       onSetAdditionalValues={(commentFormValues) => {
         commentFormValues.userId = userStore.user?.id;

@@ -33,8 +33,26 @@ const PostComment = () => {
 
       <Divider color="#1976d2" />
 
-      <Box sx={{ display: "flex", mt: 2, mb: 2 }}>
-        <Avatar sx={{ bgcolor: "primary.main" }} />
+      <Box
+        sx={{
+          bgcolor: "#ffffff",
+          p: 2,
+          border: "2px solid #e0e0e0",
+          borderRadius: "5px",
+          transition: "transform 0.3s, border-color 0.3s, box-shadow 0.3s",
+          "&:hover": {
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.4)",
+            transform: "translateY(-4px)",
+            borderColor: "primary.main"
+          },
+          textAlign: "start",
+          display: "flex",
+          mt: 2,
+          mb: 2,
+          justifyContent: "center",
+        }}
+      >
+        <Avatar sx={{ mr: 2, bgcolor: "primary.main" }} />
         <CommentForm />
       </Box>
 

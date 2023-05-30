@@ -15,28 +15,9 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useStore } from "../../../../app/stores/store";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
-const comments: Comment[] = [
-  {
-    id: "c1",
-    createDate: new Date(2222, 2, 2),
-    content: "hi",
-  },
-  {
-    id: "c2",
-    createDate: new Date(2222, 2, 2),
-    content: "hi",
-  },
-];
-
-const post: Post = {
-  id: "111",
-  content: "<h1>hello</h1>",
-  link: "http://ffff",
-  createDate: new Date(2222, 2, 2),
-  comments: comments,
-};
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const moreOptions = [
   {
@@ -52,6 +33,7 @@ const PostContent = () => {
   const { postStore } = useStore();
   const [post, setPost] = useState<Post>(new Post());
   const { postId } = useParams<{ postId: string }>();
+  const { classroomId } = useParams<{ classroomId: string }>();
 
   const [anchorElMore, setAnchorElMore] = React.useState<null | HTMLElement>(
     null
@@ -132,12 +114,13 @@ const PostContent = () => {
       </Box>
 
       <Typography variant="body1" color="gray" mb={2}>
-        {post.user?.firstName + " " + post.user?.lastName} • {post.createDate.toString()}
+        {post.user?.firstName + " " + post.user?.lastName} •{" "}
+        {post.createDate.toString()}
       </Typography>
 
       <Divider color="#1976d2" />
 
-      <Box>
+      <Box sx={{ mb: 2 }}>
         <Typography
           variant="body2"
           color="text.secondary"
@@ -148,6 +131,18 @@ const PostContent = () => {
           {post.link}
         </Typography>
       </Box>
+
+      <Divider />
+
+      <Button
+        variant="contained"
+        startIcon={<ArrowBackIcon />}
+        sx={{ mt: 2, mb: 2 }}
+        component={Link}
+        to={`/cr/${classroomId}/posts`}
+      >
+        Quay Về
+      </Button>
 
       <div>
         <Button variant="outlined" onClick={handleClickOpen}>
