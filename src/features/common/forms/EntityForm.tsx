@@ -15,9 +15,8 @@ interface EntityFormProps<
   TEntity extends Entity,
   TEntityFormValues extends EntityFormValues
 > {
-  entityStore: EntityStore<TEntity, TEntityFormValues>;
   toFormValues: (entity?: TEntity) => TEntityFormValues;
-  entityId?: string;
+  initialEntityFormValues: TEntityFormValues;
   selectionFields: {
     fieldKey: string;
     options: { label: string; value: any }[];
@@ -25,8 +24,8 @@ interface EntityFormProps<
   fieldConfigs: { fieldKey: string; props: FieldProps }[];
   excludeFields: string[];
   validateObject: {};
-  onCreate?: (result?: TEntity) => void;
-  onUpdate?: () => void;
+  onCreate?: (entityFormValues: TEntityFormValues) => void;
+  onUpdate?: (entityFormValues: TEntityFormValues) => void;
   onCancel?: () => void;
   onSetAdditionalValues: (entityFormValues: TEntityFormValues) => void;
 }
@@ -40,9 +39,8 @@ const EntityForm = <
   TEntity extends Entity,
   TEntityFormValues extends EntityFormValues
 >({
-  entityStore,
   toFormValues,
-  entityId,
+  initialEntityFormValues,
   onCreate,
   onUpdate,
   onCancel,
@@ -52,23 +50,17 @@ const EntityForm = <
   excludeFields,
   validateObject,
 }: EntityFormProps<TEntity, TEntityFormValues>) => {
-  const {
-    get,
-    // loadingInitial,
-    create,
-    update,
-  } = entityStore;
-
-  const [entity, setEntity] = useState<TEntityFormValues>(toFormValues());
 
   const validationSchema = Yup.object(validateObject);
+  // const [entity, setEntity] = useState<TEntityFormValues>(initialEntityFormValues);
 
-  useEffect(() => {
-    if (entityId)
-      get(entityId).then((entity) => {
-        setEntity(toFormValues(entity));
-      });
-  }, [entityId, get, toFormValues]);
+
+  // useEffect(() => {
+  //   // if (entityId)
+  //   //   get(entityId).then((entity) => {
+  //   //     setEntity(toFormValues(entity));
+  //   //   });
+  // }, []);
 
   const handleFormSubmit = (
     entityFormValues: TEntityFormValues,
@@ -76,20 +68,21 @@ const EntityForm = <
   ) => {
     console.log(entityFormValues);
     onSetAdditionalValues(entityFormValues);
-    if (!entity.id) {
+    if (!initialEntityFormValues.id) {
+      if (onCreate) onCreate(entityFormValues);
       // entity.classroomId = classroomId;
-      create(entityFormValues).then((result) => {
-        console.log("Created");
+      // create(entityFormValues).then((result) => {
+      //   console.log("Created");
 
-        if (onCreate) onCreate(result);
-      });
+      // });
     } else {
       if (entityFormValues.id)
-        update(entityFormValues.id, entityFormValues).then(() => {
-          console.log("Updated");
+        if (onUpdate) onUpdate(entityFormValues);
+        // update(entityFormValues.id, entityFormValues).then(() => {
+        //   console.log("Updated");
 
-          if (onUpdate) onUpdate();
-        });
+          
+        // });
     }
     actions.setSubmitting(false);
   };
@@ -118,8 +111,8 @@ const EntityForm = <
           placeholder={placeholder}
         />
       );
-    if (!entityId && key.toLowerCase() === "id") return null;
-    if (entityId && key.toLowerCase() === "id")
+    if (!initialEntityFormValues.id && key.toLowerCase() === "id") return null;
+    if (initialEntityFormValues.id && key.toLowerCase() === "id")
       return (
         <MyTextInput
           name={key}
@@ -174,7 +167,7 @@ const EntityForm = <
     <Formik
       key="post-form"
       enableReinitialize
-      initialValues={entity}
+      initialValues={initialEntityFormValues}
       onSubmit={handleFormSubmit}
       validationSchema={validationSchema}
     >
@@ -185,7 +178,7 @@ const EntityForm = <
           autoComplete="true"
           onSubmit={handleSubmit}
         >
-          {Object.entries(entity).map(getInputComponent)}
+          {Object.entries(initialEntityFormValues).map(getInputComponent)}
 
           <Stack sx={{ width: "100%" }} spacing={2}>
             <div
@@ -211,7 +204,7 @@ const EntityForm = <
                   disabled={isSubmitting}
                   sx={{ m: "10px 0" }}
                 >
-                  {entityId ? "CẬP NHẬT" : "TẠO"}
+                  {initialEntityFormValues.id ? "CẬP NHẬT" : "TẠO"}
                 </Button>
               </Stack>
             </div>

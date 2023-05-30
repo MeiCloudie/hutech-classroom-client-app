@@ -49,7 +49,7 @@ const CommentCard = (props: CommentCardProps) => {
           transform: "translateY(-4px)",
         },
         position: "relative",
-        m: "10px 0"
+        m: "10px 0",
       }}
       variant="outlined"
     >
@@ -60,22 +60,22 @@ const CommentCard = (props: CommentCardProps) => {
           </Avatar>
         }
         action={
-            <IconButton
-              aria-label="more"
-              sx={{
-                transition: "color 0.2s",
-                "&:hover": {
-                  color: blue[800],
-                },
-                position: "absolute",
-                top: 8,
-                right: 8,
-              }}
-              onClick={handleOpenMoreMenu}
-            >
-              <MoreVertIcon />
-            </IconButton>
-          }
+          <IconButton
+            aria-label="more"
+            sx={{
+              transition: "color 0.2s",
+              "&:hover": {
+                color: blue[800],
+              },
+              position: "absolute",
+              top: 8,
+              right: 8,
+            }}
+            onClick={handleOpenMoreMenu}
+          >
+            <MoreVertIcon />
+          </IconButton>
+        }
         title={`${props.comment.user?.firstName} ${props.comment.user?.lastName}`}
         subheader={props.comment.createDate.toString()}
       />
@@ -86,8 +86,11 @@ const CommentCard = (props: CommentCardProps) => {
         options={moreOptions}
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {props.comment.content}
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          dangerouslySetInnerHTML={{ __html: props.comment.content }}
+        >
         </Typography>
       </CardContent>
     </Card>

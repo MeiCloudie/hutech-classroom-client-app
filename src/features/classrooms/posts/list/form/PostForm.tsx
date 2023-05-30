@@ -1,10 +1,11 @@
 import { Box, Typography } from "@mui/material";
 import EntityForm from "../../../../common/forms/EntityForm";
 import { Post, PostFormValues } from "../../../../../app/models/Post";
-import { store } from "../../../../../app/stores/store";
+import { store, useStore } from "../../../../../app/stores/store";
 
 import * as Yup from "yup";
 import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 interface PostFormProps {
   handleClose: () => void;
@@ -12,6 +13,7 @@ interface PostFormProps {
 
 const PostForm = (props: PostFormProps) => {
   const { classroomId } = useParams<{ classroomId: string }>();
+  const { postStore } = useStore();
 
   return (
     <Box
@@ -39,15 +41,16 @@ const PostForm = (props: PostFormProps) => {
       >
         THÔNG TIN BÀI ĐĂNG
       </Typography>
-      <Box sx={{ display: "flex", flexGrow: 1, justifyContent: "center"}}>
+      <Box sx={{ display: "flex", flexGrow: 1, justifyContent: "center" }}>
         <EntityForm<Post, PostFormValues>
-          entityStore={store.postStore}
+          // entityStore={store.postStore}
+          initialEntityFormValues={new PostFormValues()}
           toFormValues={(entity) => new PostFormValues(entity)}
           selectionFields={[]}
           validateObject={{
             content: Yup.string()
-            .required("Hãy nhập nội dung!")
-            .max(2000, "Nội dung không được vượt quá 100 ký tự!"),
+              .required("Hãy nhập nội dung!")
+              .max(2000, "Nội dung không được vượt quá 100 ký tự!"),
           }}
           fieldConfigs={[
             {
@@ -67,8 +70,11 @@ const PostForm = (props: PostFormProps) => {
             },
           ]}
           excludeFields={["classroomId", "userId"]}
-          onCreate={props.handleClose}
-          onUpdate={props.handleClose}
+          onCreate={(entityFormValues) => {
+            postStore.create(entityFormValues).then(() => {
+              props.handleClose();
+            });
+          }}
           onCancel={props.handleClose}
           onSetAdditionalValues={(postFormValues) => {
             postFormValues.userId = store.userStore.user?.id;

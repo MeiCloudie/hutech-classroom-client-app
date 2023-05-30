@@ -4,7 +4,7 @@ import { blue } from "@mui/material/colors";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 import MenuMini from "../../../common/UI/MenuMini";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Post } from "../../../../app/models/Post";
 import { Comment } from "../../../../app/models/Comment";
 
@@ -14,6 +14,8 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { useStore } from "../../../../app/stores/store";
+import { useParams } from "react-router-dom";
 
 const comments: Comment[] = [
   {
@@ -47,6 +49,10 @@ const moreOptions = [
 ];
 
 const PostContent = () => {
+  const { postStore } = useStore();
+  const [post, setPost] = useState<Post>(new Post());
+  const { postId } = useParams<{ postId: string }>();
+
   const [anchorElMore, setAnchorElMore] = React.useState<null | HTMLElement>(
     null
   );
@@ -68,6 +74,13 @@ const PostContent = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    if (postId)
+      postStore.get(postId).then(() => {
+        setPost(postStore.selectedItem ?? new Post());
+      });
+  }, [postId, postStore]);
 
   return (
     <Box
@@ -119,15 +132,18 @@ const PostContent = () => {
       </Box>
 
       <Typography variant="body1" color="gray" mb={2}>
-        Nguyen Van A • 11/11/2022 01:02:03 PM
+        {post.user?.firstName + " " + post.user?.lastName} • {post.createDate.toString()}
       </Typography>
 
       <Divider color="#1976d2" />
 
       <Box>
-        <Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={{ __html: post.content }}
-            style={{ padding: "0" }}>
-        </Typography>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          dangerouslySetInnerHTML={{ __html: post.content }}
+          style={{ padding: "0" }}
+        ></Typography>
         <Typography variant="body2" color="text.secondary">
           {post.link}
         </Typography>
