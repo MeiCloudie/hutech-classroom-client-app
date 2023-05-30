@@ -3,10 +3,9 @@ import MiniDetailsLayout from "../../layout/MiniDetailsLayout";
 
 import PostComment from "../comments/list/PostComment";
 import PostContent from "./PostContent";
+import { observer } from "mobx-react-lite";
 
 const PostDetails = () => {
-
-
   return (
     <Box>
       <MiniDetailsLayout
@@ -21,4 +20,4 @@ const PostDetails = () => {
   );
 };
 
-export default PostDetails;
+export default observer(PostDetails);

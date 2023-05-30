@@ -9,10 +9,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
 
-import AddIcon from "@mui/icons-material/Add";
 import { Box, DialogContent } from "@mui/material";
-import MiniDetailsLayout from "../../layout/MiniDetailsLayout";
-import PostForm from "./form/PostForm";
+import MiniDetailsLayout from "../../classrooms/layout/MiniDetailsLayout";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -23,7 +21,14 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const CreatePostDialog = () => {
+interface CreateEditDialogProps {
+  iconButton: React.ReactNode;
+  titleButton: string;
+  titleDialog: string;
+  formComponent: (handleClose: () => void) => any;
+}
+
+const CreateEditDialog = (props: CreateEditDialogProps) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -39,9 +44,9 @@ const CreatePostDialog = () => {
       <Button
         variant="contained"
         onClick={handleClickOpen}
-        startIcon={<AddIcon />}
+        startIcon={props.iconButton}
       >
-        TẠO BÀI ĐĂNG
+        {props.titleButton}
       </Button>
 
       <Dialog
@@ -66,7 +71,7 @@ const CreatePostDialog = () => {
               variant="h6"
               component="div"
             >
-              TẠO BÀI ĐĂNG
+              {props.titleDialog}
             </Typography>
 
             {/* <Button autoFocus color="inherit" onClick={handleClose}>
@@ -77,7 +82,7 @@ const CreatePostDialog = () => {
 
         <DialogContent sx={{ p: "20px 100px" }}>
           <MiniDetailsLayout
-            component={<PostForm handleClose={handleClose} />}
+            component={props.formComponent(handleClose)}
           />
         </DialogContent>
       </Dialog>
@@ -85,4 +90,4 @@ const CreatePostDialog = () => {
   );
 };
 
-export default CreatePostDialog;
+export default CreateEditDialog;

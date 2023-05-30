@@ -7,6 +7,7 @@ import {
   SelectProps,
 } from "@mui/material";
 import { useField } from "formik";
+import { v1 as uuidv1 } from 'uuid';
 
 export interface MySelectionInputProps extends SelectProps {
   icon: React.ReactNode;
@@ -39,7 +40,7 @@ const MySelectionInput = (props: MySelectionInputProps) => {
         },
       }}
     >
-      <InputLabel id={`${props.name}-selection-form`}>{props.label}</InputLabel>
+      <InputLabel id={`${uuidv1()}-${props.name}-selection-form`}>{props.label}</InputLabel>
       <Select
         {...selectProps}
         {...field}

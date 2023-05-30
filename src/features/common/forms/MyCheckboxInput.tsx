@@ -1,5 +1,6 @@
 import { Checkbox } from "@mui/material";
 import { useField } from "formik";
+import { v1 as uuidv1 } from 'uuid';
 
 const MyCheckboxInput = ({ label, ...props }: any) => {
     const [field] = useField(props);
@@ -9,7 +10,7 @@ const MyCheckboxInput = ({ label, ...props }: any) => {
                 {...field}
                 {...props}
                 checked={field.value}
-                id={`${props.name}-text-form`}
+                id={`${uuidv1()}-${props.name}-text-form`}
                 variant="outlined"
                 sx={{
                     mt: 2,

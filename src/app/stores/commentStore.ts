@@ -2,6 +2,7 @@ import { HttpTransportType, HubConnection, HubConnectionBuilder, LogLevel } from
 import { Comment, CommentFormValues } from "../models/Comment";
 import { makeAutoObservable, runInAction } from "mobx";
 import { store } from "./store";
+import { PaginationParams } from "../common/models/paginationPrams";
 
 export default class CommentStore {
     comments: Comment[] = []
@@ -10,10 +11,14 @@ export default class CommentStore {
         makeAutoObservable(this)
     }
 
-    createHubConnection = (postId: string) : void => {
+    createHubConnection = (postId: string, params?: PaginationParams) : void => {
         if (store.postStore.selectedItem) {
+            let pagingString = "";
+            if (params) {
+                pagingString = `&pageNumber=${params.pageNumber}&pageSize=${params.pageSize}`
+            }
             this.hubConnection = new HubConnectionBuilder()
-                .withUrl(`${process.env.REACT_APP_HUTECH_CLASSROOM_HUBS}comments?postId=${postId}`, {
+                .withUrl(`${process.env.REACT_APP_HUTECH_CLASSROOM_HUBS}comments?postId=${postId}` + pagingString, {
                     skipNegotiation: true,
                     transport: HttpTransportType.WebSockets,
                     accessTokenFactory: () => store.userStore.user?.token!

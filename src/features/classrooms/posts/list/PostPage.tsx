@@ -1,6 +1,9 @@
 import { Box, Typography } from "@mui/material";
-import CreatePostDialog from "./CreatePostDialog";
+// import CreatePostDialog from "./CreatePostDialog";
 import PostList from "./PostList";
+import CreateEditDialog from "../../../common/UI/CreateEditDialog";
+import AddIcon from "@mui/icons-material/Add";
+import PostForm from "./form/PostForm";
 
 const PostPage = () => {
   return (
@@ -31,7 +34,13 @@ const PostPage = () => {
         </Typography>
       </Box>
 
-      <CreatePostDialog />
+      {/* <CreatePostDialog /> */}
+      <CreateEditDialog
+        iconButton={<AddIcon />}
+        titleButton="TẠO BÀI ĐĂNG"
+        titleDialog="TẠO BÀI ĐĂNG"
+        formComponent={(handleClose) => <PostForm handleClose={handleClose} />}
+      />
 
       <PostList />
     </Box>

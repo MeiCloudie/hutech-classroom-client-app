@@ -10,7 +10,7 @@ const NavbarContent = () => {
       {/* LOGO */}
       <CardMedia
         component="img"
-        image="logoHutech.png"
+        image="/logoHutech.png"
         alt="Ảnh không tồn tại"
         sx={{
           width: "60px",

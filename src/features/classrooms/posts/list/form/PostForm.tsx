@@ -1,10 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import EntityForm from "../../../../common/forms/EntityForm";
-import { Post, PostFormValues } from "../../../../../app/models/Post";
+import { PostFormValues } from "../../../../../app/models/Post";
 import { store, useStore } from "../../../../../app/stores/store";
 
 import * as Yup from "yup";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 interface PostFormProps {
@@ -12,8 +12,23 @@ interface PostFormProps {
 }
 
 const PostForm = (props: PostFormProps) => {
-  const { classroomId } = useParams<{ classroomId: string }>();
+  const navigate = useNavigate()
+  const { classroomId, postId } = useParams<{
+    classroomId: string;
+    postId: string;
+  }>();
   const { postStore } = useStore();
+  const [postFormValues, setPostFormValues] = useState<PostFormValues>(
+    new PostFormValues()
+  );
+
+  useEffect(() => {
+    if (postId) postStore.get(postId).then(() => {
+      if (postStore.selectedItem) {
+        setPostFormValues(new PostFormValues(postStore.selectedItem))
+      }
+    });
+  }, [postId, postStore]);
 
   return (
     <Box
@@ -42,10 +57,8 @@ const PostForm = (props: PostFormProps) => {
         THÔNG TIN BÀI ĐĂNG
       </Typography>
       <Box sx={{ display: "flex", flexGrow: 1, justifyContent: "center" }}>
-        <EntityForm<Post, PostFormValues>
-          // entityStore={store.postStore}
-          initialEntityFormValues={new PostFormValues()}
-          toFormValues={(entity) => new PostFormValues(entity)}
+        <EntityForm<PostFormValues>
+          initialEntityFormValues={postFormValues}
           selectionFields={[]}
           validateObject={{
             content: Yup.string()
@@ -70,10 +83,20 @@ const PostForm = (props: PostFormProps) => {
             },
           ]}
           excludeFields={["classroomId", "userId"]}
-          onCreate={(entityFormValues) => {
-            postStore.create(entityFormValues).then(() => {
-              props.handleClose();
-            });
+          onSubmit={(entityFormValues) => {
+            if (entityFormValues.id) {
+              postStore
+                .update(entityFormValues.id, entityFormValues)
+                .then(() => {
+                  // navigate(`/cr/${classroomId}/po/${postId}`)
+                  props.handleClose();
+
+                });
+            } else {
+              postStore.create(entityFormValues).then(() => {
+                props.handleClose();
+              });
+            }
           }}
           onCancel={props.handleClose}
           onSetAdditionalValues={(postFormValues) => {

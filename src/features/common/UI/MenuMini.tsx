@@ -7,8 +7,7 @@ interface MenuMiniProps {
   handleCloseMenu: () => void;
   options: {
     text: string;
-    link?: string | null;
-    handleClickOpenDialog?: () => void | null
+    link?: string;
   }[];
 }
 
@@ -44,15 +43,7 @@ const MenuMini = (props: MenuMiniProps) => {
           );
         } else {
           return (
-            <MenuItem
-              key={index}
-              onClick={() => {
-                props.handleCloseMenu();
-                if (option.handleClickOpenDialog) {
-                  option.handleClickOpenDialog();
-                }
-              }}
-            >
+            <MenuItem key={index} onClick={props.handleCloseMenu}>
               <Typography textAlign="center">{option.text}</Typography>
             </MenuItem>
           );

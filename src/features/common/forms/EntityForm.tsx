@@ -1,4 +1,4 @@
-import Entity, { EntityFormValues } from "../../../app/common/models/Entity";
+import { EntityFormValues } from "../../../app/common/models/Entity";
 import * as Yup from "yup";
 import { Formik, FormikHelpers } from "formik";
 import { Box, Button, Stack } from "@mui/material";
@@ -10,10 +10,8 @@ import MySelectionInput from "./MySelectionInput";
 import MyTextAreaInput from "./MyTextAreaInput";
 
 interface EntityFormProps<
-  TEntity extends Entity,
   TEntityFormValues extends EntityFormValues
 > {
-  toFormValues: (entity?: TEntity) => TEntityFormValues;
   initialEntityFormValues: TEntityFormValues;
   selectionFields: {
     fieldKey: string;
@@ -22,8 +20,7 @@ interface EntityFormProps<
   fieldConfigs: { fieldKey: string; props: FieldProps }[];
   excludeFields: string[];
   validateObject: {};
-  onCreate?: (entityFormValues: TEntityFormValues) => void;
-  onUpdate?: (entityFormValues: TEntityFormValues) => void;
+  onSubmit: (entityFormValues: TEntityFormValues) => void;
   onCancel?: () => void;
   onSetAdditionalValues: (entityFormValues: TEntityFormValues) => void;
 }
@@ -34,54 +31,26 @@ export interface FieldProps {
   textarea?: boolean;
 }
 const EntityForm = <
-  TEntity extends Entity,
   TEntityFormValues extends EntityFormValues
 >({
-  // toFormValues,
   initialEntityFormValues,
-  onCreate,
-  onUpdate,
+  onSubmit,
   onCancel,
   onSetAdditionalValues,
   selectionFields,
   fieldConfigs,
   excludeFields,
   validateObject,
-}: EntityFormProps<TEntity, TEntityFormValues>) => {
+}: EntityFormProps<TEntityFormValues>) => {
 
   const validationSchema = Yup.object(validateObject);
-  // const [entity, setEntity] = useState<TEntityFormValues>(initialEntityFormValues);
-
-
-  // useEffect(() => {
-  //   // if (entityId)
-  //   //   get(entityId).then((entity) => {
-  //   //     setEntity(toFormValues(entity));
-  //   //   });
-  // }, []);
-
   const handleFormSubmit = (
     entityFormValues: TEntityFormValues,
     actions: FormikHelpers<TEntityFormValues>
   ) => {
-    console.log(entityFormValues);
     onSetAdditionalValues(entityFormValues);
-    if (!initialEntityFormValues.id) {
-      if (onCreate) onCreate(entityFormValues);
-      // entity.classroomId = classroomId;
-      // create(entityFormValues).then((result) => {
-      //   console.log("Created");
-
-      // });
-    } else {
-      if (entityFormValues.id)
-        if (onUpdate) onUpdate(entityFormValues);
-        // update(entityFormValues.id, entityFormValues).then(() => {
-        //   console.log("Updated");
-
-          
-        // });
-    }
+    onSubmit(entityFormValues);
+    actions.resetForm();
     actions.setSubmitting(false);
   };
 

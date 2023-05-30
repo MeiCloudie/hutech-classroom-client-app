@@ -1,4 +1,4 @@
-import { Comment, CommentFormValues } from "../../../../../app/models/Comment";
+import { CommentFormValues } from "../../../../../app/models/Comment";
 import { useStore } from "../../../../../app/stores/store";
 import EntityForm from "../../../../common/forms/EntityForm";
 import * as Yup from "yup";
@@ -7,9 +7,8 @@ const CommentForm = () => {
   const { userStore, commentStore, postStore } = useStore();
 
   return (
-    <EntityForm<Comment, CommentFormValues>
+    <EntityForm<CommentFormValues>
       initialEntityFormValues={new CommentFormValues()}
-      toFormValues={(entity) => new CommentFormValues(entity)}
       selectionFields={[]}
       validateObject={{
         content: Yup.string()
@@ -27,7 +26,7 @@ const CommentForm = () => {
           },
         },
       ]}
-      onCreate={(commentFormValues) => {
+      onSubmit={(commentFormValues) => {
         commentStore.addComment(commentFormValues);
       }}
       onSetAdditionalValues={(commentFormValues) => {

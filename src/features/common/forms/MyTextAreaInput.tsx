@@ -1,6 +1,7 @@
 import { InputAdornment, Typography } from "@mui/material";
 import { Editor } from "@tinymce/tinymce-react";
 import { useField } from "formik";
+import { v1 as uuidv1 } from 'uuid';
 
 const MyTextAreaInput = ({ label, icon, ...props }: any) => {
   const [field, meta, helpers] = useField(props);
@@ -40,7 +41,7 @@ const MyTextAreaInput = ({ label, icon, ...props }: any) => {
         {...props}
         onEditorChange={handleEditorChange}
         helperText={meta.touched && meta.error}
-        id={`${props.name}-text-form`}
+        id={`${uuidv1()}-${props.name}-text-form`}
         label={label}
         variant="outlined"
         sx={{

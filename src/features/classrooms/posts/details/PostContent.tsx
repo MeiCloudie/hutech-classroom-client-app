@@ -1,22 +1,19 @@
-import { Box, Divider, IconButton, Typography } from "@mui/material";
-import { blue } from "@mui/material/colors";
+import { Box, Divider, Typography } from "@mui/material";
 
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-
-import MenuMini from "../../../common/UI/MenuMini";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Post } from "../../../../app/models/Post";
 
 import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import { useStore } from "../../../../app/stores/store";
 import { Link, useParams } from "react-router-dom";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import CreateEditDialog from "../../../common/UI/CreateEditDialog";
+import PostForm from "../list/form/PostForm";
+import AlertDialog from "../../../common/UI/AlertDialog";
+import { observer } from "mobx-react-lite";
 
 const PostContent = () => {
   const { postStore } = useStore();
@@ -24,42 +21,11 @@ const PostContent = () => {
   const { postId } = useParams<{ postId: string }>();
   const { classroomId } = useParams<{ classroomId: string }>();
 
-  const [anchorElMore, setAnchorElMore] = React.useState<null | HTMLElement>(
-    null
-  );
-
-  const handleOpenMoreMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElMore(event.currentTarget);
-  };
-
-  const handleCloseMoreMenu = () => {
-    setAnchorElMore(null);
-  };
-
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const moreOptions = [
-    {
-      text: "Chỉnh sửa",
-    },
-    {
-      text: "Xoá",
-      handleClickOpenDialog: handleClickOpen,
-    },
-  ];
-
   useEffect(() => {
     if (postId)
       postStore.get(postId).then(() => {
-        setPost(postStore.selectedItem ?? new Post());
+        console.log("Post: ", postStore.selectedItem)
+        if (postStore.selectedItem) setPost(postStore.selectedItem);
       });
   }, [postId, postStore]);
 
@@ -79,7 +45,13 @@ const PostContent = () => {
         textAlign: "start",
       }}
     >
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         <Typography
           variant="h5"
           gutterBottom
@@ -91,24 +63,25 @@ const PostContent = () => {
         >
           THÔNG BÁO
         </Typography>
-        <IconButton
-          aria-label="more"
-          sx={{
-            transition: "color 0.2s",
-            "&:hover": {
-              color: blue[800],
-            },
-          }}
-          onClick={handleOpenMoreMenu}
-        >
-          <MoreVertIcon />
-        </IconButton>
-        <MenuMini
-          id="menu-more"
-          anchorEl={anchorElMore}
-          handleCloseMenu={handleCloseMoreMenu}
-          options={moreOptions}
-        />
+
+        <Box sx={{ display: "flex" }}>
+          <AlertDialog
+            iconButton={<DeleteIcon />}
+            titleButton="XOÁ"
+            alertDialogTitle="Xoá bài đăng?"
+            alertDialogDescription="Nhận xét cũng sẽ bị xoá"
+            negation="Huỷ"
+            affirmation="Xoá"
+          />
+          <CreateEditDialog
+            iconButton={<AddIcon />}
+            titleButton="CHỈNH SỬA"
+            titleDialog="CHỈNH SỬA BÀI ĐĂNG"
+            formComponent={(handleClose) => (
+              <PostForm handleClose={handleClose} />
+            )}
+          />
+        </Box>
       </Box>
 
       <Typography variant="body1" color="gray" mb={2}>
@@ -141,36 +114,8 @@ const PostContent = () => {
       >
         Quay Về
       </Button>
-
-      <div>
-        <Button variant="outlined" onClick={handleClickOpen}>
-          Open alert dialog
-        </Button>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            {"Use Google's location service?"}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              Let Google help apps determine location. This means sending
-              anonymous location data to Google, even when no apps are running.
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Disagree</Button>
-            <Button onClick={handleClose} autoFocus>
-              Agree
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </div>
     </Box>
   );
 };
 
-export default PostContent;
+export default observer(PostContent);

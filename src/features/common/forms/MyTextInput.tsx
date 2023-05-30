@@ -1,5 +1,6 @@
 import { InputAdornment, TextField } from "@mui/material";
 import { useField } from "formik";
+import { v1 as uuidv1 } from 'uuid';
 
 const MyTextInput = ({ label, icon, ...props }: any) => {
   const [field, meta] = useField(props);
@@ -9,7 +10,7 @@ const MyTextInput = ({ label, icon, ...props }: any) => {
         {...field}
         {...props}
         helperText={meta.touched && meta.error}
-        id={`${props.name}-text-form`}
+        id={`${uuidv1()}-${props.name}-text-form`}
         label={label}
         variant="outlined"
         sx={{

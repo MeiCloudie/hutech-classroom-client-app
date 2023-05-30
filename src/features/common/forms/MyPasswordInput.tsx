@@ -10,6 +10,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import React from "react";
 import { useField } from "formik";
+import { v1 as uuidv1 } from 'uuid';
 
 const MyPasswordInput = ({ label, ...props }: any) => {
   const [field, meta] = useField(props);
@@ -46,7 +47,7 @@ const MyPasswordInput = ({ label, ...props }: any) => {
         <OutlinedInput
           {...field}
           {...props}
-          id={`${props.name}-password-form`}
+          id={`${uuidv1()}-${props.name}-password-form`}
           type={showPassword ? "text" : "password"}
           endAdornment={
             <InputAdornment position="end">
