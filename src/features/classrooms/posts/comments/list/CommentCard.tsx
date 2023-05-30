@@ -1,7 +1,6 @@
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -10,9 +9,7 @@ import { blue } from "@mui/material/colors";
 
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import PersonIcon from "@mui/icons-material/Person";
-import { Button, Divider } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
 import { Comment } from "../../../../../app/models/Comment";
 import MenuMini from "../../../../common/UI/MenuMini";
 
