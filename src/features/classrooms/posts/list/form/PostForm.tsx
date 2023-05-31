@@ -79,6 +79,7 @@ const PostForm = (props: PostFormProps) => {
               props: {
                 label: "Liên Kết",
                 placeholder: "Hãy thêm đường dẫn liên kết tại đây!",
+                rows: 5 
               },
             },
           ]}

@@ -6,15 +6,17 @@ import { Post } from "../../../../app/models/Post";
 import Button from "@mui/material/Button";
 import { useStore } from "../../../../app/stores/store";
 import { Link, useParams } from "react-router-dom";
-import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from "@mui/icons-material/Edit";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import InsertLinkIcon from "@mui/icons-material/InsertLink";
+
 import CreateEditDialog from "../../../common/UI/CreateEditDialog";
 import PostForm from "../list/form/PostForm";
 import AlertDialog from "../../../common/UI/AlertDialog";
 import { observer } from "mobx-react-lite";
+import { Link as MuiLink } from "@mui/material";
 
 const PostContent = () => {
   const { postStore } = useStore();
@@ -25,7 +27,7 @@ const PostContent = () => {
   useEffect(() => {
     if (postId)
       postStore.get(postId).then(() => {
-        console.log("Post: ", postStore.selectedItem)
+        console.log("Post: ", postStore.selectedItem);
         if (postStore.selectedItem) setPost(postStore.selectedItem);
       });
   }, [postId, postStore]);
@@ -99,9 +101,59 @@ const PostContent = () => {
           dangerouslySetInnerHTML={{ __html: post.content }}
           style={{ padding: "0" }}
         ></Typography>
-        <Typography variant="body2" color="text.secondary">
+        {/* <Typography variant="body2" color="text.secondary">
           {post.link}
-        </Typography>
+        </Typography> */}
+
+        {post.link && post.link.trim() !== "" && (
+          <Box>
+            <Box sx={{ display: "flex" }}>
+              <InsertLinkIcon />
+              <Typography
+                variant="body1"
+                fontWeight={700}
+                color="text.secondary"
+              >
+                &nbsp;Link:
+              </Typography>
+            </Box>
+
+            <Box>
+              <ol>
+                {post.link.split(/\s+/).map((link, index) => (
+                  <li>
+                    <Box key={index}>
+                      {link.startsWith("https://") ||
+                      link.startsWith("http://") ? (
+                        <MuiLink
+                          href={link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          sx={{ fontWeight: "bold" }}
+                        >
+                          <em>
+                            <Typography
+                              variant="body2"
+                              fontWeight={700}
+                              color="text.secondary"
+                              sx={{ m: 1 }}
+                            >
+                              {link}
+                            </Typography>
+                          </em>
+                        </MuiLink>
+                      ) : (
+                        <Typography variant="body2" color="text.secondary">
+                          {link}
+                        </Typography>
+                      )}
+                    </Box>
+                  </li>
+                ))}
+              </ol>
+            </Box>
+          </Box>
+        )}
       </Box>
 
       <Divider />

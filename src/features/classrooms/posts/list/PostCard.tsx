@@ -10,7 +10,8 @@ import { blue } from "@mui/material/colors";
 
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import PersonIcon from "@mui/icons-material/Person";
-import { Button, Divider } from "@mui/material";
+import InsertLinkIcon from "@mui/icons-material/InsertLink";
+import { Box, Button, Divider } from "@mui/material";
 import React from "react";
 import { Post } from "../../../../app/models/Post";
 import MenuMini from "../../../common/UI/MenuMini";
@@ -102,17 +103,55 @@ const PostCard = (props: PostCardProps) => {
           dangerouslySetInnerHTML={{ __html: props.post.content }}
           style={{ padding: "0" }}
         ></Typography>
-        {props.post.link.startsWith("https://") ||
-        props.post.link.startsWith("http://") ? (
-          <MuiLink href={props.post.link}>
-            <Typography variant="body2" color="text.secondary">
-              {props.post.link}
-            </Typography>
-          </MuiLink>
-        ) : (
-          <Typography variant="body2" color="text.secondary">
-            {props.post.link}
-          </Typography>
+
+        {props.post.link && props.post.link.trim() !== "" && (
+          <Box>
+            <Box sx={{ display: "flex" }}>
+              <InsertLinkIcon />
+              <Typography
+                variant="body1"
+                fontWeight={700}
+                color="text.secondary"
+              >
+                &nbsp;Link:
+              </Typography>
+            </Box>
+
+            <Box>
+              <ol>
+                {props.post.link.split(/\s+/).map((link, index) => (
+                  <li>
+                    <Box key={index}>
+                      {link.startsWith("https://") ||
+                      link.startsWith("http://") ? (
+                        <MuiLink
+                          href={link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          sx={{ fontWeight: "bold" }}
+                        >
+                          <em>
+                            <Typography
+                              variant="body2"
+                              fontWeight={700}
+                              color="text.secondary"
+                              sx={{ m: 1 }}
+                            >
+                              {link}
+                            </Typography>
+                          </em>
+                        </MuiLink>
+                      ) : (
+                        <Typography variant="body2" color="text.secondary">
+                          {link}
+                        </Typography>
+                      )}
+                    </Box>
+                  </li>
+                ))}
+              </ol>
+            </Box>
+          </Box>
         )}
       </CardContent>
       <Divider />

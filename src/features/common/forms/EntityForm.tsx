@@ -29,6 +29,7 @@ export interface FieldProps {
   placeholder: string;
   label: string;
   textarea?: boolean;
+  rows?: number;
 }
 const EntityForm = <
   TEntityFormValues extends EntityFormValues
@@ -89,15 +90,20 @@ const EntityForm = <
           placeholder={placeholder}
         />
       );
-    if (typeof value === "string" && !isTextarea)
+    if (typeof value === "string" && !isTextarea) {
+      const rows = fieldConfig?.props.rows ?? 1;
+      const isMultiline = rows > 1
       return (
         <MyTextInput
           name={key}
           label={label}
           key={index}
+          rows={rows}
+          multiline={isMultiline}
           placeholder={placeholder}
         />
       );
+    }
     if (typeof value === "string" && isTextarea)
       return (
         <MyTextAreaInput
