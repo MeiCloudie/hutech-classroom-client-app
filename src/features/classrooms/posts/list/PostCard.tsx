@@ -119,9 +119,9 @@ const PostCard = (props: PostCardProps) => {
 
             <Box>
               <ol>
-                {props.post.link.split(/\s+/).map((link, index) => (
-                  <li>
-                    <Box key={index}>
+                {props.post.link.trim().split(/\s+/).map((link, index) => (
+                  <li key={index}>
+                    <Box>
                       {link.startsWith("https://") ||
                       link.startsWith("http://") ? (
                         <MuiLink

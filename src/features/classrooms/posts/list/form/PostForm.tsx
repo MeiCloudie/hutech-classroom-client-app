@@ -12,7 +12,7 @@ interface PostFormProps {
 }
 
 const PostForm = (props: PostFormProps) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { classroomId, postId } = useParams<{
     classroomId: string;
     postId: string;
@@ -23,11 +23,12 @@ const PostForm = (props: PostFormProps) => {
   );
 
   useEffect(() => {
-    if (postId) postStore.get(postId).then(() => {
-      if (postStore.selectedItem) {
-        setPostFormValues(new PostFormValues(postStore.selectedItem))
-      }
-    });
+    if (postId)
+      postStore.get(postId).then(() => {
+        if (postStore.selectedItem) {
+          setPostFormValues(new PostFormValues(postStore.selectedItem));
+        }
+      });
   }, [postId, postStore]);
 
   return (
@@ -63,7 +64,11 @@ const PostForm = (props: PostFormProps) => {
           validateObject={{
             content: Yup.string()
               .required("Hãy nhập nội dung!")
-              .max(2000, "Nội dung không được vượt quá 100 ký tự!"),
+              .max(5000, "Nội dung không được vượt quá 5000 ký tự!"),
+            link: Yup.string().max(
+              2000,
+              "Nội dung không được vượt quá 2000 ký tự!"
+            ),
           }}
           fieldConfigs={[
             {
@@ -79,7 +84,7 @@ const PostForm = (props: PostFormProps) => {
               props: {
                 label: "Liên Kết",
                 placeholder: "Hãy thêm đường dẫn liên kết tại đây!",
-                rows: 5 
+                rows: 5,
               },
             },
           ]}
@@ -91,7 +96,6 @@ const PostForm = (props: PostFormProps) => {
                 .then(() => {
                   // navigate(`/cr/${classroomId}/po/${postId}`)
                   props.handleClose();
-
                 });
             } else {
               postStore.create(entityFormValues).then(() => {

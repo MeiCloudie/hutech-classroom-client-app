@@ -50,7 +50,8 @@ export default class CommentStore {
             this.hubConnection.on('DeleteComment', (comment: Comment) => {
                 runInAction(() => {
                     const itemIndex = this.comments.findIndex((item) => item.id === comment.id);
-                    this.comments.splice(itemIndex);
+                    this.comments.splice(itemIndex, 1);
+                    console.log(this.comments)
                 })
             })
         }
@@ -76,7 +77,7 @@ export default class CommentStore {
 
     deleteComment = async (id: string) : Promise<void> => {
         try {
-            await this.hubConnection?.invoke('DeleteComment', id)
+            await this.hubConnection?.invoke('DeleteComment', {id})
         } catch (error) {
             console.log(error)
         }

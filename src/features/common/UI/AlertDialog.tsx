@@ -13,6 +13,7 @@ interface AlertDialogProps {
   alertDialogDescription?: string;
   negation: string;
   affirmation: string;
+  onSubmit: () => void;
 }
 
 const AlertDialog = (props: AlertDialogProps) => {
@@ -54,7 +55,13 @@ const AlertDialog = (props: AlertDialogProps) => {
           <Button sx={{ color: "gray" }} onClick={handleClose}>
             {props.negation}
           </Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button
+            onClick={() => {
+              props.onSubmit();
+              handleClose();
+            }}
+            autoFocus
+          >
             {props.affirmation}
           </Button>
         </DialogActions>

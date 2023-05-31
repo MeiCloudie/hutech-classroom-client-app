@@ -5,7 +5,7 @@ import { Post } from "../../../../app/models/Post";
 
 import Button from "@mui/material/Button";
 import { useStore } from "../../../../app/stores/store";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
@@ -21,8 +21,16 @@ import { Link as MuiLink } from "@mui/material";
 const PostContent = () => {
   const { postStore } = useStore();
   const [post, setPost] = useState<Post>(new Post());
-  const { postId } = useParams<{ postId: string }>();
-  const { classroomId } = useParams<{ classroomId: string }>();
+  const { postId, classroomId } = useParams<{
+    classroomId: string;
+    postId: string;
+  }>();
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    if (postId)
+      postStore.delete(postId).then(() => navigate(`/cr/${classroomId}/posts`));
+  };
 
   useEffect(() => {
     if (postId)
@@ -75,6 +83,7 @@ const PostContent = () => {
             alertDialogDescription="Nhận xét cũng sẽ bị xoá"
             negation="Huỷ"
             affirmation="Xoá"
+            onSubmit={handleSubmit}
           />
           <CreateEditDialog
             iconButton={<EditIcon />}
@@ -101,9 +110,6 @@ const PostContent = () => {
           dangerouslySetInnerHTML={{ __html: post.content }}
           style={{ padding: "0" }}
         ></Typography>
-        {/* <Typography variant="body2" color="text.secondary">
-          {post.link}
-        </Typography> */}
 
         {post.link && post.link.trim() !== "" && (
           <Box>
@@ -120,9 +126,9 @@ const PostContent = () => {
 
             <Box>
               <ol>
-                {post.link.split(/\s+/).map((link, index) => (
-                  <li>
-                    <Box key={index}>
+                {post.link.trim().split(/\s+/).map((link, index) => (
+                  <li key={index}>
+                    <Box>
                       {link.startsWith("https://") ||
                       link.startsWith("http://") ? (
                         <MuiLink

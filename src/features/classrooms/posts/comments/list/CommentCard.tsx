@@ -2,41 +2,27 @@ import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 
 import { blue } from "@mui/material/colors";
 
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import PersonIcon from "@mui/icons-material/Person";
-import React from "react";
 import { Comment } from "../../../../../app/models/Comment";
-import MenuMini from "../../../../common/UI/MenuMini";
 import AlertDialog from "../../../../common/UI/AlertDialog";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useStore } from "../../../../../app/stores/store";
 
 interface CommentCardProps {
   comment: Comment;
 }
 
-const moreOptions = [
-  {
-    text: "Xoá",
-  },
-];
-
 const CommentCard = (props: CommentCardProps) => {
-  const [anchorElMore, setAnchorElMore] = React.useState<null | HTMLElement>(
-    null
-  );
+  const { commentStore } = useStore()
 
-  const handleOpenMoreMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElMore(event.currentTarget);
+  const handleSubmit = () => {
+    commentStore.deleteComment(props.comment.id)
   };
 
-  const handleCloseMoreMenu = () => {
-    setAnchorElMore(null);
-  };
   return (
     <Card
       sx={{
@@ -62,21 +48,6 @@ const CommentCard = (props: CommentCardProps) => {
           </Avatar>
         }
         action={
-          // <IconButton
-          //   aria-label="more"
-          //   sx={{
-          //     transition: "color 0.2s",
-          //     "&:hover": {
-          //       color: blue[800],
-          //     },
-          //     position: "absolute",
-          //     top: 8,
-          //     right: 8,
-          //   }}
-          //   onClick={handleOpenMoreMenu}
-          // >
-          //   <MoreVertIcon />
-          // </IconButton>
           <AlertDialog
           iconButton={<DeleteIcon />}
           titleButton="XOÁ"
@@ -84,17 +55,12 @@ const CommentCard = (props: CommentCardProps) => {
           alertDialogDescription="Bạn có chắc chắn muốn xoá nhận xét này không?"
           negation="Huỷ"
           affirmation="Xoá"
+          onSubmit={handleSubmit}
         />
         }
         title={`${props.comment.user?.firstName} ${props.comment.user?.lastName}`}
         subheader={props.comment.createDate.toString()}
       />
-      {/* <MenuMini
-        id="menu-more"
-        anchorEl={anchorElMore}
-        handleCloseMenu={handleCloseMoreMenu}
-        options={moreOptions}
-      /> */}
       <CardContent>
         <Typography
           variant="body2"

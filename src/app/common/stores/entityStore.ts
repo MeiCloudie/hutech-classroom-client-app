@@ -85,7 +85,7 @@ export default class EntityStore<
 
   deleteItem(id: string): void {
     const itemIndex = this._items.findIndex((item) => item.id === id);
-    this._items.splice(itemIndex);
+    this._items.splice(itemIndex, 1);
   }
 
   get selectedItem(): TEntity | undefined {
