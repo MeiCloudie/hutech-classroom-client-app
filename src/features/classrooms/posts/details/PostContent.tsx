@@ -8,6 +8,7 @@ import { useStore } from "../../../../app/stores/store";
 import { Link, useParams } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from '@mui/icons-material/Edit';
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CreateEditDialog from "../../../common/UI/CreateEditDialog";
@@ -74,7 +75,7 @@ const PostContent = () => {
             affirmation="Xoá"
           />
           <CreateEditDialog
-            iconButton={<AddIcon />}
+            iconButton={<EditIcon />}
             titleButton="CHỈNH SỬA"
             titleDialog="CHỈNH SỬA BÀI ĐĂNG"
             formComponent={(handleClose) => (

@@ -12,6 +12,8 @@ import PersonIcon from "@mui/icons-material/Person";
 import React from "react";
 import { Comment } from "../../../../../app/models/Comment";
 import MenuMini from "../../../../common/UI/MenuMini";
+import AlertDialog from "../../../../common/UI/AlertDialog";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 interface CommentCardProps {
   comment: Comment;
@@ -60,31 +62,39 @@ const CommentCard = (props: CommentCardProps) => {
           </Avatar>
         }
         action={
-          <IconButton
-            aria-label="more"
-            sx={{
-              transition: "color 0.2s",
-              "&:hover": {
-                color: blue[800],
-              },
-              position: "absolute",
-              top: 8,
-              right: 8,
-            }}
-            onClick={handleOpenMoreMenu}
-          >
-            <MoreVertIcon />
-          </IconButton>
+          // <IconButton
+          //   aria-label="more"
+          //   sx={{
+          //     transition: "color 0.2s",
+          //     "&:hover": {
+          //       color: blue[800],
+          //     },
+          //     position: "absolute",
+          //     top: 8,
+          //     right: 8,
+          //   }}
+          //   onClick={handleOpenMoreMenu}
+          // >
+          //   <MoreVertIcon />
+          // </IconButton>
+          <AlertDialog
+          iconButton={<DeleteIcon />}
+          titleButton="XOÁ"
+          alertDialogTitle="Xoá nhận xét?"
+          alertDialogDescription="Bạn có chắc chắn muốn xoá nhận xét này không?"
+          negation="Huỷ"
+          affirmation="Xoá"
+        />
         }
         title={`${props.comment.user?.firstName} ${props.comment.user?.lastName}`}
         subheader={props.comment.createDate.toString()}
       />
-      <MenuMini
+      {/* <MenuMini
         id="menu-more"
         anchorEl={anchorElMore}
         handleCloseMenu={handleCloseMoreMenu}
         options={moreOptions}
-      />
+      /> */}
       <CardContent>
         <Typography
           variant="body2"
