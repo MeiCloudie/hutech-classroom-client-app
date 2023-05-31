@@ -42,9 +42,15 @@ export default class CommentStore {
 
             this.hubConnection.on('ReceiveComment', (comment: Comment) => {
                 runInAction(() => {
-                    console.log(comment.createDate)
                     comment.createDate = new Date(comment.createDate)
                     this.comments.unshift(comment)
+                })
+            })
+
+            this.hubConnection.on('DeleteComment', (comment: Comment) => {
+                runInAction(() => {
+                    const itemIndex = this.comments.findIndex((item) => item.id === comment.id);
+                    this.comments.splice(itemIndex);
                 })
             })
         }
@@ -63,6 +69,14 @@ export default class CommentStore {
         values.postId = store.postStore.selectedItem?.id
         try {
             await this.hubConnection?.invoke('SendComment', values)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    deleteComment = async (id: string) : Promise<void> => {
+        try {
+            await this.hubConnection?.invoke('DeleteComment', id)
         } catch (error) {
             console.log(error)
         }
