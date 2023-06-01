@@ -23,7 +23,7 @@ interface PostCardProps {
 }
 
 const PostCard = (props: PostCardProps) => {
-  const { classroomId, postId } = useParams<{ classroomId: string, postId: string }>();
+  const { classroomId } = useParams<{ classroomId: string }>();
   const [anchorElMore, setAnchorElMore] = React.useState<null | HTMLElement>(
     null
   );
@@ -39,7 +39,7 @@ const PostCard = (props: PostCardProps) => {
   const moreOptions = [
     {
       text: "Xem chi tiết",
-      link: `/cr/${classroomId}/po/${postId}`,
+      link: `/cr/${classroomId}/po/${props.post.id}`,
     },
     {
       text: "Hỗ trợ",

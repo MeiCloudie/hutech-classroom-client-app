@@ -22,7 +22,7 @@ interface ExerciseCardProps {
 }
 
 const ExerciseCard = (props: ExerciseCardProps) => {
-  const { classroomId, exerciseId } = useParams<{ classroomId: string, exerciseId: string }>();
+  const { classroomId } = useParams<{ classroomId: string }>();
   const [anchorElMore, setAnchorElMore] = React.useState<null | HTMLElement>(
     null
   );
@@ -38,7 +38,7 @@ const ExerciseCard = (props: ExerciseCardProps) => {
   const moreOptions = [
     {
       text: "Xem chi tiết",
-      link: `/cr/${classroomId}/ex/${exerciseId}`,
+      link: `/cr/${classroomId}/ex/${props.exercise.id}`,
     },
     {
       text: "Hỗ trợ",
