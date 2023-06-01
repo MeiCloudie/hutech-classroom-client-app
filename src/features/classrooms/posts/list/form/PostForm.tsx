@@ -1,18 +1,19 @@
 import { Box, Typography } from "@mui/material";
 import EntityForm from "../../../../common/forms/EntityForm";
-import { PostFormValues } from "../../../../../app/models/Post";
+import { Post, PostFormValues } from "../../../../../app/models/Post";
 import { store, useStore } from "../../../../../app/stores/store";
 
 import * as Yup from "yup";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { observer } from "mobx-react-lite";
 
 interface PostFormProps {
   handleClose: () => void;
+  post?: Post;
 }
 
 const PostForm = (props: PostFormProps) => {
-  const navigate = useNavigate();
   const { classroomId, postId } = useParams<{
     classroomId: string;
     postId: string;
@@ -23,13 +24,14 @@ const PostForm = (props: PostFormProps) => {
   );
 
   useEffect(() => {
-    if (postId)
+    if (props.post) setPostFormValues(new PostFormValues(props.post));
+    else if (postId)
       postStore.get(postId).then(() => {
         if (postStore.selectedItem) {
           setPostFormValues(new PostFormValues(postStore.selectedItem));
         }
       });
-  }, [postId, postStore]);
+  }, [postId, postStore, props.post]);
 
   return (
     <Box
@@ -94,8 +96,6 @@ const PostForm = (props: PostFormProps) => {
               postStore
                 .update(entityFormValues.id, entityFormValues)
                 .then(() => {
-                  // navigate(`/cr/${classroomId}/po/${postId}`)
-                  window.location.reload()
                   props.handleClose();
                 });
             } else {
@@ -115,4 +115,4 @@ const PostForm = (props: PostFormProps) => {
   );
 };
 
-export default PostForm;
+export default observer(PostForm);

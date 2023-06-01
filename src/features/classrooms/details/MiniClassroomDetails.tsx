@@ -61,13 +61,17 @@ const MiniClassroomDetails = () => {
 
       <Divider />
 
-      <Box sx={{ m: "20px 0" }}>
-        <Typography variant="h4" gutterBottom>
-          {classroom.class}
-        </Typography>
-      </Box>
+      {classroom.class !== null && (
+        <>
+          <Box sx={{ m: "20px 0" }}>
+            <Typography variant="h4" gutterBottom>
+              {classroom.class}
+            </Typography>
+          </Box>
 
-      <Divider />
+          <Divider />
+        </>
+      )}
 
       <Box sx={{ m: "20px 0" }}>
         <Typography variant="subtitle1" gutterBottom>

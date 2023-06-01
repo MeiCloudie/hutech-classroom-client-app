@@ -1,4 +1,4 @@
-import { makeObservable, runInAction } from "mobx";
+import { runInAction } from "mobx";
 import UserRelatedStore from "../common/stores/userRelatedStore";
 import { Exercise, ExerciseFormValues } from "../models/Exercise";
 import { BaseHasManyRelationshipResource } from "../api/baseResource";

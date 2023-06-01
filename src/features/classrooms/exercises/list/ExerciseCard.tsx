@@ -10,7 +10,6 @@ import { blue } from "@mui/material/colors";
 
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AssignmentIcon from "@mui/icons-material/Assignment";
-import InsertLinkIcon from "@mui/icons-material/InsertLink";
 import { Box, Button, Divider } from "@mui/material";
 import React from "react";
 import MenuMini from "../../../common/UI/MenuMini";
@@ -22,19 +21,8 @@ interface ExerciseCardProps {
   exercise: Exercise;
 }
 
-const moreOptions = [
-  {
-    text: "Xem chi tiết",
-    link: "/cr/:classroomId/ex/:exerciseId",
-  },
-  {
-    text: "Hỗ trợ",
-    link: "/helps",
-  },
-];
-
 const ExerciseCard = (props: ExerciseCardProps) => {
-  const { classroomId } = useParams<{ classroomId: string }>();
+  const { classroomId, exerciseId } = useParams<{ classroomId: string, exerciseId: string }>();
   const [anchorElMore, setAnchorElMore] = React.useState<null | HTMLElement>(
     null
   );
@@ -46,6 +34,18 @@ const ExerciseCard = (props: ExerciseCardProps) => {
   const handleCloseMoreMenu = () => {
     setAnchorElMore(null);
   };
+
+  const moreOptions = [
+    {
+      text: "Xem chi tiết",
+      link: `/cr/${classroomId}/ex/${exerciseId}`,
+    },
+    {
+      text: "Hỗ trợ",
+      link: "/helps",
+    },
+  ];
+
   return (
     <Card
       sx={{

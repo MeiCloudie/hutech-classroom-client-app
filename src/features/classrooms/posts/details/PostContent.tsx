@@ -36,7 +36,6 @@ const PostContent = () => {
   useEffect(() => {
     if (postId)
       postStore.get(postId).then(() => {
-        console.log("Post: ", postStore.selectedItem);
         if (postStore.selectedItem) setPost(postStore.selectedItem);
       });
   }, [postId, postStore]);
@@ -75,7 +74,7 @@ const PostContent = () => {
             textAlign: "start",
           }}
         >
-          THÔNG BÁO
+          CHI TIẾT THÔNG BÁO
         </Typography>
 
         <Box sx={{ display: "flex" }}>
@@ -93,7 +92,7 @@ const PostContent = () => {
             titleButton="CHỈNH SỬA"
             titleDialog="CHỈNH SỬA BÀI ĐĂNG"
             formComponent={(handleClose) => (
-              <PostForm handleClose={handleClose} />
+              <PostForm post={post} handleClose={handleClose} />
             )}
           />
         </Box>

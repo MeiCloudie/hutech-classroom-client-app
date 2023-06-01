@@ -4,10 +4,10 @@ import { useParams } from "react-router-dom";
 import { useStore } from "../../../../app/stores/store";
 import { PaginationParams } from "../../../../app/common/models/paginationPrams";
 import { observer } from "mobx-react-lite";
-import PostCardSkeleton from "../../../../app/layout/indicators/cards/PostCardSkeleton";
 import PlaceholderBox from "../../../common/UI/PlaceholderBox";
 import { Exercise } from "../../../../app/models/Exercise";
 import ExerciseCard from "./ExerciseCard";
+import ExerciseCardSkeleton from "../../../../app/layout/indicators/cards/ExerciseCardSkeleton";
 
 const ExerciseList = () => {
   const [exercises, setExercises] = useState<Exercise[]>([]);
@@ -28,9 +28,9 @@ const ExerciseList = () => {
   if (exerciseStore.isListLoading)
     return (
       <>
-        <PostCardSkeleton />
-        <PostCardSkeleton />
-        <PostCardSkeleton />
+        <ExerciseCardSkeleton />
+        <ExerciseCardSkeleton />
+        <ExerciseCardSkeleton />
       </>
     );
 

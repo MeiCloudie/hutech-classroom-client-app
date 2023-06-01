@@ -8,6 +8,7 @@ import MyCheckboxInput from "./MyCheckboxInput";
 import MyPasswordInput from "./MyPasswordInput";
 import MySelectionInput from "./MySelectionInput";
 import MyTextAreaInput from "./MyTextAreaInput";
+import { observer } from "mobx-react-lite";
 
 interface EntityFormProps<
   TEntityFormValues extends EntityFormValues
@@ -51,7 +52,7 @@ const EntityForm = <
   ) => {
     onSetAdditionalValues(entityFormValues);
     onSubmit(entityFormValues);
-    actions.resetForm();
+    if (!initialEntityFormValues.id) actions.resetForm();
     actions.setSubmitting(false);
   };
 
@@ -113,6 +114,17 @@ const EntityForm = <
           placeholder={placeholder}
         />
       );
+    if (value instanceof Date) {
+      return (
+        <MyTextInput
+          name={key}
+          label={label}
+          key={index}
+          placeholder={placeholder}
+        />
+      );
+    }
+        
     if (typeof value === "number")
       return (
         <MyTextInput
@@ -188,4 +200,4 @@ const EntityForm = <
   );
 };
 
-export default EntityForm;
+export default observer(EntityForm);

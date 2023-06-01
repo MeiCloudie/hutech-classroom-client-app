@@ -70,6 +70,9 @@ export default class EntityStore<
   }
 
   updateItem(id: string, formValues: TEntityFormValues): void {
+    if (this._selectedItem)
+      if (id === this._selectedItem.id)
+        Object.assign(this._selectedItem, formValues)
     const index = this._items.findIndex((e) => e.id === id);
     if (index !== -1) {
       this._items[index] = { ...this._items[index], ...formValues };
@@ -77,6 +80,9 @@ export default class EntityStore<
   }
 
   updateEntityItem(id: string, entity: TEntity): void {
+    if (this._selectedItem)
+      if (id === this._selectedItem.id)
+        Object.assign(this._selectedItem, entity)
     const index = this._items.findIndex((e) => e.id === id);
     if (index !== -1) {
       this._items[index] = entity;

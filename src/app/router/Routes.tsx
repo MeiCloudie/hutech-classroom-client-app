@@ -78,7 +78,7 @@ export const routes: RouteObject[] = [
                     children: [
                       { path: "all", element: <AnswerPage /> },
                       {
-                        path: "student/:studentId",
+                        path: "students/:studentId",
                         element: <AnswerDetails />,
                       },
                     ],

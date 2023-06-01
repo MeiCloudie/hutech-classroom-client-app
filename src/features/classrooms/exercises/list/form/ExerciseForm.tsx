@@ -3,16 +3,19 @@ import EntityForm from "../../../../common/forms/EntityForm";
 import { useStore } from "../../../../../app/stores/store";
 
 import * as Yup from "yup";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { ExerciseFormValues } from "../../../../../app/models/Exercise";
+import {
+  Exercise,
+  ExerciseFormValues,
+} from "../../../../../app/models/Exercise";
 
 interface ExerciseFormProps {
   handleClose: () => void;
+  exercise?: Exercise;
 }
 
 const ExerciseForm = (props: ExerciseFormProps) => {
-  const navigate = useNavigate();
   const { classroomId, exerciseId } = useParams<{
     classroomId: string;
     exerciseId: string;
@@ -22,7 +25,9 @@ const ExerciseForm = (props: ExerciseFormProps) => {
     useState<ExerciseFormValues>(new ExerciseFormValues());
 
   useEffect(() => {
-    if (exerciseId)
+    if (props.exercise)
+      setExerciseFormValues(new ExerciseFormValues(props.exercise));
+    else if (exerciseId)
       exerciseStore.get(exerciseId).then(() => {
         if (exerciseStore.selectedItem) {
           setExerciseFormValues(
@@ -30,7 +35,7 @@ const ExerciseForm = (props: ExerciseFormProps) => {
           );
         }
       });
-  }, [exerciseId, exerciseStore]);
+  }, [exerciseId, exerciseStore, props.exercise]);
 
   return (
     <Box
@@ -70,7 +75,7 @@ const ExerciseForm = (props: ExerciseFormProps) => {
               200,
               "Chủ đề không được vượt quá 200 ký tự!"
             ),
-            instructor: Yup.string()
+            instruction: Yup.string()
               .required("Hướng dẫn không được để trống!")
               .max(3000, "Hướng dẫn không được vượt quá 3000 ký tự!"),
             link: Yup.string().max(
@@ -87,7 +92,9 @@ const ExerciseForm = (props: ExerciseFormProps) => {
               })
               .required("Tổng điểm phải ở dạng số và không được để trống!"),
             deadline: Yup.date()
-              .typeError("Deadline phải là một ngày theo định dạng dd/MM/yyyy hh:mm:ss!")
+              .typeError(
+                "Deadline phải là một ngày theo định dạng dd/MM/yyyy hh:mm:ss!"
+              )
               .required("Deadline không được để trống!"),
           }}
           fieldConfigs={[
@@ -150,12 +157,10 @@ const ExerciseForm = (props: ExerciseFormProps) => {
               exerciseStore
                 .update(entityFormValues.id, entityFormValues)
                 .then(() => {
-                  // navigate(`/cr/${classroomId}/po/${exerciseId}`)
-                  window.location.reload();
                   props.handleClose();
                 });
             } else {
-                exerciseStore.create(entityFormValues).then(() => {
+              exerciseStore.create(entityFormValues).then(() => {
                 props.handleClose();
               });
             }

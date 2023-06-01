@@ -1,7 +1,7 @@
 import { InputAdornment, Typography } from "@mui/material";
 import { Editor } from "@tinymce/tinymce-react";
 import { useField } from "formik";
-import { v1 as uuidv1 } from 'uuid';
+import { v1 as uuidv1 } from "uuid";
 
 const MyTextAreaInput = ({ label, icon, ...props }: any) => {
   const [field, meta, helpers] = useField(props);
@@ -12,6 +12,7 @@ const MyTextAreaInput = ({ label, icon, ...props }: any) => {
 
   return (
     <div>
+      <p style={{ margin: "10px 0 0 15px", color: "gray", fontSize: 12 }}>{label}</p>
       <Editor
         apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
         init={{

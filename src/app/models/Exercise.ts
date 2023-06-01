@@ -34,11 +34,11 @@ export class Exercise implements Exercise {
 export class ExerciseFormValues {
     id?: string = "";
     title: string = "";
+    topic: string = "";
     instruction: string = "";
     link: string = "";
-    totalScore: number = 0;
     deadline: Date = new Date();
-    topic: string = "";
+    totalScore: number = 0;
     criteria: string = "";
     classroomId?: string = "";
 

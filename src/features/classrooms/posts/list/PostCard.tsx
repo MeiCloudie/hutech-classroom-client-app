@@ -22,19 +22,8 @@ interface PostCardProps {
   post: Post;
 }
 
-const moreOptions = [
-  {
-    text: "Xem chi tiết",
-    link: "/cr/:classroomId/po/:postId",
-  },
-  {
-    text: "Hỗ trợ",
-    link: "/helps",
-  },
-];
-
 const PostCard = (props: PostCardProps) => {
-  const { classroomId } = useParams<{ classroomId: string }>();
+  const { classroomId, postId } = useParams<{ classroomId: string, postId: string }>();
   const [anchorElMore, setAnchorElMore] = React.useState<null | HTMLElement>(
     null
   );
@@ -46,6 +35,18 @@ const PostCard = (props: PostCardProps) => {
   const handleCloseMoreMenu = () => {
     setAnchorElMore(null);
   };
+
+  const moreOptions = [
+    {
+      text: "Xem chi tiết",
+      link: `/cr/${classroomId}/po/${postId}`,
+    },
+    {
+      text: "Hỗ trợ",
+      link: "/helps",
+    },
+  ];
+
   return (
     <Card
       sx={{
