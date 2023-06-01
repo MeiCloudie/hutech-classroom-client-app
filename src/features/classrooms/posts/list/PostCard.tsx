@@ -106,7 +106,7 @@ const PostCard = (props: PostCardProps) => {
         ></Typography>
 
         {props.post.link && props.post.link.trim() !== "" && (
-          <Box>
+          <Box sx = {{ mt: 1, mb: 1 }}>
             <Box sx={{ display: "flex" }}>
               <InsertLinkIcon />
               <Typography
