@@ -34,7 +34,6 @@ const PostPage = () => {
         </Typography>
       </Box>
 
-      {/* <CreatePostDialog /> */}
       <CreateEditDialog
         iconButton={<AddIcon />}
         titleButton="TẠO BÀI ĐĂNG"

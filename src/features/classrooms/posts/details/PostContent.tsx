@@ -41,7 +41,7 @@ const PostContent = () => {
       });
   }, [postId, postStore]);
 
-  // if (postStore.isUpdateLoading) return <PostDetailsSkeleton />;
+  if (postStore.isDetailsLoading) return <PostDetailsSkeleton />;
 
   return (
     <Box

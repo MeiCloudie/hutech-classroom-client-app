@@ -23,16 +23,22 @@ export default class PostStore extends EntityStore<Post, PostFormValues> {
     this.classroomPostResource = agent.createHasManyRelationshipResource<Post>(
       "Classrooms",
       "Posts"
-    )
+    );
   }
 
-  loadClassroomPosts = async (classroomId: string, params?: PaginationParams) => {
+  loadClassroomPosts = async (
+    classroomId: string,
+    params?: PaginationParams
+  ) => {
     try {
       this.setListLoading(true);
-      const items = await this.classroomPostResource.listEntities(classroomId, params);
+      const items = await this.classroomPostResource.listEntities(
+        classroomId,
+        params
+      );
       runInAction(() => {
         this.setItems(items);
-      })
+      });
       return items;
     } catch (error) {
       console.error("Request error:", error);
@@ -40,7 +46,7 @@ export default class PostStore extends EntityStore<Post, PostFormValues> {
     } finally {
       runInAction(() => {
         this.setListLoading(false);
-      })
+      });
     }
   };
 
@@ -54,7 +60,10 @@ export default class PostStore extends EntityStore<Post, PostFormValues> {
     this.selectedItem.comments.push(...items);
   }
 
-  loadComments = async (params?: PaginationParams, shouldRefresh: boolean = false) => {
+  loadComments = async (
+    params?: PaginationParams,
+    shouldRefresh: boolean = false
+  ) => {
     try {
       this.setDetailsLoading(true);
       const id = this.selectedItem?.id;

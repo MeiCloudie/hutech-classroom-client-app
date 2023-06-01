@@ -63,7 +63,7 @@ const PostForm = (props: PostFormProps) => {
           selectionFields={[]}
           validateObject={{
             content: Yup.string()
-              .required("Hãy nhập nội dung!")
+              .required("Nội dung không được để trống!")
               .max(5000, "Nội dung không được vượt quá 5000 ký tự!"),
             link: Yup.string().max(
               2000,
@@ -95,6 +95,7 @@ const PostForm = (props: PostFormProps) => {
                 .update(entityFormValues.id, entityFormValues)
                 .then(() => {
                   // navigate(`/cr/${classroomId}/po/${postId}`)
+                  window.location.reload()
                   props.handleClose();
                 });
             } else {
