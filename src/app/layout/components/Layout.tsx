@@ -11,6 +11,7 @@ import { useStore } from "../../stores/store";
 import { observer } from "mobx-react-lite";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LinearProgressLoading from "../indicators/common/LinearProgressLoading";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -43,7 +44,7 @@ const Layout = () => {
     }
   }, [commonStore, userStore]);
 
-  if (!commonStore.appLoaded) return <></>;
+  if (!commonStore.appLoaded) return <LinearProgressLoading />;
 
   return (
     <Box sx={{ display: "flex" }}>

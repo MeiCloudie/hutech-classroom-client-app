@@ -1,111 +1,10 @@
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
-import Profile from "../../../app/common/models/Profile";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { store, useStore } from "../../../app/stores/store";
+import { useStore } from "../../../app/stores/store";
 import { PaginationParams } from "../../../app/common/models/paginationPrams";
 import { observer } from "mobx-react-lite";
-
-const members: Profile[] = [
-  {
-    id: "m1",
-    userName: "2080600803",
-    email: "truongthucvan@gmail.com",
-    firstName: "Truong Thuc",
-    lastName: "Van",
-  },
-  {
-    id: "m2",
-    userName: "2080600914",
-    email: "nguyehongthai@gmail.com",
-    firstName: "Nguyen Hong",
-    lastName: "Thai",
-  },
-  {
-    id: "m3",
-    userName: "2080600803",
-    email: "truongthucvan@gmail.com",
-    firstName: "Truong Thuc",
-    lastName: "Van",
-  },
-  {
-    id: "m4",
-    userName: "2080600914",
-    email: "nguyehongthai@gmail.com",
-    firstName: "Nguyen Hong",
-    lastName: "Thai",
-  },
-  {
-    id: "m5",
-    userName: "2080600803",
-    email: "truongthucvan@gmail.com",
-    firstName: "Truong Thuc",
-    lastName: "Van",
-  },
-  {
-    id: "m6",
-    userName: "2080600914",
-    email: "nguyehongthai@gmail.com",
-    firstName: "Nguyen Hong",
-    lastName: "Thai",
-  },
-  {
-    id: "m7",
-    userName: "2080600803",
-    email: "truongthucvan@gmail.com",
-    firstName: "Truong Thuc",
-    lastName: "Van",
-  },
-  {
-    id: "m8",
-    userName: "2080600914",
-    email: "nguyehongthai@gmail.com",
-    firstName: "Nguyen Hong",
-    lastName: "Thai",
-  },
-  {
-    id: "m9",
-    userName: "2080600803",
-    email: "truongthucvan@gmail.com",
-    firstName: "Truong Thuc",
-    lastName: "Van",
-  },
-  {
-    id: "m10",
-    userName: "2080600914",
-    email: "nguyehongthai@gmail.com",
-    firstName: "Nguyen Hong",
-    lastName: "Thai",
-  },
-  {
-    id: "m11",
-    userName: "2080600803",
-    email: "truongthucvan@gmail.com",
-    firstName: "Truong Thuc",
-    lastName: "Van",
-  },
-  {
-    id: "m12",
-    userName: "2080600914",
-    email: "nguyehongthai@gmail.com",
-    firstName: "Nguyen Hong",
-    lastName: "Thai",
-  },
-  {
-    id: "m13",
-    userName: "2080600803",
-    email: "truongthucvan@gmail.com",
-    firstName: "Truong Thuc",
-    lastName: "Van",
-  },
-  {
-    id: "m14",
-    userName: "2080600914",
-    email: "nguyehongthai@gmail.com",
-    firstName: "Nguyen Hong",
-    lastName: "Thai",
-  },
-];
+import TypoLoading from "../../../app/layout/indicators/common/TypoLoading";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 100 },
@@ -115,20 +14,11 @@ const columns: GridColDef[] = [
   { field: "email", headerName: "Email", width: 400 },
 ];
 
-const rows = members.map((m, i) => {
-  return {
-    id: m.id,
-    role: "Sinh Viên",
-    username: m.userName,
-    fullName: `${m.firstName} ${m.lastName}`,
-    email: m.email,
-  };
-});
-
 const MemberList = () => {
   const { classroomId } = useParams<{ classroomId: string }>();
   const { classroomStore } = useStore();
   const [rows, setRows] = useState<GridRowsProp>([]);
+
   useEffect(() => {
     if (classroomId)
       classroomStore.get(classroomId).then(() => {
@@ -150,6 +40,9 @@ const MemberList = () => {
           });
       });
   }, [classroomId, classroomStore]);
+
+  if (classroomStore.isDetailsLoading) return <TypoLoading />
+
   return (
     <div style={{ height: "100%", width: "100%" }}>
       <DataGrid

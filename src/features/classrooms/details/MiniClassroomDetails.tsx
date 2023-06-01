@@ -7,19 +7,23 @@ import { useStore } from "../../../app/stores/store";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { observer } from "mobx-react-lite";
+import MiniClassroomDetailsSkeleton from "../../../app/layout/indicators/details/MiniClassroomDetailsSkeleton";
 
 const MiniClassroomDetails = () => {
-  const { classroomStore } = useStore()
-  const [ classroom, setClassroom ] = useState<Classroom>(new Classroom())
-  const { classroomId } = useParams<{classroomId: string}>()
+  const { classroomStore } = useStore();
+  const [classroom, setClassroom] = useState<Classroom>(new Classroom());
+  const { classroomId } = useParams<{ classroomId: string }>();
+
   useEffect(() => {
     if (classroomId) {
-      classroomStore.get(classroomId).then(() => { 
-        setClassroom(classroomStore.selectedItem ?? new Classroom())
-      })
+      classroomStore.get(classroomId).then(() => {
+        setClassroom(classroomStore.selectedItem ?? new Classroom());
+      });
     }
+  }, [classroomId, classroomStore]);
 
-  }, [classroomId, classroomStore])
+  if (classroomStore.isDetailsLoading) return <MiniClassroomDetailsSkeleton />;
+
   return (
     <Box
       sx={{
@@ -47,12 +51,12 @@ const MiniClassroomDetails = () => {
 
         <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}></Box>
 
-          <IconButtonTooltip
-            titleTooltip="Xem chi tiết"
-            ariaLabel="exercise"
-            icon={<InfoIcon />}
-            link="/cr/:id"
-          />
+        <IconButtonTooltip
+          titleTooltip="Xem chi tiết"
+          ariaLabel="exercise"
+          icon={<InfoIcon />}
+          link="/cr/:id"
+        />
       </Box>
 
       <Divider />

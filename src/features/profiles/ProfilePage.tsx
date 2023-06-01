@@ -1,19 +1,5 @@
-import { User } from "../../app/models/User";
 import { Alert, AlertTitle, Box, CardMedia, Typography } from "@mui/material";
 import { store } from "../../app/stores/store";
-
-const user: User = {
-  id: "1",
-  userName: "2080600914",
-  firstName: "Nguyễn Hồng",
-  lastName: "Thái",
-  email: "nguyenhongthai@gmail.com",
-  faculty: {
-    name: "Công nghệ thông tin",
-    id: "TH",
-    createDate: new Date(),
-  },
-};
 
 const ProfilePage = () => {
   return (

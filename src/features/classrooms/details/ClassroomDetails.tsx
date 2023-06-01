@@ -4,11 +4,13 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useStore } from "../../../app/stores/store";
 import { observer } from "mobx-react-lite";
+import ClassroomDetailsSkeleton from "../../../app/layout/indicators/details/ClassroomDetailsSkeleton";
 
 const ClassroomDetails = () => {
   const { classroomStore } = useStore()
   const [ classroom, setClassroom ] = useState<Classroom>(new Classroom())
   const { classroomId } = useParams<{classroomId: string}>()
+  
   useEffect(() => {
     if (classroomId) {
       classroomStore.get(classroomId).then(() => { 
@@ -18,7 +20,7 @@ const ClassroomDetails = () => {
 
   }, [classroomId, classroomStore])
 
-  if (classroomStore.isDetailsLoading) return <div>Loading....</div>
+  if (classroomStore.isDetailsLoading) return <ClassroomDetailsSkeleton />
 
   return (
     <Box

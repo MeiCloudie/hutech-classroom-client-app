@@ -17,6 +17,7 @@ import PostForm from "../list/form/PostForm";
 import AlertDialog from "../../../common/UI/AlertDialog";
 import { observer } from "mobx-react-lite";
 import { Link as MuiLink } from "@mui/material";
+import PostDetailsSkeleton from "../../../../app/layout/indicators/details/PostDetailsSkeleton";
 
 const PostContent = () => {
   const { postStore } = useStore();
@@ -39,6 +40,8 @@ const PostContent = () => {
         if (postStore.selectedItem) setPost(postStore.selectedItem);
       });
   }, [postId, postStore]);
+
+  // if (postStore.isUpdateLoading) return <PostDetailsSkeleton />;
 
   return (
     <Box
@@ -126,36 +129,39 @@ const PostContent = () => {
 
             <Box>
               <ol>
-                {post.link.trim().split(/\s+/).map((link, index) => (
-                  <li key={index}>
-                    <Box>
-                      {link.startsWith("https://") ||
-                      link.startsWith("http://") ? (
-                        <MuiLink
-                          href={link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          sx={{ fontWeight: "bold" }}
-                        >
-                          <em>
-                            <Typography
-                              variant="body2"
-                              fontWeight={700}
-                              color="text.secondary"
-                              sx={{ m: 1 }}
-                            >
-                              {link}
-                            </Typography>
-                          </em>
-                        </MuiLink>
-                      ) : (
-                        <Typography variant="body2" color="text.secondary">
-                          {link}
-                        </Typography>
-                      )}
-                    </Box>
-                  </li>
-                ))}
+                {post.link
+                  .trim()
+                  .split(/\s+/)
+                  .map((link, index) => (
+                    <li key={index}>
+                      <Box>
+                        {link.startsWith("https://") ||
+                        link.startsWith("http://") ? (
+                          <MuiLink
+                            href={link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            sx={{ fontWeight: "bold" }}
+                          >
+                            <em>
+                              <Typography
+                                variant="body2"
+                                fontWeight={700}
+                                color="text.secondary"
+                                sx={{ m: 1 }}
+                              >
+                                {link}
+                              </Typography>
+                            </em>
+                          </MuiLink>
+                        ) : (
+                          <Typography variant="body2" color="text.secondary">
+                            {link}
+                          </Typography>
+                        )}
+                      </Box>
+                    </li>
+                  ))}
               </ol>
             </Box>
           </Box>
