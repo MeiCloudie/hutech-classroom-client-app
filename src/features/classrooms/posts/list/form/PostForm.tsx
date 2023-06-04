@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
+import { InputType } from "../../../../../app/layout/enums/InputTypes";
 
 interface PostFormProps {
   handleClose: () => void;
@@ -78,7 +79,7 @@ const PostForm = (props: PostFormProps) => {
               props: {
                 label: "Nội Dung",
                 placeholder: "Hãy nhập nội dung bài đăng tại đây!",
-                textarea: true,
+                type: InputType.Textarea,
               },
             },
             {

@@ -1,3 +1,4 @@
+import dayjs, { Dayjs } from "dayjs";
 import Entity, { Auditable } from "../common/models/Entity";
 import { Classroom } from "./Classroom";
 
@@ -8,7 +9,7 @@ export interface Exercise extends Entity, Auditable {
     instruction: string;
     link: string;
     totalScore: number;
-    deadline: Date;
+    deadline: Dayjs;
     topic: string;
     criteria: string;
     classroom?: Classroom;
@@ -21,7 +22,7 @@ export class Exercise implements Exercise {
     instruction = "";
     link = "";
     totalScore = 0;
-    deadline = new Date();
+    deadline = dayjs.utc();
     topic = "";
     criteria = "";
     classroom?: Classroom = undefined;
@@ -37,7 +38,7 @@ export class ExerciseFormValues {
     topic: string = "";
     instruction: string = "";
     link: string = "";
-    deadline: Date = new Date();
+    deadline: Dayjs = dayjs.utc();
     totalScore: number = 0;
     criteria: string = "";
     classroomId?: string = "";

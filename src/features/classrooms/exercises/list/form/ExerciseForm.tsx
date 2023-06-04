@@ -9,6 +9,7 @@ import {
   Exercise,
   ExerciseFormValues,
 } from "../../../../../app/models/Exercise";
+import { InputType } from "../../../../../app/layout/enums/InputTypes";
 
 interface ExerciseFormProps {
   handleClose: () => void;
@@ -117,7 +118,7 @@ const ExerciseForm = (props: ExerciseFormProps) => {
               props: {
                 label: "Hướng Dẫn",
                 placeholder: "Hãy nhập nội dung hướng dẫn tại đây!",
-                textarea: true,
+                type: InputType.Textarea,
               },
             },
             {
@@ -133,7 +134,7 @@ const ExerciseForm = (props: ExerciseFormProps) => {
               props: {
                 label: "Tiêu Chí Chấm Điểm",
                 placeholder: "Hãy nhập nội dung tiêu chí chấm điểm tại đây!",
-                textarea: true,
+                type: InputType.Textarea,
               },
             },
             {
@@ -148,6 +149,7 @@ const ExerciseForm = (props: ExerciseFormProps) => {
               props: {
                 label: "Thời Hạn",
                 placeholder: "Hãy thêm thời hạn cho bài tập tại đây!",
+                type: InputType.Date,
               },
             },
           ]}
