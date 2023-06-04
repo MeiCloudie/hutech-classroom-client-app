@@ -95,12 +95,12 @@ export const routes: RouteObject[] = [
                 path: "gr/:groupId",
                 children: [
                   { path: "", element: <GroupDetails /> },
-                  { path: "projects-of-group", element: <ProjectPage /> },
+                  { path: "projects", element: <ProjectPage /> },
                   {
                     path: "pj/:projectId",
                     children: [
                       { path: "", element: <ProjectDetails /> },
-                      { path: "missions-of-group", element: <MissionPage /> },
+                      { path: "missions", element: <MissionPage /> },
                       { path: "ms/:missionId", element: <MissionDetails /> },
                     ],
                   },

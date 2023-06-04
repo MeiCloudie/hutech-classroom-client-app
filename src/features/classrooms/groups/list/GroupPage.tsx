@@ -1,7 +1,12 @@
+import React from "react";
+import GroupList from "./GroupList";
+
 const GroupPage = () => {
-    return (
-        <h1>GroupPage</h1>
-    )
-}
+  return (
+    <React.Fragment>
+      <GroupList />
+    </React.Fragment>
+  );
+};
 
 export default GroupPage;

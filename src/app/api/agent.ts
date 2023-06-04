@@ -135,6 +135,10 @@ const Results = {
     internalServerError: () => requests.get("v1/Results/internal-server-error"),
 }
 
+const GroupExtentsions = {
+
+}
+
 const agent = {
     Account,
     Results,

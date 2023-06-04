@@ -20,27 +20,14 @@ import React from "react";
 import MenuMini from "../../common/UI/MenuMini";
 import IconButtonTooltip from "../../common/UI/IconButtonTooltip";
 import { ClassroomTypes } from "../../../app/layout/enums/ClassroomTypes";
+import { useParams } from "react-router";
 
 interface ClassroomCardProps {
   classroom: Classroom;
 }
 
-const moreOptions = [
-  {
-    text: "Xem chi tiết",
-    link: "/cr/:id",
-  },
-  {
-    text: "Xem bài tập",
-    link: "/cr/:id/exercises",
-  },
-  {
-    text: "Hỗ trợ",
-    link: "/helps",
-  },
-];
-
 const ClassroomCard = (props: ClassroomCardProps) => {
+  const { classroomId } = useParams<{ classroomId: string }>();
   const [anchorElMore, setAnchorElMore] = React.useState<null | HTMLElement>(
     null
   );
@@ -52,6 +39,22 @@ const ClassroomCard = (props: ClassroomCardProps) => {
   const handleCloseMoreMenu = () => {
     setAnchorElMore(null);
   };
+
+  const moreOptions = [
+    {
+      text: "Xem chi tiết",
+      link: `/cr/${classroomId}`,
+    },
+    {
+      text: "Xem bài tập",
+      link: `/cr/${classroomId}/exercises`,
+    },
+    {
+      text: "Hỗ trợ",
+      link: "/helps",
+    },
+  ];
+
   return (
     <Card
       sx={{
@@ -128,13 +131,13 @@ const ClassroomCard = (props: ClassroomCardProps) => {
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {`Giang vien: ${props.classroom.lecturer?.firstName} ${props.classroom.lecturer?.lastName}`}
+          {`Giảng viên: ${props.classroom.lecturer?.firstName} ${props.classroom.lecturer?.lastName}`}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {`Phong: ${props.classroom.room}`}
+          {`Phòng: ${props.classroom.room}`}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {`Lop: ${props.classroom.class}`}
+          {`Lớp: ${props.classroom.class}`}
         </Typography>
       </CardContent>
       <Divider />

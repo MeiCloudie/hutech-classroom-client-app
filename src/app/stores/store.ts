@@ -8,6 +8,7 @@ import PostStore from "./postStore";
 import CommentStore from "./commentStore";
 import ExerciseStore from "./exerciseStore";
 import MissionStore from "./missionStore";
+import GroupStore from "./groupStore";
 
 interface Store {
   classroomStore: ClassroomStore;
@@ -15,6 +16,7 @@ interface Store {
   commonStore: CommonStore;
   exerciseStore: ExerciseStore;
   facultyStore: FacultyStore;
+  groupStore: GroupStore;
   missionStore: MissionStore;
   postStore: PostStore;
   subjectStore: SubjectStore;
@@ -27,6 +29,7 @@ export const store: Store = {
   commonStore: new CommonStore(),
   exerciseStore: new ExerciseStore(),
   facultyStore: new FacultyStore(),
+  groupStore: new GroupStore(),
   missionStore: new MissionStore(),
   postStore: new PostStore(),
   subjectStore: new SubjectStore(),
