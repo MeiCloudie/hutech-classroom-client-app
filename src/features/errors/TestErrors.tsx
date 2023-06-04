@@ -2,50 +2,44 @@ import { Box, Button, ButtonGroup, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useState } from "react";
 import ValidationError from "./ValidationError";
+import agent from "../../app/api/agent";
 
 const TestErrors = () => {
   const baseUrl = process.env.REACT_APP_HUTECH_CLASSROOM_BASE_URL;
   const [errors, setErrors] = useState(null);
 
   function handleNotFound() {
-    axios
-      .get(baseUrl + "results/not-found")
+    agent.Results.notFound()
       .catch((err) => console.log(err.response));
   }
 
   function handleBadRequest() {
-    axios
-      .get(baseUrl + "results/bad-request")
+    agent.Results.badRequest()
       .catch((err) => console.log(err.response));
   }
 
   function handleNoContent() {
-    axios
-      .get(baseUrl + "results/no-content")
+    agent.Results.noContent()
       .catch((err) => console.log(err.response));
   }
 
   function handleUnauthorized() {
-    axios
-      .get(baseUrl + "results/unauthorized")
+    agent.Results.unauthorized()
       .catch((err) => console.log(err.response));
   }
 
   function handleConflict() {
-    axios
-      .get(baseUrl + "results/conflict")
+    agent.Results.conflict()
       .catch((err) => console.log(err.response));
   }
 
   function handleForbid() {
-    axios
-      .get(baseUrl + "results/forbid")
+    agent.Results.forbid()
       .catch((err) => console.log(err.response));
   }
 
   function handleInternalServerError() {
-    axios
-      .get(baseUrl + "results/internal-server-error")
+    agent.Results.internalServerError()
       .catch((err) => console.log(err.response));
   }
 
