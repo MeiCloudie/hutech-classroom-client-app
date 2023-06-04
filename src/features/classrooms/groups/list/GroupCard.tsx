@@ -135,7 +135,7 @@ const GroupCard = (props: GroupCardProps) => {
         <Button
           variant="contained"
           component={Link}
-          to={`/cr/${classroomId}/gr/${props.group.id}/projects-of-group`}
+          to={`/cr/${classroomId}/gr/${props.group.id}/projects`}
         >
           Dự Án
         </Button>
