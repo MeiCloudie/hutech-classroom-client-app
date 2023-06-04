@@ -60,7 +60,7 @@ axios.interceptors.response.use(async response => {
           break;
       case 500:
           // store.commonStore.setServerError(data)
-          router.navigate('/server-error')
+          // router.navigate('/server-error')
           break;
   }
   return Promise.reject(error)

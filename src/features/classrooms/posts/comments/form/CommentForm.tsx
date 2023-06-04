@@ -4,6 +4,7 @@ import { useStore } from "../../../../../app/stores/store";
 import EntityForm from "../../../../common/forms/EntityForm";
 import * as Yup from "yup";
 import TypoLoading from "../../../../../app/layout/indicators/common/TypoLoading";
+import { InputType } from "../../../../../app/layout/enums/InputTypes";
 
 const CommentForm = () => {
   const { userStore, commentStore, postStore } = useStore();
@@ -37,7 +38,7 @@ const CommentForm = () => {
           props: {
             label: "Nội dung",
             placeholder: "Hãy nhập nội dung!",
-            textarea: true,
+            type: InputType.Textarea
           },
         },
       ]}

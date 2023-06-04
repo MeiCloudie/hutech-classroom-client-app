@@ -8,7 +8,8 @@ import MyCheckboxInput from "./MyCheckboxInput";
 import MyPasswordInput from "./MyPasswordInput";
 import MySelectionInput from "./MySelectionInput";
 import MyTextAreaInput from "./MyTextAreaInput";
-import { observer } from "mobx-react-lite";
+import MyDateInput from "./MyDateInput";
+import { InputType } from "../../../app/layout/enums/InputTypes";
 
 interface EntityFormProps<
   TEntityFormValues extends EntityFormValues
@@ -29,7 +30,7 @@ interface EntityFormProps<
 export interface FieldProps {
   placeholder: string;
   label: string;
-  textarea?: boolean;
+  type?: InputType
   rows?: number;
 }
 const EntityForm = <
@@ -60,7 +61,8 @@ const EntityForm = <
     const fieldConfig = fieldConfigs.find((field) => field.fieldKey === key);
     const label = fieldConfig?.props.label ?? humanizeString(key);
     const placeholder = fieldConfig?.props.placeholder ?? key;
-    const isTextarea = fieldConfig?.props.textarea ?? false;
+    const isTextarea = fieldConfig?.props.type === InputType.Textarea;
+    const isDate = fieldConfig?.props.type === InputType.Date;
     if (excludeFields.includes(key)) return null;
     const enumField = selectionFields.find((field) => field.fieldKey === key);
     if (enumField)
@@ -91,6 +93,16 @@ const EntityForm = <
           placeholder={placeholder}
         />
       );
+      if (isDate || value instanceof Date) {
+        return (
+          <MyDateInput
+            name={key}
+            label={label}
+            key={index}
+            placeholder={placeholder}
+          />
+        );
+      }
     if (typeof value === "string" && !isTextarea) {
       const rows = fieldConfig?.props.rows ?? 1;
       const isMultiline = rows > 1
@@ -114,16 +126,7 @@ const EntityForm = <
           placeholder={placeholder}
         />
       );
-    if (value instanceof Date) {
-      return (
-        <MyTextInput
-          name={key}
-          label={label}
-          key={index}
-          placeholder={placeholder}
-        />
-      );
-    }
+    
         
     if (typeof value === "number")
       return (
@@ -200,4 +203,4 @@ const EntityForm = <
   );
 };
 
-export default observer(EntityForm);
+export default EntityForm;
