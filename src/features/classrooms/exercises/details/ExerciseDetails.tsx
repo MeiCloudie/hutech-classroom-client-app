@@ -38,7 +38,6 @@ const ExerciseDetails = () => {
   useEffect(() => {
     if (exerciseId)
       exerciseStore.get(exerciseId).then(() => {
-        console.log("Exercise: ", exerciseStore.selectedItem);
         if (exerciseStore.selectedItem) setExercise(exerciseStore.selectedItem);
       });
   }, [exerciseId, exerciseStore]);

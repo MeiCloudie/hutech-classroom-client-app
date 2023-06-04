@@ -6,6 +6,7 @@ import Entity, { EntityFormValues } from "../common/models/Entity";
 import { BaseHasManyRelationshipResource, BaseResource, BaseUserResource } from "./baseResource";
 import { toast } from "react-toastify";
 import { router } from "../router/Routes";
+import Profile from "../common/models/Profile";
 
 
 axios.defaults.baseURL = process.env.REACT_APP_HUTECH_CLASSROOM_BASE_URL;
@@ -112,16 +113,18 @@ const createHasManyRelationshipResource = <
 >(firstEntityName: String,
   secondEntityName: String) => {
     const resource: BaseHasManyRelationshipResource<TManyEntity> = {
-      listEntities: (id: String, params?: PaginationParams) => requests.get<TManyEntity[]>(`v1/${firstEntityName}/${id}/${secondEntityName}`, params)
+      listEntities: (id: String, params?: PaginationParams) => requests.get<TManyEntity[]>(`v1/${firstEntityName}/${id}/${secondEntityName}`, params),
+      addEntity: (firstEntityId: string, secondEntityId: string) => requests.post(`v1/${firstEntityName}/${firstEntityId}/${secondEntityName}/${secondEntityId}`, {}),
+      removeEntity: (firstEntityId: string, secondEntityId: string) => requests.delete(`v1/${firstEntityName}/${firstEntityId}/${secondEntityName}/${secondEntityId}`)
     }
     return resource;
   }
 
 const Account = {
-    login: (creds: LoginFormValues) => requests.post<User>("v1/Account/login", creds),
-    register: (creds: RegisterFormValues) => requests.post<User>("v1/Account/register", creds),
+    login: (credentials: LoginFormValues) => requests.post<User>("v1/Account/login", credentials),
+    register: (credentials: RegisterFormValues) => requests.post<User>("v1/Account/register", credentials),
     current: () => requests.get<User>("v1/Users/@me"),
-    changePassword: (creds: ChangePasswordFormValues) => requests.patch("v1/Account/change-password", creds)
+    changePassword: (credentials: ChangePasswordFormValues) => requests.patch("v1/Account/change-password", credentials)
 }
 
 const Results = {
@@ -133,10 +136,6 @@ const Results = {
     conflict: () => requests.get("v1/Results/conflict"),
     forbid: () => requests.get("v1/Results/forbid"),
     internalServerError: () => requests.get("v1/Results/internal-server-error"),
-}
-
-const GroupExtentsions = {
-
 }
 
 const agent = {

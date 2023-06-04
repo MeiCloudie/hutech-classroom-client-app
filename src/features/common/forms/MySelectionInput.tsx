@@ -20,7 +20,7 @@ export interface MySelectionInputOption {
 }
 
 const MySelectionInput = (props: MySelectionInputProps) => {
-  const [field, meta] = useField(props.name!);
+  const [field, meta, helpers] = useField(props.name!);
   const { icon, options, ...selectProps } = props;
   const showError = meta.touched && !!meta.error;
   return (
@@ -44,6 +44,10 @@ const MySelectionInput = (props: MySelectionInputProps) => {
       <Select
         {...selectProps}
         {...field}
+        
+        value={field.value || null}
+        onChange={(e) => helpers.setValue(e.target.value.value)}
+
         id={`${props.name}-selection-form`}
         labelId={`${props.name}-selection-form`}
         error={showError}
@@ -51,8 +55,8 @@ const MySelectionInput = (props: MySelectionInputProps) => {
           <InputAdornment position="start">{icon}</InputAdornment>
         }
       >
-        {options.map((option: { label: string; value: any }) => (
-          <MenuItem key={option.value} value={option.value}>
+        {options.map((option: { label: string; value: any }, index) => (
+          <MenuItem key={index} value={option.value}>
             {option.label}
           </MenuItem>
         ))}

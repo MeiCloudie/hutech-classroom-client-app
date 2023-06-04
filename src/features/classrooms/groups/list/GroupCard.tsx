@@ -104,20 +104,18 @@ const GroupCard = (props: GroupCardProps) => {
         <Typography variant="body2" color="text.secondary">
           {`Nhóm Trưởng: ${props.group.leader?.firstName} ${props.group.leader?.lastName}`}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {
-            <div
-              style={{
-                maxWidth: "80%",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                whiteSpace: "nowrap",
-              }}
-              title={`Mô tả: ${props.group.description}`}
-            >
-              {`Mô tả: ${props.group.description}`}
-            </div>
-          }
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          style={{
+            maxWidth: "80%",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+          }}
+          title={`Mô tả: ${props.group.description}`}
+        >
+          {`Mô tả: ${props.group.description}`}
         </Typography>
       </CardContent>
       <Divider />

@@ -21,5 +21,7 @@ export interface BaseUserResource<
 export interface BaseHasManyRelationshipResource<
 TManyEntity extends Entity
 > {
-  listEntities: (id: String, params?: PaginationParams) => Promise<TManyEntity[]>;
+  listEntities: (id: string, params?: PaginationParams) => Promise<TManyEntity[]>;
+  addEntity: (firstEntityId: string, secondEntityId: string) => Promise<void>;
+  removeEntity: (firstEntityId: string, secondEntityId: string) => Promise<void>;
 }
