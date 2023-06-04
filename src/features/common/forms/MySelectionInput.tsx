@@ -46,7 +46,7 @@ const MySelectionInput = (props: MySelectionInputProps) => {
         {...field}
         
         value={field.value || null}
-        onChange={(e) => helpers.setValue(e.target.value.value)}
+        onChange={(e) => helpers.setValue(e.target.value)}
 
         id={`${props.name}-selection-form`}
         labelId={`${props.name}-selection-form`}
