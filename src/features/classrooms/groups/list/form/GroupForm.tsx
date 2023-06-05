@@ -119,6 +119,7 @@ const GroupForm = (props: GroupFormProps) => {
               props: {
                 label: "Mô Tả Nhóm",
                 placeholder: "Hãy nhập mô tả nhóm tại đây!",
+                rows: 5
               },
             },
           ]}

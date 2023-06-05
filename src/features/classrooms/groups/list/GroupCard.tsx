@@ -113,9 +113,9 @@ const GroupCard = (props: GroupCardProps) => {
             textOverflow: "ellipsis",
             whiteSpace: "nowrap",
           }}
-          title={`Mô tả: ${props.group.description}`}
+          title={`Mô tả nhóm: ${props.group.description}`}
         >
-          {`Mô tả: ${props.group.description}`}
+          {`Mô tả nhóm: ${props.group.description}`}
         </Typography>
       </CardContent>
       <Divider />

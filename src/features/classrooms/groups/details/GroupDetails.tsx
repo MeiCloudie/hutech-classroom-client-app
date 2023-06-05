@@ -102,11 +102,24 @@ const GroupDetails = () => {
               </Box>
             </Box>
 
-            <Typography variant="body1" color="gray" mb={2}>
-              <strong>{group.name}</strong>
-              <br />
-              {group.createDate.toString()}
+            <Typography variant="body1" color="gray" gutterBottom>
+              Tên nhóm: <strong>{group.name}</strong>
             </Typography>
+
+            <Box
+              sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}
+            >
+              <Typography variant="body1" color="gray" gutterBottom>
+                Nhóm trưởng:{" "}
+                <strong>
+                  {group.leader?.firstName} {group.leader?.lastName}
+                </strong>
+              </Typography>
+
+              <Typography variant="body1" color="gray" gutterBottom>
+                {group.createDate.toString()}
+              </Typography>
+            </Box>
 
             <Divider color="#1976d2" />
 
@@ -119,9 +132,21 @@ const GroupDetails = () => {
               >
                 Mô tả nhóm:
               </Typography>
-              <Typography variant="body2" color="text.secondary" gutterBottom>
-                {group.description}
-              </Typography>
+              {group.description === "" ? (
+                <em>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    gutterBottom
+                  >
+                    - Chưa có -
+                  </Typography>
+                </em>
+              ) : (
+                <Typography variant="body2" color="text.secondary" gutterBottom>
+                  {group.description}
+                </Typography>
+              )}
             </Box>
 
             <Divider />

@@ -4,12 +4,12 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  SelectChangeEvent,
-  SelectProps,
+  // SelectChangeEvent,
+  // SelectProps,
   Typography,
 } from "@mui/material";
-import { useField, useFormikContext } from "formik";
-import { ReactNode, useEffect } from "react";
+import { useField } from "formik";
+import { ReactNode } from "react";
 import { v1 as uuidv1 } from "uuid";
 
 export interface MySelectionInputProps {
