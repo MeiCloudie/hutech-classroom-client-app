@@ -55,7 +55,7 @@ const MiniClassroomDetails = () => {
           titleTooltip="Xem chi tiết"
           ariaLabel="exercise"
           icon={<InfoIcon />}
-          link="/cr/:id"
+          link={`/cr/${classroomId}`}
         />
       </Box>
 
