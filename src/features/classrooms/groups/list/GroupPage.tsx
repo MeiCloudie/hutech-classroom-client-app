@@ -36,8 +36,8 @@ const GroupPage = () => {
 
       <CreateEditDialog
         iconButton={<AddIcon />}
-        titleButton="TẠO BÀI TẬP"
-        titleDialog="TẠO BÀI TẬP"
+        titleButton="TẠO NHÓM"
+        titleDialog="TẠO NHÓM"
         formComponent={(handleClose) => <GroupForm handleClose={handleClose} />}
       />
 
