@@ -143,10 +143,7 @@ const GroupDetails = () => {
               </Typography>
               {group.description === "" ? (
                 <em>
-                  <Typography
-                    variant="body2"
-                    gutterBottom
-                  >
+                  <Typography variant="body2" gutterBottom>
                     - Chưa có -
                   </Typography>
                 </em>
@@ -173,15 +170,26 @@ const GroupDetails = () => {
 
             <Divider />
 
-            <Button
-              variant="contained"
-              startIcon={<ArrowBackIcon />}
-              sx={{ mt: 2, mb: 2 }}
-              component={Link}
-              to={`/cr/${classroomId}/groups`}
-            >
-              Quay Về
-            </Button>
+            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+              <Button
+                variant="contained"
+                startIcon={<ArrowBackIcon />}
+                sx={{ mt: 2, mb: 2 }}
+                component={Link}
+                to={`/cr/${classroomId}/groups`}
+              >
+                Quay Về
+              </Button>
+
+              <Button
+                variant="contained"
+                sx={{ mt: 2, mb: 2 }}
+                component={Link}
+                to={`/cr/${classroomId}/gr/${groupId}/projects`}
+              >
+                Dự Án
+              </Button>
+            </Box>
           </Box>
         }
       />

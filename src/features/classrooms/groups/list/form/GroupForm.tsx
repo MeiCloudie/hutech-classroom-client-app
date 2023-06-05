@@ -144,8 +144,8 @@ const GroupForm = (props: GroupFormProps) => {
             }
           }}
           onCancel={props.handleClose}
-          onSetAdditionalValues={(GroupFormValues) => {
-            GroupFormValues.classroomId = classroomId;
+          onSetAdditionalValues={(groupFormValues) => {
+            groupFormValues.classroomId = classroomId;
           }}
         />
       </Box>

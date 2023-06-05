@@ -9,6 +9,7 @@ import CommentStore from "./commentStore";
 import ExerciseStore from "./exerciseStore";
 import MissionStore from "./missionStore";
 import GroupStore from "./groupStore";
+import ProjectStore from "./projectStore";
 
 interface Store {
   classroomStore: ClassroomStore;
@@ -17,6 +18,7 @@ interface Store {
   exerciseStore: ExerciseStore;
   facultyStore: FacultyStore;
   groupStore: GroupStore;
+  projectStore: ProjectStore;
   missionStore: MissionStore;
   postStore: PostStore;
   subjectStore: SubjectStore;
@@ -30,6 +32,7 @@ export const store: Store = {
   exerciseStore: new ExerciseStore(),
   facultyStore: new FacultyStore(),
   groupStore: new GroupStore(),
+  projectStore: new ProjectStore(),
   missionStore: new MissionStore(),
   postStore: new PostStore(),
   subjectStore: new SubjectStore(),
