@@ -10,6 +10,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 
 import CreateEditDialog from "../../../common/UI/CreateEditDialog";
 import AlertDialog from "../../../common/UI/AlertDialog";
@@ -183,6 +184,7 @@ const GroupDetails = () => {
 
               <Button
                 variant="contained"
+                startIcon={<AutoStoriesIcon />}
                 sx={{ mt: 2, mb: 2 }}
                 component={Link}
                 to={`/cr/${classroomId}/gr/${groupId}/projects`}

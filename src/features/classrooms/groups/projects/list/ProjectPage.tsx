@@ -1,11 +1,17 @@
-import { Box, Divider, Typography } from "@mui/material";
+import { Box, Button, Divider, Typography } from "@mui/material";
 import ProjectLayout from "../layout/ProjectLayout";
 import CreateEditDialog from "../../../../common/UI/CreateEditDialog";
 import AddIcon from "@mui/icons-material/Add";
 import ProjectList from "./ProjectList";
 import ProjectForm from "./form/ProjectForm";
+import { Link, useParams } from "react-router-dom";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const ProjectPage = () => {
+  const { groupId, classroomId } = useParams<{
+    classroomId: string;
+    groupId: string;
+  }>();
   return (
     <Box>
       <ProjectLayout
@@ -51,6 +57,28 @@ const ProjectPage = () => {
             <Divider />
 
             <ProjectList />
+
+            <Divider />
+
+            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+              <Button
+                variant="contained"
+                startIcon={<ArrowBackIcon />}
+                sx={{ mt: 2, mb: 2 }}
+                component={Link}
+                to={`/cr/${classroomId}/gr/${groupId}`}
+              >
+                Quay về nhóm
+              </Button>
+              <Button
+                variant="outlined"
+                sx={{ mt: 2, mb: 2 }}
+                component={Link}
+                to={`/cr/${classroomId}/groups`}
+              >
+                Danh sách nhóm
+              </Button>
+            </Box>
           </Box>
         }
       />

@@ -10,6 +10,7 @@ import { blue } from "@mui/material/colors";
 
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Diversity3Icon from "@mui/icons-material/Diversity3";
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 
 import { Button, Divider } from "@mui/material";
 import React from "react";
@@ -139,6 +140,7 @@ const GroupCard = (props: GroupCardProps) => {
         </Button>
         <Button
           variant="contained"
+          startIcon={<AutoStoriesIcon />}
           component={Link}
           to={`/cr/${classroomId}/gr/${props.group.id}/projects`}
         >
