@@ -16,6 +16,7 @@ import AlertDialog from "../../../common/UI/AlertDialog";
 import { observer } from "mobx-react-lite";
 import { Group } from "../../../../app/models/Group";
 import GroupForm from "../list/form/GroupForm";
+import GroupDetailsSkeleton from "../../../../app/layout/indicators/details/GroupDetailsSkeleton";
 
 const GroupDetails = () => {
   const { groupStore } = useStore();
@@ -41,7 +42,7 @@ const GroupDetails = () => {
       });
   }, [groupId, groupStore]);
 
-  //   if (groupStore.isDetailsLoading) return <GroupDetailsSkeleton />;
+    if (groupStore.isDetailsLoading) return <GroupDetailsSkeleton />;
 
   return (
     <Box>
