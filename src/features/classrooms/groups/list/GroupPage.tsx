@@ -3,7 +3,7 @@ import GroupList from "./GroupList";
 import CreateEditDialog from "../../../common/UI/CreateEditDialog";
 import AddIcon from "@mui/icons-material/Add";
 import GroupForm from "./form/GroupForm";
-import { Box, Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 
 const GroupPage = () => {
   return (
@@ -20,26 +20,30 @@ const GroupPage = () => {
         },
       }}
     >
-      <Box>
+      <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
         <Typography
           variant="h5"
-          gutterBottom
           sx={{
             fontWeight: 600,
             color: (theme) => theme.palette.primary.main,
             textAlign: "start",
           }}
+          mt={1}
         >
           NHÓM
         </Typography>
+
+        <CreateEditDialog
+          iconButton={<AddIcon />}
+          titleButton="TẠO NHÓM"
+          titleDialog="TẠO NHÓM"
+          formComponent={(handleClose) => (
+            <GroupForm handleClose={handleClose} />
+          )}
+        />
       </Box>
 
-      <CreateEditDialog
-        iconButton={<AddIcon />}
-        titleButton="TẠO NHÓM"
-        titleDialog="TẠO NHÓM"
-        formComponent={(handleClose) => <GroupForm handleClose={handleClose} />}
-      />
+      <Divider />
 
       <Box sx={{ mt: 2 }}>
         <GroupList />

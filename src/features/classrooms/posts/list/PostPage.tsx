@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 // import CreatePostDialog from "./CreatePostDialog";
 import PostList from "./PostList";
 import CreateEditDialog from "../../../common/UI/CreateEditDialog";
@@ -20,26 +20,30 @@ const PostPage = () => {
         },
       }}
     >
-      <Box>
+      <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
         <Typography
           variant="h5"
-          gutterBottom
           sx={{
             fontWeight: 600,
             color: (theme) => theme.palette.primary.main,
             textAlign: "start",
           }}
+          mt={1}
         >
           THÔNG BÁO
         </Typography>
+
+        <CreateEditDialog
+          iconButton={<AddIcon />}
+          titleButton="TẠO BÀI ĐĂNG"
+          titleDialog="TẠO BÀI ĐĂNG"
+          formComponent={(handleClose) => (
+            <PostForm handleClose={handleClose} />
+          )}
+        />
       </Box>
 
-      <CreateEditDialog
-        iconButton={<AddIcon />}
-        titleButton="TẠO BÀI ĐĂNG"
-        titleDialog="TẠO BÀI ĐĂNG"
-        formComponent={(handleClose) => <PostForm handleClose={handleClose} />}
-      />
+      <Divider />
 
       <PostList />
     </Box>

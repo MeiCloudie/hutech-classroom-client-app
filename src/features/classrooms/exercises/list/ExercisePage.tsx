@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 // import CreatePostDialog from "./CreatePostDialog";
 import CreateEditDialog from "../../../common/UI/CreateEditDialog";
 import AddIcon from "@mui/icons-material/Add";
@@ -20,26 +20,30 @@ const ExercisePage = () => {
         },
       }}
     >
-      <Box>
+      <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
         <Typography
           variant="h5"
-          gutterBottom
           sx={{
             fontWeight: 600,
             color: (theme) => theme.palette.primary.main,
             textAlign: "start",
           }}
+          mt={1}
         >
           BÀI TẬP
         </Typography>
+
+        <CreateEditDialog
+          iconButton={<AddIcon />}
+          titleButton="TẠO BÀI TẬP"
+          titleDialog="TẠO BÀI TẬP"
+          formComponent={(handleClose) => (
+            <ExerciseForm handleClose={handleClose} />
+          )}
+        />
       </Box>
 
-      <CreateEditDialog
-        iconButton={<AddIcon />}
-        titleButton="TẠO BÀI TẬP"
-        titleDialog="TẠO BÀI TẬP"
-        formComponent={(handleClose) => <ExerciseForm handleClose={handleClose} />}
-      />
+      <Divider />
 
       <ExerciseList />
     </Box>
