@@ -9,6 +9,7 @@ import {
   ProjectFormValues,
 } from "../../../../../../app/models/Project";
 import EntityForm from "../../../../../common/forms/EntityForm";
+import MiniGroupDetails from "../../layout/MiniGroupDetails";
 
 interface ProjectFormProps {
   handleClose: () => void;
@@ -39,81 +40,84 @@ const ProjectForm = (props: ProjectFormProps) => {
   }, [projectId, projectStore, props.project]);
 
   return (
-    <Box
-      sx={{
-        bgcolor: "#f5f5f5",
-        width: "100%",
-        p: 2,
-        border: "1px solid #e8e8e8",
-        borderRadius: "5px",
-        transition: "transform 0.3s, border-color 0.3s, box-shadow 0.3s",
-        "&:hover": {
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.4)",
-          transform: "translateY(-4px)",
-        },
-      }}
-    >
-      <Typography
-        variant="h4"
-        gutterBottom
+    <Box>
+      <Box
         sx={{
-          fontWeight: 600,
-          color: (theme) => theme.palette.primary.main,
-          textAlign: "center",
+          bgcolor: "#f5f5f5",
+          width: "100%",
+          p: 2,
+          border: "1px solid #e8e8e8",
+          borderRadius: "5px",
+          transition: "transform 0.3s, border-color 0.3s, box-shadow 0.3s",
+          "&:hover": {
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.4)",
+            transform: "translateY(-4px)",
+          },
         }}
       >
-        THÔNG TIN DỰ ÁN
-      </Typography>
-      <Box sx={{ display: "flex", flexGrow: 1, justifyContent: "center" }}>
-        <EntityForm<ProjectFormValues>
-          initialEntityFormValues={projectFormValues}
-          selectionFields={[]}
-          validateObject={{
-            name: Yup.string()
-              .required("Tên không được để trống!")
-              .max(100, "Tên không được vượt quá 100 ký tự!"),
-            description: Yup.string().max(
-              2000,
-              "Mô tả không được vượt quá 2000 ký tự!"
-            ),
+        <Typography
+          variant="h4"
+          gutterBottom
+          sx={{
+            fontWeight: 600,
+            color: (theme) => theme.palette.primary.main,
+            textAlign: "center",
           }}
-          fieldConfigs={[
-            {
-              fieldKey: "name",
-              props: {
-                label: "Tên Nhóm",
-                placeholder: "Hãy nhập tên nhóm tại đây!",
+        >
+          THÔNG TIN DỰ ÁN
+        </Typography>
+        <Box sx={{ display: "flex", flexGrow: 1, justifyContent: "center" }}>
+          <EntityForm<ProjectFormValues>
+            initialEntityFormValues={projectFormValues}
+            selectionFields={[]}
+            validateObject={{
+              name: Yup.string()
+                .required("Tên không được để trống!")
+                .max(100, "Tên không được vượt quá 100 ký tự!"),
+              description: Yup.string().max(
+                2000,
+                "Mô tả không được vượt quá 2000 ký tự!"
+              ),
+            }}
+            fieldConfigs={[
+              {
+                fieldKey: "name",
+                props: {
+                  label: "Tên Nhóm",
+                  placeholder: "Hãy nhập tên nhóm tại đây!",
+                },
               },
-            },
-            {
-              fieldKey: "description",
-              props: {
-                label: "Mô Tả Nhóm",
-                placeholder: "Hãy nhập mô tả nhóm tại đây!",
-                rows: 5,
+              {
+                fieldKey: "description",
+                props: {
+                  label: "Mô Tả Nhóm",
+                  placeholder: "Hãy nhập mô tả nhóm tại đây!",
+                  rows: 5,
+                },
               },
-            },
-          ]}
-          excludeFields={["groupId"]}
-          onSubmit={(entityFormValues) => {
-            if (entityFormValues.id) {
-              projectStore
-                .update(entityFormValues.id, entityFormValues)
-                .then(() => {
+            ]}
+            excludeFields={["groupId"]}
+            onSubmit={(entityFormValues) => {
+              if (entityFormValues.id) {
+                projectStore
+                  .update(entityFormValues.id, entityFormValues)
+                  .then(() => {
+                    props.handleClose();
+                  });
+              } else {
+                projectStore.create(entityFormValues).then(() => {
                   props.handleClose();
                 });
-            } else {
-              projectStore.create(entityFormValues).then(() => {
-                props.handleClose();
-              });
-            }
-          }}
-          onCancel={props.handleClose}
-          onSetAdditionalValues={(projectFormValues) => {
-            projectFormValues.groupId = groupId;
-          }}
-        />
+              }
+            }}
+            onCancel={props.handleClose}
+            onSetAdditionalValues={(projectFormValues) => {
+              projectFormValues.groupId = groupId;
+            }}
+          />
+        </Box>
       </Box>
+      <MiniGroupDetails />
     </Box>
   );
 };
