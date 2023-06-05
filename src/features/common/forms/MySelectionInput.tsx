@@ -4,23 +4,28 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  SelectChangeEvent,
   SelectProps,
+  Typography,
 } from "@mui/material";
-import { useField } from "formik";
-import { v1 as uuidv1 } from 'uuid';
+import { useField, useFormikContext } from "formik";
+import { ReactNode, useEffect } from "react";
+import { v1 as uuidv1 } from "uuid";
 
-export interface MySelectionInputProps extends SelectProps {
+export interface MySelectionInputProps {
   icon: React.ReactNode;
   options: MySelectionInputOption[];
+  name: string,
+  label?: ReactNode
 }
 
 export interface MySelectionInputOption {
-  label: string,
-  value: any
+  label: string;
+  value: any;
 }
 
 const MySelectionInput = (props: MySelectionInputProps) => {
-  const [field, meta, helpers] = useField(props.name!);
+  const [field, meta] = useField(props.name!);
   const { icon, options, ...selectProps } = props;
   const showError = meta.touched && !!meta.error;
   return (
@@ -40,14 +45,13 @@ const MySelectionInput = (props: MySelectionInputProps) => {
         },
       }}
     >
-      <InputLabel id={`${uuidv1()}-${props.name}-selection-form`}>{props.label}</InputLabel>
+      <InputLabel id={`${uuidv1()}-${props.name}-selection-form`}>
+        {props.label}
+      </InputLabel>
       <Select
         {...selectProps}
         {...field}
-        
-        value={field.value || null}
-        onChange={(e) => helpers.setValue(e.target.value)}
-
+        value={field.value ?? options[0].value}
         id={`${props.name}-selection-form`}
         labelId={`${props.name}-selection-form`}
         error={showError}
@@ -61,7 +65,11 @@ const MySelectionInput = (props: MySelectionInputProps) => {
           </MenuItem>
         ))}
       </Select>
-      {showError && <p>{meta.error}</p>}
+      {showError && (
+        <Typography variant="body2" color="#d32f2f" sx={{ m: "10px" }}>
+          {meta.error}
+        </Typography>
+      )}
     </FormControl>
   );
 };

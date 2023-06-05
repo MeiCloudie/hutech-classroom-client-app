@@ -13,7 +13,7 @@ interface GroupFormProps {
 }
 
 const GroupForm = (props: GroupFormProps) => {
-  const { classroomStore } = useStore()
+  const { classroomStore } = useStore();
   const { classroomId, groupId } = useParams<{
     classroomId: string;
     groupId: string;
@@ -22,23 +22,36 @@ const GroupForm = (props: GroupFormProps) => {
   const [groupFormValues, setGroupFormValues] = useState<GroupFormValues>(
     new GroupFormValues()
   );
-  const [classroomUserOptions, setClassroomUserOptions] = useState<{ label: string, value: any}[]>([])
+  const [classroomUserOptions, setClassroomUserOptions] = useState<
+    { label: string; value: any }[]
+  >([]);
 
   useEffect(() => {
-    if (!props.group && !groupId) {
-      if (!classroomStore.selectedItem) {
-        if (classroomId)
+    // if (!props.group && !groupId) {
+    if (!classroomStore.selectedItem) {
+      if (classroomId)
         classroomStore.get(classroomId).then(() => {
           classroomStore.loadClassroomUsers().then(() => {
-            setClassroomUserOptions(classroomStore.classroomUsers.map((c) => ({ label: c.userName, value: c.id})))
-          })
-        })
-      } else {
-        classroomStore.loadClassroomUsers().then(() => {
-          setClassroomUserOptions(classroomStore.classroomUsers.map((c) => ({ label: c.userName, value: c.id})))
-        })
-      }
+            console.log(classroomStore.classroomUsers);
+            setClassroomUserOptions(
+              classroomStore.classroomUsers.map((c) => ({
+                label: c.userName,
+                value: c.id,
+              }))
+            );
+          });
+        });
+    } else {
+      classroomStore.loadClassroomUsers().then(() => {
+        setClassroomUserOptions(
+          classroomStore.classroomUsers.map((c) => ({
+            label: c.userName,
+            value: c.id,
+          }))
+        );
+      });
     }
+    // }
     if (props.group) setGroupFormValues(new GroupFormValues(props.group));
     else if (groupId)
       groupStore.get(groupId).then(() => {
@@ -80,38 +93,18 @@ const GroupForm = (props: GroupFormProps) => {
           selectionFields={[
             {
               fieldKey: "leaderId",
-              options: classroomUserOptions
-            }
+              options: classroomUserOptions,
+            },
           ]}
           validateObject={{
-            title: Yup.string()
-              .required("Tiêu đề không được để trống!")
-              .max(100, "Tiêu đề không được vượt quá 100 ký tự!"),
-            topic: Yup.string().max(
-              200,
-              "Chủ đề không được vượt quá 200 ký tự!"
+            name: Yup.string()
+              .required("Tên không được để trống!")
+              .max(100, "Tên không được vượt quá 100 ký tự!"),
+            description: Yup.string().max(
+              3000,
+              "Mô tả không được vượt quá 3000 ký tự!"
             ),
-            instruction: Yup.string()
-              .required("Hướng dẫn không được để trống!")
-              .max(3000, "Hướng dẫn không được vượt quá 3000 ký tự!"),
-            link: Yup.string().max(
-              2000,
-              "Nội dung không được vượt quá 2000 ký tự!"
-            ),
-            criteria: Yup.string().max(
-              200,
-              "Tiêu chí chấm điểm không được vượt quá 200 ký tự!"
-            ),
-            totalScore: Yup.number()
-              .transform((value, originalValue) => {
-                return originalValue === undefined ? 0 : value;
-              })
-              .required("Tổng điểm phải ở dạng số và không được để trống!"),
-            deadline: Yup.date()
-              .typeError(
-                "Deadline phải là một ngày theo định dạng dd/MM/yyyy hh:mm:ss!"
-              )
-              .required("Deadline không được để trống!"),
+            leaderId: groupFormValues.id ? null : Yup.string().required("Nhóm trưởng không được để trống!"),
           }}
           fieldConfigs={[
             {
@@ -129,7 +122,7 @@ const GroupForm = (props: GroupFormProps) => {
               },
             },
           ]}
-          excludeFields={["classroomId"]}
+          excludeFields={["classroomId", groupFormValues.id ? "leaderId" : ""]}
           onSubmit={(entityFormValues) => {
             if (entityFormValues.id) {
               groupStore

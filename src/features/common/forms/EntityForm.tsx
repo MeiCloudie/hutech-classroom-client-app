@@ -64,13 +64,14 @@ const EntityForm = <
     const isTextarea = fieldConfig?.props.type === InputType.Textarea;
     const isDate = fieldConfig?.props.type === InputType.Date;
     if (excludeFields.includes(key)) return null;
-    const enumField = selectionFields.find((field) => field.fieldKey === key);
-    if (enumField)
+    const selectionField = selectionFields.find((field) => field.fieldKey === key);
+    if (selectionField)
       return (
         <MySelectionInput
+          key={index}
           icon={null}
-          name={enumField.fieldKey}
-          options={enumField.options}
+          name={selectionField.fieldKey}
+          options={selectionField.options}
         />
       );
     if (key.toLowerCase().includes("password"))
