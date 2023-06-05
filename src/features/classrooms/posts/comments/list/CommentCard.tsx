@@ -17,10 +17,10 @@ interface CommentCardProps {
 }
 
 const CommentCard = (props: CommentCardProps) => {
-  const { commentStore } = useStore()
+  const { commentStore } = useStore();
 
   const handleSubmit = () => {
-    commentStore.deleteComment(props.comment.id)
+    commentStore.deleteComment(props.comment.id);
   };
 
   return (
@@ -49,25 +49,31 @@ const CommentCard = (props: CommentCardProps) => {
         }
         action={
           <AlertDialog
-          iconButton={<DeleteIcon />}
-          titleButton="XOÁ"
-          alertDialogTitle="Xoá nhận xét?"
-          alertDialogDescription="Bạn có chắc chắn muốn xoá nhận xét này không?"
-          negation="Huỷ"
-          affirmation="Xoá"
-          onSubmit={handleSubmit}
-        />
+            iconButton={<DeleteIcon />}
+            titleButton="XOÁ"
+            alertDialogTitle="Xoá nhận xét?"
+            alertDialogDescription="Bạn có chắc chắn muốn xoá nhận xét này không?"
+            negation="Huỷ"
+            affirmation="Xoá"
+            onSubmit={handleSubmit}
+          />
         }
         title={`${props.comment.user?.firstName} ${props.comment.user?.lastName}`}
-        subheader={props.comment.createDate.toString()}
+        subheader={new Date(props.comment.createDate).toLocaleString("vi-VN", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true,
+        })}
       />
       <CardContent>
         <Typography
           variant="body2"
-          color="text.secondary"
           dangerouslySetInnerHTML={{ __html: props.comment.content }}
-        >
-        </Typography>
+        ></Typography>
       </CardContent>
     </Card>
   );

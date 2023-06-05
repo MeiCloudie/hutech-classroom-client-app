@@ -89,7 +89,15 @@ const PostCard = (props: PostCardProps) => {
           </IconButton>
         }
         title={`${props.post.user?.firstName} ${props.post.user?.lastName}`}
-        subheader={props.post.createDate.toString()}
+        subheader={new Date(props.post.createDate).toLocaleString("vi-VN", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true,
+        })}
       />
       <MenuMini
         id="menu-more"
@@ -100,19 +108,17 @@ const PostCard = (props: PostCardProps) => {
       <CardContent>
         <Typography
           variant="body2"
-          color="text.secondary"
           dangerouslySetInnerHTML={{ __html: props.post.content }}
           style={{ padding: "0" }}
         ></Typography>
 
         {props.post.link && props.post.link.trim() !== "" && (
-          <Box sx = {{ mt: 1, mb: 1 }}>
+          <Box sx={{ mt: 1, mb: 1 }}>
             <Box sx={{ display: "flex" }}>
               <InsertLinkIcon />
               <Typography
                 variant="body1"
                 fontWeight={700}
-                color="text.secondary"
               >
                 &nbsp;Link:
               </Typography>
@@ -120,36 +126,38 @@ const PostCard = (props: PostCardProps) => {
 
             <Box>
               <ol>
-                {props.post.link.trim().split(/\s+/).map((link, index) => (
-                  <li key={index}>
-                    <Box>
-                      {link.startsWith("https://") ||
-                      link.startsWith("http://") ? (
-                        <MuiLink
-                          href={link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          sx={{ fontWeight: "bold" }}
-                        >
-                          <em>
-                            <Typography
-                              variant="body2"
-                              fontWeight={700}
-                              color="text.secondary"
-                              sx={{ m: 1 }}
-                            >
-                              {link}
-                            </Typography>
-                          </em>
-                        </MuiLink>
-                      ) : (
-                        <Typography variant="body2" color="text.secondary">
-                          {link}
-                        </Typography>
-                      )}
-                    </Box>
-                  </li>
-                ))}
+                {props.post.link
+                  .trim()
+                  .split(/\s+/)
+                  .map((link, index) => (
+                    <li key={index}>
+                      <Box>
+                        {link.startsWith("https://") ||
+                        link.startsWith("http://") ? (
+                          <MuiLink
+                            href={link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            sx={{ fontWeight: "bold" }}
+                          >
+                            <em>
+                              <Typography
+                                variant="body2"
+                                fontWeight={700}
+                                sx={{ m: 1 }}
+                              >
+                                {link}
+                              </Typography>
+                            </em>
+                          </MuiLink>
+                        ) : (
+                          <Typography variant="body2" color="text.secondary">
+                            {link}
+                          </Typography>
+                        )}
+                      </Box>
+                    </li>
+                  ))}
               </ol>
             </Box>
           </Box>

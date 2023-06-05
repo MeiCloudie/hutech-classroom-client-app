@@ -78,7 +78,7 @@ const MiniClassroomDetails = () => {
           Nhóm {classroom.studyGroup} - Phòng {classroom.room}
         </Typography>
 
-        {classroom.practicalStudyGroup !== "0" && (
+        {classroom.practicalStudyGroup !== ("0" && null) && (
           <Typography variant="subtitle1" gutterBottom>
             Nhóm thực hành: {classroom.practicalStudyGroup}
           </Typography>

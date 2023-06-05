@@ -90,7 +90,15 @@ const ExerciseCard = (props: ExerciseCardProps) => {
         title={`${props.exercise.title}${
           props.exercise.topic && ` - Chủ đề: ${props.exercise.topic}`
         }`}
-        subheader={`${props.exercise.createDate.toString()}`}
+        subheader={`${new Date(props.exercise.createDate).toLocaleString("vi-VN", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true,
+        })}`}
       />
       <MenuMini
         id="menu-more"
@@ -124,7 +132,6 @@ const ExerciseCard = (props: ExerciseCardProps) => {
           </Typography>
           <Typography
             variant="body2"
-            color="text.secondary"
             dangerouslySetInnerHTML={{ __html: props.exercise.instruction }}
             style={{ padding: "0" }}
           ></Typography>
@@ -162,7 +169,6 @@ const ExerciseCard = (props: ExerciseCardProps) => {
                               <Typography
                                 variant="body2"
                                 fontWeight={700}
-                                color="text.secondary"
                                 sx={{ m: 1 }}
                               >
                                 {link}
@@ -170,7 +176,7 @@ const ExerciseCard = (props: ExerciseCardProps) => {
                             </em>
                           </MuiLink>
                         ) : (
-                          <Typography variant="body2" color="text.secondary">
+                          <Typography variant="body2">
                             {link}
                           </Typography>
                         )}
@@ -195,7 +201,6 @@ const ExerciseCard = (props: ExerciseCardProps) => {
           </Typography>
           <Typography
             variant="body2"
-            color="text.secondary"
             dangerouslySetInnerHTML={{ __html: props.exercise.criteria }}
             style={{ padding: "0" }}
           ></Typography>

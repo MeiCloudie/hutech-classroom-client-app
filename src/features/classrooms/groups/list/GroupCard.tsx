@@ -92,7 +92,15 @@ const GroupCard = (props: GroupCardProps) => {
           </IconButton>
         }
         title={props.group.name}
-        subheader={props.group.createDate.toString()}
+        subheader={new Date(props.group.createDate).toLocaleString("vi-VN", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true,
+        })}
       />
       <MenuMini
         id="menu-more"
@@ -101,12 +109,11 @@ const GroupCard = (props: GroupCardProps) => {
         options={moreOptions}
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2">
           {`Nhóm Trưởng: ${props.group.leader?.firstName} ${props.group.leader?.lastName}`}
         </Typography>
         <Typography
           variant="body2"
-          color="text.secondary"
           style={{
             maxWidth: "80%",
             overflow: "hidden",

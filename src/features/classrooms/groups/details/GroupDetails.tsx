@@ -42,7 +42,7 @@ const GroupDetails = () => {
       });
   }, [groupId, groupStore]);
 
-    if (groupStore.isDetailsLoading) return <GroupDetailsSkeleton />;
+  if (groupStore.isDetailsLoading) return <GroupDetailsSkeleton />;
 
   return (
     <Box>
@@ -103,14 +103,14 @@ const GroupDetails = () => {
               </Box>
             </Box>
 
-            <Typography variant="body1" color="gray" gutterBottom>
+            <Typography variant="body1" gutterBottom>
               Tên nhóm: <strong>{group.name}</strong>
             </Typography>
 
             <Box
               sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}
             >
-              <Typography variant="body1" color="gray" gutterBottom>
+              <Typography variant="body1" gutterBottom>
                 Nhóm trưởng:{" "}
                 <strong>
                   {group.leader?.firstName} {group.leader?.lastName}
@@ -118,7 +118,15 @@ const GroupDetails = () => {
               </Typography>
 
               <Typography variant="body1" color="gray" gutterBottom>
-                {group.createDate.toString()}
+                {new Date(group.createDate).toLocaleString("vi-VN", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  second: "2-digit",
+                  hour12: true,
+                })}
               </Typography>
             </Box>
 
@@ -137,17 +145,30 @@ const GroupDetails = () => {
                 <em>
                   <Typography
                     variant="body2"
-                    color="text.secondary"
                     gutterBottom
                   >
                     - Chưa có -
                   </Typography>
                 </em>
               ) : (
-                <Typography variant="body2" color="text.secondary" gutterBottom>
+                <Typography variant="body2" gutterBottom>
                   {group.description}
                 </Typography>
               )}
+            </Box>
+
+            <Divider />
+
+            <Box sx={{ mt: 2, mb: 2 }}>
+              <Typography
+                variant="subtitle1"
+                fontWeight={700}
+                color="primary"
+                gutterBottom
+              >
+                Thành viên nhóm:
+              </Typography>
+              {/* Xuat danh sach thanh vien */}
             </Box>
 
             <Divider />

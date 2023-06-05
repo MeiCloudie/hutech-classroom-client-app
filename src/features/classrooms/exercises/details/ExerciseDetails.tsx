@@ -106,14 +106,24 @@ const ExerciseDetails = () => {
               </Box>
             </Box>
 
-            <Typography variant="body1" color="gray" mb={2}>
+            <Typography variant="body1" gutterBottom>
               <strong>
                 {`${exercise.title}${
                   exercise.topic && ` - Chủ đề: ${exercise.topic}`
                 }`}
               </strong>
-              <br />
-              {exercise.createDate.toString()}
+            </Typography>
+
+            <Typography variant="body1" color="gray" gutterBottom mb={1}>
+              {new Date(exercise.createDate).toLocaleString("vi-VN", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: true,
+              })}
             </Typography>
 
             <Divider color="#1976d2" />
@@ -148,7 +158,6 @@ const ExerciseDetails = () => {
                 </Typography>
                 <Typography
                   variant="body2"
-                  color="text.secondary"
                   dangerouslySetInnerHTML={{
                     __html: exercise.instruction,
                   }}
@@ -188,7 +197,6 @@ const ExerciseDetails = () => {
                                     <Typography
                                       variant="body2"
                                       fontWeight={700}
-                                      color="text.secondary"
                                       sx={{ m: 1 }}
                                     >
                                       {link}
@@ -196,12 +204,7 @@ const ExerciseDetails = () => {
                                   </em>
                                 </MuiLink>
                               ) : (
-                                <Typography
-                                  variant="body2"
-                                  color="text.secondary"
-                                >
-                                  {link}
-                                </Typography>
+                                <Typography variant="body2">{link}</Typography>
                               )}
                             </Box>
                           </li>
@@ -225,7 +228,6 @@ const ExerciseDetails = () => {
               </Typography>
               <Typography
                 variant="body2"
-                color="text.secondary"
                 dangerouslySetInnerHTML={{ __html: exercise.criteria }}
                 style={{ padding: "0" }}
               ></Typography>

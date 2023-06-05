@@ -100,7 +100,15 @@ const PostContent = () => {
 
       <Typography variant="body1" color="gray" mb={2}>
         {post.user?.firstName + " " + post.user?.lastName} •{" "}
-        {post.createDate.toString()}
+        {new Date(post.createDate).toLocaleString("vi-VN", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true,
+        })}
       </Typography>
 
       <Divider color="#1976d2" />
@@ -108,7 +116,6 @@ const PostContent = () => {
       <Box sx={{ mb: 2 }}>
         <Typography
           variant="body2"
-          color="text.secondary"
           dangerouslySetInnerHTML={{ __html: post.content }}
           style={{ padding: "0" }}
         ></Typography>
@@ -120,7 +127,6 @@ const PostContent = () => {
               <Typography
                 variant="body1"
                 fontWeight={700}
-                color="text.secondary"
               >
                 &nbsp;Link:
               </Typography>
@@ -146,7 +152,6 @@ const PostContent = () => {
                               <Typography
                                 variant="body2"
                                 fontWeight={700}
-                                color="text.secondary"
                                 sx={{ m: 1 }}
                               >
                                 {link}
@@ -154,7 +159,7 @@ const PostContent = () => {
                             </em>
                           </MuiLink>
                         ) : (
-                          <Typography variant="body2" color="text.secondary">
+                          <Typography variant="body2">
                             {link}
                           </Typography>
                         )}
