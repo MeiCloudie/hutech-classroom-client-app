@@ -85,17 +85,21 @@ const GroupForm = (props: GroupFormProps) => {
           textAlign: "center",
         }}
       >
-        THÔNG TIN BÀI TẬP
+        THÔNG TIN NHÓM
       </Typography>
       <Box sx={{ display: "flex", flexGrow: 1, justifyContent: "center" }}>
         <EntityForm<GroupFormValues>
           initialEntityFormValues={groupFormValues}
-          selectionFields={[
-            {
-              fieldKey: "leaderId",
-              options: classroomUserOptions,
-            },
-          ]}
+          selectionFields={
+            groupFormValues.id
+              ? []
+              : [
+                  {
+                    fieldKey: "leaderId",
+                    options: classroomUserOptions,
+                  },
+                ]
+          }
           validateObject={{
             name: Yup.string()
               .required("Tên không được để trống!")
@@ -104,7 +108,9 @@ const GroupForm = (props: GroupFormProps) => {
               3000,
               "Mô tả không được vượt quá 3000 ký tự!"
             ),
-            leaderId: groupFormValues.id ? null : Yup.string().required("Nhóm trưởng không được để trống!"),
+            leaderId: groupFormValues.id
+              ? null
+              : Yup.string().required("Nhóm trưởng không được để trống!"),
           }}
           fieldConfigs={[
             {
@@ -119,7 +125,7 @@ const GroupForm = (props: GroupFormProps) => {
               props: {
                 label: "Mô Tả Nhóm",
                 placeholder: "Hãy nhập mô tả nhóm tại đây!",
-                rows: 5
+                rows: 5,
               },
             },
           ]}

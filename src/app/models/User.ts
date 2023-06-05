@@ -1,4 +1,5 @@
 import { Faculty } from "./Faculty";
+import { Role } from "./Role";
 
 export interface User {
     id: string,
@@ -7,7 +8,7 @@ export interface User {
     lastName: string,
     email: string,
     faculty?: Faculty,
-    // roles: Role[]
+    roles: Role[],
     token?: string
 }
 

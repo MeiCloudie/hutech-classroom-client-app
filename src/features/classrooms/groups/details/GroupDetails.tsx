@@ -94,7 +94,7 @@ const GroupDetails = () => {
                 <CreateEditDialog
                   iconButton={<EditIcon />}
                   titleButton="CHỈNH SỬA"
-                  titleDialog="CHỈNH SỬA BÀI TẬP"
+                  titleDialog="CHỈNH SỬA NHÓM"
                   formComponent={(handleClose) => (
                     <GroupForm group={group} handleClose={handleClose} />
                   )}

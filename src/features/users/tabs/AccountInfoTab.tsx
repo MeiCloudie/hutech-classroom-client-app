@@ -1,16 +1,9 @@
 import { Typography, Box, Alert, AlertTitle } from "@mui/material";
-import { User } from "../../../app/models/User";
 import AccountForm from "../forms/AccountForm";
-
-const account: User = {
-  id: "a1",
-  userName: "2080600803",
-  firstName: "Truong Thuc",
-  lastName: "Van",
-  email: "truongthucvan1242@gmail.com",
-};
+import { useStore } from "../../../app/stores/store";
 
 const AccountInfoTab = () => {
+  const { userStore } = useStore();
   return (
     <Box sx={{ textAlign: "start" }}>
       <Typography
@@ -27,11 +20,11 @@ const AccountInfoTab = () => {
       </Typography>
 
       <AccountForm
-        id={account.id}
-        userName={account.userName}
-        firstName={account.firstName}
-        lastName={account.lastName}
-        email={account.email}
+        id={userStore.user?.id ?? "empty-id"}
+        userName={userStore.user?.userName ?? "empty-username"}
+        firstName={userStore.user?.firstName ?? "empty-first-name"}
+        lastName={userStore.user?.lastName ?? "empty-last-name"}
+        email={userStore.user?.email ?? "empty-email"}
       />
 
       <Alert severity="info" sx={{ mt: 2 }}>
