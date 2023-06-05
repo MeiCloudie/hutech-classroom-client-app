@@ -118,7 +118,7 @@ const GroupDetails = () => {
               </Typography>
 
               <Typography variant="body1" color="gray" gutterBottom>
-                {new Date(group.createDate).toLocaleString("vi-VN", {
+                {new Date(`${group.createDate}Z`).toLocaleString("vi-VN", {
                   day: "2-digit",
                   month: "2-digit",
                   year: "numeric",

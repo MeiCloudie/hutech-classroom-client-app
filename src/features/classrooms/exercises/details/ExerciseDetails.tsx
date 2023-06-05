@@ -115,7 +115,7 @@ const ExerciseDetails = () => {
             </Typography>
 
             <Typography variant="body1" color="gray" gutterBottom mb={1}>
-              {new Date(exercise.createDate).toLocaleString("vi-VN", {
+              {new Date(`${exercise.createDate}Z`).toLocaleString("vi-VN", {
                 day: "2-digit",
                 month: "2-digit",
                 year: "numeric",

@@ -92,7 +92,7 @@ const GroupCard = (props: GroupCardProps) => {
           </IconButton>
         }
         title={props.group.name}
-        subheader={new Date(props.group.createDate).toLocaleString("vi-VN", {
+        subheader={new Date(`${props.group.createDate}Z`).toLocaleString("vi-VN", {
           day: "2-digit",
           month: "2-digit",
           year: "numeric",

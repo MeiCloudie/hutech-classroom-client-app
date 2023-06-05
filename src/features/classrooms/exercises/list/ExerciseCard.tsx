@@ -90,7 +90,7 @@ const ExerciseCard = (props: ExerciseCardProps) => {
         title={`${props.exercise.title}${
           props.exercise.topic && ` - Chủ đề: ${props.exercise.topic}`
         }`}
-        subheader={`${new Date(props.exercise.createDate).toLocaleString("vi-VN", {
+        subheader={new Date(`${props.exercise.createDate}Z`).toLocaleString("vi-VN", {
           day: "2-digit",
           month: "2-digit",
           year: "numeric",
@@ -98,7 +98,7 @@ const ExerciseCard = (props: ExerciseCardProps) => {
           minute: "2-digit",
           second: "2-digit",
           hour12: true,
-        })}`}
+        })}
       />
       <MenuMini
         id="menu-more"

@@ -59,7 +59,7 @@ const CommentCard = (props: CommentCardProps) => {
           />
         }
         title={`${props.comment.user?.firstName} ${props.comment.user?.lastName}`}
-        subheader={new Date(props.comment.createDate).toLocaleString("vi-VN", {
+        subheader={new Date(`${props.comment.createDate}Z`).toLocaleString("vi-VN", {
           day: "2-digit",
           month: "2-digit",
           year: "numeric",
