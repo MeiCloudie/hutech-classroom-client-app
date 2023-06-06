@@ -10,41 +10,29 @@ import { toast } from "react-toastify";
 const LoginForm = () => {
   const { userStore } = useStore();
   const validationSchema = Yup.object({
-    userName: Yup.string().required("Hãy nhập tên đăng nhập"),
-    password: Yup.string().required("Hãy nhập mật khẩu"),
+    userName: Yup.string().required("Hãy nhập tên đăng nhập!"),
+    password: Yup.string()
+      .required("Hãy nhập mật khẩu")
+      .min(8, "Mật khẩu phải tối thiểu 8 ký tự!"),
   });
   return (
     <Formik
       key="login-form"
       initialValues={{ userName: "", password: "", error: null }}
       onSubmit={(loginFormValues, actions) => {
-        userStore
-          .login(loginFormValues)
-          .then(() => {
-            toast.success("Đăng nhập thành công!", {
-              position: "bottom-left",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-            });
-          })
-          .catch(() => {
-            toast.error("Lỗi", {
-              position: "bottom-left",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-            });
-            actions.setSubmitting(false);
+        userStore.login(loginFormValues).then(() => {
+          toast.success("Đăng nhập thành công!", {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
           });
+        });
+        actions.setSubmitting(false);
       }}
       validationSchema={validationSchema}
     >
@@ -84,10 +72,7 @@ const LoginForm = () => {
                 justifyContent: "center",
               }}
             >
-              <Stack
-                spacing={2}
-                direction="row"
-              >
+              <Stack spacing={2} direction="row">
                 <Button
                   type="submit"
                   variant="contained"
