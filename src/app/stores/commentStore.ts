@@ -32,9 +32,6 @@ export default class CommentStore {
             this.hubConnection.on('LoadComments', (comments: Comment[], pagination: { pageIndex: number, pageSize: number, count: number, totalCount: number, totalPages: number, hasPreviousPage: boolean, hasNextPage: boolean }) => {
                 runInAction(() => {
                     if (comments != null) {
-                        comments.forEach(comment => {
-                            comment.createDate = new Date(comment.createDate + 'Z')
-                        })
                         this.comments = comments
                     }
                 })
