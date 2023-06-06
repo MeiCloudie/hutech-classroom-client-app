@@ -80,7 +80,7 @@ const CreateEditDialog = (props: CreateEditDialogProps) => {
           </Toolbar>
         </AppBar>
 
-        <DialogContent sx={{ p: "20px 100px", textAlign: "center" }}>
+        <DialogContent sx={{ p: "20px 100px" }}>
           <MiniDetailsLayout
             component={props.formComponent(handleClose)}
           />

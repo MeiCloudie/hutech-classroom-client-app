@@ -9,6 +9,8 @@ import agent from "../../api/agent";
 import Entity, { EntityFormValues } from "../../common/models/Entity";
 import { BaseResource } from "../../api/baseResource";
 import { PaginationParams } from "../models/paginationPrams";
+import { toast } from "react-toastify";
+import { toastBasic } from "../configs";
 
 export default class EntityStore<
   TEntity extends Entity,
@@ -72,7 +74,7 @@ export default class EntityStore<
   updateItem(id: string, formValues: TEntityFormValues): void {
     if (this._selectedItem)
       if (id === this._selectedItem.id)
-        Object.assign(this._selectedItem, formValues)
+        Object.assign(this._selectedItem, formValues);
     const index = this._items.findIndex((e) => e.id === id);
     if (index !== -1) {
       this._items[index] = { ...this._items[index], ...formValues };
@@ -82,7 +84,7 @@ export default class EntityStore<
   updateEntityItem(id: string, entity: TEntity): void {
     if (this._selectedItem)
       if (id === this._selectedItem.id)
-        Object.assign(this._selectedItem, entity)
+        Object.assign(this._selectedItem, entity);
     const index = this._items.findIndex((e) => e.id === id);
     if (index !== -1) {
       this._items[index] = entity;
@@ -177,6 +179,7 @@ export default class EntityStore<
       runInAction(() => {
         this.createItem(createdItem);
       });
+      toast.success("Bạn đã tạo thành công!", toastBasic);
       return createdItem;
     } catch (error) {
       console.error("Request error:", error);
@@ -194,6 +197,7 @@ export default class EntityStore<
       runInAction(() => {
         this.updateItem(id, formValues);
       });
+      toast.success("Bạn đã cập nhật thành công!", toastBasic);
     } catch (error) {
       console.error("Request error:", error);
     } finally {

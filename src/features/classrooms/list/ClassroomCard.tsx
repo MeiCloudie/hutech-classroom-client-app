@@ -20,7 +20,6 @@ import React from "react";
 import MenuMini from "../../common/UI/MenuMini";
 import IconButtonTooltip from "../../common/UI/IconButtonTooltip";
 import { ClassroomTypes } from "../../../app/layout/enums/ClassroomTypes";
-import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 
 interface ClassroomCardProps {
@@ -28,7 +27,6 @@ interface ClassroomCardProps {
 }
 
 const ClassroomCard = (props: ClassroomCardProps) => {
-  const { classroomId } = useParams<{ classroomId: string }>();
   const [anchorElMore, setAnchorElMore] = React.useState<null | HTMLElement>(
     null
   );
@@ -44,11 +42,11 @@ const ClassroomCard = (props: ClassroomCardProps) => {
   const moreOptions = [
     {
       text: "Xem chi tiết",
-      link: `/cr/${classroomId}`,
+      link: `/cr/${props.classroom.id}`,
     },
     {
       text: "Xem bài tập",
-      link: `/cr/${classroomId}/exercises`,
+      link: `/cr/${props.classroom.id}/exercises`,
     },
     {
       text: "Hỗ trợ",
@@ -118,7 +116,7 @@ const ClassroomCard = (props: ClassroomCardProps) => {
         handleCloseMenu={handleCloseMoreMenu}
         options={moreOptions}
       />
-      <Link to={`/cr/${classroomId}`} style={{ textDecoration: "none" }}>
+      <Link to={`/cr/${props.classroom.id}`} style={{ textDecoration: "none" }}>
         <CardMedia
           component="img"
           height="194"

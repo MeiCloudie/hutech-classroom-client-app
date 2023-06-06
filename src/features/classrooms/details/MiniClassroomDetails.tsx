@@ -37,6 +37,7 @@ const MiniClassroomDetails = () => {
           transform: "translateY(-4px)",
         },
       }}
+      textAlign={"center"}
     >
       <Box sx={{ display: "flex", pb: 1 }}>
         <Typography
