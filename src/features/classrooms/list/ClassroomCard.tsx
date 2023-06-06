@@ -21,6 +21,7 @@ import MenuMini from "../../common/UI/MenuMini";
 import IconButtonTooltip from "../../common/UI/IconButtonTooltip";
 import { ClassroomTypes } from "../../../app/layout/enums/ClassroomTypes";
 import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 
 interface ClassroomCardProps {
   classroom: Classroom;
@@ -117,55 +118,57 @@ const ClassroomCard = (props: ClassroomCardProps) => {
         handleCloseMenu={handleCloseMoreMenu}
         options={moreOptions}
       />
-      <CardMedia
-        component="img"
-        height="194"
-        image={
-          props.classroom.type === ClassroomTypes.TheoryRoom
-            ? "banner1.png"
-            : props.classroom.type === ClassroomTypes.PracticeRoom
-            ? "banner2.png"
-            : "banner3.png"
-        }
-        alt="banner-classroom"
-      />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {`Giảng viên: ${props.classroom.lecturer?.firstName} ${props.classroom.lecturer?.lastName}`}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {`Phòng: ${props.classroom.room}`}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {`Lớp: ${props.classroom.class}`}
-        </Typography>
-      </CardContent>
-      <Divider />
-      <CardActions
-        disableSpacing
-        sx={{ display: "flex", justifyContent: "space-between" }}
-      >
-        <div>
+      <Link to={`/cr/${classroomId}`} style={{ textDecoration: "none" }}>
+        <CardMedia
+          component="img"
+          height="194"
+          image={
+            props.classroom.type === ClassroomTypes.TheoryRoom
+              ? "banner1.png"
+              : props.classroom.type === ClassroomTypes.PracticeRoom
+              ? "banner2.png"
+              : "banner3.png"
+          }
+          alt="banner-classroom"
+        />
+        <CardContent>
+          <Typography variant="body2" color="text.secondary">
+            {`Giảng viên: ${props.classroom.lecturer?.firstName} ${props.classroom.lecturer?.lastName}`}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {`Phòng: ${props.classroom.room}`}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {`Lớp: ${props.classroom.class}`}
+          </Typography>
+        </CardContent>
+        </Link>
+        <Divider />
+        <CardActions
+          disableSpacing
+          sx={{ display: "flex", justifyContent: "space-between" }}
+        >
+          <div>
+            <IconButtonTooltip
+              titleTooltip={`Mở bài tập của bạn tại lớp "${props.classroom.description}"`}
+              ariaLabel="exercise"
+              icon={<AssignmentIcon />}
+              link={`/cr/${props.classroom.id}/exercises`}
+            />
+            <IconButtonTooltip
+              titleTooltip={`Xem thành viên tại lớp "${props.classroom.description}"`}
+              ariaLabel="everybody"
+              icon={<GroupsIcon />}
+              link={`/cr/${props.classroom.id}/everybody`}
+            />
+          </div>
           <IconButtonTooltip
-            titleTooltip={`Mở bài tập của bạn tại lớp "${props.classroom.description}"`}
-            ariaLabel="exercise"
-            icon={<AssignmentIcon />}
-            link={`/cr/${props.classroom.id}/exercises`}
-          />
-          <IconButtonTooltip
-            titleTooltip={`Xem thành viên tại lớp "${props.classroom.description}"`}
-            ariaLabel="everybody"
-            icon={<GroupsIcon />}
-            link={`/cr/${props.classroom.id}/everybody`}
-          />
-        </div>
-        <IconButtonTooltip
             titleTooltip={`Đến lớp "${props.classroom.description}"`}
             ariaLabel="go-details"
             icon={<ArrowCircleRightIcon />}
             link={`/cr/${props.classroom.id}`}
           />
-      </CardActions>
+        </CardActions>
     </Card>
   );
 };

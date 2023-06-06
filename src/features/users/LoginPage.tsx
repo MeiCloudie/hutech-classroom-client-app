@@ -18,10 +18,6 @@ const LoginPage = () => {
         border: "1px solid #e8e8e8",
         borderRadius: "5px",
         transition: "transform 0.3s, border-color 0.3s, box-shadow 0.3s",
-        "&:hover": {
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.4)",
-          transform: "translateY(-4px)",
-        },
         justifyContent: "center",
       }}
     >
