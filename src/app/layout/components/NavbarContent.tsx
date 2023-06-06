@@ -13,7 +13,7 @@ const NavbarContent = () => {
         image="/logoHutech.png"
         alt="Ảnh không tồn tại"
         sx={{
-          width: "60px",
+          width: "35px",
           height: "auto",
         }}
       />
@@ -26,6 +26,7 @@ const NavbarContent = () => {
         href=""
         sx={{
           mr: 2,
+          ml: 2,
           display: { xs: "none", md: "flex" },
           fontWeight: 700,
           color: "inherit",

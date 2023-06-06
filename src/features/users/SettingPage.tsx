@@ -80,9 +80,9 @@ const SettingPage = () => {
               image="logoHutech.png"
               alt="Ảnh không tồn tại"
               sx={{
-                width: "300px",
+                width: "150px",
                 height: "auto",
-                margin: "10px",
+                margin: "10px 80px",
               }}
             />
           }
