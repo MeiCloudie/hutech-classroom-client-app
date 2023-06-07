@@ -90,15 +90,18 @@ const ExerciseCard = (props: ExerciseCardProps) => {
         title={`${props.exercise.title}${
           props.exercise.topic && ` - Chủ đề: ${props.exercise.topic}`
         }`}
-        subheader={new Date(`${props.exercise.createDate}Z`).toLocaleString("vi-VN", {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-          hour12: true,
-        })}
+        subheader={new Date(`${props.exercise.createDate}Z`).toLocaleString(
+          "vi-VN",
+          {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: true,
+          }
+        )}
       />
       <MenuMini
         id="menu-more"
@@ -115,7 +118,16 @@ const ExerciseCard = (props: ExerciseCardProps) => {
             <strong>Tổng điểm:</strong> {props.exercise.totalScore}
           </Typography>
           <Typography variant="body2" gutterBottom>
-            <strong>Thời hạn:</strong> {props.exercise.deadline.toString()}
+            <strong>Thời hạn:</strong>{" "}
+            {props.exercise.deadline.toDate().toLocaleString("vi-VN", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit",
+              hour12: true,
+            })}
           </Typography>
         </Box>
 
@@ -176,9 +188,7 @@ const ExerciseCard = (props: ExerciseCardProps) => {
                             </em>
                           </MuiLink>
                         ) : (
-                          <Typography variant="body2">
-                            {link}
-                          </Typography>
+                          <Typography variant="body2">{link}</Typography>
                         )}
                       </Box>
                     </li>
