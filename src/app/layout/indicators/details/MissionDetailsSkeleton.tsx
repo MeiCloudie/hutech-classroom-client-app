@@ -90,7 +90,7 @@ const MissionDetailsSkeleton = () => {
 
             <Divider />
 
-            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
               <Skeleton variant="rounded" width={120} height={40} />
             </Box>
           </Box>
