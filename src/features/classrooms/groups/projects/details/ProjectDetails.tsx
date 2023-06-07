@@ -14,9 +14,9 @@ import { observer } from "mobx-react-lite";
 import { Project } from "../../../../../app/models/Project";
 import ProjectForm from "../list/form/ProjectForm";
 import { useStore } from "../../../../../app/stores/store";
-import MiniDetailsLayout from "../../../layout/MiniDetailsLayout";
 import AlertDialog from "../../../../common/UI/AlertDialog";
 import CreateEditDialog from "../../../../common/UI/CreateEditDialog";
+import ProjectLayout from "../layout/ProjectLayout";
 
 const ProjectDetails = () => {
   const { projectStore } = useStore();
@@ -47,7 +47,7 @@ const ProjectDetails = () => {
 
   return (
     <Box>
-      <MiniDetailsLayout
+      <ProjectLayout
         component={
           <Box
             sx={{
