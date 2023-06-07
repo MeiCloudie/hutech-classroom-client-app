@@ -117,9 +117,9 @@ const ExerciseCard = (props: ExerciseCardProps) => {
           <Typography variant="body2" gutterBottom>
             <strong>Tổng điểm:</strong> {props.exercise.totalScore}
           </Typography>
-          <Typography variant="body2" gutterBottom>
+          <Typography variant="body2" color="red" gutterBottom>
             <strong>Thời hạn:</strong>{" "}
-            {props.exercise.deadline.toDate().toLocaleString("vi-VN", {
+            {new Date(`${props.exercise.deadline}Z`).toLocaleString("vi-VN", {
               day: "2-digit",
               month: "2-digit",
               year: "numeric",
