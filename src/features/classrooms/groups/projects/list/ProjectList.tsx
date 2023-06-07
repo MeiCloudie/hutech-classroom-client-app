@@ -7,6 +7,7 @@ import { useStore } from "../../../../../app/stores/store";
 import { PaginationParams } from "../../../../../app/common/models/paginationPrams";
 import PlaceholderBox from "../../../../common/UI/PlaceholderBox";
 import ProjectCard from "./ProjectCard";
+import ProjectCardSkeleton from "../../../../../app/layout/indicators/cards/ProjectCardSkeleton";
 
 const ProjectList = () => {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -24,14 +25,14 @@ const ProjectList = () => {
       });
   }, [groupId, groupStore, projectStore]);
 
-  //   if (projectStore.isListLoading)
-  //     return (
-  //       <>
-  //         <ProjectCardSkeleton />
-  //         <ProjectCardSkeleton />
-  //         <ProjectCardSkeleton />
-  //       </>
-  //     );
+    if (projectStore.isListLoading)
+      return (
+        <>
+          <ProjectCardSkeleton />
+          <ProjectCardSkeleton />
+          <ProjectCardSkeleton />
+        </>
+      );
 
   return (
     <Box>
