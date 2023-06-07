@@ -10,7 +10,7 @@ import { blue } from "@mui/material/colors";
 
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Diversity3Icon from "@mui/icons-material/Diversity3";
-import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 
 import { Button, Divider } from "@mui/material";
 import React from "react";
@@ -24,9 +24,8 @@ interface GroupCardProps {
 }
 
 const GroupCard = (props: GroupCardProps) => {
-  const { classroomId, groupId } = useParams<{
+  const { classroomId } = useParams<{
     classroomId: string;
-    groupId: string;
   }>();
   const [anchorElMore, setAnchorElMore] = React.useState<null | HTMLElement>(
     null
@@ -43,7 +42,7 @@ const GroupCard = (props: GroupCardProps) => {
   const moreOptions = [
     {
       text: "Xem chi tiết",
-      link: `/cr/${classroomId}/gr/${groupId}`,
+      link: `/cr/${classroomId}/gr/${props.group.id}`,
     },
     {
       text: "Hỗ trợ",
@@ -93,15 +92,18 @@ const GroupCard = (props: GroupCardProps) => {
           </IconButton>
         }
         title={props.group.name}
-        subheader={new Date(`${props.group.createDate}Z`).toLocaleString("vi-VN", {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-          hour12: true,
-        })}
+        subheader={new Date(`${props.group.createDate}Z`).toLocaleString(
+          "vi-VN",
+          {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: true,
+          }
+        )}
       />
       <MenuMini
         id="menu-more"
