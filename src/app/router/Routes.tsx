@@ -22,7 +22,7 @@ import GroupDetails from "../../features/classrooms/groups/details/GroupDetails"
 import ProjectPage from "../../features/classrooms/groups/projects/list/ProjectPage";
 import ProjectDetails from "../../features/classrooms/groups/projects/details/ProjectDetails";
 import MissionPage from "../../features/classrooms/groups/projects/missions/list/MissionPage";
-import MissionDetails from "../../features/classrooms/groups/projects/missions/details/MissionDetials";
+import MissionDetails from "../../features/classrooms/groups/projects/missions/details/MissionDetails";
 import PostPage from "../../features/classrooms/posts/list/PostPage";
 import PostDetails from "../../features/classrooms/posts/details/PostDetails";
 import ClassroomDetails from "../../features/classrooms/details/ClassroomDetails";

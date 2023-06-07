@@ -7,6 +7,7 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "../../../../../../app/stores/store";
 import { Project } from "../../../../../../app/models/Project";
 import IconButtonTooltip from "../../../../../common/UI/IconButtonTooltip";
+import MiniProjectDetailsSkeleton from "../../../../../../app/layout/indicators/details/MiniProjectDetailsSkeleton";
 
 const MiniProjectDetails = () => {
   const { projectStore } = useStore();
@@ -25,7 +26,7 @@ const MiniProjectDetails = () => {
       });
   }, [projectId, projectStore]);
 
-  //   if (projectStore.isDetailsLoading) return <MiniProjectDetailsSkeleton />;
+    if (projectStore.isDetailsLoading) return <MiniProjectDetailsSkeleton />;
 
   return (
     <Box
