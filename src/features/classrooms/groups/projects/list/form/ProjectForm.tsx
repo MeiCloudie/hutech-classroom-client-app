@@ -10,6 +10,7 @@ import {
 } from "../../../../../../app/models/Project";
 import EntityForm from "../../../../../common/forms/EntityForm";
 import MiniGroupDetails from "../../layout/MiniGroupDetails";
+import { InputType } from "../../../../../../app/layout/enums/InputTypes";
 
 interface ProjectFormProps {
   handleClose: () => void;
@@ -83,16 +84,16 @@ const ProjectForm = (props: ProjectFormProps) => {
               {
                 fieldKey: "name",
                 props: {
-                  label: "Tên Nhóm",
-                  placeholder: "Hãy nhập tên nhóm tại đây!",
+                  label: "Tên dự án",
+                  placeholder: "Hãy nhập tên dự án tại đây!",
                 },
               },
               {
                 fieldKey: "description",
                 props: {
-                  label: "Mô Tả Nhóm",
-                  placeholder: "Hãy nhập mô tả nhóm tại đây!",
-                  rows: 5,
+                  label: "Mô Tả dự án",
+                  placeholder: "Hãy nhập mô tả dự án tại đây!",
+                  type: InputType.Textarea,
                 },
               },
             ]}

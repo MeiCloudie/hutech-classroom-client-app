@@ -40,6 +40,7 @@ const MiniGroupDetails = () => {
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.4)",
           transform: "translateY(-4px)",
         },
+        textAlign: "center"
       }}
     >
       <Box sx={{ display: "flex", pb: 1 }}>

@@ -9,12 +9,14 @@ import Typography from "@mui/material/Typography";
 import { blue } from "@mui/material/colors";
 
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import { Button, Divider } from "@mui/material";
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { Project } from "../../../../../app/models/Project";
 import MenuMini from "../../../../common/UI/MenuMini";
+
+import TaskIcon from '@mui/icons-material/Task';
 
 interface ProjectCardProps {
   project: Project;
@@ -89,7 +91,7 @@ const ProjectCard = (props: ProjectCardProps) => {
             <MoreVertIcon />
           </IconButton>
         }
-        title={`${props.project.name}`}
+        title={`${props.project.name} - Nhóm trưởng: ${props.project.group?.leader?.firstName} ${props.project.group?.leader?.lastName}`}
         subheader={new Date(`${props.project.createDate}Z`).toLocaleString(
           "vi-VN",
           {
@@ -110,21 +112,19 @@ const ProjectCard = (props: ProjectCardProps) => {
         options={moreOptions}
       />
       <CardContent>
-        <Typography variant="body2">
-          {`Nhóm Trưởng: ${props.project.group?.leader?.firstName} ${props.project.group?.leader?.lastName}`}
+        <Typography
+          variant="subtitle1"
+          fontWeight={700}
+          color="primary"
+          gutterBottom
+        >
+          Mô tả dự án:
         </Typography>
         <Typography
           variant="body2"
-          style={{
-            maxWidth: "80%",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
-          }}
-          title={`Mô tả dự án: ${props.project.description}`}
-        >
-          {`Mô tả dự án: ${props.project.description}`}
-        </Typography>
+          dangerouslySetInnerHTML={{ __html: props.project.description }}
+          style={{ padding: "0" }}
+        ></Typography>
       </CardContent>
       <Divider />
       <CardActions
@@ -141,9 +141,10 @@ const ProjectCard = (props: ProjectCardProps) => {
         <Button
           variant="contained"
           component={Link}
-          to={`/cr/${classroomId}/gr/${groupId}/pj/${props.project.id}`}
+          to={`/cr/${classroomId}/gr/${groupId}/pj/${props.project.id}/missions`}
+          startIcon={<TaskIcon />}
         >
-          Nhận Xét
+          Nhiệm vụ
         </Button>
       </CardActions>
     </Card>
