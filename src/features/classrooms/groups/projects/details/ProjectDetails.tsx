@@ -17,6 +17,7 @@ import { useStore } from "../../../../../app/stores/store";
 import AlertDialog from "../../../../common/UI/AlertDialog";
 import CreateEditDialog from "../../../../common/UI/CreateEditDialog";
 import ProjectLayout from "../layout/ProjectLayout";
+import ProjectDetailsSkeleton from "../../../../../app/layout/indicators/details/ProjectDetailsSkeleton";
 
 const ProjectDetails = () => {
   const { projectStore } = useStore();
@@ -43,7 +44,7 @@ const ProjectDetails = () => {
       });
   }, [projectId, projectStore]);
 
-  //   if (projectStore.isDetailsLoading) return <ProjectDetailsSkeleton />;
+    if (projectStore.isDetailsLoading) return <ProjectDetailsSkeleton />;
 
   return (
     <Box>
