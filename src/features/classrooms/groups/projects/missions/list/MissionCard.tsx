@@ -10,7 +10,7 @@ import { blue } from "@mui/material/colors";
 
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import TaskIcon from "@mui/icons-material/Task";
-import { Button, Chip, Divider } from "@mui/material";
+import { Box, Button, Chip, Divider } from "@mui/material";
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 
@@ -126,19 +126,22 @@ const MissionCard = (props: MissionCardProps) => {
           style={{ padding: "0" }}
         ></Typography>
 
-        <Typography
-          variant="subtitle1"
-          fontWeight={700}
-          color="primary"
-          gutterBottom
-        >
-          Trạng thái hoàn thành:
-        </Typography>
-        {props.mission.isDone ? (
-          <Chip label="Đã hoàn thành" color="success" />
-        ) : (
-          <Chip label="Chưa hoàn thành" color="primary" />
-        )}
+        <Box sx={{ display: "flex", mt: 2 }}>
+          <Typography
+            variant="subtitle1"
+            fontWeight={700}
+            color="primary"
+            gutterBottom
+            sx={{ mr: 1}}
+          >
+            Trạng thái hoàn thành:
+          </Typography>
+          {props.mission.isDone ? (
+            <Chip label="Đã hoàn thành" color="success" size="small" />
+          ) : (
+            <Chip label="Chưa hoàn thành" color="primary" size="small" />
+          )}
+        </Box>
       </CardContent>
       <Divider />
       <CardActions

@@ -3,7 +3,10 @@ import { Box, Typography } from "@mui/material";
 import * as Yup from "yup";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Mission, MissionFormValues } from "../../../../../../../app/models/Mission";
+import {
+  Mission,
+  MissionFormValues,
+} from "../../../../../../../app/models/Mission";
 import { useStore } from "../../../../../../../app/stores/store";
 import EntityForm from "../../../../../../common/forms/EntityForm";
 import { InputType } from "../../../../../../../app/layout/enums/InputTypes";
@@ -70,12 +73,12 @@ const MissionForm = (props: MissionFormProps) => {
             initialEntityFormValues={missionFormValues}
             selectionFields={[]}
             validateObject={{
-              name: Yup.string()
+              title: Yup.string()
                 .required("Tên không được để trống!")
                 .max(100, "Tên không được vượt quá 100 ký tự!"),
               description: Yup.string().max(
-                2000,
-                "Mô tả không được vượt quá 2000 ký tự!"
+                100,
+                "Mô tả không được vượt quá 100 ký tự!"
               ),
             }}
             fieldConfigs={[
@@ -118,7 +121,7 @@ const MissionForm = (props: MissionFormProps) => {
             }}
             onCancel={props.handleClose}
             onSetAdditionalValues={(missionFormValues) => {
-                missionFormValues.projectId = projectId;
+              missionFormValues.projectId = projectId;
             }}
           />
         </Box>

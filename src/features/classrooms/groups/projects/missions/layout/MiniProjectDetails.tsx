@@ -72,22 +72,6 @@ const MiniProjectDetails = () => {
           {project.name}
         </Typography>
       </Box>
-
-      <Divider />
-
-      <Box sx={{ m: "20px 0" }}>
-        <Typography
-          variant="h6"
-          sx={{
-            color: (theme) => theme.palette.success.main,
-            fontWeight: "bold",
-          }}
-          gutterBottom
-        >
-          Nhóm trưởng: {project.group?.leader?.firstName}{" "}
-          {project.group?.leader?.lastName}
-        </Typography>
-      </Box>
     </Box>
   );
 };

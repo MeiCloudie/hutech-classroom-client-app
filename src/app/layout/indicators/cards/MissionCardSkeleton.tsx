@@ -1,4 +1,5 @@
 import {
+  Box,
   Card,
   CardActions,
   CardContent,
@@ -63,8 +64,10 @@ const MissionCardSkeleton = () => {
           style={{ marginBottom: 6 }}
         />
 
-        <Skeleton height={40} width="10%" animation="wave" />
-        <Skeleton variant="rounded" width={120} height={30} />
+        <Box sx={{ display: "flex", mt: 2 }}>
+          <Skeleton height={40} width="15%" animation="wave" sx={{ mr: 2 }} />
+          <Skeleton width={120} height={40} />
+        </Box>
       </CardContent>
       <Divider />
       <CardActions
