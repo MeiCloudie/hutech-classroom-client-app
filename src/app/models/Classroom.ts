@@ -49,8 +49,6 @@ export class Classroom implements Classroom {
 
   constructor(init?: ClassroomFormValues) {
     Object.assign(this, init);
-    this.classroomUsers = [];
-    this.posts = [];
   }
 }
 
@@ -73,7 +71,7 @@ export class ClassroomFormValues implements EntityFormValues {
 
   constructor(classroom?: Classroom) {
     if (classroom) {
-      const { subject, faculty, lecturer, createDate, ...rest } = classroom;
+      const { subject, faculty, lecturer, classroomUsers, posts, createDate, ...rest } = classroom;
       Object.assign(this, { ...rest });
     }
   }
