@@ -6,7 +6,7 @@ import { PaginationParams } from "../../../../../app/common/models/paginationPra
 import TypoLoading from "../../../../../app/layout/indicators/common/TypoLoading";
 
 const columns: GridColDef[] = [
-  { field: "fullName", headerName: "Họ Tên", width: 100 },
+  { field: "fullName", headerName: "Họ Tên", width: 300 },
   { field: "status", headerName: "Trạng Thái", width: 100 },
 ];
 
@@ -25,6 +25,7 @@ const AnswerStatusList = () => {
               setRows(
                 classroomStore.classroomUsers.map((m, i) => {
                   return {
+                    id: i,
                     fullName: `${m.firstName} ${m.lastName}`,
                     status: `Chưa nộp`,
                   };

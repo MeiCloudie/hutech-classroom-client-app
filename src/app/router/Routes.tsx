@@ -16,7 +16,7 @@ import ClassroomEverybody from "../../features/classrooms/everybody/ClassroomEve
 import ExercisePage from "../../features/classrooms/exercises/list/ExercisePage";
 import ExerciseDetails from "../../features/classrooms/exercises/details/ExerciseDetails";
 import AnswerPage from "../../features/classrooms/exercises/answers/AnswerPage";
-import AnswerDetails from "../../features/classrooms/exercises/answers/AnswerDetails";
+import AnswerDetails from "../../features/classrooms/exercises/answers/list/details/AnswerDetails";
 import GroupPage from "../../features/classrooms/groups/list/GroupPage";
 import GroupDetails from "../../features/classrooms/groups/details/GroupDetails";
 import ProjectPage from "../../features/classrooms/groups/projects/list/ProjectPage";
@@ -78,17 +78,8 @@ export const routes: RouteObject[] = [
                     children: [
                       { path: "all", element: <AnswerPage /> },
                       {
-                        path: "students/:studentId",
-                        children: [
-                          {
-                            path: "",
-                            element: <AnswerDetails />,
-                          },
-                          {
-                            path: ":answerId",
-                            element: <AnswerDetails />,
-                          },
-                        ],
+                        path: ":answerId",
+                        element: <AnswerDetails />,
                       },
                     ],
                   },

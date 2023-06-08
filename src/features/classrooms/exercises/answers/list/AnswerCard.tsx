@@ -43,7 +43,7 @@ const AnswerCard = (props: AnswerCardProps) => {
   const moreOptions = [
     {
       text: "Xem chi tiết",
-      link: `/cr/${classroomId}/ex/${exerciseId}/answers/students/${props.answer.user?.id}/${props.answer.id}`,
+      link: `/cr/${classroomId}/ex/${exerciseId}/answers/${props.answer.id}`,
     },
     {
       text: "Hỗ trợ",
@@ -113,7 +113,7 @@ const AnswerCard = (props: AnswerCardProps) => {
         options={moreOptions}
       />
       <Link
-        to={`/cr/${classroomId}/ex/${exerciseId}/answers/students/${props.answer.user?.id}/${props.answer.id}`}
+        to={`/cr/${classroomId}/ex/${exerciseId}/answers/${props.answer.id}`}
         style={{ textDecoration: "none" }}
       >
         <CardContent>
@@ -129,22 +129,9 @@ const AnswerCard = (props: AnswerCardProps) => {
               textOverflow: "ellipsis",
               whiteSpace: "nowrap",
             }}
-            title={props.answer.description}
+            title={`Link: ${props.answer.link}`}
           >
-            Mô tả: {props.answer.description}
-          </Typography>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            sx={{
-              maxWidth: "80%",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-            }}
-            title={props.answer.link}
-          >
-            Đường dẫn: {props.answer.link}
+            {`Link: ${props.answer.link}`}
           </Typography>
         </CardContent>
       </Link>
@@ -157,7 +144,7 @@ const AnswerCard = (props: AnswerCardProps) => {
           titleTooltip={"Xem chi tiết"}
           ariaLabel="go-details"
           icon={<ArrowCircleRightIcon />}
-          link={`/cr/${classroomId}/ex/${exerciseId}/answers/students/${props.answer.user?.id}/${props.answer.id}`}
+          link={`/cr/${classroomId}/ex/${exerciseId}/answers/${props.answer.id}`}
         />
       </CardActions>
     </Card>

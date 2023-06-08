@@ -18,7 +18,7 @@ const AnswerForm = (props: AnswerFormProps) => {
     exerciseId: string;
     answerId: string;
   }>();
-  const { answerStore } = useStore();
+  const { answerStore, userStore } = useStore();
   const [answerFormValues, setAnswerFormValues] = useState<AnswerFormValues>(
     new AnswerFormValues()
   );
@@ -121,6 +121,7 @@ const AnswerForm = (props: AnswerFormProps) => {
             onCancel={props.handleClose}
             onSetAdditionalValues={(answerFormValues) => {
               answerFormValues.exerciseId = exerciseId;
+              answerFormValues.userId = userStore.user?.id;
             }}
           />
         </Box>
