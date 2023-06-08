@@ -120,6 +120,13 @@ const AnswerCard = (props: AnswerCardProps) => {
           <Typography
             variant="body2"
             color="text.secondary"
+            fontWeight="bold"
+          >
+            Điểm: {props.answer.score === 0 ? "Chưa chấm" : props.answer.score}
+          </Typography>
+          <Typography
+            variant="body2"
+            color="text.secondary"
             sx={{
               maxWidth: "80%",
               overflow: "hidden",
