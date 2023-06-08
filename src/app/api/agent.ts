@@ -41,9 +41,11 @@ axios.interceptors.response.use(
     return response;
   },
   (error: AxiosError) => {
-    const { data, status, config } = error.response as AxiosResponse;
+    const { status, config } = error.response as AxiosResponse;
+    const data = error.response?.data as any;
     switch (status) {
       case 400:
+        if (data) break;
         console.log(data)
         if (
           config.method === "get" &&
@@ -75,6 +77,7 @@ axios.interceptors.response.use(
         router.navigate("not-found");
         break;
       case 500:
+        if (data) break;
         store.commonStore.setServerError(data);
         router.navigate("/server-error");
         break;

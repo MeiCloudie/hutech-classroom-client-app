@@ -22,7 +22,7 @@ export class Exercise implements Exercise {
     instruction = "";
     link = "";
     totalScore = 0;
-    deadline = dayjs.utc();
+    deadline = dayjs();
     topic = "";
     criteria = "";
     classroom?: Classroom = undefined;
@@ -38,7 +38,7 @@ export class ExerciseFormValues {
     topic: string = "";
     instruction: string = "";
     link: string = "";
-    deadline: Dayjs = dayjs.utc();
+    deadline: Dayjs = dayjs();
     totalScore: number = 0;
     criteria: string = "";
     classroomId?: string = "";

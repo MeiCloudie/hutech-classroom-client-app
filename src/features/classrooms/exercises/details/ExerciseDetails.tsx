@@ -20,6 +20,7 @@ import ExerciseForm from "../list/form/ExerciseForm";
 import ExerciseDetailsSkeleton from "../../../../app/layout/indicators/details/ExerciseDetailsSkeleton";
 import AnswerForm from "../answers/form/AnswerForm";
 import AddIcon from "@mui/icons-material/Add";
+import dayjs from "dayjs";
 
 const ExerciseDetails = () => {
   const { exerciseStore } = useStore();
@@ -144,7 +145,7 @@ const ExerciseDetails = () => {
                 </Typography>
                 <Typography variant="body2" color="red" gutterBottom>
                   <strong>Thời hạn:</strong>{" "}
-                  {new Date(`${exercise.deadline}Z`).toLocaleString("vi-VN", {
+                  {new Date(`${dayjs.utc(exercise.deadline)}`).toLocaleString("vi-VN", {
                     day: "2-digit",
                     month: "2-digit",
                     year: "numeric",

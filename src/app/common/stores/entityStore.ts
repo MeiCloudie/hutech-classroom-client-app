@@ -77,7 +77,7 @@ export default class EntityStore<
         Object.assign(this._selectedItem, formValues);
     const index = this._items.findIndex((e) => e.id === id);
     if (index !== -1) {
-      this._items[index] = { ...this._items[index], ...formValues };
+      Object.assign(this._items[index], formValues);
     }
   }
 

@@ -47,6 +47,7 @@ const MyPasswordInput = ({ label, ...props }: any) => {
         <OutlinedInput
           {...field}
           {...props}
+          autoComplete="password"
           id={`${uuidv1()}-${props.name}-password-form`}
           type={showPassword ? "text" : "password"}
           endAdornment={

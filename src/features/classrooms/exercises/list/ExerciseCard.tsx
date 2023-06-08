@@ -16,6 +16,7 @@ import MenuMini from "../../../common/UI/MenuMini";
 import { Link, useParams } from "react-router-dom";
 import { Link as MuiLink } from "@mui/material";
 import { Exercise } from "../../../../app/models/Exercise";
+import dayjs from "dayjs";
 
 interface ExerciseCardProps {
   exercise: Exercise;
@@ -119,7 +120,7 @@ const ExerciseCard = (props: ExerciseCardProps) => {
           </Typography>
           <Typography variant="body2" color="red" gutterBottom>
             <strong>Thời hạn:</strong>{" "}
-            {new Date(`${props.exercise.deadline}Z`).toLocaleString("vi-VN", {
+            {new Date(`${dayjs.utc(props.exercise.deadline)}`).toLocaleString("vi-VN", {
               day: "2-digit",
               month: "2-digit",
               year: "numeric",
