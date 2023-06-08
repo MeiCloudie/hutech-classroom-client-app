@@ -1,6 +1,9 @@
+import MiniDetailsLayout from "../../layout/MiniDetailsLayout"
+import AnswerList from "./list/AnswerList";
+
 const AnswerPage = () => {
     return (
-        <h1>AnswerPage</h1>
+        <MiniDetailsLayout component={<AnswerList />} />
     )
 }
 

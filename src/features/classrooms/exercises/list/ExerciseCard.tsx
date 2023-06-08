@@ -232,7 +232,7 @@ const ExerciseCard = (props: ExerciseCardProps) => {
         <Button
           variant="contained"
           component={Link}
-          to={`/cr/${classroomId}/ex/${props.exercise.id}`}
+          to={`/cr/${classroomId}/ex/${props.exercise.id}/answers/all`}
         >
           Câu Trả Lời
         </Button>
