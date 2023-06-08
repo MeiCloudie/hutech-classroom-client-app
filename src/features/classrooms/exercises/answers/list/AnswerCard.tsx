@@ -43,7 +43,7 @@ const AnswerCard = (props: AnswerCardProps) => {
   const moreOptions = [
     {
       text: "Xem chi tiết",
-      link: `/cr/${classroomId}/ex/${exerciseId}/answers/students/${props.answer.user?.id}`,
+      link: `/cr/${classroomId}/ex/${exerciseId}/answers/students/${props.answer.user?.id}/${props.answer.id}`,
     },
     {
       text: "Hỗ trợ",
@@ -113,15 +113,11 @@ const AnswerCard = (props: AnswerCardProps) => {
         options={moreOptions}
       />
       <Link
-        to={`/cr/${classroomId}/ex/${exerciseId}/answers/students/${props.answer.user?.id}`}
+        to={`/cr/${classroomId}/ex/${exerciseId}/answers/students/${props.answer.user?.id}/${props.answer.id}`}
         style={{ textDecoration: "none" }}
       >
         <CardContent>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            fontWeight="bold"
-          >
+          <Typography variant="body2" color="text.secondary" fontWeight="bold">
             Điểm: {props.answer.score === 0 ? "Chưa chấm" : props.answer.score}
           </Typography>
           <Typography
@@ -161,7 +157,7 @@ const AnswerCard = (props: AnswerCardProps) => {
           titleTooltip={"Xem chi tiết"}
           ariaLabel="go-details"
           icon={<ArrowCircleRightIcon />}
-          link={`/cr/${classroomId}/ex/${exerciseId}/answers/students/${props.answer.user?.id}`}
+          link={`/cr/${classroomId}/ex/${exerciseId}/answers/students/${props.answer.user?.id}/${props.answer.id}`}
         />
       </CardActions>
     </Card>

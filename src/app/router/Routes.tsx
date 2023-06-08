@@ -79,7 +79,16 @@ export const routes: RouteObject[] = [
                       { path: "all", element: <AnswerPage /> },
                       {
                         path: "students/:studentId",
-                        element: <AnswerDetails />,
+                        children: [
+                          {
+                            path: "",
+                            element: <AnswerDetails />,
+                          },
+                          {
+                            path: ":answerId",
+                            element: <AnswerDetails />,
+                          },
+                        ],
                       },
                     ],
                   },
