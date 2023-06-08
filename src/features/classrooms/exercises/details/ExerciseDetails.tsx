@@ -18,6 +18,8 @@ import { Link as MuiLink } from "@mui/material";
 import { Exercise } from "../../../../app/models/Exercise";
 import ExerciseForm from "../list/form/ExerciseForm";
 import ExerciseDetailsSkeleton from "../../../../app/layout/indicators/details/ExerciseDetailsSkeleton";
+import AnswerForm from "../answers/form/AnswerForm";
+import AddIcon from "@mui/icons-material/Add";
 
 const ExerciseDetails = () => {
   const { exerciseStore } = useStore();
@@ -253,9 +255,18 @@ const ExerciseDetails = () => {
             >
               Quay Về
             </Button>
+
           </Box>
         }
       />
+        <CreateEditDialog
+          iconButton={<AddIcon />}
+          titleButton="NỘP BÀI"
+          titleDialog="TẠO CÂU TRẢ LỜI"
+          formComponent={(handleClose) => (
+            <AnswerForm handleClose={handleClose} />
+          )}
+        />
     </Box>
   );
 };

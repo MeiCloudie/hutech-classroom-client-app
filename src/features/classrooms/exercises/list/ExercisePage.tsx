@@ -1,5 +1,4 @@
 import { Box, Divider, Typography } from "@mui/material";
-// import CreatePostDialog from "./CreatePostDialog";
 import CreateEditDialog from "../../../common/UI/CreateEditDialog";
 import AddIcon from "@mui/icons-material/Add";
 import ExerciseForm from "./form/ExerciseForm";

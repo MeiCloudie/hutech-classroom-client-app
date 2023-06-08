@@ -1,4 +1,4 @@
-import { Box, Divider, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 import * as Yup from "yup";
 import { useParams } from "react-router-dom";
@@ -60,9 +60,6 @@ const AnswerForm = (props: AnswerFormProps) => {
         >
           THÔNG TIN CÂU TRẢ LỜI
         </Typography>
-
-        {/* info exercise */}
-        <Divider />
         <Box sx={{ display: "flex", flexGrow: 1, justifyContent: "center" }}>
           <EntityForm<AnswerFormValues>
             initialEntityFormValues={answerFormValues}
