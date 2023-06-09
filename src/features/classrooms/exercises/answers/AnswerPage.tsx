@@ -7,9 +7,7 @@ const AnswerPage = () => {
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={4} lg={3} key="answer-status-list">
-          <Box>
-            <AnswerStatusList />
-          </Box>
+          <AnswerStatusList />
         </Grid>
 
         <Grid item xs={12} md={8} lg={9} key="answer-list">
