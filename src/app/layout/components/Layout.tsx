@@ -25,6 +25,11 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 const Layout = () => {
   const [open, setOpen] = React.useState(false);
   const location = useLocation();
+  const {
+    commonStore,
+    userStore,
+    userStore: { isLoggedIn },
+  } = useStore();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -33,8 +38,6 @@ const Layout = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
-  const { commonStore, userStore } = useStore();
 
   React.useEffect(() => {
     if (commonStore.token) {
@@ -50,8 +53,14 @@ const Layout = () => {
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
 
-      <Navbar open={open} handleDrawerOpen={handleDrawerOpen} />
-      <Sidebar open={open} handleDrawerClose={handleDrawerClose} />
+      {isLoggedIn ? (
+        <>
+          <Navbar open={open} handleDrawerOpen={handleDrawerOpen} />
+          <Sidebar open={open} handleDrawerClose={handleDrawerClose} />
+        </>
+      ) : (
+        <Navbar />
+      )}
 
       <Box component="main" sx={{ flexGrow: 1, p: 3, marginBottom: 10 }}>
         <DrawerHeader />

@@ -4,6 +4,7 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import NavbarContent from "./NavbarContent";
+import { useStore } from "../../stores/store";
 
 const drawerWidth = 240;
 
@@ -30,26 +31,32 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 interface NavbarProps {
-  open: boolean;
-  handleDrawerOpen: () => void;
+  open?: boolean;
+  handleDrawerOpen?: () => void;
 }
 
 const Navbar = (props: NavbarProps) => {
+  const {
+    userStore: { isLoggedIn },
+  } = useStore();
+
   return (
-    <AppBar position="fixed" open={props.open} sx={{ bgcolor: "#101331"}}>
+    <AppBar position="fixed" open={props.open} sx={{ bgcolor: "#101331" }}>
       <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={props.handleDrawerOpen}
-          edge="start"
-          sx={{
-            marginRight: 5,
-            ...(props.open && { display: "none" }),
-          }}
-        >
-          <MenuIcon />
-        </IconButton>
+        {isLoggedIn && (
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={props.handleDrawerOpen}
+            edge="start"
+            sx={{
+              marginRight: 5,
+              ...(props.open && { display: "none" }),
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
+        )}
         <NavbarContent />
       </Toolbar>
     </AppBar>

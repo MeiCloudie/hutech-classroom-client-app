@@ -9,30 +9,31 @@ import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import { store } from "../../stores/store";
 import { router } from "../../router/Routes";
+import { yellow } from "@mui/material/colors";
 
 const settings = [
   {
     text: "Hồ Sơ",
     link: "/profiles",
     handleClick: () => {
-      router.navigate('/profiles')
-    }
+      router.navigate("/profiles");
+    },
   },
   {
     text: "Cài Đặt",
     link: "/settings",
     handleClick: () => {
-      router.navigate('/settings')
-    }
+      router.navigate("/settings");
+    },
   },
   {
     text: "Đăng Xuất",
     link: "/home",
     handleClick: () => {
-      store.userStore.logout()
-    }
+      store.userStore.logout();
+    },
   },
-]
+];
 
 const MenuUserSettings = () => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
@@ -53,7 +54,7 @@ const MenuUserSettings = () => {
       <Box sx={{ flexGrow: 0 }}>
         <Tooltip title="Cài dặt">
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-            <Avatar alt="User Image" />
+            <Avatar alt="User Image" sx={{ bgcolor: yellow[800] }} />
           </IconButton>
         </Tooltip>
         <Menu
@@ -73,10 +74,15 @@ const MenuUserSettings = () => {
           onClose={handleCloseUserMenu}
         >
           {settings.map((setting, index) => (
-            <MenuItem key={index} onClick={() => {
-              if (setting?.handleClick)  setting.handleClick() 
-              handleCloseUserMenu()
-            }} component={Link} to={setting.link}>
+            <MenuItem
+              key={index}
+              onClick={() => {
+                if (setting?.handleClick) setting.handleClick();
+                handleCloseUserMenu();
+              }}
+              component={Link}
+              to={setting.link}
+            >
               <Typography textAlign="center">{setting.text}</Typography>
             </MenuItem>
           ))}

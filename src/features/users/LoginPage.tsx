@@ -12,6 +12,8 @@ const LoginPage = () => {
   return (
     <Box
       sx={{
+        width: "100%",
+        height: "100%",
         bgcolor: "#f5f5f5",
         display: "flex",
         p: 2,
@@ -19,6 +21,7 @@ const LoginPage = () => {
         borderRadius: "5px",
         transition: "transform 0.3s, border-color 0.3s, box-shadow 0.3s",
         justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <Grid container spacing={2}>
@@ -47,11 +50,15 @@ const LoginPage = () => {
               textAlign: "center",
             }}
           >
-            <Typography variant="h4" fontWeight={700}>
-              ĐĂNG NHẬP
-            </Typography>
-
-            <LoginForm />
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <LoginForm />
+            </Box>
 
             <Alert
               severity="info"

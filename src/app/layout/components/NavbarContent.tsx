@@ -3,8 +3,13 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
 import MenuUserSettings from "./MenuUserSettings";
+import { useStore } from "../../stores/store";
 
 const NavbarContent = () => {
+  const {
+    userStore: { isLoggedIn },
+  } = useStore();
+
   return (
     <React.Fragment>
       {/* LOGO */}
@@ -57,7 +62,7 @@ const NavbarContent = () => {
         {/* some contents */}
       </Box>
 
-      <MenuUserSettings />
+      {isLoggedIn && <MenuUserSettings />}
     </React.Fragment>
   );
 };

@@ -1,11 +1,19 @@
 import { Formik } from "formik";
 import MyPasswordInput from "../../common/forms/MyPasswordInput";
-import { Box, Button, InputAdornment, Stack } from "@mui/material";
+import {
+  Box,
+  Button,
+  Divider,
+  InputAdornment,
+  Stack,
+  Typography,
+} from "@mui/material";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import * as Yup from "yup";
 import { useStore } from "../../../app/stores/store";
 import MyTextInput from "../../common/forms/MyTextInput";
 import { toast } from "react-toastify";
+import { blue } from "@mui/material/colors";
 
 const LoginForm = () => {
   const { userStore } = useStore();
@@ -42,7 +50,29 @@ const LoginForm = () => {
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit}
+          sx={{
+            border: "solid 1px gray",
+            borderRadius: "5px",
+            p: "20px 0",
+            width: 960,
+            height: 350,
+            bgcolor: "#ebebeb"
+          }}
         >
+          <Typography
+            variant="h4"
+            fontWeight={700}
+            sx={{
+              mb: 2,
+              color: blue[800],
+              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
+            }}
+          >
+            ĐĂNG NHẬP
+          </Typography>
+
+          <Divider color="gray" sx={{ mb: 2 }} />
+
           <MyTextInput
             helperText={errors.userName}
             name="userName"
@@ -64,24 +94,25 @@ const LoginForm = () => {
             placeholder="Nhập mật khẩu của bạn"
           />
 
+          <Divider color="gray" sx={{ mt: 4 }} />
+
           <Stack sx={{ width: "100%" }} spacing={2}>
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center",
+                justifyContent: "end",
               }}
             >
-              <Stack spacing={2} direction="row">
-                <Button
-                  type="submit"
-                  variant="contained"
-                  disabled={isSubmitting}
-                  sx={{ m: "10px 0" }}
-                >
-                  Đăng nhập
-                </Button>
-              </Stack>
+              <Button
+                type="submit"
+                variant="contained"
+                disabled={isSubmitting}
+                sx={{ mt: 2, mr: 4 }}
+                size="large"
+              >
+                Đăng nhập
+              </Button>
             </div>
           </Stack>
         </Box>
