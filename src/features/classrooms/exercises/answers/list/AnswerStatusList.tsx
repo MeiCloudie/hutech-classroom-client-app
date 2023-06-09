@@ -37,10 +37,29 @@ const AnswerStatusList = () => {
       });
   }, [classroomId, classroomStore]);
 
-  if (classroomStore.isDetailsLoading) return <TypoLoading />;
+  if (classroomStore.isDetailsLoading)
+    return (
+      <Box
+        sx={{
+          bgcolor: "#f5f5f5",
+          p: 2,
+          border: "1px solid #e8e8e8",
+          borderRadius: "5px",
+          transition: "transform 0.3s, border-color 0.3s, box-shadow 0.3s",
+          "&:hover": {
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.4)",
+            transform: "translateY(-4px)",
+          },
+          mb: 2,
+          mt: 2,
+        }}
+      >
+        <TypoLoading />
+      </Box>
+    );
 
   return (
-    <Box>
+    <Box sx={{ mb: 2, mt: 2 }}>
       <div style={{ height: "100%", width: "100%" }}>
         <DataGrid
           sx={{
