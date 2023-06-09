@@ -234,7 +234,7 @@ const ExerciseCard = (props: ExerciseCardProps) => {
           component={Link}
           to={`/cr/${classroomId}/ex/${props.exercise.id}/answers/all`}
         >
-          Câu Trả Lời
+          Bảng Kết Quả
         </Button>
       </CardActions>
     </Card>

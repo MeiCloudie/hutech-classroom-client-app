@@ -3,6 +3,7 @@ import { Answer } from "../../../../../app/models/Answer";
 import { Link, useParams } from "react-router-dom";
 import {
   Avatar,
+  Button,
   Card,
   CardActions,
   CardContent,
@@ -14,10 +15,8 @@ import {
 
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import PersonIcon from "@mui/icons-material/Person";
-import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import { blue } from "@mui/material/colors";
 import MenuMini from "../../../../common/UI/MenuMini";
-import IconButtonTooltip from "../../../../common/UI/IconButtonTooltip";
 
 interface AnswerCardProps {
   answer: Answer;
@@ -140,12 +139,13 @@ const AnswerCard = (props: AnswerCardProps) => {
         disableSpacing
         sx={{ display: "flex", justifyContent: "space-between" }}
       >
-        <IconButtonTooltip
-          titleTooltip={"Xem chi tiết"}
-          ariaLabel="go-details"
-          icon={<ArrowCircleRightIcon />}
-          link={`/cr/${classroomId}/ex/${exerciseId}/answers/${props.answer.id}`}
-        />
+        <Button
+          variant="text"
+          component={Link}
+          to={`/cr/${classroomId}/ex/${exerciseId}/answers/${props.answer.id}`}
+        >
+          XEM CHI TIẾT
+        </Button>
       </CardActions>
     </Card>
   );

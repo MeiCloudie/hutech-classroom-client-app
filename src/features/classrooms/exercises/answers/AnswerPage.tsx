@@ -1,12 +1,27 @@
-import { Box, Grid } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import AnswerStatusList from "./list/AnswerStatusList";
 import AnswerList from "./list/AnswerList";
+import { Link, useParams } from "react-router-dom";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const AnswerPage = () => {
+  const { classroomId, exerciseId } = useParams<{
+    classroomId: string;
+    exerciseId: string;
+  }>();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={4} lg={3} key="answer-status-list">
+          <Button
+            variant="contained"
+            startIcon={<ArrowBackIcon />}
+            component={Link}
+            to={`/cr/${classroomId}/ex/${exerciseId}`}
+            sx={{ mt: 2, mb: 2 }}
+          >
+            QUAY VỀ
+          </Button>
           <AnswerStatusList />
         </Grid>
 

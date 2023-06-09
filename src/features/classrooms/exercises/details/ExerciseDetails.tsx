@@ -145,15 +145,18 @@ const ExerciseDetails = () => {
                 </Typography>
                 <Typography variant="body2" color="red" gutterBottom>
                   <strong>Thời hạn:</strong>{" "}
-                  {new Date(`${dayjs.utc(exercise.deadline)}`).toLocaleString("vi-VN", {
-                    day: "2-digit",
-                    month: "2-digit",
-                    year: "numeric",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    second: "2-digit",
-                    hour12: true,
-                  })}
+                  {new Date(`${dayjs.utc(exercise.deadline)}`).toLocaleString(
+                    "vi-VN",
+                    {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      second: "2-digit",
+                      hour12: true,
+                    }
+                  )}
                 </Typography>
               </Box>
 
@@ -247,27 +250,36 @@ const ExerciseDetails = () => {
 
             <Divider />
 
-            <Button
-              variant="contained"
-              startIcon={<ArrowBackIcon />}
-              sx={{ mt: 2, mb: 2 }}
-              component={Link}
-              to={`/cr/${classroomId}/exercises`}
-            >
-              Quay Về
-            </Button>
-
+            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+              <Button
+                variant="contained"
+                startIcon={<ArrowBackIcon />}
+                sx={{ mt: 2, mb: 2 }}
+                component={Link}
+                to={`/cr/${classroomId}/exercises`}
+              >
+                Quay Về
+              </Button>
+              <Button
+                variant="contained"
+                sx={{ mt: 2, mb: 2 }}
+                component={Link}
+                to={`/cr/${classroomId}/ex/${exerciseId}/answers/all`}
+              >
+                Bảng Kết Quả
+              </Button>
+            </Box>
           </Box>
         }
       />
-        <CreateEditDialog
-          iconButton={<AddIcon />}
-          titleButton="NỘP BÀI"
-          titleDialog="TẠO CÂU TRẢ LỜI"
-          formComponent={(handleClose) => (
-            <AnswerForm handleClose={handleClose} />
-          )}
-        />
+      <CreateEditDialog
+        iconButton={<AddIcon />}
+        titleButton="NỘP BÀI"
+        titleDialog="TẠO CÂU TRẢ LỜI"
+        formComponent={(handleClose) => (
+          <AnswerForm handleClose={handleClose} />
+        )}
+      />
     </Box>
   );
 };

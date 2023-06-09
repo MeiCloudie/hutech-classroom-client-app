@@ -16,6 +16,7 @@ import AlertDialog from "../../../../../common/UI/AlertDialog";
 import CreateEditDialog from "../../../../../common/UI/CreateEditDialog";
 import AnswerForm from "../../form/AnswerForm";
 import { Link as MuiLink } from "@mui/material";
+import AnswerDetailsSkeleton from "../../../../../../app/layout/indicators/details/AnswerDetailsSkeleton";
 
 const AnswerDetails = () => {
   const { answerStore } = useStore();
@@ -42,7 +43,7 @@ const AnswerDetails = () => {
       });
   }, [answerId, answerStore]);
 
-  //   if (answerStore.isDetailsLoading) return <AnswerDetailsSkeleton />;
+    if (answerStore.isDetailsLoading) return <AnswerDetailsSkeleton />;
 
   return (
     <Box>

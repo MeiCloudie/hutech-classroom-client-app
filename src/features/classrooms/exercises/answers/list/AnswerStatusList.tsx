@@ -5,9 +5,10 @@ import { useStore } from "../../../../../app/stores/store";
 import { PaginationParams } from "../../../../../app/common/models/paginationPrams";
 import TypoLoading from "../../../../../app/layout/indicators/common/TypoLoading";
 import { Box } from "@mui/material";
+import { observer } from "mobx-react-lite";
 
 const columns: GridColDef[] = [
-  { field: "fullName", headerName: "Họ Tên", width: 300 },
+  { field: "fullName", headerName: "Họ Tên", width: 250 },
   { field: "status", headerName: "Trạng Thái", width: 100 },
 ];
 
@@ -64,4 +65,4 @@ const AnswerStatusList = () => {
   );
 };
 
-export default AnswerStatusList;
+export default observer(AnswerStatusList);

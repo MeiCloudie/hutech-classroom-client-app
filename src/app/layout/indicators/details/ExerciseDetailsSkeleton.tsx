@@ -156,13 +156,20 @@ const ExerciseDetailsSkeleton = () => {
               />
             </Box>
             <Divider />
-
-            <Skeleton
-              variant="rounded"
-              width={120}
-              height={40}
-              sx={{ mt: 1 }}
-            />
+            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+              <Skeleton
+                variant="rounded"
+                width={120}
+                height={40}
+                sx={{ mt: 1 }}
+              />
+              <Skeleton
+                variant="rounded"
+                width={120}
+                height={40}
+                sx={{ mt: 1 }}
+              />
+            </Box>
           </Box>
         }
       />
