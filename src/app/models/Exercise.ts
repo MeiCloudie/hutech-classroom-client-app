@@ -1,6 +1,7 @@
 import dayjs, { Dayjs } from "dayjs";
 import Entity, { Auditable } from "../common/models/Entity";
 import { Classroom } from "./Classroom";
+import Profile from "../common/models/Profile";
 
 export interface Exercise extends Entity, Auditable {
     id: string;
@@ -13,6 +14,7 @@ export interface Exercise extends Entity, Auditable {
     topic: string;
     criteria: string;
     classroom?: Classroom;
+    exerciseUsers: Profile[];
 }
 
 export class Exercise implements Exercise {

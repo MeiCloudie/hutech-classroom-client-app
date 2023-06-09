@@ -21,6 +21,7 @@ import ExerciseDetailsSkeleton from "../../../../app/layout/indicators/details/E
 import AnswerForm from "../answers/form/AnswerForm";
 import AddIcon from "@mui/icons-material/Add";
 import dayjs from "dayjs";
+import FactCheckIcon from '@mui/icons-material/FactCheck';
 
 const ExerciseDetails = () => {
   const { exerciseStore } = useStore();
@@ -262,11 +263,12 @@ const ExerciseDetails = () => {
               </Button>
               <Button
                 variant="contained"
+                startIcon={<FactCheckIcon />}
                 sx={{ mt: 2, mb: 2 }}
                 component={Link}
                 to={`/cr/${classroomId}/ex/${exerciseId}/answers/all`}
               >
-                Bảng Kết Quả
+                Kết Quả
               </Button>
             </Box>
           </Box>

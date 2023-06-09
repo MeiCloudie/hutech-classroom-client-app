@@ -1,12 +1,15 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
-import AnswerStatusList from "./list/AnswerStatusList";
-import AnswerList from "./list/AnswerList";
-import { Link, useParams } from "react-router-dom";
+import MiniClassroomDetails from "../../../details/MiniClassroomDetails";
+import MiniExerciseDetails from "./MiniExerciseDetails";
+import AnswerStatusList from "../list/AnswerStatusList";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import MiniClassroomDetails from "../../details/MiniClassroomDetails";
-import MiniExerciseDetails from "./layout/MiniExerciseDetails";
+import { Link, useParams } from "react-router-dom";
 
-const AnswerPage = () => {
+interface AnswerLayoutProps {
+  component: any;
+}
+
+const AnswerLayout = (props: AnswerLayoutProps) => {
   const { classroomId, exerciseId } = useParams<{
     classroomId: string;
     exerciseId: string;
@@ -14,7 +17,13 @@ const AnswerPage = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
-        <Grid item xs={12} md={4} lg={3} key="layout-info-list">
+        <Grid
+          item
+          xs={12}
+          md={4}
+          lg={3}
+          key="mini-classroom-and-exercise-details"
+        >
           <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
             <Button
               variant="contained"
@@ -25,7 +34,7 @@ const AnswerPage = () => {
               BÀI TẬP
             </Button>
             <Typography variant="h6" fontWeight="bold" color="primary" mt={1}>
-              TẤT CẢ CÂU TRẢ LỜI
+              XEM CHI TIẾT
             </Typography>
           </Box>
           <AnswerStatusList />
@@ -33,12 +42,12 @@ const AnswerPage = () => {
           <MiniClassroomDetails />
         </Grid>
 
-        <Grid item xs={12} md={8} lg={9} key="answer-list">
-          <AnswerList />
+        <Grid item xs={12} md={8} lg={9} key="main-answer">
+          {props.component}
         </Grid>
       </Grid>
     </Box>
   );
 };
 
-export default AnswerPage;
+export default AnswerLayout;

@@ -17,6 +17,7 @@ import { Link, useParams } from "react-router-dom";
 import { Link as MuiLink } from "@mui/material";
 import { Exercise } from "../../../../app/models/Exercise";
 import dayjs from "dayjs";
+import FactCheckIcon from '@mui/icons-material/FactCheck';
 
 interface ExerciseCardProps {
   exercise: Exercise;
@@ -231,10 +232,11 @@ const ExerciseCard = (props: ExerciseCardProps) => {
         </Button>
         <Button
           variant="contained"
+          startIcon={<FactCheckIcon />}
           component={Link}
           to={`/cr/${classroomId}/ex/${props.exercise.id}/answers/all`}
         >
-          Bảng Kết Quả
+          Kết Quả
         </Button>
       </CardActions>
     </Card>

@@ -13,19 +13,19 @@ const columns: GridColDef[] = [
 ];
 
 const AnswerStatusList = () => {
-  const { classroomId } = useParams<{ classroomId: string }>();
-  const { classroomStore } = useStore();
+  const { exerciseId } = useParams<{ exerciseId: string }>();
+  const { exerciseStore } = useStore();
   const [rows, setRows] = useState<GridRowsProp>([]);
 
   useEffect(() => {
-    if (classroomId)
-      classroomStore.get(classroomId).then(() => {
-        classroomStore
-          .loadClassroomUsers(new PaginationParams(1, 100, ""))
+    if (exerciseId)
+      exerciseStore.get(exerciseId).then(() => {
+        exerciseStore
+          .loadExerciseUsers(new PaginationParams(1, 100, ""))
           .then(() => {
-            if (classroomStore.classroomUsers)
+            if (exerciseStore.exerciseUsers)
               setRows(
-                classroomStore.classroomUsers.map((m, i) => {
+                exerciseStore.exerciseUsers.map((m, i) => {
                   return {
                     id: i,
                     fullName: `${m.firstName} ${m.lastName}`,
@@ -35,9 +35,9 @@ const AnswerStatusList = () => {
               );
           });
       });
-  }, [classroomId, classroomStore]);
+  }, [exerciseId, exerciseStore]);
 
-  if (classroomStore.isDetailsLoading)
+  if (exerciseStore.isDetailsLoading)
     return (
       <Box
         sx={{
