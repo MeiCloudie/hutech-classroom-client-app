@@ -5,6 +5,7 @@ Welcome to the Hutech Classroom Client App repository! This is a React-based app
 ## Table of Contents
 - [Getting Started](#getting-started)
 - [Features](#features)
+- [Built with](#built-with)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
@@ -36,6 +37,12 @@ npm start
 - View and manage classroom sessions
 - Access course materials and resources
 - Interact with instructors and fellow students through chat
+
+## Built with
+The Hutech Classroom Client App is built with the following technologies:
+- [React](https://reactjs.org/) - A JavaScript library for building user interfaces
+- [MobX](https://mobx.js.org/) - A state management library for React applications
+- [MUI (Material-UI)](https://mui.com/) - A popular React UI framework based on Material Design principles
 
 ## Usage
 Once the app is running, you can explore its various features:
