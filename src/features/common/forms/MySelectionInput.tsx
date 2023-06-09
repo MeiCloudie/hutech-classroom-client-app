@@ -28,6 +28,7 @@ const MySelectionInput = (props: MySelectionInputProps) => {
   const [field, meta] = useField(props.name!);
   const { icon, options, ...selectProps } = props;
   const showError = meta.touched && !!meta.error;
+  const uuid = uuidv1();
   return (
     <FormControl
       fullWidth
@@ -45,15 +46,15 @@ const MySelectionInput = (props: MySelectionInputProps) => {
         },
       }}
     >
-      <InputLabel id={`${uuidv1()}-${props.name}-selection-form`}>
+      <InputLabel id={`${uuid}-${props.name}-selection-form`}>
         {props.label}
       </InputLabel>
       <Select
         {...selectProps}
         {...field}
         value={field.value ?? options[0].value}
-        id={`${props.name}-selection-form`}
-        labelId={`${props.name}-selection-form`}
+        id={`${uuid}-${props.name}-selection-form`}
+        labelId={`${uuid}-${props.name}-selection-form`}
         error={showError}
         startAdornment={
           <InputAdornment position="start">{icon}</InputAdornment>
