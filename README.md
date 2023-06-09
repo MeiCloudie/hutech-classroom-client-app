@@ -1,46 +1,57 @@
-# Getting Started with Create React App
+# Hutech Classroom Client App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the Hutech Classroom Client App repository! This is a React-based application that serves as the frontend for the Hutech Classroom platform. It utilizes MobX for state management and MUI (Material-UI) for UI components.
 
-## Available Scripts
+## Table of Contents
+- [Getting Started](#getting-started)
+- [Features](#features)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
-In the project directory, you can run:
+## Getting Started
+To get started with the Hutech Classroom Client App, follow the installation instructions outlined below:
 
-### `npm start`
+1. Clone this repository:
+git clone https://github.com/MeiCloudie/hutech-classroom-client-app.git
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+2. Navigate to the project directory:
+cd hutech-classroom-client-app
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+3. Install dependencies:
+npm install
 
-### `npm test`
+4. Set up environment variables:
+- Create a `.env` file at the root of the project
+- Provide the required environment variables (refer to `.env.example`)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+5. Start the development server:
+npm start
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+6. Access the app at `http://localhost:3000`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Features
+- Login and authentication functionality
+- View and manage classroom sessions
+- Access course materials and resources
+- Interact with instructors and fellow students through chat
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Usage
+Once the app is running, you can explore its various features:
+- Login using your credentials
+- Browse and manage classroom sessions
+- Access course materials and resources
+- Interact with instructors and fellow students through chat
 
-### `npm run eject`
+## Contributing
+Contributions to the Hutech Classroom Client App are welcome! If you find any bugs, issues, or have suggestions for improvements, please open an issue on the GitHub repository.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+To contribute code changes:
+- Fork the repository
+- Create a new branch for your changes
+- Submit a pull request
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## License
+The Hutech Classroom Client App is open source and is licensed under the [MIT License](LICENSE).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
