@@ -21,7 +21,8 @@ import ExerciseDetailsSkeleton from "../../../../app/layout/indicators/details/E
 import AnswerForm from "../answers/form/AnswerForm";
 import AddIcon from "@mui/icons-material/Add";
 import dayjs from "dayjs";
-import FactCheckIcon from '@mui/icons-material/FactCheck';
+import FactCheckIcon from "@mui/icons-material/FactCheck";
+import PublishIcon from '@mui/icons-material/Publish';
 
 const ExerciseDetails = () => {
   const { exerciseStore } = useStore();
@@ -261,26 +262,31 @@ const ExerciseDetails = () => {
               >
                 Quay Về
               </Button>
-              <Button
-                variant="contained"
-                startIcon={<FactCheckIcon />}
-                sx={{ mt: 2, mb: 2 }}
-                component={Link}
-                to={`/cr/${classroomId}/ex/${exerciseId}/answers/all`}
-              >
-                Kết Quả
-              </Button>
+
+              <Box sx={{ display: "flex", justifyContent: "center" }}>
+                <Box sx={{ mt: 2, mr: 1 }}>
+                  <CreateEditDialog
+                    iconButton={<PublishIcon />}
+                    titleButton="NỘP BÀI"
+                    titleDialog="TẠO CÂU TRẢ LỜI"
+                    formComponent={(handleClose) => (
+                      <AnswerForm handleClose={handleClose} />
+                    )}
+                  />
+                </Box>
+                <Button
+                  variant="contained"
+                  startIcon={<FactCheckIcon />}
+                  sx={{ mt: 2, mb: 2 }}
+                  component={Link}
+                  to={`/cr/${classroomId}/ex/${exerciseId}/answers/all`}
+                >
+                  Kết Quả
+                </Button>
+              </Box>
             </Box>
           </Box>
         }
-      />
-      <CreateEditDialog
-        iconButton={<AddIcon />}
-        titleButton="NỘP BÀI"
-        titleDialog="TẠO CÂU TRẢ LỜI"
-        formComponent={(handleClose) => (
-          <AnswerForm handleClose={handleClose} />
-        )}
       />
     </Box>
   );

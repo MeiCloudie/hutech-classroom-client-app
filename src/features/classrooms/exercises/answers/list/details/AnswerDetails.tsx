@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import Button from "@mui/material/Button";
 
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 // import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
@@ -27,14 +27,14 @@ const AnswerDetails = () => {
     answerId: string;
     exerciseId: string;
   }>();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const handleSubmit = () => {
-    if (answerId)
-      answerStore
-        .delete(answerId)
-        .then(() => navigate(`/cr/${classroomId}/ex/${exerciseId}/all`));
-  };
+  // const handleSubmit = () => {
+  //   if (answerId)
+  //     answerStore
+  //       .delete(answerId)
+  //       .then(() => navigate(`/cr/${classroomId}/ex/${exerciseId}/all`));
+  // };
 
   useEffect(() => {
     if (answerId)
