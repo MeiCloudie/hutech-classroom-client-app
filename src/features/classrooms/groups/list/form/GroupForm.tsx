@@ -128,6 +128,13 @@ const GroupForm = (props: GroupFormProps) => {
                 rows: 5,
               },
             },
+            {
+              fieldKey: "leaderId",
+              props: {
+                label: "Nhóm Trưởng",
+                placeholder: "Hãy chọn nhóm trưởng tại đây!",
+              },
+            },
           ]}
           excludeFields={["classroomId", groupFormValues.id ? "leaderId" : ""]}
           onSubmit={(entityFormValues) => {

@@ -70,6 +70,7 @@ const EntityForm = <
         <MySelectionInput
           key={index}
           icon={null}
+          label={label}
           name={selectionField.fieldKey}
           options={selectionField.options}
         />

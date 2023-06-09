@@ -54,7 +54,7 @@ const ProfilePage = () => {
           gutterBottom
         >{`Họ tên: ${store.userStore.user?.firstName} ${store.userStore.user?.lastName}`}</Typography>
         <Typography variant="subtitle1" gutterBottom>
-          Mã số sinh viên: <strong>{store.userStore.user?.userName}</strong>
+          Mã số: <strong>{store.userStore.user?.userName}</strong>
         </Typography>
         <Typography variant="subtitle1" gutterBottom>
           Email: <strong>{store.userStore.user?.email}</strong>
