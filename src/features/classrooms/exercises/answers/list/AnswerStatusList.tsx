@@ -28,7 +28,7 @@ const AnswerStatusList = () => {
                 exerciseStore.exerciseUsers.map((m, i) => {
                   return {
                     id: i,
-                    fullName: `${m.firstName} ${m.lastName}`,
+                    fullName: `${m.lastName} ${m.firstName}`,
                     status: `Chưa nộp`,
                   };
                 })

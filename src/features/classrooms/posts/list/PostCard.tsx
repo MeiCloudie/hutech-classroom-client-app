@@ -88,7 +88,7 @@ const PostCard = (props: PostCardProps) => {
             <MoreVertIcon />
           </IconButton>
         }
-        title={`${props.post.user?.firstName} ${props.post.user?.lastName}`}
+        title={`${props.post.user?.lastName} ${props.post.user?.firstName}`}
         subheader={new Date(`${props.post.createDate}Z`).toLocaleString("vi-VN", {
           day: "2-digit",
           month: "2-digit",

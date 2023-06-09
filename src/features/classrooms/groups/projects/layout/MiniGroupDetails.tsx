@@ -83,7 +83,7 @@ const MiniGroupDetails = () => {
           }}
           gutterBottom
         >
-          Nhóm trưởng: {group.leader?.firstName} {group.leader?.lastName}
+          Nhóm trưởng: {group.leader?.lastName} {group.leader?.firstName}
         </Typography>
       </Box>
     </Box>

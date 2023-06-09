@@ -32,7 +32,7 @@ const MemberList = () => {
                     id: i,
                     role: "Sinh Viên",
                     username: m.userName,
-                    fullName: `${m.firstName} ${m.lastName}`,
+                    fullName: `${m.lastName} ${m.firstName}`,
                     email: m.email,
                   };
                 })

@@ -113,8 +113,8 @@ const MiniClassroomDetails = () => {
           }}
           gutterBottom
         >
-          Giảng viên {classroom.lecturer?.firstName}{" "}
-          {classroom.lecturer?.lastName}
+          Giảng viên {classroom.lecturer?.lastName}{" "}
+          {classroom.lecturer?.firstName}
         </Typography>
       </Box>
     </Box>

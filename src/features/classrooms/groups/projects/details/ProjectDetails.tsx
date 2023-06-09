@@ -115,8 +115,8 @@ const ProjectDetails = () => {
               <Typography variant="body1" gutterBottom>
                 Nhóm trưởng:{" "}
                 <strong>
-                  {project.group?.leader?.firstName}{" "}
-                  {project.group?.leader?.lastName}
+                  {project.group?.leader?.lastName}{" "}
+                  {project.group?.leader?.firstName}
                 </strong>
               </Typography>
 

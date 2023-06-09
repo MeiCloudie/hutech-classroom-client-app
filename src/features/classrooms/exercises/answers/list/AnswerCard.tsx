@@ -91,7 +91,7 @@ const AnswerCard = (props: AnswerCardProps) => {
             <MoreVertIcon />
           </IconButton>
         }
-        title={`${props.answer.user?.firstName} ${props.answer.user?.lastName}`}
+        title={`${props.answer.user?.lastName} ${props.answer.user?.firstName}`}
         subheader={new Date(`${props.answer.createDate}Z`).toLocaleString(
           "vi-VN",
           {

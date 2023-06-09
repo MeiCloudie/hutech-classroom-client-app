@@ -58,7 +58,7 @@ const CommentCard = (props: CommentCardProps) => {
             onSubmit={handleSubmit}
           />
         }
-        title={`${props.comment.user?.firstName} ${props.comment.user?.lastName}`}
+        title={`${props.comment.user?.lastName} ${props.comment.user?.firstName}`}
         subheader={new Date(`${props.comment.createDate}Z`).toLocaleString("vi-VN", {
           day: "2-digit",
           month: "2-digit",

@@ -99,7 +99,7 @@ const PostContent = () => {
       </Box>
 
       <Typography variant="body1" color="gray" mb={2}>
-        {post.user?.firstName + " " + post.user?.lastName} •{" "}
+        {post.user?.lastName + " " + post.user?.firstName} •{" "}
         {new Date(`${post.createDate}Z`).toLocaleString("vi-VN", {
           day: "2-digit",
           month: "2-digit",

@@ -10,7 +10,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 
 import CreateEditDialog from "../../../common/UI/CreateEditDialog";
 import AlertDialog from "../../../common/UI/AlertDialog";
@@ -18,6 +18,7 @@ import { observer } from "mobx-react-lite";
 import { Group } from "../../../../app/models/Group";
 import GroupForm from "../list/form/GroupForm";
 import GroupDetailsSkeleton from "../../../../app/layout/indicators/details/GroupDetailsSkeleton";
+import { PaginationParams } from "../../../../app/common/models/paginationPrams";
 
 const GroupDetails = () => {
   const { groupStore } = useStore();
@@ -38,7 +39,10 @@ const GroupDetails = () => {
   useEffect(() => {
     if (groupId)
       groupStore.get(groupId).then(() => {
-        if (groupStore.selectedItem) setGroup(groupStore.selectedItem);
+        groupStore.loadGroupUsers(new PaginationParams(1, 100, "")).then(() => {
+          console.log(groupStore.selectedItem?.groupUsers);
+          if (groupStore.selectedItem) setGroup(groupStore.selectedItem);
+        });
       });
   }, [groupId, groupStore]);
 
@@ -165,7 +169,15 @@ const GroupDetails = () => {
               >
                 Thành viên nhóm:
               </Typography>
-              {/* Xuat danh sach thanh vien */}
+              {group.groupUsers.map((u, i) => (
+                <Typography key={i}>
+                  {i + 1}/{" "}
+                  <strong>
+                    {u.lastName} {u.firstName}
+                  </strong>{" "}
+                  - {u.userName}
+                </Typography>
+              ))}
             </Box>
 
             <Divider />

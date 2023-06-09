@@ -19,7 +19,6 @@ import { Exercise } from "../../../../app/models/Exercise";
 import ExerciseForm from "../list/form/ExerciseForm";
 import ExerciseDetailsSkeleton from "../../../../app/layout/indicators/details/ExerciseDetailsSkeleton";
 import AnswerForm from "../answers/form/AnswerForm";
-import AddIcon from "@mui/icons-material/Add";
 import dayjs from "dayjs";
 import FactCheckIcon from "@mui/icons-material/FactCheck";
 import PublishIcon from '@mui/icons-material/Publish';

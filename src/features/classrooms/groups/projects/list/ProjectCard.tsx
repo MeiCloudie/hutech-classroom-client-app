@@ -91,7 +91,7 @@ const ProjectCard = (props: ProjectCardProps) => {
             <MoreVertIcon />
           </IconButton>
         }
-        title={`${props.project.name} - Nhóm trưởng: ${props.project.group?.leader?.firstName} ${props.project.group?.leader?.lastName}`}
+        title={`${props.project.name} - Nhóm trưởng: ${props.project.group?.leader?.lastName} ${props.project.group?.leader?.firstName}`}
         subheader={new Date(`${props.project.createDate}Z`).toLocaleString(
           "vi-VN",
           {
