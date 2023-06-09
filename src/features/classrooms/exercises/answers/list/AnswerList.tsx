@@ -4,10 +4,28 @@ import { Answer } from "../../../../../app/models/Answer";
 import { useStore } from "../../../../../app/stores/store";
 import { useParams } from "react-router-dom";
 import { PaginationParams } from "../../../../../app/common/models/paginationPrams";
-import { Box } from "@mui/material";
+import { Box, Grid, styled } from "@mui/material";
 import PlaceholderBox from "../../../../common/UI/PlaceholderBox";
 import AnswerCard from "./AnswerCard";
 import AnswerCardSkeleton from "../../../../../app/layout/indicators/cards/AnswerCardSkeleton";
+
+const ResponsiveGrid = styled(Grid)(({ theme }) => ({
+  [theme.breakpoints.only("xs")]: {
+    "& .MuiGrid-item": {
+      width: "100%",
+    },
+  },
+  [theme.breakpoints.only("sm")]: {
+    "& .MuiGrid-item": {
+      width: "50%",
+    },
+  },
+  [theme.breakpoints.up("md")]: {
+    "& .MuiGrid-item": {
+      width: "33.33%",
+    },
+  },
+}));
 
 const AnswerList = () => {
   const [answers, setAnswers] = useState<Answer[]>([]);
@@ -25,26 +43,32 @@ const AnswerList = () => {
       });
   }, [exerciseId, exerciseStore, answerStore]);
 
-    if (answerStore.isListLoading)
-      return (
-        <>
-          <AnswerCardSkeleton />
-          <AnswerCardSkeleton />
-          <AnswerCardSkeleton />
-        </>
-      );
+  if (answerStore.isListLoading)
+    return (
+      <>
+        <AnswerCardSkeleton />
+        <AnswerCardSkeleton />
+        <AnswerCardSkeleton />
+      </>
+    );
 
   return (
-    <Box>
+    <ResponsiveGrid container spacing={2}>
       {answers.length === 0 ? (
-        <PlaceholderBox
-          title="Đây là danh sách câu trả lời của bài tập này"
-          subtitle="Hiện chưa có câu trả lời!"
-        />
+        <Box sx={{ width: "100%", ml: 2 }}>
+          <PlaceholderBox
+            title="Đây là danh sách câu trả lời của bài tập này"
+            subtitle="Hiện chưa có câu trả lời!"
+          />
+        </Box>
       ) : (
-        answers.map((a, index) => <AnswerCard key={index} answer={a} />)
+        answers.map((a, index) => (
+          <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+            <AnswerCard key={index} answer={a} />
+          </Grid>
+        ))
       )}
-    </Box>
+    </ResponsiveGrid>
   );
 };
 
