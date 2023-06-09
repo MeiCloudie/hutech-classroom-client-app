@@ -111,23 +111,28 @@ const GroupCard = (props: GroupCardProps) => {
         handleCloseMenu={handleCloseMoreMenu}
         options={moreOptions}
       />
-      <CardContent>
-        <Typography variant="body2">
-          {`Nhóm Trưởng: ${props.group.leader?.firstName} ${props.group.leader?.lastName}`}
-        </Typography>
-        <Typography
-          variant="body2"
-          style={{
-            maxWidth: "80%",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
-          }}
-          title={`Mô tả nhóm: ${props.group.description}`}
-        >
-          {`Mô tả nhóm: ${props.group.description}`}
-        </Typography>
-      </CardContent>
+      <Link
+        to={`/cr/${classroomId}/gr/${props.group.id}`}
+        style={{ textDecoration: "none", color: "black" }}
+      >
+        <CardContent>
+          <Typography variant="body2">
+            {`Nhóm Trưởng: ${props.group.leader?.firstName} ${props.group.leader?.lastName}`}
+          </Typography>
+          <Typography
+            variant="body2"
+            style={{
+              maxWidth: "80%",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+            title={`Mô tả nhóm: ${props.group.description}`}
+          >
+            {`Mô tả nhóm: ${props.group.description}`}
+          </Typography>
+        </CardContent>
+      </Link>
       <Divider />
       <CardActions
         disableSpacing
