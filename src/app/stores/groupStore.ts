@@ -79,4 +79,28 @@ export default class GroupStore extends EntityStore<Group, GroupFormValues> {
       });
     }
   };
+
+  addUserItem(user: Profile): void {
+    if (!this.selectedItem) return;
+    this.selectedItem.groupUsers.unshift(user);
+  }
+
+  addMember = async (user: Profile): Promise<void> => {
+    try {
+      this.setDetailsLoading(true);
+      const id = this.selectedItem?.id;
+      if (!id) return;
+      await this.groupUserResource.addEntity(id, user.id);
+      runInAction(() => {
+        this.addUserItem(user);
+      });
+      // toast.success("Bạn đã cập nhật thành công!", toastBasic);
+    } catch (error) {
+      console.error("Request error:", error);
+    } finally {
+      runInAction(() => {
+        this.setDetailsLoading(false);
+      });
+    }
+  };
 }
