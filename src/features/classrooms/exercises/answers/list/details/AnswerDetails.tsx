@@ -39,7 +39,6 @@ const AnswerDetails = () => {
   useEffect(() => {
     if (answerId)
       answerStore.get(answerId).then(() => {
-        console.log("Answer: ", answerStore.selectedItem);
         if (answerStore.selectedItem) setAnswer(answerStore.selectedItem);
       });
   }, [answerId, answerStore]);

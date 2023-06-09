@@ -15,8 +15,8 @@ import { v1 as uuidv1 } from "uuid";
 export interface MySelectionInputProps {
   icon: React.ReactNode;
   options: MySelectionInputOption[];
-  name: string,
-  label?: ReactNode
+  name: string;
+  label?: ReactNode;
 }
 
 export interface MySelectionInputOption {

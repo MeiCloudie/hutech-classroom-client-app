@@ -32,7 +32,6 @@ const GroupForm = (props: GroupFormProps) => {
       if (classroomId)
         classroomStore.get(classroomId).then(() => {
           classroomStore.loadClassroomUsers().then(() => {
-            console.log(classroomStore.classroomUsers);
             setClassroomUserOptions(
               classroomStore.classroomUsers.map((c) => ({
                 label: c.userName,

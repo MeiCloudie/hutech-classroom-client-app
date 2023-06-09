@@ -39,7 +39,6 @@ const ProjectDetails = () => {
   useEffect(() => {
     if (projectId)
       projectStore.get(projectId).then(() => {
-        console.log("Project: ", projectStore.selectedItem);
         if (projectStore.selectedItem) setProject(projectStore.selectedItem);
       });
   }, [projectId, projectStore]);
