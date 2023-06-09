@@ -3,8 +3,8 @@ import AnswerStatusList from "./list/AnswerStatusList";
 import AnswerList from "./list/AnswerList";
 import { Link, useParams } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import TypoLoading from "../../../../app/layout/indicators/common/TypoLoading";
 import MiniClassroomDetails from "../../details/MiniClassroomDetails";
+import MiniExerciseDetails from "./layout/MiniExerciseDetails";
 
 const AnswerPage = () => {
   const { classroomId, exerciseId } = useParams<{
@@ -29,6 +29,7 @@ const AnswerPage = () => {
             </Typography>
           </Box>
           <AnswerStatusList />
+          <MiniExerciseDetails />
           <MiniClassroomDetails />
         </Grid>
 
