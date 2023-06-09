@@ -8,7 +8,7 @@ export interface User {
     lastName: string,
     email: string,
     faculty?: Faculty,
-    roles: Role[],
+    roles: string[],
     token?: string
 }
 

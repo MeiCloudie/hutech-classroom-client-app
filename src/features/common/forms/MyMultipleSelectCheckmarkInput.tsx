@@ -57,6 +57,8 @@ const MyMultipleSelectCheckmarkInput: React.FC<
           {props.label}
         </InputLabel>
         <Select
+          {...selectProps}
+          {...field}
           labelId={`${uuid}-${props.name}-multiple-checkbox-label`}
           id={`${uuid}-${props.name}-multiple-checkbox`}
           multiple

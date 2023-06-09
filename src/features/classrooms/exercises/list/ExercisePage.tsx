@@ -3,8 +3,10 @@ import CreateEditDialog from "../../../common/UI/CreateEditDialog";
 import AddIcon from "@mui/icons-material/Add";
 import ExerciseForm from "./form/ExerciseForm";
 import ExerciseList from "./ExerciseList";
+import { useStore } from "../../../../app/stores/store";
 
 const ExercisePage = () => {
+  const { userStore } = useStore();
   return (
     <Box
       sx={{
@@ -33,6 +35,7 @@ const ExercisePage = () => {
         </Typography>
 
         <CreateEditDialog
+          hidden={!userStore.isLecturer}
           iconButton={<AddIcon />}
           titleButton="TẠO BÀI TẬP"
           titleDialog="TẠO BÀI TẬP"

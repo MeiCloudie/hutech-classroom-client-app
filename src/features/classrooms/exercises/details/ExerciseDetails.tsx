@@ -21,10 +21,10 @@ import ExerciseDetailsSkeleton from "../../../../app/layout/indicators/details/E
 import AnswerForm from "../answers/form/AnswerForm";
 import dayjs from "dayjs";
 import FactCheckIcon from "@mui/icons-material/FactCheck";
-import PublishIcon from '@mui/icons-material/Publish';
+import PublishIcon from "@mui/icons-material/Publish";
 
 const ExerciseDetails = () => {
-  const { exerciseStore } = useStore();
+  const { exerciseStore, userStore } = useStore();
   const [exercise, setExercise] = useState<Exercise>(new Exercise());
   const { exerciseId, classroomId } = useParams<{
     classroomId: string;
@@ -265,6 +265,7 @@ const ExerciseDetails = () => {
               <Box sx={{ display: "flex", justifyContent: "center" }}>
                 <Box sx={{ mt: 2, mr: 1 }}>
                   <CreateEditDialog
+                    hidden={!userStore.isStudent}
                     iconButton={<PublishIcon />}
                     titleButton="NỘP BÀI"
                     titleDialog="TẠO CÂU TRẢ LỜI"

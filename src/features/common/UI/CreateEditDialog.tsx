@@ -26,6 +26,7 @@ interface CreateEditDialogProps {
   titleButton: string;
   titleDialog: string;
   formComponent: (handleClose: () => void) => any;
+  hidden?: boolean;
 }
 
 const CreateEditDialog = (props: CreateEditDialogProps) => {
@@ -40,7 +41,7 @@ const CreateEditDialog = (props: CreateEditDialogProps) => {
   };
 
   return (
-    <Box sx={{ textAlign: "start" }}>
+    <Box sx={{ textAlign: "start", display: props.hidden ? "none" : "inline" }}>
       <Button
         variant="contained"
         onClick={handleClickOpen}
@@ -81,9 +82,7 @@ const CreateEditDialog = (props: CreateEditDialogProps) => {
         </AppBar>
 
         <DialogContent sx={{ p: "20px 100px" }}>
-          <MiniDetailsLayout
-            component={props.formComponent(handleClose)}
-          />
+          <MiniDetailsLayout component={props.formComponent(handleClose)} />
         </DialogContent>
       </Dialog>
     </Box>

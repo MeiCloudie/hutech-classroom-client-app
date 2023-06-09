@@ -8,12 +8,13 @@ import {
 import agent from "../api/agent";
 import { router } from "../router/Routes";
 import { store } from "./store";
+import RoleConstants from "../common/constants/RoleConstants";
 
 export default class UserStore {
   user: User | null = null;
-	isLogginIn: boolean = false;
-	isRegistering: boolean = false;
-	isGettingUser: boolean = false;
+  isLoggingIn: boolean = false;
+  isRegistering: boolean = false;
+  isGettingUser: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -23,74 +24,98 @@ export default class UserStore {
     return !!this.user;
   }
 
-	setLogginIn(value: boolean) {
-    this.isLogginIn = value;
+  get isLecturer() {
+    console.log(this.user);
+
+    return this.user && this.user.roles
+      ? this.user.roles.some((r) => r === RoleConstants.LECTURER)
+      : false;
   }
 
-	setRegistering(value: boolean) {
+  get isStudent() {
+    console.log(this.user);
+    return this.user && this.user.roles
+      ? this.user?.roles.some((r) => r === RoleConstants.STUDENT)
+      : false;
+  }
+
+  setLoggingIn(value: boolean) {
+    this.isLoggingIn = value;
+  }
+
+  setRegistering(value: boolean) {
     this.isRegistering = value;
   }
 
-	setGettingUser(value: boolean) {
+  setGettingUser(value: boolean) {
     this.isGettingUser = value;
   }
 
-  login = async (creds: LoginFormValues) : Promise<void> => {
+  login = async (credentials: LoginFormValues): Promise<void> => {
     try {
-			this.setLogginIn(true)
-      const user = await agent.Account.login(creds);
+      this.setLoggingIn(true);
+      const user = await agent.Account.login(credentials);
       store.commonStore.setToken(user.token);
-      runInAction(() => (this.user = user));
+      runInAction(() => {
+        this.user = user;
+      });
       router.navigate("/classrooms");
     } catch (error) {
       console.error("Request error:", error);
       throw error;
     } finally {
-			runInAction(() => {
-				this.setLogginIn(false)
-			})
-		}
+      runInAction(() => {
+        this.setLoggingIn(false);
+      });
+    }
   };
 
-  register = async (creds: RegisterFormValues) : Promise<void> => {
+  register = async (credentials: RegisterFormValues): Promise<void> => {
     try {
-			this.setRegistering(true)
-      const user = await agent.Account.register(creds);
+      this.setRegistering(true);
+      const user = await agent.Account.register(credentials);
       store.commonStore.setToken(user.token);
-      runInAction(() => (this.user = user));
+      runInAction(() => {
+        this.user = user;
+      });
       router.navigate("/classrooms");
     } catch (error) {
       console.error("Request error:", error);
       throw error;
     } finally {
-			this.setRegistering(false)
-		}
+      this.setRegistering(false);
+    }
   };
 
-  logout = () : void => {
+  logout = (): void => {
     store.commonStore.setToken(null);
     this.user = null;
     router.navigate("/");
   };
 
-  getUser = async () : Promise<void> => {
+  getUser = async (): Promise<void> => {
     try {
-			this.setGettingUser(true)
+      this.setGettingUser(true);
       const user = await agent.Account.current();
-      runInAction(() => (this.user = user));
+      runInAction(() => {
+        this.user = user;
+        console.log(this.user)
+      });
     } catch (error) {
       console.error("Request error:", error);
       throw error;
     } finally {
-			runInAction(() => {
-				this.setGettingUser(false)
-			})
-		}
+      runInAction(() => {
+        this.setGettingUser(false);
+      });
+    }
   };
 
-  changePassword = async (creds: ChangePasswordFormValues) : Promise<boolean> => {
+  changePassword = async (
+    credentials: ChangePasswordFormValues
+  ): Promise<boolean> => {
     try {
-      await agent.Account.changePassword(creds);
+      await agent.Account.changePassword(credentials);
       return true;
     } catch (error) {
       console.error("Request error:", error);
