@@ -40,7 +40,6 @@ const GroupDetails = () => {
     if (groupId)
       groupStore.get(groupId).then(() => {
         groupStore.loadGroupUsers(new PaginationParams(1, 100, "")).then(() => {
-          console.log(groupStore.selectedItem?.groupUsers);
           if (groupStore.selectedItem) setGroup(groupStore.selectedItem);
         });
       });

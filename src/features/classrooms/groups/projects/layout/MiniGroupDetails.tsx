@@ -20,7 +20,6 @@ const MiniGroupDetails = () => {
   useEffect(() => {
     if (groupId)
       groupStore.get(groupId).then(() => {
-        console.log("Group: ", groupStore.selectedItem);
         if (groupStore.selectedItem) setGroup(groupStore.selectedItem);
       });
   }, [groupId, groupStore]);

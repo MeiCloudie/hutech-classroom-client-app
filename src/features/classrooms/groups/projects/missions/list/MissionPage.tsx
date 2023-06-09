@@ -69,7 +69,7 @@ const MissionPage = () => {
                 startIcon={<ArrowBackIcon />}
                 sx={{ mt: 2, mb: 2 }}
                 component={Link}
-                to={`/cr/${classroomId}/gr/${groupId}/pr/${projectId}`}
+                to={`/cr/${classroomId}/gr/${groupId}/pj/${projectId}`}
               >
                 Quay về dự án
               </Button>

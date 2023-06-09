@@ -10,7 +10,7 @@ const ScrollToTopButton: React.FC = () => {
     // Show the button when scrolling down
     const handleScroll = () => {
       const scrollTop =
-        window.pageYOffset || document.documentElement.scrollTop;
+        window.scrollY || document.documentElement.scrollTop;
       setIsVisible(scrollTop > 0);
     };
 

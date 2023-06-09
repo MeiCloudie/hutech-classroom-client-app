@@ -41,7 +41,6 @@ const MissionDetails = () => {
   useEffect(() => {
     if (missionId)
       missionStore.get(missionId).then(() => {
-        console.log("Mission: ", missionStore.selectedItem);
         if (missionStore.selectedItem) setMission(missionStore.selectedItem);
       });
   }, [missionId, missionStore]);
