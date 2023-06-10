@@ -36,7 +36,6 @@ const AnswerList = () => {
   useEffect(() => {
     if (exerciseId)
       exerciseStore.get(exerciseId).then(() => {
-        console.log(new UserPaginationParams(1, 100, "", userStore.user?.id ?? ""))
         answerStore
           .loadExerciseAnswers(exerciseId, new UserPaginationParams(1, 100, userStore.isLecturer ? "" : userStore.user?.id ?? ""))
           .then(() => {

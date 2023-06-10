@@ -29,7 +29,7 @@ const AnswerStatusList = () => {
                   return {
                     id: i,
                     fullName: `${m.lastName} ${m.firstName}`,
-                    status: `Chưa nộp`,
+                    status: m.isSubmmited ? `Đã nộp` : `Chưa nộp`,
                   };
                 })
               );
