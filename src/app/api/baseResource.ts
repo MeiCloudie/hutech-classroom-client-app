@@ -24,4 +24,6 @@ TManyEntity extends Entity
   listEntities: (id: string, params?: PaginationParams) => Promise<TManyEntity[]>;
   addEntity: (firstEntityId: string, secondEntityId: string) => Promise<void>;
   removeEntity: (firstEntityId: string, secondEntityId: string) => Promise<void>;
+  addEntities: (firstEntityId: string, secondEntityIds: string[]) => Promise<void>;
+
 }

@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Group, GroupFormValues } from "../../../../../app/models/Group";
+import AddGroupMembersForm from "./AddGroupMembersForm";
 
 interface GroupFormProps {
   handleClose: () => void;
@@ -153,6 +154,9 @@ const GroupForm = (props: GroupFormProps) => {
           onSetAdditionalValues={(groupFormValues) => {
             groupFormValues.classroomId = classroomId;
           }}
+        />
+        <AddGroupMembersForm 
+          classroomUsers={classroomStore.classroomUsers}
         />
       </Box>
     </Box>
