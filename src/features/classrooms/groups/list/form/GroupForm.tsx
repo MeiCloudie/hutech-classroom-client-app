@@ -4,9 +4,10 @@ import { useStore } from "../../../../../app/stores/store";
 
 import * as Yup from "yup";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Group, GroupFormValues } from "../../../../../app/models/Group";
 import AddGroupMembersForm from "./AddGroupMembersForm";
+import { observer } from "mobx-react-lite";
 
 interface GroupFormProps {
   handleClose: () => void;
@@ -27,39 +28,45 @@ const GroupForm = (props: GroupFormProps) => {
     { label: string; value: any }[]
   >([]);
 
+  const loadClassroomUsers = useCallback(() => {
+    classroomStore.loadClassroomUsers().then(() => {
+      setClassroomUserOptions(
+        classroomStore.classroomUsers.map((c) => ({
+          label: c.userName,
+          value: c.id,
+        }))
+      );
+    });
+  }, [classroomStore]);
+
+  
+
+  const loadGroupUsers = useCallback(() => {
+      if (groupStore.selectedItem) {
+        setGroupFormValues(new GroupFormValues(groupStore.selectedItem));
+      }
+  }, [groupStore]);
+
   useEffect(() => {
     // if (!props.group && !groupId) {
-    if (!classroomStore.selectedItem) {
-      if (classroomId)
-        classroomStore.get(classroomId).then(() => {
-          classroomStore.loadClassroomUsers().then(() => {
-            setClassroomUserOptions(
-              classroomStore.classroomUsers.map((c) => ({
-                label: c.userName,
-                value: c.id,
-              }))
-            );
+      if (!classroomStore.selectedItem) {
+        if (classroomId) {
+          classroomStore.get(classroomId).then(() => {
+            loadClassroomUsers();
           });
-        });
-    } else {
-      classroomStore.loadClassroomUsers().then(() => {
-        setClassroomUserOptions(
-          classroomStore.classroomUsers.map((c) => ({
-            label: c.userName,
-            value: c.id,
-          }))
-        );
-      });
-    }
-    // }
-    if (props.group) setGroupFormValues(new GroupFormValues(props.group));
-    else if (groupId)
-      groupStore.get(groupId).then(() => {
-        if (groupStore.selectedItem) {
-          setGroupFormValues(new GroupFormValues(groupStore.selectedItem));
         }
-      });
-  }, [classroomId, classroomStore, groupId, groupStore, props.group]);
+      } else {
+        loadClassroomUsers();
+      }
+  
+      if (props.group) {
+        loadGroupUsers();
+      } else if (groupId) {
+        groupStore.get(groupId).then(() => {
+          loadGroupUsers();
+        });
+      }
+  }, [classroomId, classroomStore, groupId, groupStore, loadClassroomUsers, loadGroupUsers, props.group]);
 
   return (
     <Box
@@ -155,12 +162,17 @@ const GroupForm = (props: GroupFormProps) => {
             groupFormValues.classroomId = classroomId;
           }}
         />
-        <AddGroupMembersForm 
-          classroomUsers={classroomStore.classroomUsers}
-        />
       </Box>
+      {groupFormValues.id && (
+        <Box sx={{ display: "flex", flexGrow: 1, justifyContent: "center" }}>
+          <AddGroupMembersForm
+            classroomUsers={classroomStore.classroomUsers}
+            groupUsers={props.group?.groupUsers ?? []}
+          />
+        </Box>
+      )}
     </Box>
   );
 };
 
-export default GroupForm;
+export default observer(GroupForm);

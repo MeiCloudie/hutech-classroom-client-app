@@ -41,14 +41,14 @@ axios.interceptors.response.use(
     return response;
   },
   (error: AxiosError) => {
-    const { status, config } = error.response as AxiosResponse;
+    const response = error.response as AxiosResponse;
     const data = error.response?.data as any;
-    switch (status) {
+    switch (response.status) {
       case 400:
         if (data) break;
         console.log(data)
         if (
-          config.method === "get" &&
+          response.config.method === "get" &&
           Object.keys(data.errors).some((key) =>
             key.toLowerCase().includes("id")
           )

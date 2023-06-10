@@ -155,7 +155,7 @@ const EntityForm = <
 
   return (
     <Formik
-      key="post-form"
+      key="formik-form"
       enableReinitialize
       initialValues={initialEntityFormValues}
       onSubmit={handleFormSubmit}

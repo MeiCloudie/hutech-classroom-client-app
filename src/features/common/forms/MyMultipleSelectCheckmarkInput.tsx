@@ -6,7 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import ListItemText from "@mui/material/ListItemText";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import { useField } from "formik";
 import { Typography } from "@mui/material";
 import { v1 as uuidv1 } from "uuid";
@@ -37,17 +37,16 @@ export interface MyMultipleSelectCheckmarkInputOption {
 const MyMultipleSelectCheckmarkInput: React.FC<
   MyMultipleSelectCheckmarkInputProps
 > = (props) => {
-  const [field, meta] = useField(props.name);
+  const [field, meta, helpers] = useField(props.name);
   const { icon, options, ...selectProps } = props;
   const showError = meta.touched && !!meta.error;
-  const [selectedValues, setSelectedValues] = useState<any[]>([]);
   const uuid = uuidv1();
 
-  const handleChange = (event: SelectChangeEvent<typeof selectedValues>) => {
+  const handleChange = (event: SelectChangeEvent<typeof field.value>) => {
     const {
       target: { value },
     } = event;
-    setSelectedValues(value as any[]);
+    helpers.setValue(value)
   };
 
   return (
@@ -62,15 +61,15 @@ const MyMultipleSelectCheckmarkInput: React.FC<
           labelId={`${uuid}-${props.name}-multiple-checkbox-label`}
           id={`${uuid}-${props.name}-multiple-checkbox`}
           multiple
-          value={selectedValues}
+          value={field.value}
           onChange={handleChange}
           input={<OutlinedInput label={props.label?.toString()} />}
-          renderValue={(selected) => selected.join(", ")}
+          renderValue={(selected) => `Số lượng: ${field.value.length}` }
           MenuProps={MenuProps}
         >
           {options.map((option) => (
             <MenuItem key={option.value} value={option.value}>
-              <Checkbox checked={selectedValues.indexOf(option.value) > -1} />
+              <Checkbox checked={field.value.indexOf(option.value) > -1} />
               <ListItemText primary={option.label} />
             </MenuItem>
           ))}

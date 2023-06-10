@@ -2,6 +2,7 @@ import { Faculty } from "../../models/Faculty";
 import Entity from "./Entity";
 
 export default interface Profile extends Entity {
+    id: string,
     userName: string,
     email: string,
     firstName: string,

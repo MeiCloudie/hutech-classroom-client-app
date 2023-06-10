@@ -17,7 +17,8 @@ export default class GroupStore extends EntityStore<Group, GroupFormValues> {
       groupUsers: computed,
       setGroupUsers: action,
       addUserItem: action,
-      addUserItems: action
+      addUserItems: action,
+      removeUserItem: action
     });
 
     this.classroomGroupResource =
@@ -95,6 +96,33 @@ export default class GroupStore extends EntityStore<Group, GroupFormValues> {
       await this.groupUserResource.addEntity(id, user.id);
       runInAction(() => {
         this.addUserItem(user);
+      });
+      // toast.success("Bạn đã cập nhật thành công!", toastBasic);
+    } catch (error) {
+      console.error("Request error:", error);
+    } finally {
+      runInAction(() => {
+        this.setDetailsLoading(false);
+      });
+    }
+  };
+
+  removeUserItem(user: Profile): void {
+    if (!this.selectedItem) return;
+    // this.selectedItem.groupUsers.unshift(user);
+
+    const itemIndex = this.selectedItem.groupUsers.findIndex((item) => item.id === user.id);
+    this.selectedItem.groupUsers.splice(itemIndex, 1);
+  }
+
+  removeMember = async (user: Profile): Promise<void> => {
+    try {
+      this.setDetailsLoading(true);
+      const id = this.selectedItem?.id;
+      if (!id) return;
+      await this.groupUserResource.removeEntity(id, user.id);
+      runInAction(() => {
+        this.removeUserItem(user);
       });
       // toast.success("Bạn đã cập nhật thành công!", toastBasic);
     } catch (error) {
