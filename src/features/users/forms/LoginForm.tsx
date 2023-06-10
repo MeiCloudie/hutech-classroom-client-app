@@ -1,19 +1,14 @@
 import { Formik } from "formik";
 import MyPasswordInput from "../../common/forms/MyPasswordInput";
-import {
-  Box,
-  Button,
-  Divider,
-  InputAdornment,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Button, InputAdornment, Stack, Typography } from "@mui/material";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import * as Yup from "yup";
 import { useStore } from "../../../app/stores/store";
 import MyTextInput from "../../common/forms/MyTextInput";
 import { toast } from "react-toastify";
 import { blue } from "@mui/material/colors";
+import LoadingButton from "@mui/lab/LoadingButton";
+import LoginIcon from "@mui/icons-material/Login";
 
 const LoginForm = () => {
   const { userStore } = useStore();
@@ -23,6 +18,7 @@ const LoginForm = () => {
       .required("Hãy nhập mật khẩu")
       .min(8, "Mật khẩu phải tối thiểu 8 ký tự!"),
   });
+
   return (
     <Formik
       key="login-form"
@@ -90,15 +86,18 @@ const LoginForm = () => {
                 justifyContent: "end",
               }}
             >
-              <Button
+              <LoadingButton
+                loading={userStore.isLoggingIn}
+                loadingPosition="start"
+                startIcon={<LoginIcon />}
                 type="submit"
                 variant="contained"
                 disabled={isSubmitting}
-                sx={{ mt: 2, mr: 0 }}
                 size="large"
+                sx={{ mt: 2 }}
               >
-                Đăng nhập
-              </Button>
+                Đăng Nhập
+              </LoadingButton>
             </div>
           </Stack>
         </Box>
