@@ -7,5 +7,5 @@ export default interface Profile extends Entity {
     firstName: string,
     lastName: string,
     faculty?: Faculty
-    isSubmmited?: boolean
+    isSubmitted?: boolean
 }
