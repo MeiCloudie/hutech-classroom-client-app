@@ -5,6 +5,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { Box } from "@mui/material";
 
 interface AlertDialogProps {
   iconButton: React.ReactNode;
@@ -14,6 +15,7 @@ interface AlertDialogProps {
   negation: string;
   affirmation: string;
   onSubmit: () => void;
+  hidden?: boolean;
 }
 
 const AlertDialog = (props: AlertDialogProps) => {
@@ -28,7 +30,7 @@ const AlertDialog = (props: AlertDialogProps) => {
   };
 
   return (
-    <div>
+    <Box sx={{ display: props.hidden ? "none" : "inline" }}>
       <Button
         variant="contained"
         startIcon={props.iconButton}
@@ -66,7 +68,7 @@ const AlertDialog = (props: AlertDialogProps) => {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </Box>
   );
 };
 
