@@ -50,28 +50,16 @@ const LoginForm = () => {
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit}
-          sx={{
-            border: "solid 1px gray",
-            borderRadius: "5px",
-            p: "20px 0",
-            width: 960,
-            height: 350,
-            bgcolor: "#ebebeb"
-          }}
         >
           <Typography
             variant="h4"
             fontWeight={700}
             sx={{
-              mb: 2,
               color: blue[800],
-              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
             }}
           >
             ĐĂNG NHẬP
           </Typography>
-
-          <Divider color="gray" sx={{ mb: 2 }} />
 
           <MyTextInput
             helperText={errors.userName}
@@ -94,8 +82,6 @@ const LoginForm = () => {
             placeholder="Nhập mật khẩu của bạn"
           />
 
-          <Divider color="gray" sx={{ mt: 4 }} />
-
           <Stack sx={{ width: "100%" }} spacing={2}>
             <div
               style={{
@@ -108,7 +94,7 @@ const LoginForm = () => {
                 type="submit"
                 variant="contained"
                 disabled={isSubmitting}
-                sx={{ mt: 2, mr: 4 }}
+                sx={{ mt: 2, mr: 0 }}
                 size="large"
               >
                 Đăng nhập
