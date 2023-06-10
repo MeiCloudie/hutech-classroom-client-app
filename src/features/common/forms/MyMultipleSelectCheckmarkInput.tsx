@@ -23,9 +23,9 @@ const MenuProps = {
 };
 
 export interface MyMultipleSelectCheckmarkInputProps {
-  icon: React.ReactNode;
-  options: MyMultipleSelectCheckmarkInputOption[];
   name: string;
+  options: MyMultipleSelectCheckmarkInputOption[];
+  icon?: React.ReactNode;
   label?: ReactNode;
 }
 

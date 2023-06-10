@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { Answer } from "../../../../../app/models/Answer";
 import { useStore } from "../../../../../app/stores/store";
 import { useParams } from "react-router-dom";
-import { PaginationParams } from "../../../../../app/common/models/paginationPrams";
 import { Box, Grid, styled } from "@mui/material";
 import PlaceholderBox from "../../../../common/UI/PlaceholderBox";
 import AnswerCard from "./AnswerCard";
