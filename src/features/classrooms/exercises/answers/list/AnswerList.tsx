@@ -8,6 +8,7 @@ import { Box, Grid, styled } from "@mui/material";
 import PlaceholderBox from "../../../../common/UI/PlaceholderBox";
 import AnswerCard from "./AnswerCard";
 import AnswerCardSkeleton from "../../../../../app/layout/indicators/cards/AnswerCardSkeleton";
+import { UserPaginationParams } from "../../../../../app/common/models/userPaginationParams";
 
 const ResponsiveGrid = styled(Grid)(({ theme }) => ({
   [theme.breakpoints.only("xs")]: {
@@ -29,19 +30,20 @@ const ResponsiveGrid = styled(Grid)(({ theme }) => ({
 
 const AnswerList = () => {
   const [answers, setAnswers] = useState<Answer[]>([]);
-  const { exerciseStore, answerStore } = useStore();
+  const { exerciseStore, answerStore, userStore } = useStore();
   const { exerciseId } = useParams<{ exerciseId: string }>();
 
   useEffect(() => {
     if (exerciseId)
       exerciseStore.get(exerciseId).then(() => {
+        console.log(new UserPaginationParams(1, 100, "", userStore.user?.id ?? ""))
         answerStore
-          .loadExerciseAnswers(exerciseId, new PaginationParams(1, 100))
+          .loadExerciseAnswers(exerciseId, new UserPaginationParams(1, 100, userStore.isLecturer ? "" : userStore.user?.id ?? ""))
           .then(() => {
             setAnswers(answerStore.items);
           });
       });
-  }, [exerciseId, exerciseStore, answerStore]);
+  }, [exerciseId, exerciseStore, answerStore, userStore]);
 
   if (answerStore.isListLoading)
     return (

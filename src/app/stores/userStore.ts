@@ -25,8 +25,6 @@ export default class UserStore {
   }
 
   get isLecturer() {
-    console.log(this.user);
-
     return this.user && this.user.roles
       ? this.user.roles.some((r) => r === RoleConstants.LECTURER)
       : false;
