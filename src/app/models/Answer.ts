@@ -17,7 +17,7 @@ export class Answer implements Answer {
     createDate = new Date();
     description = "";
     link = "";
-    score = 0;
+    score = -1;
     user?: Profile = undefined;
     exercise?: Exercise = undefined;
 
@@ -30,7 +30,7 @@ export class AnswerFormValues {
     id?: string;
     description: string = "";
     link: string = "";
-    score: number = 0;
+    score: number = -1;
     userId?: string = "";
     exerciseId?: string = "";
 

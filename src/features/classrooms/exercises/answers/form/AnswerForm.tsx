@@ -75,7 +75,7 @@ const AnswerForm = (props: AnswerFormProps) => {
               ),
               score: Yup.number()
                 .transform((value, originalValue) => {
-                  return originalValue === undefined ? 0 : value;
+                  return originalValue === undefined ? -1 : value;
                 })
                 .typeError("Điểm phải ở dạng số!"),
             }}
@@ -106,6 +106,7 @@ const AnswerForm = (props: AnswerFormProps) => {
             ]}
             excludeFields={["exerciseId", "userId", !answerFormValues.id ? "score" : ""]}
             onSubmit={(entityFormValues) => {
+              console.log(entityFormValues)
               if (entityFormValues.id) {
                 answerStore
                   .update(entityFormValues.id, entityFormValues)

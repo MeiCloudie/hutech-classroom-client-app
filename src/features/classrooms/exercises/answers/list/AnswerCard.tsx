@@ -3,11 +3,13 @@ import { Answer } from "../../../../../app/models/Answer";
 import { Link, useParams } from "react-router-dom";
 import {
   Avatar,
+  Box,
   Button,
   Card,
   CardActions,
   CardContent,
   CardHeader,
+  Chip,
   Divider,
   IconButton,
   Typography,
@@ -111,14 +113,33 @@ const AnswerCard = (props: AnswerCardProps) => {
         handleCloseMenu={handleCloseMoreMenu}
         options={moreOptions}
       />
+      <Divider />
       <Link
         to={`/cr/${classroomId}/ex/${exerciseId}/answers/${props.answer.id}`}
         style={{ textDecoration: "none" }}
       >
         <CardContent>
-          <Typography variant="body2" color="text.secondary" fontWeight="bold">
-            Điểm: {props.answer.score === 0 ? "Chưa chấm" : props.answer.score}
-          </Typography>
+          <Box sx={{ display: "flex" }}>
+            <Typography
+              variant="body1"
+              color="red"
+              fontWeight="bold"
+              sx={{ mr: 1 }}
+              gutterBottom
+            >
+              <strong>Điểm:</strong>
+            </Typography>
+            {props.answer.score < 0 ? (
+              <Chip label="Chưa chấm" color="primary" size="small" />
+            ) : (
+              <Chip
+                label={`${props.answer.score}/${props.answer.exercise?.totalScore}`}
+                color="success"
+                size="small"
+              />
+            )}
+          </Box>
+
           <Typography
             variant="body2"
             color="text.secondary"
