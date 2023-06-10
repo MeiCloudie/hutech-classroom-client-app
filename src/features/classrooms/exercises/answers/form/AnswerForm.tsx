@@ -104,7 +104,7 @@ const AnswerForm = (props: AnswerFormProps) => {
                 },
               },
             ]}
-            excludeFields={["exerciseId", "userId"]}
+            excludeFields={["exerciseId", "userId", !answerFormValues.id ? "score" : ""]}
             onSubmit={(entityFormValues) => {
               if (entityFormValues.id) {
                 answerStore
