@@ -1,4 +1,5 @@
 import Entity, { Auditable } from "../common/models/Entity";
+import Profile from "../common/models/Profile";
 import { Project } from "./Project";
 
 export interface Mission extends Entity, Auditable {
@@ -8,6 +9,8 @@ export interface Mission extends Entity, Auditable {
     description: string;
     isDone: boolean;
     project?: Project;
+
+    missionUsers: Profile[];
 }
 
 export class Mission implements Mission {
@@ -17,6 +20,8 @@ export class Mission implements Mission {
     description = "";
     isDone = false;
     project?: Project = undefined;
+
+    missionUsers: Profile[] = [];
 
     constructor(init?: MissionFormValues) {
         Object.assign(this, init);
@@ -32,7 +37,7 @@ export class MissionFormValues {
 
     constructor(mission?: Mission) {
         if (mission) {
-            const { project, createDate, ...rest } = mission;
+            const { project, createDate, missionUsers, ...rest } = mission;
             Object.assign(this, { ...rest });
         }
     }
