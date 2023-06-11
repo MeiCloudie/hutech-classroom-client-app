@@ -1,16 +1,15 @@
 import { Formik, FormikHelpers } from "formik";
 import Profile from "../../../../../app/common/models/Profile";
 import MyMultipleSelectCheckmarkInput from "../../../../common/forms/MyMultipleSelectCheckmarkInput";
-import * as Yup from "yup";
 import { Box, Button, Stack } from "@mui/material";
 import { useStore } from "../../../../../app/stores/store";
 
-interface AddGroupMembersFormProps {
+interface GroupMembersFormProps {
   classroomUsers: Profile[];
   groupUsers: Profile[];
 }
 
-const AddGroupMembersForm = (props: AddGroupMembersFormProps) => {
+const GroupMembersForm = (props: GroupMembersFormProps) => {
   const { groupStore } = useStore();
 
   const handleFormSubmit = (
@@ -33,11 +32,6 @@ const AddGroupMembersForm = (props: AddGroupMembersFormProps) => {
     actions.setSubmitting(false);
   };
 
-  const onCancel = () => {};
-
-  const validationSchema = {
-    // ids: Yup.object(),
-  };
 
   return (
     <Formik
@@ -88,4 +82,4 @@ const AddGroupMembersForm = (props: AddGroupMembersFormProps) => {
   );
 };
 
-export default AddGroupMembersForm;
+export default GroupMembersForm;

@@ -24,7 +24,7 @@ export default class MissionStore extends UserRelatedStore<
     this.projectMissionResource =
       agent.createHasManyRelationshipResource<Mission>("Projects", "Missions");
       this.missionUserResource =
-      agent.createHasManyRelationshipResource<Profile>("Groups", "Members");
+      agent.createHasManyRelationshipResource<Profile>("Missions", "Members");
   }
 
   loadProjectMissions = async (
@@ -76,6 +76,56 @@ export default class MissionStore extends UserRelatedStore<
     } catch (error) {
       console.error("Request error:", error);
       return [];
+    } finally {
+      runInAction(() => {
+        this.setDetailsLoading(false);
+      });
+    }
+  };
+
+  addUserItems(users: Profile[]): void {
+    if (!this.selectedItem) return;
+    this.selectedItem.missionUsers.unshift(...users);
+  }
+
+  addMembers = async (users: Profile[]): Promise<void> => {
+    try {
+      this.setDetailsLoading(true);
+      const id = this.selectedItem?.id;
+      if (!id) return;
+      await this.missionUserResource.addEntities(id, users.map(u => u.id));
+      runInAction(() => {
+        this.addUserItems(users);
+      });
+      // toast.success("Bạn đã cập nhật thành công!", toastBasic);
+    } catch (error) {
+      console.error("Request error:", error);
+    } finally {
+      runInAction(() => {
+        this.setDetailsLoading(false);
+      });
+    }
+  };
+
+  removeUserItems(users: Profile[]): void {
+    if (!this.selectedItem) return;
+    const removeIds = users.map(u => u.id);
+    
+    this.selectedItem.missionUsers = this.selectedItem.missionUsers.filter(gu => !removeIds.includes(gu.id));
+  }
+
+  removeMembers = async (users: Profile[]): Promise<void> => {
+    try {
+      this.setDetailsLoading(true);
+      const id = this.selectedItem?.id;
+      if (!id) return;
+      await this.missionUserResource.removeEntities(id, users.map(u => u.id));
+      runInAction(() => {
+        this.removeUserItems(users);
+      });
+      // toast.success("Bạn đã cập nhật thành công!", toastBasic);
+    } catch (error) {
+      console.error("Request error:", error);
     } finally {
       runInAction(() => {
         this.setDetailsLoading(false);

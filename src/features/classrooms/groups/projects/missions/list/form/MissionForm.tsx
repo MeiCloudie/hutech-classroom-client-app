@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 
 import * as Yup from "yup";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   Mission,
   MissionFormValues,
@@ -12,6 +12,7 @@ import EntityForm from "../../../../../../common/forms/EntityForm";
 import { InputType } from "../../../../../../../app/layout/enums/InputTypes";
 import MiniGroupDetails from "../../../layout/MiniGroupDetails";
 import MiniProjectDetails from "../../layout/MiniProjectDetails";
+import MissionMembersForm from "./MissionMembersForm";
 
 interface MissionFormProps {
   handleClose: () => void;
@@ -19,27 +20,53 @@ interface MissionFormProps {
 }
 
 const MissionForm = (props: MissionFormProps) => {
-  const { projectId, missionId } = useParams<{
+  const { projectId, missionId, groupId } = useParams<{
     projectId: string;
     missionId: string;
+    groupId: string;
   }>();
-  const { missionStore } = useStore();
+  const { missionStore, groupStore } = useStore();
   const [missionFormValues, setMissionFormValues] = useState<MissionFormValues>(
     new MissionFormValues()
   );
 
+  const loadGroupUsers = useCallback(() => {
+    groupStore.loadGroupUsers();
+  }, [groupStore]);
+
+  const loadMissionUsers = useCallback(() => {
+    if (missionStore.selectedItem) {
+      setMissionFormValues(new MissionFormValues(missionStore.selectedItem));
+    }
+  }, [missionStore]);
+
   useEffect(() => {
-    if (props.mission)
-      setMissionFormValues(new MissionFormValues(props.mission));
+    if (!groupStore.selectedItem) {
+      if (groupId) {
+        groupStore.get(groupId).then(() => {
+          loadGroupUsers();
+        });
+      }
+    } else {
+      loadGroupUsers();
+    }
+
+    if (props.mission) loadMissionUsers();
     else if (missionId)
       missionStore.get(missionId).then(() => {
         if (missionStore.selectedItem) {
-          setMissionFormValues(
-            new MissionFormValues(missionStore.selectedItem)
-          );
+          loadGroupUsers();
         }
       });
-  }, [missionId, missionStore, props.mission]);
+  }, [
+    missionId,
+    missionStore,
+    props.mission,
+    groupId,
+    groupStore,
+    loadGroupUsers,
+    loadMissionUsers,
+  ]);
 
   return (
     <Box>
@@ -126,6 +153,14 @@ const MissionForm = (props: MissionFormProps) => {
           />
         </Box>
       </Box>
+      {missionFormValues.id && (
+        <Box sx={{ display: "flex", flexGrow: 1, justifyContent: "center" }}>
+          <MissionMembersForm
+            groupUsers={groupStore.groupUsers}
+            missionUsers={props.mission?.missionUsers ?? []}
+          />
+        </Box>
+      )}
       <MiniGroupDetails />
       <MiniProjectDetails />
     </Box>

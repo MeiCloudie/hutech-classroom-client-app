@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { useParams } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { Group, GroupFormValues } from "../../../../../app/models/Group";
-import AddGroupMembersForm from "./AddGroupMembersForm";
+import GroupMembersForm from "./GroupMembersForm";
 import { observer } from "mobx-react-lite";
 
 interface GroupFormProps {
@@ -15,12 +15,11 @@ interface GroupFormProps {
 }
 
 const GroupForm = (props: GroupFormProps) => {
-  const { classroomStore } = useStore();
   const { classroomId, groupId } = useParams<{
     classroomId: string;
     groupId: string;
   }>();
-  const { groupStore } = useStore();
+  const { groupStore, classroomStore } = useStore();
   const [groupFormValues, setGroupFormValues] = useState<GroupFormValues>(
     new GroupFormValues()
   );
@@ -39,34 +38,40 @@ const GroupForm = (props: GroupFormProps) => {
     });
   }, [classroomStore]);
 
-  
-
   const loadGroupUsers = useCallback(() => {
-      if (groupStore.selectedItem) {
-        setGroupFormValues(new GroupFormValues(groupStore.selectedItem));
-      }
+    if (groupStore.selectedItem) {
+      setGroupFormValues(new GroupFormValues(groupStore.selectedItem));
+    }
   }, [groupStore]);
 
   useEffect(() => {
     // if (!props.group && !groupId) {
-      if (!classroomStore.selectedItem) {
-        if (classroomId) {
-          classroomStore.get(classroomId).then(() => {
-            loadClassroomUsers();
-          });
-        }
-      } else {
-        loadClassroomUsers();
-      }
-  
-      if (props.group) {
-        loadGroupUsers();
-      } else if (groupId) {
-        groupStore.get(groupId).then(() => {
-          loadGroupUsers();
+    if (!classroomStore.selectedItem) {
+      if (classroomId) {
+        classroomStore.get(classroomId).then(() => {
+          loadClassroomUsers();
         });
       }
-  }, [classroomId, classroomStore, groupId, groupStore, loadClassroomUsers, loadGroupUsers, props.group]);
+    } else {
+      loadClassroomUsers();
+    }
+
+    if (props.group) {
+      loadGroupUsers();
+    } else if (groupId) {
+      groupStore.get(groupId).then(() => {
+        loadGroupUsers();
+      });
+    }
+  }, [
+    classroomId,
+    classroomStore,
+    groupId,
+    groupStore,
+    loadClassroomUsers,
+    loadGroupUsers,
+    props.group,
+  ]);
 
   return (
     <Box
@@ -165,7 +170,7 @@ const GroupForm = (props: GroupFormProps) => {
       </Box>
       {groupFormValues.id && (
         <Box sx={{ display: "flex", flexGrow: 1, justifyContent: "center" }}>
-          <AddGroupMembersForm
+          <GroupMembersForm
             classroomUsers={classroomStore.classroomUsers}
             groupUsers={props.group?.groupUsers ?? []}
           />

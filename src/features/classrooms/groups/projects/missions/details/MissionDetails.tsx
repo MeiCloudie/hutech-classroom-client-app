@@ -170,6 +170,27 @@ const MissionDetails = () => {
                 <Chip label="Chưa hoàn thành" color="primary" size="small" />
               )}
             </Box>
+
+            <Box sx={{ mt: 2, mb: 2 }}>
+              <Typography
+                variant="subtitle1"
+                fontWeight={700}
+                color="primary"
+                gutterBottom
+                sx={{ mr: 1 }}
+              >
+                Được giao cho thành viên:
+              </Typography>
+              {mission.missionUsers.map((u, i) => (
+                <Typography key={i}>
+                  {i + 1}/{" "}
+                  <strong>
+                    {u.lastName} {u.firstName}
+                  </strong>{" "}
+                  - {u.userName}
+                </Typography>
+              ))}
+            </Box>
             <Divider />
 
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
