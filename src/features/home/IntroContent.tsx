@@ -20,7 +20,7 @@ const IntroContent = () => {
           gian.
         </Typography>
         <Button variant="contained" startIcon={<SchoolIcon />} component={Link} to="/classrooms">
-          Classrooms
+          LỚP HỌC
         </Button>
       </Box>
 

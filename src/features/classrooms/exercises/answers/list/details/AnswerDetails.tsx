@@ -138,7 +138,7 @@ const AnswerDetails = () => {
               >
                 <strong>Điểm:</strong>
               </Typography>
-              {answer.score === 0 ? (
+              {answer.score < 0 ? (
                 <Chip label="Chưa chấm" color="primary" size="small" />
               ) : (
                 <Chip
