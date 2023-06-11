@@ -46,12 +46,27 @@ const MyMultipleSelectCheckmarkInput: React.FC<
     const {
       target: { value },
     } = event;
-    helpers.setValue(value)
+    helpers.setValue(value);
   };
 
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
+      <FormControl
+        sx={{
+          m: 1,
+          mt: 2,
+          width: "100%",
+          maxWidth: "100ch",
+          "@media (max-width: 400px)": {
+            width: "120ch",
+            maxWidth: "100%",
+          },
+          "@media (min-width: 1280px)": {
+            width: "100ch",
+            maxWidth: "100%",
+          },
+        }}
+      >
         <InputLabel id={`${uuid}-${props.name}-multiple-checkbox-label`}>
           {props.label}
         </InputLabel>
@@ -64,7 +79,7 @@ const MyMultipleSelectCheckmarkInput: React.FC<
           value={field.value}
           onChange={handleChange}
           input={<OutlinedInput label={props.label?.toString()} />}
-          renderValue={(selected) => `Số lượng: ${field.value.length}` }
+          renderValue={(selected) => `Số lượng: ${field.value.length}`}
           MenuProps={MenuProps}
         >
           {options.map((option) => (
