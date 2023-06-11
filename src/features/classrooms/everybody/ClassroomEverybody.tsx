@@ -29,18 +29,6 @@ const ClassroomEverybody = () => {
         DANH SÁCH SINH VIÊN
       </Typography>
 
-      <Typography
-        variant="subtitle1"
-        gutterBottom
-        sx={{
-          fontWeight: "bold",
-          color: (theme) => theme.palette.grey[700],
-          textAlign: "start",
-        }}
-      >
-        14 sinh viên
-      </Typography>
-
       <MemberList />
     </Box>
   );

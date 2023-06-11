@@ -119,7 +119,7 @@ const AnswerDetails = () => {
               }}
             >
               <Typography variant="body1" gutterBottom>
-                <strong>{`${answer.user?.firstName} ${answer.user?.lastName}`}</strong>
+                <strong>{`${answer.user?.lastName} ${answer.user?.firstName}`}</strong>
               </Typography>
 
               <Typography variant="body1" color="gray" gutterBottom>

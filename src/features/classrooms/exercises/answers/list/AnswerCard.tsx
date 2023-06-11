@@ -19,12 +19,14 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import PersonIcon from "@mui/icons-material/Person";
 import { blue } from "@mui/material/colors";
 import MenuMini from "../../../../common/UI/MenuMini";
+import { useStore } from "../../../../../app/stores/store";
 
 interface AnswerCardProps {
   answer: Answer;
 }
 
 const AnswerCard = (props: AnswerCardProps) => {
+  const { userStore } = useStore();
   const { classroomId, exerciseId } = useParams<{
     classroomId: string;
     exerciseId: string;
@@ -55,7 +57,6 @@ const AnswerCard = (props: AnswerCardProps) => {
   return (
     <Card
       sx={{
-        maxWidth: 420,
         width: "100%",
         height: "100%",
         textAlign: "start",
@@ -77,21 +78,23 @@ const AnswerCard = (props: AnswerCardProps) => {
           </Avatar>
         }
         action={
-          <IconButton
-            aria-label="more"
-            sx={{
-              transition: "color 0.2s",
-              "&:hover": {
-                color: blue[800],
-              },
-              position: "absolute",
-              top: 8,
-              right: 8,
-            }}
-            onClick={handleOpenMoreMenu}
-          >
-            <MoreVertIcon />
-          </IconButton>
+          userStore.user?.id === props.answer.user?.id ? (
+            <IconButton
+              aria-label="more"
+              sx={{
+                transition: "color 0.2s",
+                "&:hover": {
+                  color: blue[800],
+                },
+                position: "absolute",
+                top: 8,
+                right: 8,
+              }}
+              onClick={handleOpenMoreMenu}
+            >
+              <MoreVertIcon />
+            </IconButton>
+          ) : null
         }
         title={`${props.answer.user?.lastName} ${props.answer.user?.firstName}`}
         subheader={new Date(`${props.answer.createDate}Z`).toLocaleString(
@@ -114,47 +117,42 @@ const AnswerCard = (props: AnswerCardProps) => {
         options={moreOptions}
       />
       <Divider />
-      <Link
-        to={`/cr/${classroomId}/ex/${exerciseId}/answers/${props.answer.id}`}
-        style={{ textDecoration: "none" }}
-      >
-        <CardContent>
-          <Box sx={{ display: "flex" }}>
-            <Typography
-              variant="body1"
-              color="red"
-              fontWeight="bold"
-              sx={{ mr: 1 }}
-              gutterBottom
-            >
-              <strong>Điểm:</strong>
-            </Typography>
-            {props.answer.score < 0 ? (
-              <Chip label="Chưa chấm" color="primary" size="small" />
-            ) : (
-              <Chip
-                label={`${props.answer.score}/${props.answer.exercise?.totalScore}`}
-                color="success"
-                size="small"
-              />
-            )}
-          </Box>
-
+      <CardContent>
+        <Box sx={{ display: "flex" }}>
           <Typography
-            variant="body2"
-            color="text.secondary"
-            sx={{
-              maxWidth: "80%",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-            }}
-            title={`Link: ${props.answer.link}`}
+            variant="body1"
+            color="red"
+            fontWeight="bold"
+            sx={{ mr: 1 }}
+            gutterBottom
           >
-            {`Link: ${props.answer.link}`}
+            <strong>Điểm:</strong>
           </Typography>
-        </CardContent>
-      </Link>
+          {props.answer.score < 0 ? (
+            <Chip label="Chưa chấm" color="primary" size="small" />
+          ) : (
+            <Chip
+              label={`${props.answer.score}/${props.answer.exercise?.totalScore}`}
+              color="success"
+              size="small"
+            />
+          )}
+        </Box>
+
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{
+            maxWidth: "80%",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+          }}
+          title={`Link: ${props.answer.link}`}
+        >
+          {`Link: ${props.answer.link}`}
+        </Typography>
+      </CardContent>
       <Divider />
       <CardActions
         disableSpacing
@@ -164,6 +162,7 @@ const AnswerCard = (props: AnswerCardProps) => {
           variant="text"
           component={Link}
           to={`/cr/${classroomId}/ex/${exerciseId}/answers/${props.answer.id}`}
+          disabled={userStore.user?.id === props.answer.user?.id ? false : true}
         >
           XEM CHI TIẾT
         </Button>

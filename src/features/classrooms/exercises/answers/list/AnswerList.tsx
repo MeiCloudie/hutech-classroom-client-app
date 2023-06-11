@@ -7,7 +7,7 @@ import { Box, Grid, styled } from "@mui/material";
 import PlaceholderBox from "../../../../common/UI/PlaceholderBox";
 import AnswerCard from "./AnswerCard";
 import AnswerCardSkeleton from "../../../../../app/layout/indicators/cards/AnswerCardSkeleton";
-import { UserPaginationParams } from "../../../../../app/common/models/userPaginationParams";
+import { PaginationParams } from "../../../../../app/common/models/paginationPrams";
 
 const ResponsiveGrid = styled(Grid)(({ theme }) => ({
   [theme.breakpoints.only("xs")]: {
@@ -36,7 +36,10 @@ const AnswerList = () => {
     if (exerciseId)
       exerciseStore.get(exerciseId).then(() => {
         answerStore
-          .loadExerciseAnswers(exerciseId, new UserPaginationParams(1, 100, userStore.isLecturer ? "" : userStore.user?.id ?? ""))
+          .loadExerciseAnswers(
+            exerciseId,
+            new PaginationParams(1, 100)
+          )
           .then(() => {
             setAnswers(answerStore.items);
           });
