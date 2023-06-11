@@ -30,15 +30,26 @@ const MissionForm = (props: MissionFormProps) => {
     new MissionFormValues()
   );
 
-  const loadGroupUsers = useCallback(() => {
-    groupStore.loadGroupUsers();
-  }, [groupStore]);
-
   const loadMissionUsers = useCallback(() => {
-    if (missionStore.selectedItem) {
-      setMissionFormValues(new MissionFormValues(missionStore.selectedItem));
-    }
-  }, [missionStore]);
+    if (props.mission)
+      if (missionStore.selectedItem) {
+        setMissionFormValues(new MissionFormValues(missionStore.selectedItem));
+      } else if (missionId)
+        missionStore.get(missionId).then(() => {
+          if (missionStore.selectedItem) {
+            if (missionStore.selectedItem) {
+              setMissionFormValues(
+                new MissionFormValues(missionStore.selectedItem)
+              );
+            }
+          }
+        });
+  }, [missionId, missionStore, props.mission]);
+
+  const loadGroupUsers = useCallback(() => {
+    groupStore.loadGroupUsers().then(() => loadMissionUsers());
+  }, [groupStore, loadMissionUsers]);
+
 
   useEffect(() => {
     if (!groupStore.selectedItem) {
@@ -50,14 +61,6 @@ const MissionForm = (props: MissionFormProps) => {
     } else {
       loadGroupUsers();
     }
-
-    if (props.mission) loadMissionUsers();
-    else if (missionId)
-      missionStore.get(missionId).then(() => {
-        if (missionStore.selectedItem) {
-          loadMissionUsers();
-        }
-      });
   }, [
     missionId,
     missionStore,

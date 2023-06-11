@@ -27,8 +27,23 @@ const GroupForm = (props: GroupFormProps) => {
     { label: string; value: any }[]
   >([]);
 
+  const loadGroupUsers = useCallback(() => {
+    if (props.group) {
+      if (groupStore.selectedItem) {
+        setGroupFormValues(new GroupFormValues(groupStore.selectedItem));
+      }
+    } else if (groupId) {
+      groupStore.get(groupId).then(() => {
+        if (groupStore.selectedItem) {
+          setGroupFormValues(new GroupFormValues(groupStore.selectedItem));
+        }
+      });
+    }
+  }, [groupId, groupStore, props.group]);
+
   const loadClassroomUsers = useCallback(() => {
     classroomStore.loadClassroomUsers().then(() => {
+      loadGroupUsers()
       setClassroomUserOptions(
         classroomStore.classroomUsers.map((c) => ({
           label: c.userName,
@@ -36,13 +51,7 @@ const GroupForm = (props: GroupFormProps) => {
         }))
       );
     });
-  }, [classroomStore]);
-
-  const loadGroupUsers = useCallback(() => {
-    if (groupStore.selectedItem) {
-      setGroupFormValues(new GroupFormValues(groupStore.selectedItem));
-    }
-  }, [groupStore]);
+  }, [classroomStore, loadGroupUsers]);
 
   useEffect(() => {
     // if (!props.group && !groupId) {
@@ -54,14 +63,6 @@ const GroupForm = (props: GroupFormProps) => {
       }
     } else {
       loadClassroomUsers();
-    }
-
-    if (props.group) {
-      loadGroupUsers();
-    } else if (groupId) {
-      groupStore.get(groupId).then(() => {
-        loadGroupUsers();
-      });
     }
   }, [
     classroomId,
