@@ -1,39 +1,13 @@
 import { Formik } from "formik";
 import { ChangePasswordFormValues } from "../../../app/models/User";
 import * as Yup from "yup";
-
 import { Box, Button, Stack } from "@mui/material";
-
-import React from "react";
-
 import { useStore } from "../../../app/stores/store";
 import MyPasswordInput from "../../common/forms/MyPasswordInput";
-import SnackbarAlert from "../../common/UI/SnackbarAlert";
+import { toast } from "react-toastify";
 
 const ChangePasswordForm = () => {
-  const [open, setOpen] = React.useState(false);
-  const [isSuccess, setIsSuccess] = React.useState(false);
   const { userStore } = useStore();
-
-  //   const handleClick = () => {
-  //     if (isSuccess) {
-  //       setIsSuccess(false);
-  //     } else {
-  //       setIsSuccess(true);
-  //     }
-  //     setOpen(true);
-  //   };
-
-  const handleClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "click away") {
-      return;
-    }
-
-    setOpen(false);
-  };
 
   const validationSchema = Yup.object({
     password: Yup.string().required("Phải điền mật khẩu hiện tại!"),
@@ -61,12 +35,32 @@ const ChangePasswordForm = () => {
       ) => {
         userStore.changePassword(changePasswordFormValues).then((isSuccess) => {
           if (isSuccess) {
-            setIsSuccess(true);
+            toast.success("Đã thay đổi mật khẩu thành công!", {
+              position: "bottom-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
             actions.resetForm();
           } else {
-            setIsSuccess(false);
+            toast.error(
+              "Mật khẩu hiện tại không đúng hoặc mật khẩu mới không đúng theo đúng định dạng!",
+              {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+              }
+            );
           }
-          setOpen(true);
           actions.setSubmitting(false);
         });
       }}
@@ -96,33 +90,11 @@ const ChangePasswordForm = () => {
                   variant="contained"
                   disabled={isSubmitting}
                   sx={{ m: "10px 0" }}
-                  //   onClick={handleClick}
                 >
                   THAY ĐỔI MẬT KHẨU
                 </Button>
               </Stack>
             </div>
-
-            {!isSuccess && (
-              <SnackbarAlert
-                severity="warning"
-                title="CẢNH BÁO"
-                content="Mật khẩu hiện tại không đúng hoặc mật khẩu mới không đúng theo đúng định dạng."
-                contentStrong="Hãy tiến hành nhập lại!"
-                open={open}
-                handleClose={handleClose}
-              />
-            )}
-
-            {isSuccess && (
-              <SnackbarAlert
-                severity="success"
-                title="THÀNH CÔNG"
-                content="Đã thay đổi mật khẩu thành công!"
-                open={open}
-                handleClose={handleClose}
-              />
-            )}
           </Stack>
         </Box>
       )}
