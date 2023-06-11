@@ -55,7 +55,7 @@ const MissionForm = (props: MissionFormProps) => {
     else if (missionId)
       missionStore.get(missionId).then(() => {
         if (missionStore.selectedItem) {
-          loadGroupUsers();
+          loadMissionUsers();
         }
       });
   }, [

@@ -143,7 +143,7 @@ const MissionCard = (props: MissionCardProps) => {
           )}
         </Box>
 
-        <Box sx={{ mt: 2, mb: 2 }}>
+        {/* <Box sx={{ mt: 2, mb: 2 }}>
           <Typography
             variant="subtitle1"
             fontWeight={700}
@@ -162,7 +162,7 @@ const MissionCard = (props: MissionCardProps) => {
               - {u.userName}
             </Typography>
           ))}
-        </Box>
+        </Box> */}
       </CardContent>
       <Divider />
       <CardActions

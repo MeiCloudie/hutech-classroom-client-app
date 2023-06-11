@@ -41,7 +41,9 @@ const MissionDetails = () => {
   useEffect(() => {
     if (missionId)
       missionStore.get(missionId).then(() => {
-        if (missionStore.selectedItem) setMission(missionStore.selectedItem);
+        missionStore.loadMissionUsers().then(() => {
+          if (missionStore.selectedItem) setMission(missionStore.selectedItem);
+        });
       });
   }, [missionId, missionStore]);
 
