@@ -46,7 +46,6 @@ axios.interceptors.response.use(
     switch (response.status) {
       case 400:
         if (data) break;
-        console.log(data)
         if (
           response.config.method === "get" &&
           Object.keys(data.errors).some((key) =>
@@ -96,7 +95,7 @@ const requests = {
   post: <T>(url: string, body: {}) =>
     axios.post<T>(url, body).then(responseBody),
   put: <T>(url: string, body: {}) => axios.put<T>(url, body).then(responseBody),
-  delete: <T>(url: string) => axios.delete<T>(url).then(responseBody),
+  delete: <T>(url: string, body: {} = {}) => axios.delete<T>(url, body).then(responseBody),
   patch: <T>(url: string, body: {}) =>
     axios.patch<T>(url, body).then(responseBody),
 };
@@ -147,9 +146,14 @@ const createHasManyRelationshipResource = <TManyEntity extends Entity>(
       requests.delete(
         `v1/${firstEntityName}/${firstEntityId}/${secondEntityName}/${secondEntityId}`
       ),
-      addEntities: (firstEntityId: string, secondEntityIds: string[]) =>
+    addEntities: (firstEntityId: string, secondEntityIds: string[]) =>
       requests.post(
         `v1/${firstEntityName}/${firstEntityId}/${secondEntityName}`,
+        secondEntityIds
+      ),
+      removeEntities: (firstEntityId: string, secondEntityIds: string[]) =>
+      requests.post(
+        `v1/${firstEntityName}/${firstEntityId}/${secondEntityName}/remove`,
         secondEntityIds
       ),
   };

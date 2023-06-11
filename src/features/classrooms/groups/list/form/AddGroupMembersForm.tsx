@@ -24,7 +24,11 @@ const AddGroupMembersForm = (props: AddGroupMembersFormProps) => {
         addIds
       )
       .then(() => {});
-    Promise.all(removeIds.map(id => groupStore.removeMember(id)))
+    groupStore
+        .removeMembers(
+          removeIds
+        )
+        .then(() => {})
     .then(() => {})
     actions.setSubmitting(false);
   };

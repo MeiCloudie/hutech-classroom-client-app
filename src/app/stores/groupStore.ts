@@ -18,7 +18,8 @@ export default class GroupStore extends EntityStore<Group, GroupFormValues> {
       setGroupUsers: action,
       addUserItem: action,
       addUserItems: action,
-      removeUserItem: action
+      removeUserItem: action,
+      removeUserItems: action
     });
 
     this.classroomGroupResource =
@@ -109,8 +110,6 @@ export default class GroupStore extends EntityStore<Group, GroupFormValues> {
 
   removeUserItem(user: Profile): void {
     if (!this.selectedItem) return;
-    // this.selectedItem.groupUsers.unshift(user);
-
     const itemIndex = this.selectedItem.groupUsers.findIndex((item) => item.id === user.id);
     this.selectedItem.groupUsers.splice(itemIndex, 1);
   }
@@ -147,6 +146,32 @@ export default class GroupStore extends EntityStore<Group, GroupFormValues> {
       await this.groupUserResource.addEntities(id, users.map(u => u.id));
       runInAction(() => {
         this.addUserItems(users);
+      });
+      // toast.success("Bạn đã cập nhật thành công!", toastBasic);
+    } catch (error) {
+      console.error("Request error:", error);
+    } finally {
+      runInAction(() => {
+        this.setDetailsLoading(false);
+      });
+    }
+  };
+
+  removeUserItems(users: Profile[]): void {
+    if (!this.selectedItem) return;
+    const removeIds = users.map(u => u.id);
+    
+    this.selectedItem.groupUsers = this.selectedItem.groupUsers.filter(gu => !removeIds.includes(gu.id));
+  }
+
+  removeMembers = async (users: Profile[]): Promise<void> => {
+    try {
+      this.setDetailsLoading(true);
+      const id = this.selectedItem?.id;
+      if (!id) return;
+      await this.groupUserResource.removeEntities(id, users.map(u => u.id));
+      runInAction(() => {
+        this.removeUserItems(users);
       });
       // toast.success("Bạn đã cập nhật thành công!", toastBasic);
     } catch (error) {

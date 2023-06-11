@@ -25,5 +25,5 @@ TManyEntity extends Entity
   addEntity: (firstEntityId: string, secondEntityId: string) => Promise<void>;
   removeEntity: (firstEntityId: string, secondEntityId: string) => Promise<void>;
   addEntities: (firstEntityId: string, secondEntityIds: string[]) => Promise<void>;
-
+  removeEntities: (firstEntityId: string, secondEntityIds: string[]) => Promise<void>;
 }
