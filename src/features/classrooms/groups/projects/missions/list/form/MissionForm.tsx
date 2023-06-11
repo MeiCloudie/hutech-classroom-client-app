@@ -50,7 +50,6 @@ const MissionForm = (props: MissionFormProps) => {
     groupStore.loadGroupUsers().then(() => loadMissionUsers());
   }, [groupStore, loadMissionUsers]);
 
-
   useEffect(() => {
     if (!groupStore.selectedItem) {
       if (groupId) {
@@ -155,15 +154,15 @@ const MissionForm = (props: MissionFormProps) => {
             }}
           />
         </Box>
+        {missionFormValues.id && (
+          <Box sx={{ display: "flex", flexGrow: 1, justifyContent: "center" }}>
+            <MissionMembersForm
+              groupUsers={groupStore.groupUsers}
+              missionUsers={props.mission?.missionUsers ?? []}
+            />
+          </Box>
+        )}
       </Box>
-      {missionFormValues.id && (
-        <Box sx={{ display: "flex", flexGrow: 1, justifyContent: "center" }}>
-          <MissionMembersForm
-            groupUsers={groupStore.groupUsers}
-            missionUsers={props.mission?.missionUsers ?? []}
-          />
-        </Box>
-      )}
       <MiniGroupDetails />
       <MiniProjectDetails />
     </Box>
