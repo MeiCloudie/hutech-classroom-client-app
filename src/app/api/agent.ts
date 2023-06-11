@@ -148,7 +148,7 @@ const createHasManyRelationshipResource = <TManyEntity extends Entity>(
       ),
     addEntities: (firstEntityId: string, secondEntityIds: string[]) =>
       requests.post(
-        `v1/${firstEntityName}/${firstEntityId}/${secondEntityName}`,
+        `v1/${firstEntityName}/${firstEntityId}/${secondEntityName}/add`,
         secondEntityIds
       ),
       removeEntities: (firstEntityId: string, secondEntityIds: string[]) =>
