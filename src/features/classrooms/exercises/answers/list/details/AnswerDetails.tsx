@@ -18,9 +18,11 @@ import AnswerForm from "../../form/AnswerForm";
 import { Link as MuiLink } from "@mui/material";
 import AnswerDetailsSkeleton from "../../../../../../app/layout/indicators/details/AnswerDetailsSkeleton";
 import AnswerLayout from "../../layout/AnswerLayout";
+import MarkForm from "../../form/MarkForm";
+import dayjs from "dayjs";
 
 const AnswerDetails = () => {
-  const { answerStore } = useStore();
+  const { answerStore, userStore } = useStore();
   const [answer, setAnswer] = useState<Answer>(new Answer());
   const { answerId, classroomId, exerciseId } = useParams<{
     classroomId: string;
@@ -48,42 +50,43 @@ const AnswerDetails = () => {
   return (
     <AnswerLayout
       component={
-        <Box
-          sx={{
-            bgcolor: "#f5f5f5",
-            p: 2,
-            mb: 2,
-            border: "1px solid #e8e8e8",
-            borderRadius: "5px",
-            transition: "transform 0.3s, border-color 0.3s, box-shadow 0.3s",
-            "&:hover": {
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.4)",
-              transform: "translateY(-4px)",
-            },
-            textAlign: "start",
-          }}
-        >
+        <Box>
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              bgcolor: "#f5f5f5",
+              p: 2,
+              mb: 2,
+              border: "1px solid #e8e8e8",
+              borderRadius: "5px",
+              transition: "transform 0.3s, border-color 0.3s, box-shadow 0.3s",
+              "&:hover": {
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.4)",
+                transform: "translateY(-4px)",
+              },
+              textAlign: "start",
             }}
           >
-            <Typography
-              variant="h5"
-              gutterBottom
+            <Box
               sx={{
-                fontWeight: 600,
-                color: (theme) => theme.palette.primary.main,
-                textAlign: "start",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
-              CHI TIẾT CÂU TRẢ LỜI
-            </Typography>
+              <Typography
+                variant="h5"
+                gutterBottom
+                sx={{
+                  fontWeight: 600,
+                  color: (theme) => theme.palette.primary.main,
+                  textAlign: "start",
+                }}
+              >
+                CHI TIẾT CÂU TRẢ LỜI
+              </Typography>
 
-            <Box sx={{ display: "flex" }}>
-              {/* <AlertDialog
+              <Box sx={{ display: "flex" }}>
+                {/* <AlertDialog
                 iconButton={<DeleteIcon />}
                 titleButton="XOÁ"
                 alertDialogTitle="Xoá câu trả lời?"
@@ -92,155 +95,167 @@ const AnswerDetails = () => {
                 affirmation="Xoá"
                 onSubmit={handleSubmit}
               /> */}
-              <CreateEditDialog
-                iconButton={<EditIcon />}
-                titleButton="CHỈNH SỬA"
-                titleDialog="CHỈNH SỬA CÂU TRẢ LỜI"
-                formComponent={(handleClose) => (
-                  <AnswerForm answer={answer} handleClose={handleClose} />
+                {!userStore.isLecturer && (
+                  <CreateEditDialog
+                    disabled={
+                      dayjs.utc(answer.exercise?.deadline).isBefore(dayjs())
+                        ? true
+                        : false
+                    }
+                    iconButton={<EditIcon />}
+                    titleButton="CHỈNH SỬA"
+                    titleDialog="CHỈNH SỬA CÂU TRẢ LỜI"
+                    formComponent={(handleClose) => (
+                      <AnswerForm answer={answer} handleClose={handleClose} />
+                    )}
+                  />
                 )}
-              />
+              </Box>
             </Box>
-          </Box>
 
-          <Box
-            sx={{
-              mb: 1,
-            }}
-          >
-            <Typography variant="body1" gutterBottom>
-              <strong>{`${answer.user?.firstName} ${answer.user?.lastName}`}</strong>
-            </Typography>
+            <Box
+              sx={{
+                mb: 1,
+              }}
+            >
+              <Typography variant="body1" gutterBottom>
+                <strong>{`${answer.user?.firstName} ${answer.user?.lastName}`}</strong>
+              </Typography>
 
-            <Typography variant="body1" color="gray" gutterBottom>
-              Đã nộp lúc:{" "}
-              {new Date(`${answer.createDate}Z`).toLocaleString("vi-VN", {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit",
-                hour12: true,
-              })}
-            </Typography>
-          </Box>
+              <Typography variant="body1" color="gray" gutterBottom>
+                Đã nộp lúc:{" "}
+                {new Date(`${answer.createDate}Z`).toLocaleString("vi-VN", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  second: "2-digit",
+                  hour12: true,
+                })}
+              </Typography>
+            </Box>
 
-          <Divider color="#1976d2" />
+            <Divider color="#1976d2" />
 
-          <Box sx={{ mt: 2, mb: 2 }}>
-            <Box sx={{ display: "flex", mb: 1 }}>
+            <Box sx={{ mt: 2, mb: 2 }}>
+              <Box sx={{ display: "flex", mb: 1 }}>
+                <Typography
+                  variant="body1"
+                  fontWeight="bold"
+                  sx={{ mr: 1 }}
+                  gutterBottom
+                >
+                  <strong>Điểm:</strong>
+                </Typography>
+                {answer.score < 0 ? (
+                  <Chip label="Chưa chấm" color="primary" size="small" />
+                ) : (
+                  <Chip
+                    label={`${answer.score}/${answer.exercise?.totalScore}`}
+                    color="success"
+                    size="small"
+                  />
+                )}
+              </Box>
+
+              <Divider />
+
               <Typography
-                variant="body1"
-                fontWeight="bold"
-                sx={{ mr: 1 }}
+                variant="subtitle1"
+                fontWeight={700}
+                color="primary"
+                sx={{ mt: 1 }}
                 gutterBottom
               >
-                <strong>Điểm:</strong>
+                Mô tả:
               </Typography>
-              {answer.score < 0 ? (
-                <Chip label="Chưa chấm" color="primary" size="small" />
+              {answer.description === "" ? (
+                <em>
+                  <Typography variant="body2" gutterBottom>
+                    - Không có -
+                  </Typography>
+                </em>
               ) : (
-                <Chip
-                  label={`${answer.score}/${answer.exercise?.totalScore}`}
-                  color="success"
-                  size="small"
-                />
+                <Typography
+                  variant="body2"
+                  dangerouslySetInnerHTML={{ __html: answer.description }}
+                  style={{ padding: "0" }}
+                ></Typography>
               )}
             </Box>
 
             <Divider />
 
-            <Typography
-              variant="subtitle1"
-              fontWeight={700}
-              color="primary"
-              sx={{ mt: 1 }}
-              gutterBottom
-            >
-              Mô tả:
-            </Typography>
-            {answer.description === "" ? (
-              <em>
-                <Typography variant="body2" gutterBottom>
-                  - Không có -
-                </Typography>
-              </em>
-            ) : (
-              <Typography
-                variant="body2"
-                dangerouslySetInnerHTML={{ __html: answer.description }}
-                style={{ padding: "0" }}
-              ></Typography>
+            {answer.link && answer.link.trim() !== "" && (
+              <Box sx={{ mt: 1, mb: 1 }}>
+                <Box sx={{ display: "flex" }}>
+                  <Typography
+                    variant="subtitle1"
+                    fontWeight={700}
+                    color="primary"
+                  >
+                    Link:
+                  </Typography>
+                </Box>
+
+                <Box>
+                  <ol>
+                    {answer.link
+                      .trim()
+                      .split(/\s+/)
+                      .map((link, index) => (
+                        <li key={index}>
+                          <Box>
+                            {link.startsWith("https://") ||
+                            link.startsWith("http://") ? (
+                              <MuiLink
+                                href={link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                sx={{ fontWeight: "bold" }}
+                              >
+                                <em>
+                                  <Typography
+                                    variant="body2"
+                                    fontWeight={700}
+                                    sx={{ m: 1 }}
+                                  >
+                                    {link}
+                                  </Typography>
+                                </em>
+                              </MuiLink>
+                            ) : (
+                              <Typography
+                                variant="body2"
+                                color="text.secondary"
+                              >
+                                {link}
+                              </Typography>
+                            )}
+                          </Box>
+                        </li>
+                      ))}
+                  </ol>
+                </Box>
+              </Box>
             )}
-          </Box>
 
-          <Divider />
+            <Divider />
 
-          {answer.link && answer.link.trim() !== "" && (
-            <Box sx={{ mt: 1, mb: 1 }}>
-              <Box sx={{ display: "flex" }}>
-                <Typography
-                  variant="subtitle1"
-                  fontWeight={700}
-                  color="primary"
-                >
-                  Link:
-                </Typography>
-              </Box>
-
-              <Box>
-                <ol>
-                  {answer.link
-                    .trim()
-                    .split(/\s+/)
-                    .map((link, index) => (
-                      <li key={index}>
-                        <Box>
-                          {link.startsWith("https://") ||
-                          link.startsWith("http://") ? (
-                            <MuiLink
-                              href={link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              sx={{ fontWeight: "bold" }}
-                            >
-                              <em>
-                                <Typography
-                                  variant="body2"
-                                  fontWeight={700}
-                                  sx={{ m: 1 }}
-                                >
-                                  {link}
-                                </Typography>
-                              </em>
-                            </MuiLink>
-                          ) : (
-                            <Typography variant="body2" color="text.secondary">
-                              {link}
-                            </Typography>
-                          )}
-                        </Box>
-                      </li>
-                    ))}
-                </ol>
-              </Box>
+            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+              <Button
+                variant="contained"
+                startIcon={<ArrowBackIcon />}
+                sx={{ mt: 2, mb: 2 }}
+                component={Link}
+                to={`/cr/${classroomId}/ex/${exerciseId}/answers/all`}
+              >
+                Quay Về
+              </Button>
             </Box>
-          )}
-
-          <Divider />
-
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Button
-              variant="contained"
-              startIcon={<ArrowBackIcon />}
-              sx={{ mt: 2, mb: 2 }}
-              component={Link}
-              to={`/cr/${classroomId}/ex/${exerciseId}/answers/all`}
-            >
-              Quay Về
-            </Button>
           </Box>
+          {userStore.isLecturer && <MarkForm answer={answer} />}
         </Box>
       }
     />

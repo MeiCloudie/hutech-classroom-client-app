@@ -27,6 +27,7 @@ interface CreateEditDialogProps {
   titleDialog: string;
   formComponent: (handleClose: () => void) => any;
   hidden?: boolean;
+  disabled?: boolean;
 }
 
 const CreateEditDialog = (props: CreateEditDialogProps) => {
@@ -46,6 +47,7 @@ const CreateEditDialog = (props: CreateEditDialogProps) => {
         variant="contained"
         onClick={handleClickOpen}
         startIcon={props.iconButton}
+        disabled={props.disabled}
       >
         {props.titleButton}
       </Button>

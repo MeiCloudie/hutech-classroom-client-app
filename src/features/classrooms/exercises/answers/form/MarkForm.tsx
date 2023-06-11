@@ -2,36 +2,20 @@ import { Box, Typography } from "@mui/material";
 
 import * as Yup from "yup";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
 import { Answer, AnswerFormValues } from "../../../../../app/models/Answer";
 import { useStore } from "../../../../../app/stores/store";
 import EntityForm from "../../../../common/forms/EntityForm";
-import { InputType } from "../../../../../app/layout/enums/InputTypes";
 
-interface AnswerFormProps {
-  handleClose: () => void;
-  answer?: Answer;
+interface MarkFormProps {
+  answer: Answer;
 }
 
-const AnswerForm = (props: AnswerFormProps) => {
-  const { exerciseId, answerId } = useParams<{
+const MarkForm = (props: MarkFormProps) => {
+  const { exerciseId } = useParams<{
     exerciseId: string;
     answerId: string;
   }>();
   const { answerStore, userStore } = useStore();
-  const [answerFormValues, setAnswerFormValues] = useState<AnswerFormValues>(
-    new AnswerFormValues()
-  );
-
-  useEffect(() => {
-    if (props.answer) setAnswerFormValues(new AnswerFormValues(props.answer));
-    else if (answerId)
-      answerStore.get(answerId).then(() => {
-        if (answerStore.selectedItem) {
-          setAnswerFormValues(new AnswerFormValues(answerStore.selectedItem));
-        }
-      });
-  }, [answerId, answerStore, props.answer]);
 
   return (
     <Box>
@@ -50,19 +34,19 @@ const AnswerForm = (props: AnswerFormProps) => {
         }}
       >
         <Typography
-          variant="h4"
+          variant="h5"
           gutterBottom
           sx={{
             fontWeight: 600,
             color: (theme) => theme.palette.primary.main,
-            textAlign: "center",
+            textAlign: "start",
           }}
         >
-          THÔNG TIN CÂU TRẢ LỜI
+          CHẤM ĐIỂM
         </Typography>
         <Box sx={{ display: "flex", flexGrow: 1, justifyContent: "center" }}>
           <EntityForm<AnswerFormValues>
-            initialEntityFormValues={answerFormValues}
+            initialEntityFormValues={new AnswerFormValues(props.answer)}
             selectionFields={[]}
             validateObject={{
               description: Yup.string().max(
@@ -81,22 +65,6 @@ const AnswerForm = (props: AnswerFormProps) => {
             }}
             fieldConfigs={[
               {
-                fieldKey: "description",
-                props: {
-                  label: "Mô tả câu trả lời",
-                  placeholder: "Hãy nhập mô tả câu trả lời tại đây!",
-                  type: InputType.Textarea,
-                },
-              },
-              {
-                fieldKey: "link",
-                props: {
-                  label: "Liên Kết",
-                  placeholder: "Hãy thêm đường dẫn liên kết tại đây!",
-                  rows: 5,
-                },
-              },
-              {
                 fieldKey: "score",
                 props: {
                   label: "Điểm số",
@@ -104,22 +72,22 @@ const AnswerForm = (props: AnswerFormProps) => {
                 },
               },
             ]}
-            excludeFields={["exerciseId", "userId", "score"]}
+            excludeFields={[
+              "exerciseId",
+              "userId",
+              "description",
+              "link",
+              "id",
+            ]}
             onSubmit={(entityFormValues) => {
               console.log(entityFormValues);
               if (entityFormValues.id) {
-                answerStore
-                  .update(entityFormValues.id, entityFormValues)
-                  .then(() => {
-                    props.handleClose();
-                  });
+                answerStore.update(entityFormValues.id, entityFormValues);
               } else {
-                answerStore.create(entityFormValues).then(() => {
-                  props.handleClose();
-                });
+                answerStore.create(entityFormValues);
               }
             }}
-            onCancel={props.handleClose}
+            onCancel={() => props.answer.score = -1}
             onSetAdditionalValues={(answerFormValues) => {
               answerFormValues.exerciseId = exerciseId;
               answerFormValues.userId = userStore.user?.id;
@@ -131,4 +99,4 @@ const AnswerForm = (props: AnswerFormProps) => {
   );
 };
 
-export default AnswerForm;
+export default MarkForm;

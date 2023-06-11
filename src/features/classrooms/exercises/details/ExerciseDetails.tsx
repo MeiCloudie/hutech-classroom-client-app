@@ -268,6 +268,11 @@ const ExerciseDetails = () => {
                 <Box sx={{ mt: 2, mr: 1 }}>
                   <CreateEditDialog
                     hidden={!userStore.isStudent}
+                    disabled={
+                      dayjs.utc(exercise.deadline).isBefore(dayjs())
+                        ? true
+                        : false
+                    }
                     iconButton={<PublishIcon />}
                     titleButton="NỘP BÀI"
                     titleDialog="TẠO CÂU TRẢ LỜI"

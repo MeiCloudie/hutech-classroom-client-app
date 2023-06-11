@@ -54,10 +54,10 @@ const ClassroomDetails = () => {
 
       <Box sx={{ textAlign: "start", m: "20px 0" }}>
         <Typography variant="subtitle1" gutterBottom>
-          Mã môn: <strong>{classroom.title}</strong>
+          Mã môn: <strong>{classroom.subject?.code}</strong>
         </Typography>
         <Typography variant="subtitle1" gutterBottom>
-          Tên môn: <strong>{classroom.description}</strong>
+          Tên môn: <strong>{classroom.subject?.title}</strong>
         </Typography>
         <Typography variant="subtitle1" gutterBottom>
           Số tín chỉ học phần:{" "}
