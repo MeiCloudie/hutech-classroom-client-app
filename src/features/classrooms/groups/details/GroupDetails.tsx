@@ -21,7 +21,7 @@ import GroupDetailsSkeleton from "../../../../app/layout/indicators/details/Grou
 import { PaginationParams } from "../../../../app/common/models/paginationPrams";
 
 const GroupDetails = () => {
-  const { groupStore } = useStore();
+  const { groupStore, userStore } = useStore();
   const [group, setGroup] = useState<Group>(new Group());
   const { groupId, classroomId } = useParams<{
     classroomId: string;
@@ -87,6 +87,12 @@ const GroupDetails = () => {
 
               <Box sx={{ display: "flex" }}>
                 <AlertDialog
+                  disabled={
+                    userStore.isLecturer ||
+                    userStore.user?.id === group.leader?.id
+                      ? false
+                      : true
+                  }
                   iconButton={<DeleteIcon />}
                   titleButton="XOÁ"
                   alertDialogTitle="Xoá nhóm?"
@@ -96,6 +102,12 @@ const GroupDetails = () => {
                   onSubmit={handleSubmit}
                 />
                 <CreateEditDialog
+                  disabled={
+                    userStore.isLecturer ||
+                    userStore.user?.id === group.leader?.id
+                      ? false
+                      : true
+                  }
                   iconButton={<EditIcon />}
                   titleButton="CHỈNH SỬA"
                   titleDialog="CHỈNH SỬA NHÓM"
@@ -116,7 +128,7 @@ const GroupDetails = () => {
               <Typography variant="body1" gutterBottom>
                 Nhóm trưởng:{" "}
                 <strong>
-                  {group.leader?.firstName} {group.leader?.lastName}
+                  {group.leader?.lastName} {group.leader?.firstName}
                 </strong>
               </Typography>
 

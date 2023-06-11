@@ -117,7 +117,7 @@ const GroupCard = (props: GroupCardProps) => {
       >
         <CardContent>
           <Typography variant="body2">
-            {`Nhóm Trưởng: ${props.group.leader?.firstName} ${props.group.leader?.lastName}`}
+            {`Nhóm Trưởng: ${props.group.leader?.lastName} ${props.group.leader?.firstName}`}
           </Typography>
           <Typography
             variant="body2"

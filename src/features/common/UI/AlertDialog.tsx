@@ -16,6 +16,7 @@ interface AlertDialogProps {
   affirmation: string;
   onSubmit: () => void;
   hidden?: boolean;
+  disabled?: boolean;
 }
 
 const AlertDialog = (props: AlertDialogProps) => {
@@ -36,6 +37,7 @@ const AlertDialog = (props: AlertDialogProps) => {
         startIcon={props.iconButton}
         sx={{ marginRight: "8px" }}
         onClick={handleClickOpen}
+        disabled={props.disabled}
       >
         {props.titleButton}
       </Button>

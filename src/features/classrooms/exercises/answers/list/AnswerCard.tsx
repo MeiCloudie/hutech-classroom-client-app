@@ -78,6 +78,7 @@ const AnswerCard = (props: AnswerCardProps) => {
           </Avatar>
         }
         action={
+          userStore.isLecturer ||
           userStore.user?.id === props.answer.user?.id ? (
             <IconButton
               aria-label="more"
@@ -162,7 +163,11 @@ const AnswerCard = (props: AnswerCardProps) => {
           variant="text"
           component={Link}
           to={`/cr/${classroomId}/ex/${exerciseId}/answers/${props.answer.id}`}
-          disabled={userStore.user?.id === props.answer.user?.id ? false : true}
+          disabled={
+            userStore.isLecturer || userStore.user?.id === props.answer.user?.id
+              ? false
+              : true
+          }
         >
           XEM CHI TIẾT
         </Button>
