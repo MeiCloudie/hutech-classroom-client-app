@@ -18,12 +18,14 @@ import React from "react";
 import { Group } from "../../../../app/models/Group";
 import { Link, useParams } from "react-router-dom";
 import MenuMini from "../../../common/UI/MenuMini";
+import { useStore } from "../../../../app/stores/store";
 
 interface GroupCardProps {
   group: Group;
 }
 
 const GroupCard = (props: GroupCardProps) => {
+  const { userStore, groupStore } = useStore();
   const { classroomId } = useParams<{
     classroomId: string;
   }>();
@@ -142,6 +144,11 @@ const GroupCard = (props: GroupCardProps) => {
           variant="text"
           component={Link}
           to={`/cr/${classroomId}/gr/${props.group.id}`}
+          disabled={
+            userStore.isLecturer
+             || groupStore.isInGroup(props.group)
+            ? false : true
+          }
         >
           Xem Chi Tiết
         </Button>

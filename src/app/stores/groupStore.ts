@@ -5,6 +5,7 @@ import { PaginationParams } from "../common/models/paginationPrams";
 import EntityStore from "../common/stores/entityStore";
 import { Group, GroupFormValues } from "../models/Group";
 import Profile from "../common/models/Profile";
+import GroupRoleConstants from "../common/constants/GroupRoleConstants";
 
 export default class GroupStore extends EntityStore<Group, GroupFormValues> {
   classroomGroupResource: BaseHasManyRelationshipResource<Group>;
@@ -26,6 +27,19 @@ export default class GroupStore extends EntityStore<Group, GroupFormValues> {
       agent.createHasManyRelationshipResource<Group>("Classrooms", "Groups");
       this.groupUserResource =
       agent.createHasManyRelationshipResource<Profile>("Groups", "Members");
+  }
+
+  isLeader = (group: Group) : boolean => {
+    console.log(group)
+    return group.roles.some(x => x === GroupRoleConstants.LEADER);
+  }
+
+  isMember = (group : Group) : boolean => {
+    return group.roles.some(x => x === GroupRoleConstants.MEMBER)
+  }
+
+  isInGroup = (group : Group) : boolean => {
+    return group.roles.length > 0;
   }
 
   loadClassroomGroups = async (

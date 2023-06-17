@@ -11,6 +11,7 @@ export interface Group extends Entity, Auditable {
     classroom?: Classroom;
 
     groupUsers: Profile[];
+    roles: string[],
 }
 
 export class Group implements Group {
@@ -22,6 +23,7 @@ export class Group implements Group {
     classroom?: Classroom = undefined;
 
     groupUsers: Profile[] = [];
+    roles: string[] = [];
 
     constructor(init?: GroupFormValues) {
         Object.assign(this, init);
@@ -37,7 +39,7 @@ export class GroupFormValues {
 
     constructor(group?: Group) {
         if (group) {
-            const { leader, classroom, createDate, groupUsers, ...rest } = group;
+            const { leader, classroom, createDate, groupUsers, roles, ...rest } = group;
             Object.assign(this, { ...rest });
         }
     }
