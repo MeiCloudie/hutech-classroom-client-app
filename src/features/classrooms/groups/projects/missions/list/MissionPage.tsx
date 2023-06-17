@@ -8,6 +8,10 @@ import MissionLayout from "../layout/MissionLayout";
 import CreateEditDialog from "../../../../../common/UI/CreateEditDialog";
 import MissionForm from "./form/MissionForm";
 import MissionList from "./MissionList";
+import { useStore } from "../../../../../../app/stores/store";
+import { useEffect, useState } from "react";
+import { Group } from "../../../../../../app/models/Group";
+import { PaginationParams } from "../../../../../../app/common/models/paginationPrams";
 
 const MissionPage = () => {
   const { groupId, classroomId, projectId } = useParams<{
@@ -15,6 +19,19 @@ const MissionPage = () => {
     classroomId: string;
     projectId: string;
   }>();
+
+  const { groupStore, userStore } = useStore();
+  const [group, setGroup] = useState<Group>(new Group());
+
+  useEffect(() => {
+    if (groupId)
+      groupStore.get(groupId).then(() => {
+        groupStore.loadGroupUsers(new PaginationParams(1, 100, "")).then(() => {
+          if (groupStore.selectedItem) setGroup(groupStore.selectedItem);
+        });
+      });
+  }, [groupId, groupStore]);
+
   return (
     <Box>
       <MissionLayout
@@ -48,6 +65,12 @@ const MissionPage = () => {
               </Typography>
 
               <CreateEditDialog
+                disabled={
+                  userStore.isLecturer ||
+                  userStore.user?.id === group.leader?.id
+                    ? false
+                    : true
+                }
                 iconButton={<AddIcon />}
                 titleButton="TẠO NHIỆM VỤ"
                 titleDialog="TẠO NHIỆM VỤ"
