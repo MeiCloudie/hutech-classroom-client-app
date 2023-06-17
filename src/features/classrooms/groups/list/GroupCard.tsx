@@ -77,21 +77,23 @@ const GroupCard = (props: GroupCardProps) => {
           </Avatar>
         }
         action={
-          <IconButton
-            aria-label="more"
-            sx={{
-              transition: "color 0.2s",
-              "&:hover": {
-                color: blue[800],
-              },
-              position: "absolute",
-              top: 8,
-              right: 8,
-            }}
-            onClick={handleOpenMoreMenu}
-          >
-            <MoreVertIcon />
-          </IconButton>
+          (userStore.isLecturer || groupStore.isInGroup(props.group)) && (
+            <IconButton
+              aria-label="more"
+              sx={{
+                transition: "color 0.2s",
+                "&:hover": {
+                  color: blue[800],
+                },
+                position: "absolute",
+                top: 8,
+                right: 8,
+              }}
+              onClick={handleOpenMoreMenu}
+            >
+              <MoreVertIcon />
+            </IconButton>
+          )
         }
         title={props.group.name}
         subheader={new Date(`${props.group.createDate}Z`).toLocaleString(
@@ -114,7 +116,11 @@ const GroupCard = (props: GroupCardProps) => {
         options={moreOptions}
       />
       <Link
-        to={`/cr/${classroomId}/gr/${props.group.id}`}
+        to={
+          userStore.isLecturer || groupStore.isInGroup(props.group)
+            ? `/cr/${classroomId}/gr/${props.group.id}`
+            : ""
+        }
         style={{ textDecoration: "none", color: "black" }}
       >
         <CardContent>

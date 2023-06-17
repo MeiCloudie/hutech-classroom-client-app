@@ -20,7 +20,10 @@ export default class GroupStore extends EntityStore<Group, GroupFormValues> {
       addUserItem: action,
       addUserItems: action,
       removeUserItem: action,
-      removeUserItems: action
+      removeUserItems: action,
+      isLeader: action,
+      isMember: action,
+      isInGroup: action
     });
 
     this.classroomGroupResource =
@@ -32,6 +35,7 @@ export default class GroupStore extends EntityStore<Group, GroupFormValues> {
   isLeader = (group?: Group) : boolean => {
     return group !== undefined && group.roles.some(x => x === GroupRoleConstants.LEADER);
   }
+
 
   isMember = (group?: Group) : boolean => {
     return group !== undefined && group.roles.some(x => x === GroupRoleConstants.MEMBER)
