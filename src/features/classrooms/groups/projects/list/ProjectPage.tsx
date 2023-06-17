@@ -6,12 +6,29 @@ import ProjectList from "./ProjectList";
 import ProjectForm from "./form/ProjectForm";
 import { Link, useParams } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useStore } from "../../../../../app/stores/store";
+import { useEffect, useState } from "react";
+
+import { PaginationParams } from "../../../../../app/common/models/paginationPrams";
+import { Group } from "../../../../../app/models/Group";
 
 const ProjectPage = () => {
   const { groupId, classroomId } = useParams<{
     classroomId: string;
     groupId: string;
   }>();
+  const { groupStore, userStore } = useStore();
+  const [group, setGroup] = useState<Group>(new Group());
+
+  useEffect(() => {
+    if (groupId)
+      groupStore.get(groupId).then(() => {
+        groupStore.loadGroupUsers(new PaginationParams(1, 100, "")).then(() => {
+          if (groupStore.selectedItem) setGroup(groupStore.selectedItem);
+        });
+      });
+  }, [groupId, groupStore]);
+
   return (
     <Box>
       <ProjectLayout
@@ -45,6 +62,12 @@ const ProjectPage = () => {
               </Typography>
 
               <CreateEditDialog
+                disabled={
+                  userStore.isLecturer ||
+                  userStore.user?.id === group.leader?.id
+                    ? false
+                    : true
+                }
                 iconButton={<AddIcon />}
                 titleButton="TẠO DỰ ÁN"
                 titleDialog="TẠO DỰ ÁN"
