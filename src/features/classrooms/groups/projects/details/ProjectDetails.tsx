@@ -20,7 +20,7 @@ import ProjectLayout from "../layout/ProjectLayout";
 import ProjectDetailsSkeleton from "../../../../../app/layout/indicators/details/ProjectDetailsSkeleton";
 
 const ProjectDetails = () => {
-  const { projectStore } = useStore();
+  const { projectStore, userStore } = useStore();
   const [project, setProject] = useState<Project>(new Project());
   const { projectId, classroomId, groupId } = useParams<{
     projectId: string;
@@ -43,7 +43,7 @@ const ProjectDetails = () => {
       });
   }, [projectId, projectStore]);
 
-    if (projectStore.isDetailsLoading) return <ProjectDetailsSkeleton />;
+  if (projectStore.isDetailsLoading) return <ProjectDetailsSkeleton />;
 
   return (
     <Box>
@@ -85,6 +85,12 @@ const ProjectDetails = () => {
 
               <Box sx={{ display: "flex" }}>
                 <AlertDialog
+                  disabled={
+                    userStore.isLecturer ||
+                    userStore.user?.id === project.group?.leader?.id
+                      ? false
+                      : true
+                  }
                   iconButton={<DeleteIcon />}
                   titleButton="XOÁ"
                   alertDialogTitle="Xoá dự án?"
@@ -94,6 +100,12 @@ const ProjectDetails = () => {
                   onSubmit={handleSubmit}
                 />
                 <CreateEditDialog
+                  disabled={
+                    userStore.isLecturer ||
+                    userStore.user?.id === project.group?.leader?.id
+                      ? false
+                      : true
+                  }
                   iconButton={<EditIcon />}
                   titleButton="CHỈNH SỬA"
                   titleDialog="CHỈNH SỬA DỰ ÁN"
