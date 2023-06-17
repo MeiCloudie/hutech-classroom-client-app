@@ -63,7 +63,7 @@ const MissionPage = () => {
               </Typography>
 
               <CreateEditDialog
-                hidden={
+                disabled={
                   userStore.isLecturer ||
                   groupStore.isLeader(groupStore.selectedItem)
                     ? false

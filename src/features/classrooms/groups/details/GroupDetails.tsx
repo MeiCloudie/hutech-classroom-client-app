@@ -87,7 +87,7 @@ const GroupDetails = () => {
 
               <Box sx={{ display: "flex" }}>
                 <AlertDialog
-                  hidden={
+                  disabled={
                     userStore.isLecturer
                       ? false
                       : true
@@ -101,7 +101,7 @@ const GroupDetails = () => {
                   onSubmit={handleSubmit}
                 />
                 <CreateEditDialog
-                  hidden={
+                  disabled={
                     userStore.isLecturer
                       ? false
                       : true

@@ -144,7 +144,7 @@ const GroupCard = (props: GroupCardProps) => {
           variant="text"
           component={Link}
           to={`/cr/${classroomId}/gr/${props.group.id}`}
-          hidden={
+          disabled={
             userStore.isLecturer || groupStore.isInGroup(props.group)
               ? false
               : true

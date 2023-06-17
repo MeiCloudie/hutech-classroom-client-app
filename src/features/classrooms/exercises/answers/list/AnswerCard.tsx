@@ -163,7 +163,7 @@ const AnswerCard = (props: AnswerCardProps) => {
           variant="text"
           component={Link}
           to={`/cr/${classroomId}/ex/${exerciseId}/answers/${props.answer.id}`}
-          hidden={
+          disabled={
             userStore.isLecturer || userStore.user?.id === props.answer.user?.id
               ? false
               : true

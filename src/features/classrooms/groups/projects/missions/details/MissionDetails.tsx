@@ -89,7 +89,7 @@ const MissionDetails = () => {
 
               <Box sx={{ display: "flex" }}>
                 <AlertDialog
-                  hidden={
+                  disabled={
                     userStore.isLecturer ||
                     groupStore.isLeader(mission.project?.group)
                       ? false
@@ -104,7 +104,7 @@ const MissionDetails = () => {
                   onSubmit={handleSubmit}
                 />
                 <CreateEditDialog
-                  hidden={
+                  disabled={
                     userStore.isLecturer ||
                     groupStore.isLeader(mission.project?.group)
                       ? false

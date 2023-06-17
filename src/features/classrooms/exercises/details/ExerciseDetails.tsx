@@ -111,7 +111,7 @@ const ExerciseDetails = () => {
 
                 <Box sx={{ display: "flex" }}>
                   <AlertDialog
-                    hidden={!userStore.isLecturer}
+                    disabled={!userStore.isLecturer}
                     iconButton={<DeleteIcon />}
                     titleButton="XOÁ"
                     alertDialogTitle="Xoá bài tập?"
@@ -121,7 +121,7 @@ const ExerciseDetails = () => {
                     onSubmit={handleSubmit}
                   />
                   <CreateEditDialog
-                    hidden={!userStore.isLecturer}
+                    disabled={!userStore.isLecturer}
                     iconButton={<EditIcon />}
                     titleButton="CHỈNH SỬA"
                     titleDialog="CHỈNH SỬA BÀI TẬP"
