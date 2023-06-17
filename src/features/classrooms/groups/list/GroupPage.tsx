@@ -4,8 +4,10 @@ import CreateEditDialog from "../../../common/UI/CreateEditDialog";
 import AddIcon from "@mui/icons-material/Add";
 import GroupForm from "./form/GroupForm";
 import { Box, Divider, Typography } from "@mui/material";
+import { useStore } from "../../../../app/stores/store";
 
 const GroupPage = () => {
+  const { userStore } = useStore();
   return (
     <Box
       sx={{
@@ -34,6 +36,7 @@ const GroupPage = () => {
         </Typography>
 
         <CreateEditDialog
+          disabled={!userStore.isLecturer}
           iconButton={<AddIcon />}
           titleButton="TẠO NHÓM"
           titleDialog="TẠO NHÓM"
