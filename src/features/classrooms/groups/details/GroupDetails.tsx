@@ -87,9 +87,8 @@ const GroupDetails = () => {
 
               <Box sx={{ display: "flex" }}>
                 <AlertDialog
-                  disabled={
-                    userStore.isLecturer ||
-                    userStore.user?.id === group.leader?.id
+                  hidden={
+                    userStore.isLecturer
                       ? false
                       : true
                   }
@@ -102,9 +101,8 @@ const GroupDetails = () => {
                   onSubmit={handleSubmit}
                 />
                 <CreateEditDialog
-                  disabled={
-                    userStore.isLecturer ||
-                    userStore.user?.id === group.leader?.id
+                  hidden={
+                    userStore.isLecturer
                       ? false
                       : true
                   }

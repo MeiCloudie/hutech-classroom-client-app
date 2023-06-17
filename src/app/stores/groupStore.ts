@@ -29,17 +29,16 @@ export default class GroupStore extends EntityStore<Group, GroupFormValues> {
       agent.createHasManyRelationshipResource<Profile>("Groups", "Members");
   }
 
-  isLeader = (group: Group) : boolean => {
-    console.log(group)
-    return group.roles.some(x => x === GroupRoleConstants.LEADER);
+  isLeader = (group?: Group) : boolean => {
+    return group !== undefined && group.roles.some(x => x === GroupRoleConstants.LEADER);
   }
 
-  isMember = (group : Group) : boolean => {
-    return group.roles.some(x => x === GroupRoleConstants.MEMBER)
+  isMember = (group?: Group) : boolean => {
+    return group !== undefined && group.roles.some(x => x === GroupRoleConstants.MEMBER)
   }
 
-  isInGroup = (group : Group) : boolean => {
-    return group.roles.length > 0;
+  isInGroup = (group?: Group) : boolean => {
+    return group !== undefined && group.roles.length > 0;
   }
 
   loadClassroomGroups = async (

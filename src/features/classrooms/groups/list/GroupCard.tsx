@@ -144,10 +144,10 @@ const GroupCard = (props: GroupCardProps) => {
           variant="text"
           component={Link}
           to={`/cr/${classroomId}/gr/${props.group.id}`}
-          disabled={
-            userStore.isLecturer
-             || groupStore.isInGroup(props.group)
-            ? false : true
+          hidden={
+            userStore.isLecturer || groupStore.isInGroup(props.group)
+              ? false
+              : true
           }
         >
           Xem Chi Tiết

@@ -52,7 +52,7 @@ const ProfilePage = () => {
         <Typography
           variant="h6"
           gutterBottom
-        >{`Họ tên: ${store.userStore.user?.firstName} ${store.userStore.user?.lastName}`}</Typography>
+        >{`Họ tên: ${store.userStore.user?.lastName} ${store.userStore.user?.firstName}`}</Typography>
         <Typography variant="subtitle1" gutterBottom>
           Mã số: <strong>{store.userStore.user?.userName}</strong>
         </Typography>

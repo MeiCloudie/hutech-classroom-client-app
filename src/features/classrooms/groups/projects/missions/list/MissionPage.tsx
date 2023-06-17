@@ -9,9 +9,9 @@ import CreateEditDialog from "../../../../../common/UI/CreateEditDialog";
 import MissionForm from "./form/MissionForm";
 import MissionList from "./MissionList";
 import { useStore } from "../../../../../../app/stores/store";
-import { useEffect, useState } from "react";
-import { Group } from "../../../../../../app/models/Group";
+import { useEffect } from "react";
 import { PaginationParams } from "../../../../../../app/common/models/paginationPrams";
+import { observer } from "mobx-react-lite";
 
 const MissionPage = () => {
   const { groupId, classroomId, projectId } = useParams<{
@@ -21,14 +21,12 @@ const MissionPage = () => {
   }>();
 
   const { groupStore, userStore } = useStore();
-  const [group, setGroup] = useState<Group>(new Group());
 
   useEffect(() => {
     if (groupId)
       groupStore.get(groupId).then(() => {
-        groupStore.loadGroupUsers(new PaginationParams(1, 100, "")).then(() => {
-          if (groupStore.selectedItem) setGroup(groupStore.selectedItem);
-        });
+        groupStore
+          .loadGroupUsers(new PaginationParams(1, 100, ""))
       });
   }, [groupId, groupStore]);
 
@@ -65,9 +63,9 @@ const MissionPage = () => {
               </Typography>
 
               <CreateEditDialog
-                disabled={
+                hidden={
                   userStore.isLecturer ||
-                  userStore.user?.id === group.leader?.id
+                  groupStore.isLeader(groupStore.selectedItem)
                     ? false
                     : true
                 }
@@ -112,4 +110,4 @@ const MissionPage = () => {
   );
 };
 
-export default MissionPage;
+export default observer(MissionPage);

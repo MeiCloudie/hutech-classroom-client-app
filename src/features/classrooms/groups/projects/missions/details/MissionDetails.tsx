@@ -19,7 +19,7 @@ import MissionForm from "../list/form/MissionForm";
 import MissionDetailsSkeleton from "../../../../../../app/layout/indicators/details/MissionDetailsSkeleton";
 
 const MissionDetails = () => {
-  const { missionStore, userStore } = useStore();
+  const { missionStore, userStore, groupStore } = useStore();
   const [mission, setMission] = useState<Mission>(new Mission());
   const { missionId, classroomId, groupId, projectId } = useParams<{
     missionId: string;
@@ -89,9 +89,9 @@ const MissionDetails = () => {
 
               <Box sx={{ display: "flex" }}>
                 <AlertDialog
-                  disabled={
+                  hidden={
                     userStore.isLecturer ||
-                    userStore.user?.id === mission.project?.group?.leader?.id
+                    groupStore.isLeader(mission.project?.group)
                       ? false
                       : true
                   }
@@ -104,9 +104,9 @@ const MissionDetails = () => {
                   onSubmit={handleSubmit}
                 />
                 <CreateEditDialog
-                  disabled={
+                  hidden={
                     userStore.isLecturer ||
-                    userStore.user?.id === mission.project?.group?.leader?.id
+                    groupStore.isLeader(mission.project?.group)
                       ? false
                       : true
                   }

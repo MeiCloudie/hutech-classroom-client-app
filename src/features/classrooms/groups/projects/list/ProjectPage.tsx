@@ -7,10 +7,10 @@ import ProjectForm from "./form/ProjectForm";
 import { Link, useParams } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useStore } from "../../../../../app/stores/store";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { PaginationParams } from "../../../../../app/common/models/paginationPrams";
-import { Group } from "../../../../../app/models/Group";
+import { observer } from "mobx-react-lite";
 
 const ProjectPage = () => {
   const { groupId, classroomId } = useParams<{
@@ -18,14 +18,12 @@ const ProjectPage = () => {
     groupId: string;
   }>();
   const { groupStore, userStore } = useStore();
-  const [group, setGroup] = useState<Group>(new Group());
 
   useEffect(() => {
     if (groupId)
       groupStore.get(groupId).then(() => {
-        groupStore.loadGroupUsers(new PaginationParams(1, 100, "")).then(() => {
-          if (groupStore.selectedItem) setGroup(groupStore.selectedItem);
-        });
+        groupStore
+          .loadGroupUsers(new PaginationParams(1, 100, ""))
       });
   }, [groupId, groupStore]);
 
@@ -62,9 +60,9 @@ const ProjectPage = () => {
               </Typography>
 
               <CreateEditDialog
-                disabled={
+                hidden={
                   userStore.isLecturer ||
-                  userStore.user?.id === group.leader?.id
+                    groupStore.isLeader(groupStore.selectedItem)
                     ? false
                     : true
                 }
@@ -109,4 +107,4 @@ const ProjectPage = () => {
   );
 };
 
-export default ProjectPage;
+export default observer(ProjectPage);
