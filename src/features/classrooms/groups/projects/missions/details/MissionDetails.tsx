@@ -19,7 +19,7 @@ import MissionForm from "../list/form/MissionForm";
 import MissionDetailsSkeleton from "../../../../../../app/layout/indicators/details/MissionDetailsSkeleton";
 
 const MissionDetails = () => {
-  const { missionStore } = useStore();
+  const { missionStore, userStore } = useStore();
   const [mission, setMission] = useState<Mission>(new Mission());
   const { missionId, classroomId, groupId, projectId } = useParams<{
     missionId: string;
@@ -89,6 +89,12 @@ const MissionDetails = () => {
 
               <Box sx={{ display: "flex" }}>
                 <AlertDialog
+                  disabled={
+                    userStore.isLecturer ||
+                    userStore.user?.id === mission.project?.group?.leader?.id
+                      ? false
+                      : true
+                  }
                   iconButton={<DeleteIcon />}
                   titleButton="XOÁ"
                   alertDialogTitle="Xoá nhiệm vụ?"
@@ -98,6 +104,12 @@ const MissionDetails = () => {
                   onSubmit={handleSubmit}
                 />
                 <CreateEditDialog
+                  disabled={
+                    userStore.isLecturer ||
+                    userStore.user?.id === mission.project?.group?.leader?.id
+                      ? false
+                      : true
+                  }
                   iconButton={<EditIcon />}
                   titleButton="CHỈNH SỬA"
                   titleDialog="CHỈNH SỬA NHIỆM VỤ"
