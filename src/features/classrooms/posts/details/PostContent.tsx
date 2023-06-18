@@ -20,7 +20,7 @@ import { Link as MuiLink } from "@mui/material";
 import PostDetailsSkeleton from "../../../../app/layout/indicators/details/PostDetailsSkeleton";
 
 const PostContent = () => {
-  const { postStore } = useStore();
+  const { postStore, userStore } = useStore();
   const [post, setPost] = useState<Post>(new Post());
   const { postId, classroomId } = useParams<{
     classroomId: string;
@@ -79,6 +79,7 @@ const PostContent = () => {
 
         <Box sx={{ display: "flex" }}>
           <AlertDialog
+            disabled={userStore.user?.id === post.user?.id ? false : true}
             iconButton={<DeleteIcon />}
             titleButton="XOÁ"
             alertDialogTitle="Xoá bài đăng?"
@@ -88,6 +89,7 @@ const PostContent = () => {
             onSubmit={handleSubmit}
           />
           <CreateEditDialog
+            disabled={userStore.user?.id === post.user?.id ? false : true}
             iconButton={<EditIcon />}
             titleButton="CHỈNH SỬA"
             titleDialog="CHỈNH SỬA BÀI ĐĂNG"
@@ -124,10 +126,7 @@ const PostContent = () => {
           <Box>
             <Box sx={{ display: "flex" }}>
               <InsertLinkIcon />
-              <Typography
-                variant="body1"
-                fontWeight={700}
-              >
+              <Typography variant="body1" fontWeight={700}>
                 &nbsp;Link:
               </Typography>
             </Box>
@@ -159,9 +158,7 @@ const PostContent = () => {
                             </em>
                           </MuiLink>
                         ) : (
-                          <Typography variant="body2">
-                            {link}
-                          </Typography>
+                          <Typography variant="body2">{link}</Typography>
                         )}
                       </Box>
                     </li>
