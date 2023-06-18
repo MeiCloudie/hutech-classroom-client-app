@@ -1,4 +1,5 @@
 import { Faculty } from "../../models/Faculty";
+import { Group } from "../../models/Group";
 import Entity from "./Entity";
 
 export default interface Profile extends Entity {
@@ -8,5 +9,6 @@ export default interface Profile extends Entity {
     firstName: string,
     lastName: string,
     faculty?: Faculty
-    isSubmitted?: boolean
+    isSubmitted?: boolean,
+    groups: Group[]
 }
