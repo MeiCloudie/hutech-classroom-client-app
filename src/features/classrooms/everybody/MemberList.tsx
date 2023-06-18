@@ -12,7 +12,7 @@ const columns: GridColDef[] = [
   { field: "username", headerName: "Tài Khoản", width: 200 },
   { field: "fullName", headerName: "Họ Tên", width: 200 },
   { field: "email", headerName: "Email", width: 200 },
-  { field: "groups", headerName: "Nhóm", width: 200 },
+  { field: "groups", headerName: "Nhóm", width: 300 },
 ];
 
 const MemberList = () => {
@@ -31,11 +31,13 @@ const MemberList = () => {
                 classroomStore.classroomUsers.map((m, i) => {
                   return {
                     id: i,
-                    role: "Sinh Viên",
+                    role: m.groups.map((g) => g.leader?.id).includes(m.id)
+                      ? "Nhóm Trưởng"
+                      : "Sinh Viên",
                     username: m.userName,
                     fullName: `${m.lastName} ${m.firstName}`,
                     email: m.email,
-                    groups: m.groups.map(g => g.name).join(", ")
+                    groups: m.groups.map((g) => g.name).join(", "),
                   };
                 })
               );
@@ -43,7 +45,7 @@ const MemberList = () => {
       });
   }, [classroomId, classroomStore]);
 
-  if (classroomStore.isDetailsLoading) return <TypoLoading />
+  if (classroomStore.isDetailsLoading) return <TypoLoading />;
 
   return (
     <div style={{ height: "100%", width: "100%" }}>

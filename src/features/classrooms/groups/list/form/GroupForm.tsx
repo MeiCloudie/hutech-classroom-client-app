@@ -43,7 +43,7 @@ const GroupForm = (props: GroupFormProps) => {
 
   const loadClassroomUsers = useCallback(() => {
     classroomStore.loadClassroomUsers().then(() => {
-      loadGroupUsers()
+      loadGroupUsers();
       setClassroomUserOptions(
         classroomStore.classroomUsers.map((c) => ({
           label: c.userName,
@@ -174,6 +174,7 @@ const GroupForm = (props: GroupFormProps) => {
           <GroupMembersForm
             classroomUsers={classroomStore.classroomUsers}
             groupUsers={props.group?.groupUsers ?? []}
+            group={props.group}
           />
         </Box>
       )}

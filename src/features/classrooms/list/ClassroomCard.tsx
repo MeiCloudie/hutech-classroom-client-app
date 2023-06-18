@@ -131,7 +131,7 @@ const ClassroomCard = (props: ClassroomCardProps) => {
         />
         <CardContent>
           <Typography variant="body2" color="text.secondary">
-            {`Giảng viên: ${props.classroom.lecturer?.firstName} ${props.classroom.lecturer?.lastName}`}
+            {`Giảng viên: ${props.classroom.lecturer?.lastName} ${props.classroom.lecturer?.firstName}`}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {`Phòng: ${props.classroom.room}`}

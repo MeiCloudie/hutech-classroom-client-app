@@ -4,10 +4,12 @@ import MyMultipleSelectCheckmarkInput from "../../../../common/forms/MyMultipleS
 import { Box, Button, Stack } from "@mui/material";
 import { useStore } from "../../../../../app/stores/store";
 import { useParams } from "react-router-dom";
+import { Group } from "../../../../../app/models/Group";
 
 interface GroupMembersFormProps {
   classroomUsers: Profile[];
   groupUsers: Profile[];
+  group?: Group;
 }
 
 const GroupMembersForm = (props: GroupMembersFormProps) => {
@@ -18,28 +20,27 @@ const GroupMembersForm = (props: GroupMembersFormProps) => {
     formValues: { ids: string[] },
     actions: FormikHelpers<{ ids: string[] }>
   ) => {
-    const addIds = props.classroomUsers.filter(user => formValues.ids.includes(user.id) && !props.groupUsers.map(gu => gu.id).includes(user.id))
-    const removeIds = props.groupUsers.filter(user => !formValues.ids.includes(user.id))
+    const addIds = props.classroomUsers.filter(
+      (user) =>
+        formValues.ids.includes(user.id) &&
+        !props.groupUsers.map((gu) => gu.id).includes(user.id)
+    );
+    const removeIds = props.groupUsers.filter(
+      (user) => !formValues.ids.includes(user.id)
+    );
+    groupStore.addMembers(addIds).then(() => {});
     groupStore
-      .addMembers(
-        addIds
-      )
+      .removeMembers(removeIds)
+      .then(() => {})
       .then(() => {});
-    groupStore
-        .removeMembers(
-          removeIds
-        )
-        .then(() => {})
-    .then(() => {})
     actions.setSubmitting(false);
   };
-
 
   return (
     <Formik
       key="formik-form"
       enableReinitialize
-      initialValues={{ ids: props.groupUsers.map(user => user.id) }}
+      initialValues={{ ids: props.groupUsers.map((user) => user.id) }}
       onSubmit={handleFormSubmit}
       // validationSchema={validationSchema}
     >
@@ -51,11 +52,19 @@ const GroupMembersForm = (props: GroupMembersFormProps) => {
           onSubmit={handleSubmit}
         >
           <MyMultipleSelectCheckmarkInput
+            label="Thành viên nhóm"
             name="ids"
-            options={props.classroomUsers.filter(u => u.groups.some(g => g.id === groupId) || u.groups.length === 0).map((user) => ({
-              label: user.lastName + " " + user.firstName,
-              value: user.id
-            }))}
+            options={props.classroomUsers
+              .filter(
+                (u) =>
+                  (u.groups.some((g) => g.id === groupId) ||
+                    u.groups.length === 0) &&
+                  u.id !== props.group?.leader?.id
+              )
+              .map((user) => ({
+                label: user.lastName + " " + user.firstName,
+                value: user.id,
+              }))}
           />
 
           <Stack sx={{ width: "100%" }} spacing={2}>
