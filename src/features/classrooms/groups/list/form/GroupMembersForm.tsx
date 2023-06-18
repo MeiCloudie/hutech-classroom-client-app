@@ -3,6 +3,7 @@ import Profile from "../../../../../app/common/models/Profile";
 import MyMultipleSelectCheckmarkInput from "../../../../common/forms/MyMultipleSelectCheckmarkInput";
 import { Box, Button, Stack } from "@mui/material";
 import { useStore } from "../../../../../app/stores/store";
+import { useParams } from "react-router-dom";
 
 interface GroupMembersFormProps {
   classroomUsers: Profile[];
@@ -11,6 +12,7 @@ interface GroupMembersFormProps {
 
 const GroupMembersForm = (props: GroupMembersFormProps) => {
   const { groupStore } = useStore();
+  const { groupId } = useParams<{ groupId: string }>();
 
   const handleFormSubmit = (
     formValues: { ids: string[] },
@@ -50,7 +52,7 @@ const GroupMembersForm = (props: GroupMembersFormProps) => {
         >
           <MyMultipleSelectCheckmarkInput
             name="ids"
-            options={props.classroomUsers.map((user) => ({
+            options={props.classroomUsers.filter(u => u.groups.some(g => g.id === groupId) || u.groups.length === 0).map((user) => ({
               label: user.lastName + " " + user.firstName,
               value: user.id
             }))}
