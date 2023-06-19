@@ -17,7 +17,7 @@ interface CommentCardProps {
 }
 
 const CommentCard = (props: CommentCardProps) => {
-  const { commentStore } = useStore();
+  const { commentStore, userStore } = useStore();
 
   const handleSubmit = () => {
     commentStore.deleteComment(props.comment.id);
@@ -49,6 +49,7 @@ const CommentCard = (props: CommentCardProps) => {
         }
         action={
           <AlertDialog
+          hidden={userStore.user?.id ===  props.comment.user?.id ? false : true}
             iconButton={<DeleteIcon />}
             titleButton="XOÁ"
             alertDialogTitle="Xoá nhận xét?"
