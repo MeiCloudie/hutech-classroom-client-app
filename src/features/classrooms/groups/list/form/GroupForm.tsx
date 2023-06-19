@@ -113,14 +113,6 @@ const GroupForm = (props: GroupFormProps) => {
         <EntityForm<GroupFormValues>
           initialEntityFormValues={groupFormValues}
           selectionFields={
-            // groupFormValues.id
-            //   ? []
-            //   : [
-            //       {
-            //         fieldKey: "leaderId",
-            //         options: classroomUserOptions,
-            //       },
-            //     ]
             [
               {
                 fieldKey: "leaderId",
@@ -136,9 +128,7 @@ const GroupForm = (props: GroupFormProps) => {
               3000,
               "Mô tả không được vượt quá 3000 ký tự!"
             ),
-            leaderId: groupFormValues.id
-              ? null
-              : Yup.string().required("Nhóm trưởng không được để trống!"),
+            leaderId: Yup.string().required("Nhóm trưởng không được để trống!"),
           }}
           fieldConfigs={[
             {
@@ -164,7 +154,6 @@ const GroupForm = (props: GroupFormProps) => {
               },
             },
           ]}
-          // excludeFields={["classroomId", groupFormValues.id ? "leaderId" : ""]}
           excludeFields={["classroomId"]}
           onSubmit={(entityFormValues) => {
             if (entityFormValues.id) {
