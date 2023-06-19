@@ -111,7 +111,7 @@ const ExerciseDetails = () => {
 
                 <Box sx={{ display: "flex" }}>
                   <AlertDialog
-                    disabled={!userStore.isLecturer}
+                    hidden={!userStore.isLecturer}
                     iconButton={<DeleteIcon />}
                     titleButton="XOÁ"
                     alertDialogTitle="Xoá bài tập?"
@@ -121,7 +121,7 @@ const ExerciseDetails = () => {
                     onSubmit={handleSubmit}
                   />
                   <CreateEditDialog
-                    disabled={!userStore.isLecturer}
+                    hidden={!userStore.isLecturer}
                     iconButton={<EditIcon />}
                     titleButton="CHỈNH SỬA"
                     titleDialog="CHỈNH SỬA BÀI TẬP"
@@ -299,7 +299,11 @@ const ExerciseDetails = () => {
                           : false
                       }
                       iconButton={<PublishIcon />}
-                      titleButton="NỘP BÀI"
+                      titleButton={
+                        dayjs.utc(exercise.deadline).isBefore(dayjs())
+                          ? "HẾT HẠN NỘP BÀI"
+                          : "NỘP BÀI"
+                      }
                       titleDialog="TẠO CÂU TRẢ LỜI"
                       formComponent={(handleClose) => (
                         <AnswerForm handleClose={handleClose} />

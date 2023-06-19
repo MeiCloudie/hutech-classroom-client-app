@@ -103,7 +103,11 @@ const AnswerDetails = () => {
                         : false
                     }
                     iconButton={<EditIcon />}
-                    titleButton="CHỈNH SỬA"
+                    titleButton={
+                      dayjs.utc(answer.exercise?.deadline).isBefore(dayjs())
+                        ? "HẾT HẠN CHỈNH SỬA"
+                        : "CHỈNH SỬA"
+                    }
                     titleDialog="CHỈNH SỬA CÂU TRẢ LỜI"
                     formComponent={(handleClose) => (
                       <AnswerForm answer={answer} handleClose={handleClose} />
