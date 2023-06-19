@@ -10,9 +10,10 @@ const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 100 },
   { field: "role", headerName: "Thông Tin", width: 200 },
   { field: "username", headerName: "Tài Khoản", width: 200 },
-  { field: "fullName", headerName: "Họ Tên", width: 200 },
+  { field: "lastName", headerName: "Họ", width: 200 },
+  { field: "firstName", headerName: "Tên", width: 100 },
   { field: "email", headerName: "Email", width: 200 },
-  { field: "groups", headerName: "Nhóm", width: 300 },
+  { field: "groups", headerName: "Nhóm", width: 200 },
 ];
 
 const MemberList = () => {
@@ -35,7 +36,8 @@ const MemberList = () => {
                       ? "Nhóm Trưởng"
                       : "Sinh Viên",
                     username: m.userName,
-                    fullName: `${m.lastName} ${m.firstName}`,
+                    lastName: `${m.lastName}`,
+                    firstName: `${m.firstName}`,
                     email: m.email,
                     groups: m.groups.map((g) => g.name).join(", "),
                   };
