@@ -45,13 +45,20 @@ const GroupForm = (props: GroupFormProps) => {
     classroomStore.loadClassroomUsers().then(() => {
       loadGroupUsers();
       setClassroomUserOptions(
-        classroomStore.classroomUsers.map((c) => ({
-          label: c.userName,
-          value: c.id,
-        }))
+        classroomStore.classroomUsers
+          .filter(
+            (u) =>
+              u.groups.some((g) => g.id === groupId) ||
+                u.groups.length === 0 ||
+              u.id === props.group?.leader?.id
+          )
+          .map((c) => ({
+            label: c.lastName + " " + c.firstName,
+            value: c.id,
+          }))
       );
     });
-  }, [classroomStore, loadGroupUsers]);
+  }, [classroomStore, groupId, loadGroupUsers, props.group?.leader?.id]);
 
   useEffect(() => {
     // if (!props.group && !groupId) {
