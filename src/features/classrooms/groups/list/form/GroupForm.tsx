@@ -30,7 +30,9 @@ const GroupForm = (props: GroupFormProps) => {
   const loadGroupUsers = useCallback(() => {
     if (props.group) {
       if (groupStore.selectedItem) {
-        setGroupFormValues(new GroupFormValues(groupStore.selectedItem));
+        const formValues = new GroupFormValues(groupStore.selectedItem);
+        formValues.leaderId = props.group.leader?.id;
+        setGroupFormValues(formValues);
       }
     } else if (groupId) {
       groupStore.get(groupId).then(() => {
@@ -49,7 +51,7 @@ const GroupForm = (props: GroupFormProps) => {
           .filter(
             (u) =>
               u.groups.some((g) => g.id === groupId) ||
-                u.groups.length === 0 ||
+              u.groups.length === 0 ||
               u.id === props.group?.leader?.id
           )
           .map((c) => ({
@@ -111,14 +113,20 @@ const GroupForm = (props: GroupFormProps) => {
         <EntityForm<GroupFormValues>
           initialEntityFormValues={groupFormValues}
           selectionFields={
-            groupFormValues.id
-              ? []
-              : [
-                  {
-                    fieldKey: "leaderId",
-                    options: classroomUserOptions,
-                  },
-                ]
+            // groupFormValues.id
+            //   ? []
+            //   : [
+            //       {
+            //         fieldKey: "leaderId",
+            //         options: classroomUserOptions,
+            //       },
+            //     ]
+            [
+              {
+                fieldKey: "leaderId",
+                options: classroomUserOptions,
+              },
+            ]
           }
           validateObject={{
             name: Yup.string()
@@ -156,14 +164,18 @@ const GroupForm = (props: GroupFormProps) => {
               },
             },
           ]}
-          excludeFields={["classroomId", groupFormValues.id ? "leaderId" : ""]}
+          // excludeFields={["classroomId", groupFormValues.id ? "leaderId" : ""]}
+          excludeFields={["classroomId"]}
           onSubmit={(entityFormValues) => {
             if (entityFormValues.id) {
               groupStore
                 .update(entityFormValues.id, entityFormValues)
                 .then(() => {
-                  props.handleClose();
+                  if (entityFormValues.leaderId) groupStore.addLeader(entityFormValues.leaderId).then(() => {
+                    props.handleClose();
+                  })
                 });
+
             } else {
               groupStore.create(entityFormValues).then(() => {
                 props.handleClose();

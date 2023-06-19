@@ -10,6 +10,7 @@ import GroupRoleConstants from "../common/constants/GroupRoleConstants";
 export default class GroupStore extends EntityStore<Group, GroupFormValues> {
   classroomGroupResource: BaseHasManyRelationshipResource<Group>;
   groupUserResource: BaseHasManyRelationshipResource<Profile>;
+  groupResource: { addLeader: (groupId: string, userId: string) => Promise<unknown>}
   constructor() {
     super("Groups");
 
@@ -21,6 +22,7 @@ export default class GroupStore extends EntityStore<Group, GroupFormValues> {
       addUserItems: action,
       removeUserItem: action,
       removeUserItems: action,
+      updateLeader: action,
       isLeader: action,
       isMember: action,
       isInGroup: action
@@ -30,6 +32,8 @@ export default class GroupStore extends EntityStore<Group, GroupFormValues> {
       agent.createHasManyRelationshipResource<Group>("Classrooms", "Groups");
       this.groupUserResource =
       agent.createHasManyRelationshipResource<Profile>("Groups", "Members");
+    this.groupResource =
+      agent.Groups;
   }
 
   isLeader = (group?: Group) : boolean => {
@@ -199,4 +203,29 @@ export default class GroupStore extends EntityStore<Group, GroupFormValues> {
       });
     }
   };
+
+  updateLeader(userId: string) {
+    if (!this.selectedItem) return;
+    const user = this.selectedItem?.groupUsers.find(u => u.id === userId);
+    this.selectedItem.leader = user;
+  }
+
+  addLeader = async (userId: string) : Promise<void> => {
+    try {
+      this.setDetailsLoading(true);
+      const id = this.selectedItem?.id;
+      if (!id) return;
+      await this.groupResource.addLeader(id, userId);
+      runInAction(() => {
+        this.updateLeader(userId);
+      });
+      // toast.success("Bạn đã cập nhật thành công!", toastBasic);
+    } catch (error) {
+      console.error("Request error:", error);
+    } finally {
+      runInAction(() => {
+        this.setDetailsLoading(false);
+      });
+    }
+  }
 }

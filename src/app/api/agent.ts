@@ -161,6 +161,10 @@ const createHasManyRelationshipResource = <TManyEntity extends Entity>(
   return resource;
 };
 
+const Groups = {
+  addLeader: (groupId: string, userId: string) => requests.post(`v1/Groups/${groupId}/add-leader/${userId}`, {})
+}
+
 const Account = {
   login: (credentials: LoginFormValues) =>
     requests.post<User>("v1/Account/login", credentials),
@@ -185,6 +189,7 @@ const Results = {
 const agent = {
   Account,
   Results,
+  Groups,
   createResource,
   createUserResource,
   createHasManyRelationshipResource,
