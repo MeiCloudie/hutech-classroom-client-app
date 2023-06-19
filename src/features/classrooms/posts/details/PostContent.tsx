@@ -79,7 +79,7 @@ const PostContent = () => {
 
         <Box sx={{ display: "flex" }}>
           <AlertDialog
-            disabled={userStore.user?.id === post.user?.id ? false : true}
+            hidden={userStore.user?.id === post.user?.id ? false : true}
             iconButton={<DeleteIcon />}
             titleButton="XOÁ"
             alertDialogTitle="Xoá bài đăng?"
@@ -89,7 +89,7 @@ const PostContent = () => {
             onSubmit={handleSubmit}
           />
           <CreateEditDialog
-            disabled={userStore.user?.id === post.user?.id ? false : true}
+            hidden={userStore.user?.id === post.user?.id ? false : true}
             iconButton={<EditIcon />}
             titleButton="CHỈNH SỬA"
             titleDialog="CHỈNH SỬA BÀI ĐĂNG"
