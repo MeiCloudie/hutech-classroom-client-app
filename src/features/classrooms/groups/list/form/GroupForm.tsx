@@ -50,9 +50,7 @@ const GroupForm = (props: GroupFormProps) => {
         classroomStore.classroomUsers
           .filter(
             (u) =>
-              u.groups.some((g) => g.id === groupId) ||
-              u.groups.length === 0 ||
-              u.id === props.group?.leader?.id
+              u.groups.some(g => g.id === groupId)
           )
           .map((c) => ({
             label: c.lastName + " " + c.firstName,
