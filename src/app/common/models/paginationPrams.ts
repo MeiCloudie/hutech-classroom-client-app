@@ -6,7 +6,7 @@ export interface PaginationParams {
 
 export class PaginationParams {
     pageNumber = 1;
-    pageSize = 10;
+    pageSize = 1000;
     searchString = "";
 
     constructor(pageNumber: number, pageSize: number, searchString: string = "") {
