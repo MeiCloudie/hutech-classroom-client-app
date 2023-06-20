@@ -50,7 +50,11 @@ const GroupForm = (props: GroupFormProps) => {
         classroomStore.classroomUsers
           .filter(
             (u) =>
-              u.groups.some(g => g.id === groupId)
+              (groupId && u.groups.some((g) => g.id === groupId)) ||
+              (!groupId &&
+                (u.groups.some((g) => g.id === groupId) ||
+                  u.groups.length === 0 ||
+                  u.id === props.group?.leader?.id))
           )
           .map((c) => ({
             label: c.lastName + " " + c.firstName,
@@ -110,14 +114,12 @@ const GroupForm = (props: GroupFormProps) => {
       <Box sx={{ display: "flex", flexGrow: 1, justifyContent: "center" }}>
         <EntityForm<GroupFormValues>
           initialEntityFormValues={groupFormValues}
-          selectionFields={
-            [
-              {
-                fieldKey: "leaderId",
-                options: classroomUserOptions,
-              },
-            ]
-          }
+          selectionFields={[
+            {
+              fieldKey: "leaderId",
+              options: classroomUserOptions,
+            },
+          ]}
           validateObject={{
             name: Yup.string()
               .required("Tên không được để trống!")
@@ -158,11 +160,11 @@ const GroupForm = (props: GroupFormProps) => {
               groupStore
                 .update(entityFormValues.id, entityFormValues)
                 .then(() => {
-                  if (entityFormValues.leaderId) groupStore.addLeader(entityFormValues.leaderId).then(() => {
-                    props.handleClose();
-                  })
+                  if (entityFormValues.leaderId)
+                    groupStore.addLeader(entityFormValues.leaderId).then(() => {
+                      props.handleClose();
+                    });
                 });
-
             } else {
               groupStore.create(entityFormValues).then(() => {
                 props.handleClose();
