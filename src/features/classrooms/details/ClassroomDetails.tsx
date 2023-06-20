@@ -7,20 +7,19 @@ import { observer } from "mobx-react-lite";
 import ClassroomDetailsSkeleton from "../../../app/layout/indicators/details/ClassroomDetailsSkeleton";
 
 const ClassroomDetails = () => {
-  const { classroomStore } = useStore()
-  const [ classroom, setClassroom ] = useState<Classroom>(new Classroom())
-  const { classroomId } = useParams<{classroomId: string}>()
-  
+  const { classroomStore } = useStore();
+  const [classroom, setClassroom] = useState<Classroom>(new Classroom());
+  const { classroomId } = useParams<{ classroomId: string }>();
+
   useEffect(() => {
     if (classroomId) {
-      classroomStore.get(classroomId).then(() => { 
-        setClassroom(classroomStore.selectedItem ?? new Classroom())
-      })
+      classroomStore.get(classroomId).then(() => {
+        setClassroom(classroomStore.selectedItem ?? new Classroom());
+      });
     }
+  }, [classroomId, classroomStore]);
 
-  }, [classroomId, classroomStore])
-
-  if (classroomStore.isDetailsLoading) return <ClassroomDetailsSkeleton />
+  if (classroomStore.isDetailsLoading) return <ClassroomDetailsSkeleton />;
 
   return (
     <Box
@@ -108,7 +107,7 @@ const ClassroomDetails = () => {
         <Typography variant="subtitle1" gutterBottom>
           Tên giảng viên:{" "}
           <strong>
-            {classroom.lecturer?.firstName} {classroom.lecturer?.lastName}
+            {classroom.lecturer?.lastName} {classroom.lecturer?.firstName}
           </strong>
         </Typography>
       </Box>
