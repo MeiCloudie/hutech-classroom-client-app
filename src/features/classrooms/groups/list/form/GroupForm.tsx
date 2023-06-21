@@ -52,7 +52,7 @@ const GroupForm = (props: GroupFormProps) => {
             (u) =>
               (groupId && u.groups.some((g) => g.id === groupId)) ||
               (!groupId &&
-                (u.groups.some((g) => g.id === groupId) ||
+                (
                   u.groups.length === 0 ||
                   u.id === props.group?.leader?.id))
           )
