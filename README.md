@@ -7,6 +7,10 @@ Welcome to the Hutech Classroom Client App repository! This is a React-based app
 - [Features](#features)
 - [Built with](#built-with)
 - [Usage](#usage)
+- [Web API](#web-api)
+- [Web Administration](#web-administration)
+- [User Web Interface](#user-web-interface)
+- [Source Code](#source-code)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -50,6 +54,32 @@ Once the app is running, you can explore its various features:
 - Browse and manage classroom sessions
 - Access course materials and resources
 - Interact with instructors and fellow students through chat
+
+## Web API
+
+The Web API serves as the backend for the HUTECH Classroom system. It handles various requests and provides the necessary functionalities. You can explore the Web API documentation by visiting the following URL: [Web API Documentation](https://hutechclassroom.azurewebsites.net/swagger/index.html)
+
+## Web Administration
+
+The Web Administration is the administrative web interface for the HUTECH Classroom system. It allows administrators to manage classrooms, users, and perform other administrative tasks. You can access the Web Administration interface at: [Web Administration](https://hutechclassroomweb.azurewebsites.net/)
+
+## User Web Interface
+
+The User Web Interface is the user-facing web interface for the HUTECH Classroom system. It enables users to access classrooms, interact with course materials, submit assignments, and engage in online discussions. You can access the User Web Interface at: [User Web Interface](https://hutech-classroom-edu.vercel.app/)
+
+## Source Code
+
+The source code for the HUTECH Classroom project is publicly available on GitHub.
+
+### Backend Source Code
+
+The backend source code repository can be found at: [Backend Source Code](https://github.com/Slimaeus/HUTECHClassroom)
+
+### Frontend Source Code
+
+The frontend source code repository can be found at: [Frontend Source Code](https://github.com/MeiCloudie/hutech-classroom-client-app)
+
+Feel free to explore, contribute, and submit pull requests to improve the project.
 
 ## Contributing
 Contributions to the Hutech Classroom Client App are welcome! If you find any bugs, issues, or have suggestions for improvements, please open an issue on the GitHub repository.
