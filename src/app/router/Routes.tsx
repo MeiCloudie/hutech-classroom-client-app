@@ -26,17 +26,12 @@ import MissionDetails from "../../features/classrooms/groups/projects/missions/d
 import PostPage from "../../features/classrooms/posts/list/PostPage";
 import PostDetails from "../../features/classrooms/posts/details/PostDetails";
 import ClassroomDetails from "../../features/classrooms/details/ClassroomDetails";
-import Countdown from "../../features/common/components/Countdown";
 
 export const routes: RouteObject[] = [
   {
     path: "/",
-    element: (
-      <>
-        <App />
-        <Countdown hidden={true} />
-      </>
-    ),
+    element: <App />,
+
     children: [
       {
         element: <RequireAuth />,
