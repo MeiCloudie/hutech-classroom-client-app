@@ -1,32 +1,31 @@
-import { Formik, Form } from "formik";
+import { Formik, Form, FormikHelpers } from "formik";
 import MyDateInput from "./MyDateInput";
 import { Button } from "@mui/material";
-
-interface FormValues {
-  targetDate: Date | null;
-}
+import dayjs, { Dayjs } from "dayjs";
 
 interface TargetFormProps {
-  onSubmit: (targetDate: Date) => void;
+  onSubmit: (targetDate: Dayjs, actions: FormikHelpers<{ targetDate: Dayjs; }>) => void;
 }
 
 const TargetForm: React.FC<TargetFormProps> = ({ onSubmit }) => {
-  const handleSubmit = (values: FormValues) => {
-    onSubmit(values.targetDate!);
+  const handleSubmit = (values: { targetDate: Dayjs; }, actions: FormikHelpers<{ targetDate: Dayjs; }>) => {
+    onSubmit(values.targetDate!, actions);
   };
 
   return (
-    <Formik<FormValues>
-      initialValues={{ targetDate: null }}
+    <Formik
+      initialValues={{ targetDate: dayjs.utc() }}
       onSubmit={handleSubmit}
     >
+      {({ isSubmitting }) => (
       <Form>
-        <MyDateInput name="targetDate" label="Target Date" />
+        <MyDateInput name="targetDate" label="Ngày kết thúc" />
 
-        <Button variant="contained" type="submit">
+        <Button variant="contained" type="submit" disabled={isSubmitting}>
           Submit
         </Button>
       </Form>
+            )}
     </Formik>
   );
 };
