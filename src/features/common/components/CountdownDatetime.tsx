@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import TargetForm from "../forms/TargetForm";
 import { toast } from "react-toastify";
 
@@ -11,14 +11,53 @@ const CountdownDatetime = () => {
   const [seconds, setSeconds] = useState(0);
   const intervalRef = useRef<NodeJS.Timer>();
 
+  useEffect(() => {
+    const targetDate = localStorage.getItem("target");
+    if (!targetDate) {
+      return;
+    }
+    clearInterval(intervalRef.current);
+    const target = new Date(targetDate);
+    localStorage.setItem("target", targetDate);
+
+    const interval = setInterval(() => {
+      setPartyTime(false);
+
+      const now = new Date();
+      const difference = target.getTime() - now.getTime();
+
+      const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+      setDays(d);
+
+      const h = Math.floor(
+        (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      setHours(h);
+
+      const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      setMinutes(m);
+
+      const s = Math.floor((difference % (1000 * 60)) / 1000);
+      setSeconds(s);
+
+      if (d <= 0 && h <= 0 && m <= 0 && s <= 0) {
+        setPartyTime(true);
+      }
+    }, 1000);
+    intervalRef.current = interval;
+  }, []);
+
   return (
     <Box>
       <TargetForm
         onSubmit={(targetFormValues, actions) => {
           clearInterval(intervalRef.current);
-          const target = new Date(targetFormValues.toDate().toUTCString());
+          const target = new Date(targetFormValues.toDate().toString());
+          localStorage.setItem("target", targetFormValues.toDate().toString());
 
           const interval = setInterval(() => {
+            setPartyTime(false);
+
             const now = new Date();
             const difference = target.getTime() - now.getTime();
 

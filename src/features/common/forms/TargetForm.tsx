@@ -14,7 +14,7 @@ const TargetForm: React.FC<TargetFormProps> = ({ onSubmit }) => {
 
   return (
     <Formik
-      initialValues={{ targetDate: dayjs.utc() }}
+      initialValues={{ targetDate: dayjs() }}
       onSubmit={handleSubmit}
     >
       {({ isSubmitting }) => (
