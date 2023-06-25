@@ -3,7 +3,6 @@ import IntroContent from "./IntroContent";
 import NotificationContent from "./NotificationContent";
 import { useStore } from "../../app/stores/store";
 import LoginPage from "../users/LoginPage";
-import CountdownDatetime from "../common/components/CountdownDatetime";
 
 const HomePage = () => {
   const { userStore } = useStore();
@@ -13,7 +12,6 @@ const HomePage = () => {
         <>
           <IntroContent />
           <NotificationContent />
-          <CountdownDatetime />
         </>
       ) : (
         <LoginPage />
