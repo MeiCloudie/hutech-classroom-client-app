@@ -49,6 +49,10 @@ const CountdownDatetime = () => {
 
   return (
     <Box>
+      <Typography variant="h6" mt={2} fontWeight={"bold"}>
+        - BỘ HẸN GIỜ -
+      </Typography>
+
       <TargetForm
         onSubmit={(targetFormValues, actions) => {
           clearInterval(intervalRef.current);
@@ -95,12 +99,16 @@ const CountdownDatetime = () => {
           actions.setSubmitting(false);
         }}
       />
+
       {partyTime ? (
-        <Typography variant="h2">Đã hết giờ!</Typography>
+        <Typography variant="h4" mt={2} fontWeight={"bold"}>
+          Đã hết giờ!
+        </Typography>
       ) : (
         <Box>
-          <Typography variant="h2">
-            {days} : {hours} : {minutes} : {seconds}
+          <Typography variant="h4" mt={2}>
+            Thời gian còn lại: {days} ngày : {hours} giờ : {minutes} phút :{" "}
+            {seconds} giây
           </Typography>
         </Box>
       )}
