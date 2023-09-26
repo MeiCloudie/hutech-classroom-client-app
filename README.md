@@ -20,6 +20,7 @@ Welcome to the Hutech Classroom Client App repository! This is a React-based app
 - [User Web Interface](#-user-web-interface)
 - [Source Code](#-source-code)
 - [Contributing](#-contributing)
+- [Contributors](#-contributors)
 - [License](#-license)
 
 ## 🎓 Overview
