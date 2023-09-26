@@ -11,16 +11,16 @@
 Welcome to the Hutech Classroom Client App repository! This is a React-based application that serves as the **frontend** for the Hutech Classroom platform. It utilizes MobX for state management and MUI (Material-UI) for UI components.
 
 ## ✨ Table of Contents
-- [🎓 Overview](#overview)
-- [Getting Started](#getting-started)
-- [Features](#features)
-- [Built with](#built-with)
-- [Web API](#web-api)
-- [Web Administration](#web-administration)
-- [User Web Interface](#user-web-interface)
-- [Source Code](#source-code)
-- [Contributing](#contributing)
-- [License](#license)
+- [Overview](#-overview)
+- [Getting Started](#-getting-started)
+- [Features](#-features)
+- [Built with](#-built-with)
+- [Web API](#-web-api)
+- [Web Administration](#-web-administration)
+- [User Web Interface](#-user-web-interface)
+- [Source Code](#-source-code)
+- [Contributing](#-contributing)
+- [License](#-license)
 
 ## 🎓 Overview
 <p align="justify">
