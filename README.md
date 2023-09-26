@@ -18,21 +18,28 @@ Welcome to the Hutech Classroom Client App repository! This is a React-based app
 To get started with the Hutech Classroom Client App, follow the installation instructions outlined below:
 
 1. Clone this repository:
+```bash
 git clone https://github.com/MeiCloudie/hutech-classroom-client-app.git
+```
 
 2. Navigate to the project directory:
+```bash
 cd hutech-classroom-client-app
+```
 
 3. Install dependencies:
+```bash
 npm install
+```
 
 4. Set up environment variables:
 - Create a `.env` file at the root of the project
 - Provide the required environment variables (refer to `.env.example`)
 
 5. Start the development server:
+```bash
 npm start
-
+```
 
 6. Access the app at `http://localhost:3000`
 
