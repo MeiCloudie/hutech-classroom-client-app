@@ -231,6 +231,10 @@ The backend source code repository can be found at: [Backend Source Code](https:
 
 The frontend source code repository can be found at: [Frontend Source Code](https://github.com/MeiCloudie/hutech-classroom-client-app)
 
+### Flutter Source Code
+
+The flutter source code repository can be found at: [Flutter Source Code](https://github.com/Slimaeus/flutter_hutech_classroom)
+
 Please contact us if you would like to contribute to this project!
 
 ## 💌 Contributing
