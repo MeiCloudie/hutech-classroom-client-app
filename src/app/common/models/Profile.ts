@@ -8,6 +8,7 @@ export default interface Profile extends Entity {
     email: string,
     firstName: string,
     lastName: string,
+    class: string,
     faculty?: Faculty
     isSubmitted?: boolean,
     groups: Group[]
