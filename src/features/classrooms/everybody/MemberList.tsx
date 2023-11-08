@@ -1,11 +1,16 @@
-import { DataGrid, GridColDef, GridRowsProp, GridToolbar } from "@mui/x-data-grid";
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useStore } from "../../../app/stores/store";
-import { PaginationParams } from "../../../app/common/models/paginationPrams";
-import { observer } from "mobx-react-lite";
-import TypoLoading from "../../../app/layout/indicators/common/TypoLoading";
-import { Divider } from "@mui/material";
+import {
+  DataGrid,
+  GridColDef,
+  GridRowsProp,
+  GridToolbar,
+} from "@mui/x-data-grid"
+import { useParams } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { useStore } from "../../../app/stores/store"
+import { PaginationParams } from "../../../app/common/models/paginationPrams"
+import { observer } from "mobx-react-lite"
+import TypoLoading from "../../../app/layout/indicators/common/TypoLoading"
+import { Divider } from "@mui/material"
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 100 },
@@ -15,12 +20,12 @@ const columns: GridColDef[] = [
   { field: "firstName", headerName: "Tên", width: 100 },
   { field: "email", headerName: "Email", width: 200 },
   { field: "groups", headerName: "Nhóm", width: 200 },
-];
+]
 
 const MemberList = () => {
-  const { classroomId } = useParams<{ classroomId: string }>();
-  const { classroomStore } = useStore();
-  const [rows, setRows] = useState<GridRowsProp>([]);
+  const { classroomId } = useParams<{ classroomId: string }>()
+  const { classroomStore } = useStore()
+  const [rows, setRows] = useState<GridRowsProp>([])
 
   useEffect(() => {
     if (classroomId)
@@ -41,14 +46,14 @@ const MemberList = () => {
                     firstName: `${m.firstName}`,
                     email: m.email,
                     groups: m.groups.map((g) => g.name).join(", "),
-                  };
+                  }
                 })
-              );
-          });
-      });
-  }, [classroomId, classroomStore]);
+              )
+          })
+      })
+  }, [classroomId, classroomStore])
 
-  if (classroomStore.isDetailsLoading) return <TypoLoading />;
+  if (classroomStore.isDetailsLoading) return <TypoLoading />
 
   return (
     <div style={{ height: "100%", width: "100%" }}>
@@ -77,9 +82,15 @@ const MemberList = () => {
             </>
           ),
         }}
+        slotProps={{
+          toolbar: {
+            csvOptions: { disableToolbarButton: true },
+            printOptions: { disableToolbarButton: true },
+          },
+        }}
       />
     </div>
-  );
-};
+  )
+}
 
-export default observer(MemberList);
+export default observer(MemberList)
