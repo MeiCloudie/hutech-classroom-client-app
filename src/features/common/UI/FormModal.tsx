@@ -29,14 +29,14 @@ const FormModal = (props: FormModalProps) => {
   return (
     <React.Fragment>
       <Button
-        variant="outlined"
+        variant="contained"
         startIcon={props.startIcon}
         onClick={handleClickOpen}
       >
         {props.buttonText}
       </Button>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{props.title}</DialogTitle>
+      <Dialog fullWidth open={open} onClose={handleClose}>
+        <DialogTitle fontWeight={"bold"}>{props.title}</DialogTitle>
         <DialogContent>
           <DialogContentText>{props.subtitle}</DialogContentText>
           {props.formComponent(handleClose)}

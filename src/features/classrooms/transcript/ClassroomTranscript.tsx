@@ -1,7 +1,9 @@
-import { Box, Button, Typography } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import ScoreTable from "./ScoreTable"
 import LibraryAddIcon from "@mui/icons-material/LibraryAdd"
+import FormModal from "../../common/UI/FormModal"
+import ScoreTypeForm from "./form/ScoreTypeForm"
 
 const ClassroomTranscript = () => {
   return (
@@ -36,9 +38,15 @@ const ClassroomTranscript = () => {
           BẢNG ĐIỂM SINH VIÊN
         </Typography>
 
-        <Button variant="contained" startIcon={<LibraryAddIcon />}>
-          Thêm cột điểm
-        </Button>
+        <FormModal
+          key={"add-score-type"}
+          buttonText="Thêm cột điểm"
+          title="THÊM CỘT ĐIỂM MỚI"
+          startIcon={<LibraryAddIcon />}
+          formComponent={(handleClose) => (
+            <ScoreTypeForm handleClose={handleClose} />
+          )}
+        />
       </Box>
 
       <ScoreTable />
