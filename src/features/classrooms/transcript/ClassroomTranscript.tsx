@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import MemberList from "../everybody/MemberList";
+import ScoreTable from "./ScoreTable";
 
 const ClassroomTranscript = () => {
   return (
@@ -26,10 +26,10 @@ const ClassroomTranscript = () => {
           textAlign: "start",
         }}
       >
-        DANH SÁCH SINH VIÊN
+        BẢNG ĐIỂM SINH VIÊN
       </Typography>
 
-      <MemberList />
+      <ScoreTable />
     </Box>
   );
 };
