@@ -1,6 +1,7 @@
-import { Box, Typography } from "@mui/material";
-import { observer } from "mobx-react-lite";
-import ScoreTable from "./ScoreTable";
+import { Box, Button, Typography } from "@mui/material"
+import { observer } from "mobx-react-lite"
+import ScoreTable from "./ScoreTable"
+import LibraryAddIcon from "@mui/icons-material/LibraryAdd"
 
 const ClassroomTranscript = () => {
   return (
@@ -17,21 +18,32 @@ const ClassroomTranscript = () => {
         },
       }}
     >
-      <Typography
-        variant="h5"
-        gutterBottom
+      <Box
         sx={{
-          fontWeight: 600,
-          color: (theme) => theme.palette.primary.main,
-          textAlign: "start",
+          display: "flex",
+          justifyContent: "space-between",
+          py: 2,
         }}
       >
-        BẢNG ĐIỂM SINH VIÊN
-      </Typography>
+        <Typography
+          variant="h5"
+          sx={{
+            fontWeight: 600,
+            color: (theme) => theme.palette.primary.main,
+            textAlign: "start",
+          }}
+        >
+          BẢNG ĐIỂM SINH VIÊN
+        </Typography>
+
+        <Button variant="contained" startIcon={<LibraryAddIcon />}>
+          Thêm cột điểm
+        </Button>
+      </Box>
 
       <ScoreTable />
     </Box>
-  );
-};
+  )
+}
 
-export default observer(ClassroomTranscript);
+export default observer(ClassroomTranscript)
