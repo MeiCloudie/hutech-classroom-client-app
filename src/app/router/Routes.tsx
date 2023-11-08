@@ -26,6 +26,7 @@ import MissionDetails from "../../features/classrooms/groups/projects/missions/d
 import PostPage from "../../features/classrooms/posts/list/PostPage";
 import PostDetails from "../../features/classrooms/posts/details/PostDetails";
 import ClassroomDetails from "../../features/classrooms/details/ClassroomDetails";
+import ClassroomTranscript from "../../features/classrooms/transcript/ClassroomTranscript";
 
 export const routes: RouteObject[] = [
   {
@@ -107,6 +108,11 @@ export const routes: RouteObject[] = [
                   },
                 ],
               },
+              {
+                path: "transcript",
+                element: <ClassroomLayout />,
+                children: [{ element: <ClassroomTranscript /> }],
+              }
             ],
           },
           { path: "errors", element: <TestErrors /> },
