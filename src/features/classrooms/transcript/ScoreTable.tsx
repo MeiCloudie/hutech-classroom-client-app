@@ -12,19 +12,27 @@ import { observer } from "mobx-react-lite"
 import TypoLoading from "../../../app/layout/indicators/common/TypoLoading"
 import { Divider } from "@mui/material"
 
-const columns: GridColDef[] = [
-  { field: "id", headerName: "STT", width: 70 },
-  { field: "username", headerName: "Mã SV", width: 120 },
-  { field: "lastName", headerName: "Họ SV", width: 200 },
-  { field: "firstName", headerName: "Tên SV", width: 100 },
-  { field: "class", headerName: "Mã lớp", width: 120 },
-  { field: "score1", headerName: "Cột 1", width: 100 },
-]
-
 const ScoreTable = () => {
   const { classroomId } = useParams<{ classroomId: string }>()
   const { classroomStore } = useStore()
   const [rows, setRows] = useState<GridRowsProp>([])
+
+  const columns: GridColDef[] = [
+    { field: "id", headerName: "STT", width: 70 },
+    { field: "username", headerName: "Mã SV", width: 120 },
+    { field: "lastName", headerName: "Họ SV", width: 200 },
+    { field: "firstName", headerName: "Tên SV", width: 100 },
+    { field: "class", headerName: "Mã lớp", width: 120 },
+    {
+      field: "score1",
+      headerName: "Cột 1",
+      width: 100,
+      type: "number",
+      editable: true,
+      align: "left",
+      headerAlign: "left",
+    },
+  ]
 
   useEffect(() => {
     if (classroomId)
@@ -40,6 +48,7 @@ const ScoreTable = () => {
                     username: m.userName,
                     lastName: `${m.lastName}`,
                     firstName: `${m.firstName}`,
+                    class: `${m.class}`,
                     //TODO: Thêm các thuộc tính còn lại
                   }
                 })
