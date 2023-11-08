@@ -1,10 +1,11 @@
-import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridRowsProp, GridToolbar } from "@mui/x-data-grid";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useStore } from "../../../app/stores/store";
 import { PaginationParams } from "../../../app/common/models/paginationPrams";
 import { observer } from "mobx-react-lite";
 import TypoLoading from "../../../app/layout/indicators/common/TypoLoading";
+import { Divider } from "@mui/material";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 100 },
@@ -68,6 +69,14 @@ const MemberList = () => {
           },
         }}
         pageSizeOptions={[5, 10]}
+        slots={{
+          toolbar: (props) => (
+            <>
+              <GridToolbar {...props} />
+              <Divider />
+            </>
+          ),
+        }}
       />
     </div>
   );
