@@ -11,6 +11,7 @@ import MissionStore from "./missionStore";
 import GroupStore from "./groupStore";
 import ProjectStore from "./projectStore";
 import AnswerStore from "./answerStore";
+import ScoreTypeStore from "./scoreTypeStore";
 
 interface Store {
   classroomStore: ClassroomStore;
@@ -24,6 +25,7 @@ interface Store {
   missionStore: MissionStore;
   postStore: PostStore;
   subjectStore: SubjectStore;
+  scoreTypeStore: ScoreTypeStore
   userStore: UserStore;
 }
 
@@ -39,6 +41,7 @@ export const store: Store = {
   missionStore: new MissionStore(),
   postStore: new PostStore(),
   subjectStore: new SubjectStore(),
+  scoreTypeStore: new ScoreTypeStore(),
   userStore: new UserStore(),
 };
 

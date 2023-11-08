@@ -1,30 +1,11 @@
-import { action, computed, makeObservable, runInAction } from "mobx";
-import UserRelatedStore from "../common/stores/userRelatedStore";
-import { ScoreType, ScoreTypeFormValues } from "../models/ScoreType";
-import { BaseHasManyRelationshipResource } from "../api/baseResource";
-import agent from "../api/agent";
-import Profile from "../common/models/Profile";
+import EntityStore from "../common/stores/entityStore"
+import { ScoreType, ScoreTypeFormValues } from "../models/ScoreType"
 
-export default class ScoreTypeStore extends UserRelatedStore<
+export default class ScoreTypeStore extends EntityStore<
   ScoreType,
   ScoreTypeFormValues
 > {
-  classroomScoreTypeResource: BaseHasManyRelationshipResource<ScoreType>;
-  scoreTypeUserResource: BaseHasManyRelationshipResource<Profile>;
   constructor() {
-    super("ScoreTypes");
-
-    makeObservable(this, {
-
-    });
-
-    this.classroomScoreTypeResource =
-      agent.createHasManyRelationshipResource<ScoreType>(
-        "Classrooms",
-        "ScoreTypes"
-      );
-    this.scoreTypeUserResource =
-      agent.createHasManyRelationshipResource<Profile>("ScoreTypes", "Members");
+    super("ScoreTypes")
   }
-
 }
