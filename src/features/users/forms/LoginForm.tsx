@@ -6,7 +6,6 @@ import * as Yup from "yup";
 import { useStore } from "../../../app/stores/store";
 import MyTextInput from "../../common/forms/MyTextInput";
 import { toast } from "react-toastify";
-import { blue } from "@mui/material/colors";
 import LoadingButton from "@mui/lab/LoadingButton";
 import LoginIcon from "@mui/icons-material/Login";
 
@@ -49,10 +48,7 @@ const LoginForm = () => {
         >
           <Typography
             variant="h4"
-            fontWeight={700}
-            sx={{
-              color: blue[800],
-            }}
+            fontWeight={"bold"}
           >
             ĐĂNG NHẬP
           </Typography>
