@@ -11,12 +11,21 @@ import { useStore } from "../../../app/stores/store"
 import TypoLoading from "../../../app/layout/indicators/common/TypoLoading"
 import { PaginationParams } from "../../../app/common/models/paginationPrams"
 import AlertDialog from "../../common/UI/AlertDialog"
-import DeleteIcon from "@mui/icons-material/Delete"
 import { observer } from "mobx-react-lite"
+import Modal from "../../common/UI/Modal"
+import DeleteIcon from "@mui/icons-material/Delete"
+import LibraryAddIcon from "@mui/icons-material/LibraryAdd"
+import EditIcon from "@mui/icons-material/Edit"
+import ArrowBackIcon from "@mui/icons-material/ArrowBack"
+import ScoreTypeForm from "./form/ScoreTypeForm"
+import { Link, useParams } from "react-router-dom"
 
 const ScoreTypePage = () => {
   const { scoreTypeStore } = useStore()
   const [rows, setRows] = useState<GridRowsProp>([])
+  const { classroomId } = useParams<{
+    classroomId: string
+  }>()
 
   const columns: GridColDef[] = [
     { field: "stt", headerName: "STT", width: 100 },
@@ -31,8 +40,20 @@ const ScoreTypePage = () => {
       renderCell: (params) => {
         const scoreTypeId = params.row.id
         return (
-          <Box>
-            <Button>Sửa</Button>
+          <Box sx={{ display: "flex", gap: 1 }}>
+            <Modal
+              key={"update-score-type"}
+              buttonText="SỬA"
+              title="CHỈNH SỬA TÊN CỘT ĐIỂM"
+              startIcon={<EditIcon />}
+              component={(handleClose) => (
+                <ScoreTypeForm
+                  scoreTypeId={scoreTypeId}
+                  handleClose={handleClose}
+                />
+                //! Chưa Refetch lại
+              )}
+            />
             <AlertDialog
               iconButton={<DeleteIcon />}
               titleButton="XOÁ"
@@ -86,17 +107,44 @@ const ScoreTypePage = () => {
               textAlign: "start",
             }}
           >
-            <Typography
-              variant="h5"
-              gutterBottom
+            <Box
               sx={{
-                fontWeight: 600,
-                color: (theme) => theme.palette.primary.main,
-                textAlign: "start",
+                display: "flex",
+                justifyContent: "space-between",
+                py: 2,
               }}
             >
-              DANH SÁCH CÁC CỘT ĐIỂM
-            </Typography>
+              <Typography
+                variant="h5"
+                sx={{
+                  fontWeight: 600,
+                  color: (theme) => theme.palette.primary.main,
+                  textAlign: "start",
+                }}
+              >
+                DANH SÁCH CÁC CỘT ĐIỂM
+              </Typography>
+              <Box sx={{ display: "flex", gap: 1 }}>
+                <Modal
+                  key={"add-score-type"}
+                  buttonText="Thêm cột điểm"
+                  title="THÊM CỘT ĐIỂM MỚI"
+                  startIcon={<LibraryAddIcon />}
+                  component={(handleClose) => (
+                    <ScoreTypeForm handleClose={handleClose} />
+                  )}
+                />
+                <Button
+                  variant="contained"
+                  startIcon={<ArrowBackIcon />}
+                  component={Link}
+                  to={`/cr/${classroomId}/transcript`}
+                >
+                  Quay Về
+                </Button>
+              </Box>
+            </Box>
+
             <DataGrid
               sx={{
                 boxShadow: 4,

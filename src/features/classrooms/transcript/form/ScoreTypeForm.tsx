@@ -1,9 +1,7 @@
 import { Box } from "@mui/material"
 import * as Yup from "yup"
-import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import {
-  ScoreType,
   ScoreTypeFormValues,
 } from "../../../../app/models/ScoreType"
 import { useStore } from "../../../../app/stores/store"
@@ -11,29 +9,30 @@ import EntityForm from "../../../common/forms/EntityForm"
 
 interface ScoreTypeFormProps {
   handleClose: () => void
-  scoreType?: ScoreType
+  scoreTypeId?: string
 }
 
 const ScoreTypeForm = (props: ScoreTypeFormProps) => {
-  const { scoreTypeId } = useParams<{
-    scoreTypeId: string
-  }>()
   const { scoreTypeStore } = useStore()
   const [scoreTypeFormValues, setScoreTypeFormValues] =
     useState<ScoreTypeFormValues>(new ScoreTypeFormValues())
 
   useEffect(() => {
-    if (props.scoreType)
-      setScoreTypeFormValues(new ScoreTypeFormValues(props.scoreType))
-    else if (scoreTypeId)
-      scoreTypeStore.get(scoreTypeId).then(() => {
+    if (props.scoreTypeId) {
+      scoreTypeStore.get(props.scoreTypeId).then(() => {
+        setScoreTypeFormValues(
+          new ScoreTypeFormValues(scoreTypeStore.selectedItem)
+        )
+      })
+    } else if (props.scoreTypeId)
+      scoreTypeStore.get(props.scoreTypeId).then(() => {
         if (scoreTypeStore.selectedItem) {
           setScoreTypeFormValues(
             new ScoreTypeFormValues(scoreTypeStore.selectedItem)
           )
         }
       })
-  }, [scoreTypeId, scoreTypeStore, props.scoreType])
+  }, [props.scoreTypeId, scoreTypeStore])
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -52,7 +51,7 @@ const ScoreTypeForm = (props: ScoreTypeFormProps) => {
             },
           },
         ]}
-        excludeFields={[""]}
+        excludeFields={["id"]}
         onSubmit={(entityFormValues) => {
           if (entityFormValues.id) {
             scoreTypeStore
