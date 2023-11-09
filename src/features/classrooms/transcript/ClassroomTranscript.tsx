@@ -1,11 +1,17 @@
-import { Box, Typography } from "@mui/material"
+import { Box, Button, Typography } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import ScoreTable from "./ScoreTable"
 import LibraryAddIcon from "@mui/icons-material/LibraryAdd"
 import ScoreTypeForm from "./form/ScoreTypeForm"
 import Modal from "../../common/UI/Modal"
+import InfoIcon from "@mui/icons-material/Info"
+import { Link, useParams } from "react-router-dom"
 
 const ClassroomTranscript = () => {
+  const { classroomId } = useParams<{
+    classroomId: string
+  }>()
+
   return (
     <Box
       sx={{
@@ -38,15 +44,26 @@ const ClassroomTranscript = () => {
           BẢNG ĐIỂM SINH VIÊN
         </Typography>
 
-        <Modal
-          key={"add-score-type"}
-          buttonText="Thêm cột điểm"
-          title="THÊM CỘT ĐIỂM MỚI"
-          startIcon={<LibraryAddIcon />}
-          component={(handleClose) => (
-            <ScoreTypeForm handleClose={handleClose} />
-          )}
-        />
+        <Box>
+          <Modal
+            key={"add-score-type"}
+            buttonText="Thêm cột điểm"
+            title="THÊM CỘT ĐIỂM MỚI"
+            startIcon={<LibraryAddIcon />}
+            component={(handleClose) => (
+              <ScoreTypeForm handleClose={handleClose} />
+            )}
+          />
+          <Button
+            sx={{ ml: 1 }}
+            variant="contained"
+            startIcon={<InfoIcon />}
+            component={Link}
+            to={`/cr/${classroomId}/tr/scoretypes`}
+          >
+            CHI TIẾT
+          </Button>
+        </Box>
       </Box>
 
       <ScoreTable />

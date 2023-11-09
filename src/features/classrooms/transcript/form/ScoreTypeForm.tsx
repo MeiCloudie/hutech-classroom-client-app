@@ -52,7 +52,7 @@ const ScoreTypeForm = (props: ScoreTypeFormProps) => {
             },
           },
         ]}
-        excludeFields={["classroomId"]}
+        excludeFields={[""]}
         onSubmit={(entityFormValues) => {
           if (entityFormValues.id) {
             scoreTypeStore
