@@ -7,15 +7,15 @@ import {
 } from "@mui/material"
 import React from "react"
 
-interface FormModalProps {
+interface ModalProps {
   startIcon?: React.ReactNode
   buttonText: string
   title: string
   subtitle?: string
-  formComponent: (handleClose: () => void) => any
+  component: (handleClose: () => void) => any
 }
 
-const FormModal = (props: FormModalProps) => {
+const Modal = (props: ModalProps) => {
   const [open, setOpen] = React.useState(false)
 
   const handleClickOpen = () => {
@@ -39,11 +39,11 @@ const FormModal = (props: FormModalProps) => {
         <DialogTitle fontWeight={"bold"}>{props.title}</DialogTitle>
         <DialogContent>
           <DialogContentText>{props.subtitle}</DialogContentText>
-          {props.formComponent(handleClose)}
+          {props.component(handleClose)}
         </DialogContent>
       </Dialog>
     </React.Fragment>
   )
 }
 
-export default FormModal
+export default Modal
