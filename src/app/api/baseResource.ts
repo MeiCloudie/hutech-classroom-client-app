@@ -1,4 +1,4 @@
-import Entity, { EntityFormValues } from "../common/models/Entity";
+import Entity, { BaseEntity, BaseEntityFormValues, EntityFormValues } from "../common/models/Entity";
 import { PaginationParams } from "../common/models/paginationPrams";
 
 export interface BaseResource<
@@ -26,4 +26,35 @@ TManyEntity extends Entity
   removeEntity: (firstEntityId: string, secondEntityId: string) => Promise<void>;
   addEntities: (firstEntityId: string, secondEntityIds: string[]) => Promise<void>;
   removeEntities: (firstEntityId: string, secondEntityIds: string[]) => Promise<void>;
+}
+
+export interface BaseEntityResource<
+  TId,
+  TEntity extends BaseEntity<TId>,
+  TEntityFormValues extends BaseEntityFormValues<number>
+> {
+  list: (params?: PaginationParams) => Promise<TEntity[]>;
+  details: (id: TId) => Promise<TEntity>;
+  create: (formValues: TEntityFormValues) => Promise<TEntity>;
+  update: (id: TId, formValues: TEntityFormValues) => Promise<void>;
+  delete: (id: TId) => Promise<TEntity>;
+}
+
+export interface BaseEntityUserResource<
+  TId,
+  TEntity extends BaseEntity<TId>
+> {
+    listByUser: (params?: PaginationParams) => Promise<TEntity[]>;
+}
+
+export interface BaseEntityHasManyRelationshipResource<
+TFirstId,
+TSecondId,
+TManyEntity extends BaseEntity<TSecondId>
+> {
+  listEntities: (id: TFirstId, params?: PaginationParams) => Promise<TManyEntity[]>;
+  addEntity: (firstEntityId: TFirstId, secondEntityId: TSecondId) => Promise<void>;
+  removeEntity: (firstEntityId: TFirstId, secondEntityId: TSecondId) => Promise<void>;
+  addEntities: (firstEntityId: TFirstId, secondEntityIds: TSecondId[]) => Promise<void>;
+  removeEntities: (firstEntityId: TFirstId, secondEntityIds: TSecondId[]) => Promise<void>;
 }

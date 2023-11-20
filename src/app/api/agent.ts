@@ -7,8 +7,11 @@ import {
   User,
 } from "../models/User";
 import { store } from "../stores/store";
-import Entity, { EntityFormValues } from "../common/models/Entity";
+import Entity, { BaseEntity, BaseEntityFormValues, EntityFormValues } from "../common/models/Entity";
 import {
+  BaseEntityHasManyRelationshipResource,
+  BaseEntityResource,
+  BaseEntityUserResource,
   BaseHasManyRelationshipResource,
   BaseResource,
   BaseUserResource,
@@ -161,6 +164,67 @@ const createHasManyRelationshipResource = <TManyEntity extends Entity>(
   return resource;
 };
 
+const createEntityResource = <
+  TId,
+  TEntity extends BaseEntity<TId>,
+  TEntityFormValues extends BaseEntityFormValues<number>
+>(
+  entityName: string
+): BaseEntityResource<TId, TEntity, TEntityFormValues> => {
+  const resource: BaseEntityResource<TId, TEntity, TEntityFormValues> = {
+    list: (params?: PaginationParams) =>
+      requests.get<TEntity[]>(`v1/${entityName}`, params),
+    details: (id: TId) => requests.get<TEntity>(`v1/${entityName}/${id}`),
+    create: (formValues: TEntityFormValues) =>
+      requests.post<TEntity>(`v1/${entityName}`, formValues),
+    update: (id: TId, formValues: TEntityFormValues) =>
+      requests.put(`v1/${entityName}/${id}`, formValues),
+    delete: (id: TId) => requests.delete<TEntity>(`v1/${entityName}/${id}`),
+  };
+  return resource;
+};
+
+const createEntityUserResource = <TId, TEntity extends BaseEntity<TId>>(entityName: string) => {
+  const resource: BaseEntityUserResource<TId, TEntity> = {
+    listByUser: (params?: PaginationParams) =>
+      requests.get<TEntity[]>(`v1/Users/@me/${entityName}`, params),
+  };
+  return resource;
+};
+
+const createEntityHasManyRelationshipResource = <TFirstId, TSecondId, TManyEntity extends BaseEntity<TSecondId>>(
+  firstEntityName: String,
+  secondEntityName: String
+) => {
+  const resource: BaseEntityHasManyRelationshipResource<TFirstId, TSecondId, TManyEntity> = {
+    listEntities: (id: TFirstId, params?: PaginationParams) =>
+      requests.get<TManyEntity[]>(
+        `v1/${firstEntityName}/${id}/${secondEntityName}`,
+        params
+      ),
+    addEntity: (firstEntityId: TFirstId, secondEntityId: TSecondId) =>
+      requests.post(
+        `v1/${firstEntityName}/${firstEntityId}/${secondEntityName}/${secondEntityId}`,
+        {}
+      ),
+    removeEntity: (firstEntityId: TFirstId, secondEntityId: TSecondId) =>
+      requests.delete(
+        `v1/${firstEntityName}/${firstEntityId}/${secondEntityName}/${secondEntityId}`
+      ),
+    addEntities: (firstEntityId: TFirstId, secondEntityIds: TSecondId[]) =>
+      requests.post(
+        `v1/${firstEntityName}/${firstEntityId}/${secondEntityName}/add`,
+        secondEntityIds
+      ),
+      removeEntities: (firstEntityId: TFirstId, secondEntityIds: TSecondId[]) =>
+      requests.post(
+        `v1/${firstEntityName}/${firstEntityId}/${secondEntityName}/remove`,
+        secondEntityIds
+      ),
+  };
+  return resource;
+};
+
 const Groups = {
   addLeader: (groupId: string, userId: string) => requests.post(`v1/Groups/${groupId}/add-leader/${userId}`, {})
 }
@@ -193,6 +257,9 @@ const agent = {
   createResource,
   createUserResource,
   createHasManyRelationshipResource,
+  createEntityResource,
+  createEntityUserResource,
+  createEntityHasManyRelationshipResource,
 };
 
 export default agent;

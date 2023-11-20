@@ -1,13 +1,13 @@
-import Entity, { Auditable } from "../common/models/Entity"
+import { Auditable, BaseEntity } from "../common/models/Entity"
 
-export interface ScoreType extends Entity, Auditable {
-  id: string
+export interface ScoreType extends BaseEntity<number>, Auditable {
+  id: number
   createDate: Date
   name: string
 }
 
 export class ScoreType implements ScoreType {
-  id = ""
+  id = 0
   createDate = new Date()
   name = ""
 
@@ -17,7 +17,7 @@ export class ScoreType implements ScoreType {
 }
 
 export class ScoreTypeFormValues {
-  id?: string = ""
+  id?: number = undefined
   name: string = ""
 
   constructor(scoreType?: ScoreType) {

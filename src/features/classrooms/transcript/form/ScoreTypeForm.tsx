@@ -5,11 +5,11 @@ import {
   ScoreTypeFormValues,
 } from "../../../../app/models/ScoreType"
 import { useStore } from "../../../../app/stores/store"
-import EntityForm from "../../../common/forms/EntityForm"
+import BaseEntityForm from "../../../common/forms/BaseEntityForm"
 
 interface ScoreTypeFormProps {
   handleClose: () => void
-  scoreTypeId?: string
+  scoreTypeId?: number
 }
 
 const ScoreTypeForm = (props: ScoreTypeFormProps) => {
@@ -36,7 +36,7 @@ const ScoreTypeForm = (props: ScoreTypeFormProps) => {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <EntityForm<ScoreTypeFormValues>
+      <BaseEntityForm<number, ScoreTypeFormValues>
         initialEntityFormValues={scoreTypeFormValues}
         selectionFields={[]}
         validateObject={{
