@@ -13,6 +13,7 @@ import {
   BaseEntityResource,
   BaseEntityUserResource,
   BaseHasManyRelationshipResource,
+  BaseNonEntityHasManyRelationshipResource,
   BaseResource,
   BaseUserResource,
 } from "./baseResource";
@@ -225,6 +226,39 @@ const createEntityHasManyRelationshipResource = <TFirstId, TSecondId, TManyEntit
   return resource;
 };
 
+const createNonEntityHasManyRelationshipResource = <TFirstId, TSecondId, TResponse>(
+  firstEntityName: String,
+  secondEntityName: String
+) => {
+  const resource: BaseNonEntityHasManyRelationshipResource<TFirstId, TSecondId, TResponse> = {
+    listNonEntities: (id: TFirstId, params?: PaginationParams) =>
+      requests.get<TResponse[]>(
+        `v1/${firstEntityName}/${id}/${secondEntityName}`,
+        params
+      ),
+    addNonEntity: (firstEntityId: TFirstId, secondEntityId: TSecondId) =>
+      requests.post(
+        `v1/${firstEntityName}/${firstEntityId}/${secondEntityName}/${secondEntityId}`,
+        {}
+      ),
+    removeNonEntity: (firstEntityId: TFirstId, secondEntityId: TSecondId) =>
+      requests.delete(
+        `v1/${firstEntityName}/${firstEntityId}/${secondEntityName}/${secondEntityId}`
+      ),
+    addNonEntities: (firstEntityId: TFirstId, secondEntityIds: TSecondId[]) =>
+      requests.post(
+        `v1/${firstEntityName}/${firstEntityId}/${secondEntityName}/add`,
+        secondEntityIds
+      ),
+      removeNonEntities: (firstEntityId: TFirstId, secondEntityIds: TSecondId[]) =>
+      requests.post(
+        `v1/${firstEntityName}/${firstEntityId}/${secondEntityName}/remove`,
+        secondEntityIds
+      ),
+  };
+  return resource;
+};
+
 const Groups = {
   addLeader: (groupId: string, userId: string) => requests.post(`v1/Groups/${groupId}/add-leader/${userId}`, {})
 }
@@ -260,6 +294,7 @@ const agent = {
   createEntityResource,
   createEntityUserResource,
   createEntityHasManyRelationshipResource,
+  createNonEntityHasManyRelationshipResource
 };
 
 export default agent;

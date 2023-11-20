@@ -58,3 +58,15 @@ TManyEntity extends BaseEntity<TSecondId>
   addEntities: (firstEntityId: TFirstId, secondEntityIds: TSecondId[]) => Promise<void>;
   removeEntities: (firstEntityId: TFirstId, secondEntityIds: TSecondId[]) => Promise<void>;
 }
+
+export interface BaseNonEntityHasManyRelationshipResource<
+TFirstId,
+TSecondId,
+TResponse
+> {
+  listNonEntities: (id: TFirstId, params?: PaginationParams) => Promise<TResponse[]>;
+  addNonEntity: (firstEntityId: TFirstId, secondEntityId: TSecondId) => Promise<void>;
+  removeNonEntity: (firstEntityId: TFirstId, secondEntityId: TSecondId) => Promise<void>;
+  addNonEntities: (firstEntityId: TFirstId, secondEntityIds: TSecondId[]) => Promise<void>;
+  removeNonEntities: (firstEntityId: TFirstId, secondEntityIds: TSecondId[]) => Promise<void>;
+}
