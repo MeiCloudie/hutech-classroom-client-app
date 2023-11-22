@@ -26,7 +26,7 @@ const ScoreTable = () => {
     {
       field: "1",
       headerName: "Điểm quá trình",
-      width: 100,
+      width: 150,
       type: "number",
       editable: true,
       align: "left",
