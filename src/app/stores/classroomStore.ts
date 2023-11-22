@@ -6,6 +6,7 @@ import Profile from "../common/models/Profile";
 import agent from "../api/agent";
 import UserRelatedStore from "../common/stores/userRelatedStore";
 import { StudentResult } from "../models/StudentResult";
+import { ClassroomScore } from "../models/ClassroomScore";
 
 export default class ClassroomStore extends UserRelatedStore<
   Classroom,
@@ -13,6 +14,7 @@ export default class ClassroomStore extends UserRelatedStore<
 > {
   classroomUserResource: BaseHasManyRelationshipResource<Profile>;
   classroomResultResource: BaseNonEntityHasManyRelationshipResource<string, number, StudentResult>;
+  classroomScoreResource: BaseNonEntityHasManyRelationshipResource<string, number, ClassroomScore>;
   constructor() {
     super("Classrooms");
 
@@ -33,6 +35,8 @@ export default class ClassroomStore extends UserRelatedStore<
       agent.createHasManyRelationshipResource<Profile>("Classrooms", "Members");
       this.classroomResultResource =
       agent.createNonEntityHasManyRelationshipResource<string, number, StudentResult>("Classrooms", "Results");
+      this.classroomScoreResource =
+      agent.createNonEntityHasManyRelationshipResource<string, number, ClassroomScore>("Classrooms", "Scores");
   }
 
   isStudentResultListLoading: boolean = false
@@ -65,6 +69,46 @@ export default class ClassroomStore extends UserRelatedStore<
     } finally {
       runInAction(() => {
         this.setStudentResultListLoading(false);
+      });
+    }
+  };
+
+  setClassroomScoreListLoading(value: boolean) {
+    this.isClassroomScoreListLoading  = value;
+  }
+
+  setClassroomScores(items: ClassroomScore[]): void {
+    if (!this.selectedItem) return;
+    this._classroomScores = [];
+    this._classroomScores.push(...items);
+  }
+
+  isClassroomScoreListLoading: boolean = false;
+
+  _classroomScores: ClassroomScore[] = [];
+
+  get classroomScores(): ClassroomScore[] {
+    return this._classroomScores;
+  }
+
+  loadClassroomClassroomScores = async (
+    params?: PaginationParams
+  ): Promise<ClassroomScore[]> => {
+    try {
+      this.setClassroomScoreListLoading(true);
+      const id = this.selectedItem?.id;
+      if (!id) return [];
+      const items = await this.classroomScoreResource.listNonEntities(id, params);
+      runInAction(() => {
+        this.setClassroomScores(items);
+      });
+      return items;
+    } catch (error) {
+      console.error("Request error:", error);
+      return [];
+    } finally {
+      runInAction(() => {
+        this.setClassroomScoreListLoading(false);
       });
     }
   };

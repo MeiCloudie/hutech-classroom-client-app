@@ -24,8 +24,17 @@ const ScoreTable = () => {
     { field: "firstName", headerName: "Tên SV", width: 100 },
     { field: "class", headerName: "Mã lớp", width: 120 },
     {
-      field: "score1",
+      field: "1",
       headerName: "Cột 1",
+      width: 100,
+      type: "number",
+      editable: true,
+      align: "left",
+      headerAlign: "left",
+    },
+    {
+      field: "2",
+      headerName: "Cột 2",
       width: 100,
       type: "number",
       editable: true,
@@ -38,17 +47,22 @@ const ScoreTable = () => {
     if (classroomId)
       classroomStore.get(classroomId).then(() => {
         classroomStore
-          .loadClassroomUsers(new PaginationParams(1, 100, ""))
+          .loadClassroomClassroomScores(new PaginationParams(1, 100, ""))
           .then(() => {
-            if (classroomStore.classroomUsers)
+            if (classroomStore.classroomScores)
               setRows(
-                classroomStore.classroomUsers.map((m, i) => {
+                classroomStore.classroomScores.map((m, i) => {
                   return {
                     id: i + 1,
-                    username: m.userName,
-                    lastName: `${m.lastName}`,
-                    firstName: `${m.firstName}`,
-                    class: `${m.class}`,
+                    username: m.student?.userName ?? "",
+                    lastName: `${m.student?.lastName ?? ""}`,
+                    firstName: `${m.student?.firstName ?? ""}`,
+                    class: `${m.classroom?.class}`,
+                    
+                      ...m.scores.reduce((dictionary: {[key: number]: number}, element, index) => (dictionary[element.scoreType?.id ?? 0] = m.scores[index].score, dictionary),
+                      {}),
+                    // score: m.scores.map(x => x.score).join(', '),
+                    'a': 3
                     //TODO: Thêm các thuộc tính còn lại
                   }
                 })
