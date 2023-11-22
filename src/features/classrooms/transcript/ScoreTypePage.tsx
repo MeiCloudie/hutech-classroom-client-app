@@ -125,7 +125,7 @@ const ScoreTypePage = () => {
                 DANH SÁCH CÁC CỘT ĐIỂM
               </Typography>
               <Box sx={{ display: "flex", gap: 1 }}>
-                <Modal
+                {/* <Modal
                   key={"add-score-type"}
                   buttonText="Thêm cột điểm"
                   title="THÊM CỘT ĐIỂM MỚI"
@@ -133,7 +133,7 @@ const ScoreTypePage = () => {
                   component={(handleClose) => (
                     <ScoreTypeForm handleClose={handleClose} />
                   )}
-                />
+                /> */}
                 <Button
                   variant="contained"
                   startIcon={<ArrowBackIcon />}

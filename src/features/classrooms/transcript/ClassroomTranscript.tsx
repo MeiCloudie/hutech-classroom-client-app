@@ -45,7 +45,7 @@ const ClassroomTranscript = () => {
         </Typography>
 
         <Box>
-          <Modal
+          {/* <Modal
             key={"add-score-type"}
             buttonText="Thêm cột điểm"
             title="THÊM CỘT ĐIỂM MỚI"
@@ -53,7 +53,7 @@ const ClassroomTranscript = () => {
             component={(handleClose) => (
               <ScoreTypeForm handleClose={handleClose} />
             )}
-          />
+          /> */}
           <Button
             sx={{ ml: 1 }}
             variant="contained"

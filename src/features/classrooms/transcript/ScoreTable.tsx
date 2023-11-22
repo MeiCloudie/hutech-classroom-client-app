@@ -25,7 +25,7 @@ const ScoreTable = () => {
     { field: "class", headerName: "Mã lớp", width: 120 },
     {
       field: "1",
-      headerName: "Cột 1",
+      headerName: "Điểm quá trình",
       width: 100,
       type: "number",
       editable: true,
@@ -34,7 +34,7 @@ const ScoreTable = () => {
     },
     {
       field: "2",
-      headerName: "Cột 2",
+      headerName: "Điểm cuối kỳ",
       width: 100,
       type: "number",
       editable: true,
@@ -58,11 +58,8 @@ const ScoreTable = () => {
                     lastName: `${m.student?.lastName ?? ""}`,
                     firstName: `${m.student?.firstName ?? ""}`,
                     class: `${m.classroom?.class}`,
-                    
                       ...m.scores.reduce((dictionary: {[key: number]: number}, element, index) => (dictionary[element.scoreType?.id ?? 0] = m.scores[index].score, dictionary),
-                      {}),
-                    // score: m.scores.map(x => x.score).join(', '),
-                    'a': 3
+                      {})
                     //TODO: Thêm các thuộc tính còn lại
                   }
                 })
