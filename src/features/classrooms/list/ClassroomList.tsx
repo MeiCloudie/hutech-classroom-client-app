@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import ClassroomCard from "./ClassroomCard";
-import { Classroom } from "../../../app/models/Classroom";
+import React, { useEffect, useState } from "react"
+import ClassroomCard from "./ClassroomCard"
+import { Classroom } from "../../../app/models/Classroom"
 
-import { Grid, styled } from "@mui/material";
-import { useStore } from "../../../app/stores/store";
-import { observer } from "mobx-react-lite";
-import PlaceholderBox from "../../common/UI/PlaceholderBox";
-import ClassroomCardSkeleton from "../../../app/layout/indicators/cards/ClassroomCardSkeleton";
+import { Grid, styled } from "@mui/material"
+import { useStore } from "../../../app/stores/store"
+import { observer } from "mobx-react-lite"
+import PlaceholderBox from "../../common/UI/PlaceholderBox"
+import ClassroomCardSkeleton from "../../../app/layout/indicators/cards/ClassroomCardSkeleton"
 
 const ResponsiveGrid = styled(Grid)(({ theme }) => ({
   [theme.breakpoints.only("xs")]: {
@@ -24,17 +24,17 @@ const ResponsiveGrid = styled(Grid)(({ theme }) => ({
       width: "33.33%",
     },
   },
-}));
+}))
 
 const ClassroomList = () => {
-  const { classroomStore } = useStore();
-  const [classrooms, setClassrooms] = useState<Classroom[]>([]);
+  const { classroomStore } = useStore()
+  const [classrooms, setClassrooms] = useState<Classroom[]>([])
 
   useEffect(() => {
     classroomStore.loadUserRelatedItems().then(() => {
-      setClassrooms(classroomStore.items);
-    });
-  }, [classroomStore]);
+      setClassrooms(classroomStore.items)
+    })
+  }, [classroomStore])
 
   if (classroomStore.isListLoading)
     return (
@@ -51,8 +51,20 @@ const ClassroomList = () => {
         <Grid item xs={12} sm={6} md={4} lg={3}>
           <ClassroomCardSkeleton />
         </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={3}>
+          <ClassroomCardSkeleton />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={3}>
+          <ClassroomCardSkeleton />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={3}>
+          <ClassroomCardSkeleton />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={3}>
+          <ClassroomCardSkeleton />
+        </Grid>
       </ResponsiveGrid>
-    );
+    )
 
   return (
     <ResponsiveGrid container spacing={2}>
@@ -69,7 +81,7 @@ const ClassroomList = () => {
         ))
       )}
     </ResponsiveGrid>
-  );
-};
+  )
+}
 
-export default observer(ClassroomList);
+export default observer(ClassroomList)
