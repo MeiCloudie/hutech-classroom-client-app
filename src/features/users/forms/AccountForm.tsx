@@ -27,7 +27,7 @@ const AccountForm = (props: AccountFormProps) => {
         id={props.id}
         label="Họ tên"
         variant="outlined"
-        value={`${props.firstName} ${props.lastName}`}
+        value={`${props.lastName} ${props.firstName}`}
         fullWidth
         sx={{ marginTop: 2 }}
         InputProps={{

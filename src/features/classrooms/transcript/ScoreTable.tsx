@@ -58,9 +58,18 @@ const ScoreTable = () => {
                     lastName: `${m.student?.lastName ?? ""}`,
                     firstName: `${m.student?.firstName ?? ""}`,
                     class: `${m.classroom?.class}`,
-                      ...m.scores.reduce((dictionary: {[key: number]: number}, element, index) => (dictionary[element.scoreType?.id ?? 0] = m.scores[index].score, dictionary),
-                      {})
-                    //TODO: Thêm các thuộc tính còn lại
+                    ...m.scores.reduce(
+                      (
+                        dictionary: { [key: number]: number },
+                        element,
+                        index
+                      ) => {
+                        dictionary[element.scoreType?.id ?? 0] =
+                          m.scores[index].score
+                        return dictionary
+                      },
+                      {}
+                    ),
                   }
                 })
               )

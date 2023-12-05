@@ -1,16 +1,18 @@
 import { Box, Button, Typography } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import ScoreTable from "./ScoreTable"
-import LibraryAddIcon from "@mui/icons-material/LibraryAdd"
-import ScoreTypeForm from "./form/ScoreTypeForm"
-import Modal from "../../common/UI/Modal"
-import InfoIcon from "@mui/icons-material/Info"
-import { Link, useParams } from "react-router-dom"
+// import LibraryAddIcon from "@mui/icons-material/LibraryAdd"
+import InputIcon from "@mui/icons-material/Input"
+import OutputIcon from "@mui/icons-material/Output"
+// import ScoreTypeForm from "./form/ScoreTypeForm"
+// import Modal from "../../common/UI/Modal"
+// import InfoIcon from "@mui/icons-material/Info"
+// import { Link, useParams } from "react-router-dom"
 
 const ClassroomTranscript = () => {
-  const { classroomId } = useParams<{
-    classroomId: string
-  }>()
+  // const { classroomId } = useParams<{
+  //   classroomId: string
+  // }>()
 
   return (
     <Box
@@ -54,7 +56,7 @@ const ClassroomTranscript = () => {
               <ScoreTypeForm handleClose={handleClose} />
             )}
           /> */}
-          <Button
+          {/* <Button
             sx={{ ml: 1 }}
             variant="contained"
             startIcon={<InfoIcon />}
@@ -62,6 +64,12 @@ const ClassroomTranscript = () => {
             to={`/cr/${classroomId}/tr/scoretypes`}
           >
             CHI TIẾT
+          </Button> */}
+          <Button sx={{ ml: 1 }} variant="contained" startIcon={<InputIcon />}>
+            NHẬP TỆP
+          </Button>
+          <Button sx={{ ml: 1 }} variant="contained" startIcon={<OutputIcon />}>
+            XUẤT TỆP
           </Button>
         </Box>
       </Box>
