@@ -1,5 +1,6 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import {
+  ChangeEmailFormValues,
   ChangePasswordFormValues,
   LoginFormValues,
   RegisterFormValues,
@@ -112,6 +113,18 @@ export default class UserStore {
   ): Promise<boolean> => {
     try {
       await agent.Account.changePassword(credentials);
+      return true;
+    } catch (error) {
+      console.error("Request error:", error);
+      return false;
+    }
+  };
+
+  changeEmail = async (
+    credentials: ChangeEmailFormValues
+  ): Promise<boolean> => {
+    try {
+      await agent.Account.changeEmail(credentials);
       return true;
     } catch (error) {
       console.error("Request error:", error);

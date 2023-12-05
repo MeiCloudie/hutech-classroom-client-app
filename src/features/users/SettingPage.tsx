@@ -7,6 +7,7 @@ import { CardMedia } from "@mui/material";
 import InformationTab from "./tabs/InformationTab";
 import ChangePasswordTab from "./tabs/ChangePasswordTab";
 import AccountInfoTab from "./tabs/AccountInfoTab";
+import ChangeEmailTab from "./tabs/ChangeEmaiTab";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -106,6 +107,15 @@ const SettingPage = () => {
             },
           }}
         />
+        <Tab
+          label="Email"
+          {...a11yProps(3)}
+          sx={{
+            "&:hover": {
+              backgroundColor: "#e5e5e5",
+            },
+          }}
+        />
         {/* <Tab label="Hình đại diện" {...a11yProps(2)} /> */}
       </Tabs>
       <TabPanel value={value} index={0}>
@@ -116,6 +126,9 @@ const SettingPage = () => {
       </TabPanel>
       <TabPanel value={value} index={2}>
         <ChangePasswordTab />
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        <ChangeEmailTab />
       </TabPanel>
     </Box>
   );

@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { PaginationParams } from "../common/models/paginationPrams";
 import {
+  ChangeEmailFormValues,
   ChangePasswordFormValues,
   LoginFormValues,
   RegisterFormValues,
@@ -271,6 +272,8 @@ const Account = {
   current: () => requests.get<User>("v1/Users/@me"),
   changePassword: (credentials: ChangePasswordFormValues) =>
     requests.patch("v1/Account/change-password", credentials),
+    changeEmail: (credentials: ChangeEmailFormValues) =>
+    requests.patch("v1/Account/change-email", credentials),
 };
 
 const Results = {

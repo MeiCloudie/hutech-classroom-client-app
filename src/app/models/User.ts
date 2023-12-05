@@ -30,3 +30,7 @@ export interface ChangePasswordFormValues {
     password: string,
     newPassword: string
 }
+
+export interface ChangeEmailFormValues {
+    newEmail: string
+}
