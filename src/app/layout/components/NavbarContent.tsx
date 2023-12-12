@@ -7,14 +7,23 @@ import { useStore } from "../../stores/store"
 import { IconButton, InputBase, Paper } from "@mui/material"
 import SearchIcon from "@mui/icons-material/Search"
 import { useLocation } from "react-router-dom"
+import { PaginationParams } from "../../common/models/paginationPrams"
 
 const NavbarContent = () => {
   const {
     userStore: { isLoggedIn },
+    commonStore,
+    classroomStore,
   } = useStore()
+
+  const searchString = React.useRef("")
 
   const location = useLocation()
   const isClassroomPath = location.pathname.split("/")[1] === "classrooms"
+
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    searchString.current = event.target.value
+  }
 
   return (
     <React.Fragment>
@@ -71,6 +80,16 @@ const NavbarContent = () => {
           justifyContent: { md: "right" },
           px: 2,
         }}
+        onSubmit={(event) => {
+          event.preventDefault()
+          classroomStore
+            .loadUserRelatedItems(
+              new PaginationParams(1, 10, searchString.current)
+            )
+            .then(() => {
+              // commonStore.setSearchString(undefined)
+            })
+        }}
       >
         {isClassroomPath && (
           <Paper
@@ -86,8 +105,22 @@ const NavbarContent = () => {
               sx={{ ml: 1, flex: 1 }}
               placeholder="Tìm phòng học..."
               inputProps={{ "aria-label": "search classroom" }}
+              onChange={onChange}
             />
-            <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+            <IconButton
+              type="button"
+              sx={{ p: "10px" }}
+              aria-label="search"
+              onClick={() => {
+                classroomStore
+                  .loadUserRelatedItems(
+                    new PaginationParams(1, 10, searchString.current)
+                  )
+                  .then(() => {
+                    // commonStore.setSearchString(undefined)
+                  })
+              }}
+            >
               <SearchIcon />
             </IconButton>
           </Paper>

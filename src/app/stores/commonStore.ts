@@ -4,6 +4,7 @@ import { ServerError } from "../models/ServerError";
 export default class CommonStore {
   error: ServerError | null = null;
   token: string | null | undefined = localStorage.getItem("jwt");
+  searchString: string | undefined = undefined;
   appLoaded = false;
 
   constructor() {
@@ -33,4 +34,8 @@ export default class CommonStore {
   setAppLoaded = (): void => {
     this.appLoaded = true;
   };
+
+  setSearchString(str: string | undefined) {
+    this.searchString = str;
+  }
 }

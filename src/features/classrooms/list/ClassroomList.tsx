@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react"
+import { useEffect } from "react"
 import ClassroomCard from "./ClassroomCard"
-import { Classroom } from "../../../app/models/Classroom"
 
 import { Grid, styled } from "@mui/material"
 import { useStore } from "../../../app/stores/store"
 import { observer } from "mobx-react-lite"
 import PlaceholderBox from "../../common/UI/PlaceholderBox"
 import ClassroomCardSkeleton from "../../../app/layout/indicators/cards/ClassroomCardSkeleton"
+import { PaginationParams } from "../../../app/common/models/paginationPrams"
 
 const ResponsiveGrid = styled(Grid)(({ theme }) => ({
   [theme.breakpoints.only("xs")]: {
@@ -27,14 +27,18 @@ const ResponsiveGrid = styled(Grid)(({ theme }) => ({
 }))
 
 const ClassroomList = () => {
-  const { classroomStore } = useStore()
-  const [classrooms, setClassrooms] = useState<Classroom[]>([])
+  const { classroomStore, commonStore } = useStore()
+  // const [classrooms, setClassrooms] = useState<Classroom[]>([])
 
   useEffect(() => {
-    classroomStore.loadUserRelatedItems().then(() => {
-      setClassrooms(classroomStore.items)
-    })
-  }, [classroomStore])
+    classroomStore
+      .loadUserRelatedItems(
+        new PaginationParams(1, 10, commonStore.searchString)
+      )
+      .then(() => {
+        // setClassrooms(classroomStore.items)
+      })
+  }, [classroomStore, commonStore])
 
   if (classroomStore.isListLoading)
     return (
@@ -68,13 +72,13 @@ const ClassroomList = () => {
 
   return (
     <ResponsiveGrid container spacing={2}>
-      {classrooms.length === 0 ? (
+      {classroomStore.items.length === 0 ? (
         <PlaceholderBox
           title="Đây là nơi xem và quản lý danh sách lớp học"
           subtitle="Hiện tài khoản của bạn chưa được tham gia vào các lớp học!"
         />
       ) : (
-        classrooms.map((c, index) => (
+        classroomStore.items.map((c, index) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
             <ClassroomCard key={index} classroom={c} />
           </Grid>
