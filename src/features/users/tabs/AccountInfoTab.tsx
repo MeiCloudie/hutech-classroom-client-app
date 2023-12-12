@@ -29,15 +29,7 @@ const AccountInfoTab = () => {
 
       <Alert severity="info" sx={{ mt: 2 }}>
         <AlertTitle>Hệ Thống</AlertTitle>
-        Hiện tại chưa thể cập nhật email tại đây! Hãy truy cập{" "}
-        <a
-          href="https://sinhvien.hutech.edu.vn/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Trang Sinh Viên
-        </a>{" "}
-        hoặc liên hệ Phòng Đào Tạo để cập nhật email! Xin cảm ơn!
+        Hãy cập nhật email định kỳ qua mỗi học kỳ!
       </Alert>
     </Box>
   );
