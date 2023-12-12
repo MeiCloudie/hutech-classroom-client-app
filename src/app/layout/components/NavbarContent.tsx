@@ -1,14 +1,20 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import CardMedia from "@mui/material/CardMedia";
-import MenuUserSettings from "./MenuUserSettings";
-import { useStore } from "../../stores/store";
+import * as React from "react"
+import Box from "@mui/material/Box"
+import Typography from "@mui/material/Typography"
+import CardMedia from "@mui/material/CardMedia"
+import MenuUserSettings from "./MenuUserSettings"
+import { useStore } from "../../stores/store"
+import { IconButton, InputBase, Paper } from "@mui/material"
+import SearchIcon from "@mui/icons-material/Search"
+import { useLocation } from "react-router-dom"
 
 const NavbarContent = () => {
   const {
     userStore: { isLoggedIn },
-  } = useStore();
+  } = useStore()
+
+  const location = useLocation()
+  const isClassroomPath = location.pathname.split("/")[1] === "classrooms"
 
   return (
     <React.Fragment>
@@ -58,13 +64,39 @@ const NavbarContent = () => {
       >
         HUTECH CLASSROOM
       </Typography>
-      <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-        {/* some contents */}
+      <Box
+        sx={{
+          flexGrow: 1,
+          display: { xs: "none", md: "flex" },
+          justifyContent: { md: "right" },
+          px: 2,
+        }}
+      >
+        {isClassroomPath && (
+          <Paper
+            component="form"
+            sx={{
+              p: "0.2px 4px",
+              display: "flex",
+              alignItems: "center",
+              width: 400,
+            }}
+          >
+            <InputBase
+              sx={{ ml: 1, flex: 1 }}
+              placeholder="Tìm phòng học..."
+              inputProps={{ "aria-label": "search classroom" }}
+            />
+            <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+              <SearchIcon />
+            </IconButton>
+          </Paper>
+        )}
       </Box>
 
       {isLoggedIn && <MenuUserSettings />}
     </React.Fragment>
-  );
-};
+  )
+}
 
-export default NavbarContent;
+export default NavbarContent
