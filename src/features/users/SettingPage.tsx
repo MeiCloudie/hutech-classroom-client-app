@@ -8,6 +8,7 @@ import InformationTab from "./tabs/InformationTab";
 import ChangePasswordTab from "./tabs/ChangePasswordTab";
 import AccountInfoTab from "./tabs/AccountInfoTab";
 import ChangeEmailTab from "./tabs/ChangeEmaiTab";
+import UpdateAvatarTab from "./tabs/UpdateAvatarTab";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -116,7 +117,15 @@ const SettingPage = () => {
             },
           }}
         />
-        {/* <Tab label="Hình đại diện" {...a11yProps(2)} /> */}
+        <Tab
+          label="Hình Đại Diện"
+          {...a11yProps(4)}
+          sx={{
+            "&:hover": {
+              backgroundColor: "#e5e5e5",
+            },
+          }}
+        />
       </Tabs>
       <TabPanel value={value} index={0}>
         <InformationTab />
@@ -129,6 +138,9 @@ const SettingPage = () => {
       </TabPanel>
       <TabPanel value={value} index={3}>
         <ChangeEmailTab />
+      </TabPanel>
+      <TabPanel value={value} index={4}>
+        <UpdateAvatarTab />
       </TabPanel>
     </Box>
   );

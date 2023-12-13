@@ -12,7 +12,7 @@ import { PaginationParams } from "../../common/models/paginationPrams"
 const NavbarContent = () => {
   const {
     userStore: { isLoggedIn },
-    commonStore,
+    // commonStore,
     classroomStore,
   } = useStore()
 
