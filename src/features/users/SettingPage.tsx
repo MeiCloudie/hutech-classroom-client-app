@@ -56,7 +56,7 @@ const SettingPage = () => {
         flexGrow: 1,
         bgcolor: "#f5f5f5",
         display: "flex",
-        height: 500,
+        height: "100%",
         p: 2,
         border: "1px solid #e8e8e8",
         borderRadius: "5px",

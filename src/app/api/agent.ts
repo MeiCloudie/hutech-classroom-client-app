@@ -104,6 +104,19 @@ const requests = {
   delete: <T>(url: string, body: {} = {}) => axios.delete<T>(url, body).then(responseBody),
   patch: <T>(url: string, body: {}) =>
     axios.patch<T>(url, body).then(responseBody),
+    uploadFile: <T>(url: string, files: { name: string, blob: Blob }[]) => {
+      const data = new FormData();
+      files.forEach(element => {
+        data.append(element.name, element.blob);
+      });
+      // const a = {
+      //   method: "POST",
+      //   url: "https://hutechclassroom.azurewebsites.net/api/v1/Account/add-avatar",
+      //   data: data,
+      //   headers: { "Content-Type": "multipart/form-data" },
+      // };
+      return axios.post<T>(url, data, {headers: { "Content-Type": "multipart/form-data" }});
+    }
 };
 
 const createResource = <
@@ -274,6 +287,8 @@ const Account = {
     requests.patch("v1/Account/change-password", credentials),
     changeEmail: (credentials: ChangeEmailFormValues) =>
     requests.patch("v1/Account/change-email", credentials),
+  addAvatar: (blob: Blob) => requests.uploadFile("v1/Account/add-avatar", [{name: "file", blob: blob }]),
+  removeAvatar: () => requests.delete("v1/Account/remove-avatar")
 };
 
 const Results = {

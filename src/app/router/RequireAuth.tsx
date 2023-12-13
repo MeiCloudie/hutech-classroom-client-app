@@ -24,7 +24,7 @@ export default function RequireAuth() {
 
   React.useEffect(() => {
     if (isLoggedIn && isStudent) {
-      setOpen(true)
+      setOpen(false)
     }
   }, [isLoggedIn, isStudent])
 

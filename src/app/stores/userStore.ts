@@ -131,4 +131,26 @@ export default class UserStore {
       return false;
     }
   };
+
+  addAvatar = async (
+    blob: Blob
+  ): Promise<boolean> => {
+    try {
+      await agent.Account.addAvatar(blob);
+      return true;
+    } catch (error) {
+      console.error("Request error:", error);
+      return false;
+    }
+  }
+
+  removeAvatar = async (): Promise<boolean> => {
+    try {
+      await agent.Account.removeAvatar();
+      return true;
+    } catch (error) {
+      console.error("Request error:", error);
+      return false;
+    }
+  }
 }
