@@ -88,14 +88,16 @@ const ClassroomDetails = () => {
         <Typography variant="subtitle1" gutterBottom>
           Nhóm học: <strong>{classroom.studyGroup}</strong>
         </Typography>
-        <Typography variant="subtitle1" gutterBottom>
-          Nhóm thực hành:{" "}
-          <strong>
-            {classroom.practicalStudyGroup === "0"
-              ? "Không có"
-              : classroom.practicalStudyGroup}
-          </strong>
-        </Typography>
+        {classroom.practicalStudyGroup !== undefined && (
+          <Typography variant="subtitle1" gutterBottom>
+            Nhóm thực hành:{" "}
+            <strong>
+              {classroom.practicalStudyGroup === "0"
+                ? "Không có"
+                : classroom.practicalStudyGroup}
+            </strong>
+          </Typography>
+        )}
       </Box>
 
       <Divider />
