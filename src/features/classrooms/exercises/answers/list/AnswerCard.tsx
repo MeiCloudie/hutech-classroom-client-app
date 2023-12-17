@@ -73,7 +73,11 @@ const AnswerCard = (props: AnswerCardProps) => {
     >
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: blue[800] }} aria-label="person-icon">
+          <Avatar
+            sx={{ bgcolor: blue[800] }}
+            src={props.answer.user?.avatarUrl}
+            aria-label="person-icon"
+          >
             <PersonIcon />
           </Avatar>
         }
