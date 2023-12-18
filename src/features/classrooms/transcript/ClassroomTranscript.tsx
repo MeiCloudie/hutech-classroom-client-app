@@ -8,6 +8,9 @@ import { ChangeEvent, useState } from "react";
 import { useStore } from "../../../app/stores/store";
 import { useParams } from "react-router-dom";
 import { PaginationParams } from "../../../app/common/models/paginationPrams";
+
+import { toast } from "react-toastify"
+import { toastBasic } from "../../../app/common/configs"
 // import ScoreTypeForm from "./form/ScoreTypeForm"
 // import Modal from "../../common/UI/Modal"
 // import InfoIcon from "@mui/icons-material/Info"
@@ -17,7 +20,7 @@ const ClassroomTranscript = () => {
   const { classroomId } = useParams<{
     classroomId: string;
   }>();
-  const { classroomStore } = useStore();
+  const { classroomStore, userStore } = useStore();
 
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files && e.target.files[0];
@@ -29,10 +32,15 @@ const ClassroomTranscript = () => {
             classroomId,
             selectedFile
           );
-        if (isSuccess)
+        if (isSuccess) {
+          toast.success(
+            "Bạn đã cập nhật thành công, hãy đợi một lát để bảng điểm được thay đổi nhé!",
+            toastBasic
+          )
           await classroomStore.loadClassroomClassroomScores(
             new PaginationParams(1, 100, "")
           );
+        }
       }
     }
   };
@@ -89,7 +97,7 @@ const ClassroomTranscript = () => {
             CHI TIẾT
           </Button> */}
 
-          <Box>
+          {userStore.isLecturer && <Box>
             <input
               accept=".xls,.xlsx"
               style={{ display: "none" }}
@@ -114,7 +122,7 @@ const ClassroomTranscript = () => {
             >
               XUẤT TỆP
             </Button>
-          </Box>
+          </Box>}
         </Box>
       </Box>
 
