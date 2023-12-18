@@ -28,7 +28,13 @@ export default class ClassroomStore extends UserRelatedStore<
       studentResults: computed,
       loadClassroomStudentResults: action,
       setStudentResultListLoading: action,
-      setStudentResults: action
+      setStudentResults: action,
+
+      classroomScores: computed,
+      _classroomScores: observable,
+      setClassroomScores: action,
+      setClassroomScoreListLoading: action,
+      importScoresWithMultipleScoreType: action
     });
 
     this.classroomUserResource =
@@ -150,4 +156,31 @@ export default class ClassroomStore extends UserRelatedStore<
       });
     }
   };
+
+  importScoresWithScoreType = async (
+    classroomId: string,
+    scoreTypeId: number,
+    blob: Blob
+  ): Promise<boolean> => {
+    try {
+      await this.classroomScoreResource.importNonEntity(classroomId, scoreTypeId, blob);
+      return true;
+    } catch (error) {
+      console.error("Request error:", error);
+      return false;
+    }
+  }
+
+  importScoresWithMultipleScoreType = async (
+    classroomId: string,
+    blob: Blob
+  ): Promise<boolean> => {
+    try {
+      await this.classroomScoreResource.importMultipleNonEntity(classroomId, blob);
+      return true;
+    } catch (error) {
+      console.error("Request error:", error);
+      return false;
+    }
+  }
 }

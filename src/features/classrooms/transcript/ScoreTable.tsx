@@ -75,7 +75,7 @@ const ScoreTable = () => {
               )
           })
       })
-  }, [classroomId, classroomStore])
+  }, [classroomId, classroomStore, classroomStore.classroomScores])
 
   if (classroomStore.isDetailsLoading) return <TypoLoading />
 

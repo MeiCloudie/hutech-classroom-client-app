@@ -8,7 +8,11 @@ import {
   User,
 } from "../models/User";
 import { store } from "../stores/store";
-import Entity, { BaseEntity, BaseEntityFormValues, EntityFormValues } from "../common/models/Entity";
+import Entity, {
+  BaseEntity,
+  BaseEntityFormValues,
+  EntityFormValues,
+} from "../common/models/Entity";
 import {
   BaseEntityHasManyRelationshipResource,
   BaseEntityResource,
@@ -101,22 +105,19 @@ const requests = {
   post: <T>(url: string, body: {}) =>
     axios.post<T>(url, body).then(responseBody),
   put: <T>(url: string, body: {}) => axios.put<T>(url, body).then(responseBody),
-  delete: <T>(url: string, body: {} = {}) => axios.delete<T>(url, body).then(responseBody),
+  delete: <T>(url: string, body: {} = {}) =>
+    axios.delete<T>(url, body).then(responseBody),
   patch: <T>(url: string, body: {}) =>
     axios.patch<T>(url, body).then(responseBody),
-    uploadFile: <T>(url: string, files: { name: string, blob: Blob }[]) => {
-      const data = new FormData();
-      files.forEach(element => {
-        data.append(element.name, element.blob);
-      });
-      // const a = {
-      //   method: "POST",
-      //   url: "https://hutechclassroom.azurewebsites.net/api/v1/Account/add-avatar",
-      //   data: data,
-      //   headers: { "Content-Type": "multipart/form-data" },
-      // };
-      return axios.post<T>(url, data, {headers: { "Content-Type": "multipart/form-data" }});
-    }
+  uploadFile: <T>(url: string, files: { name: string; blob: Blob }[]) => {
+    const data = new FormData();
+    files.forEach((element) => {
+      data.append(element.name, element.blob);
+    });
+    return axios.post<T>(url, data, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+  },
 };
 
 const createResource = <
@@ -170,7 +171,7 @@ const createHasManyRelationshipResource = <TManyEntity extends Entity>(
         `v1/${firstEntityName}/${firstEntityId}/${secondEntityName}/add`,
         secondEntityIds
       ),
-      removeEntities: (firstEntityId: string, secondEntityIds: string[]) =>
+    removeEntities: (firstEntityId: string, secondEntityIds: string[]) =>
       requests.post(
         `v1/${firstEntityName}/${firstEntityId}/${secondEntityName}/remove`,
         secondEntityIds
@@ -199,7 +200,9 @@ const createEntityResource = <
   return resource;
 };
 
-const createEntityUserResource = <TId, TEntity extends BaseEntity<TId>>(entityName: string) => {
+const createEntityUserResource = <TId, TEntity extends BaseEntity<TId>>(
+  entityName: string
+) => {
   const resource: BaseEntityUserResource<TId, TEntity> = {
     listByUser: (params?: PaginationParams) =>
       requests.get<TEntity[]>(`v1/Users/@me/${entityName}`, params),
@@ -207,11 +210,19 @@ const createEntityUserResource = <TId, TEntity extends BaseEntity<TId>>(entityNa
   return resource;
 };
 
-const createEntityHasManyRelationshipResource = <TFirstId, TSecondId, TManyEntity extends BaseEntity<TSecondId>>(
+const createEntityHasManyRelationshipResource = <
+  TFirstId,
+  TSecondId,
+  TManyEntity extends BaseEntity<TSecondId>
+>(
   firstEntityName: String,
   secondEntityName: String
 ) => {
-  const resource: BaseEntityHasManyRelationshipResource<TFirstId, TSecondId, TManyEntity> = {
+  const resource: BaseEntityHasManyRelationshipResource<
+    TFirstId,
+    TSecondId,
+    TManyEntity
+  > = {
     listEntities: (id: TFirstId, params?: PaginationParams) =>
       requests.get<TManyEntity[]>(
         `v1/${firstEntityName}/${id}/${secondEntityName}`,
@@ -231,7 +242,7 @@ const createEntityHasManyRelationshipResource = <TFirstId, TSecondId, TManyEntit
         `v1/${firstEntityName}/${firstEntityId}/${secondEntityName}/add`,
         secondEntityIds
       ),
-      removeEntities: (firstEntityId: TFirstId, secondEntityIds: TSecondId[]) =>
+    removeEntities: (firstEntityId: TFirstId, secondEntityIds: TSecondId[]) =>
       requests.post(
         `v1/${firstEntityName}/${firstEntityId}/${secondEntityName}/remove`,
         secondEntityIds
@@ -240,11 +251,19 @@ const createEntityHasManyRelationshipResource = <TFirstId, TSecondId, TManyEntit
   return resource;
 };
 
-const createNonEntityHasManyRelationshipResource = <TFirstId, TSecondId, TResponse>(
+const createNonEntityHasManyRelationshipResource = <
+  TFirstId,
+  TSecondId,
+  TResponse
+>(
   firstEntityName: String,
   secondEntityName: String
 ) => {
-  const resource: BaseNonEntityHasManyRelationshipResource<TFirstId, TSecondId, TResponse> = {
+  const resource: BaseNonEntityHasManyRelationshipResource<
+    TFirstId,
+    TSecondId,
+    TResponse
+  > = {
     listNonEntities: (id: TFirstId, params?: PaginationParams) =>
       requests.get<TResponse[]>(
         `v1/${firstEntityName}/${id}/${secondEntityName}`,
@@ -264,18 +283,39 @@ const createNonEntityHasManyRelationshipResource = <TFirstId, TSecondId, TRespon
         `v1/${firstEntityName}/${firstEntityId}/${secondEntityName}/add`,
         secondEntityIds
       ),
-      removeNonEntities: (firstEntityId: TFirstId, secondEntityIds: TSecondId[]) =>
+    removeNonEntities: (
+      firstEntityId: TFirstId,
+      secondEntityIds: TSecondId[]
+    ) =>
       requests.post(
         `v1/${firstEntityName}/${firstEntityId}/${secondEntityName}/remove`,
         secondEntityIds
       ),
+    importNonEntity: (
+      firstEntityId: TFirstId,
+      secondEntityId: TSecondId,
+      blob: Blob
+    ) =>
+      requests.uploadFile(
+        `v1/${firstEntityName}/${firstEntityId}/${secondEntityName}/${secondEntityId}/import`,
+        [{ name: "file", blob: blob }]
+      ),
+      importMultipleNonEntity: (
+        firstEntityId: TFirstId,
+        blob: Blob
+      ) =>
+        requests.uploadFile(
+          `v1/${firstEntityName}/${firstEntityId}/${secondEntityName}/import`,
+          [{ name: "file", blob: blob }]
+        ),
   };
   return resource;
 };
 
 const Groups = {
-  addLeader: (groupId: string, userId: string) => requests.post(`v1/Groups/${groupId}/add-leader/${userId}`, {})
-}
+  addLeader: (groupId: string, userId: string) =>
+    requests.post(`v1/Groups/${groupId}/add-leader/${userId}`, {}),
+};
 
 const Account = {
   login: (credentials: LoginFormValues) =>
@@ -285,10 +325,13 @@ const Account = {
   current: () => requests.get<User>("v1/Users/@me"),
   changePassword: (credentials: ChangePasswordFormValues) =>
     requests.patch("v1/Account/change-password", credentials),
-    changeEmail: (credentials: ChangeEmailFormValues) =>
+  changeEmail: (credentials: ChangeEmailFormValues) =>
     requests.patch("v1/Account/change-email", credentials),
-  addAvatar: (blob: Blob) => requests.uploadFile("v1/Account/add-avatar", [{name: "file", blob: blob }]),
-  removeAvatar: () => requests.delete("v1/Account/remove-avatar")
+  addAvatar: (blob: Blob) =>
+    requests.uploadFile("v1/Account/add-avatar", [
+      { name: "file", blob: blob },
+    ]),
+  removeAvatar: () => requests.delete("v1/Account/remove-avatar"),
 };
 
 const Results = {
@@ -312,7 +355,7 @@ const agent = {
   createEntityResource,
   createEntityUserResource,
   createEntityHasManyRelationshipResource,
-  createNonEntityHasManyRelationshipResource
+  createNonEntityHasManyRelationshipResource,
 };
 
 export default agent;

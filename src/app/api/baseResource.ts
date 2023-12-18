@@ -69,4 +69,6 @@ TResponse
   removeNonEntity: (firstEntityId: TFirstId, secondEntityId: TSecondId) => Promise<void>;
   addNonEntities: (firstEntityId: TFirstId, secondEntityIds: TSecondId[]) => Promise<void>;
   removeNonEntities: (firstEntityId: TFirstId, secondEntityIds: TSecondId[]) => Promise<void>;
+  importNonEntity: (firstEntityId: TFirstId, secondEntityId: TSecondId, blob: Blob) => Promise<unknown>;
+  importMultipleNonEntity: (firstEntityId: TFirstId, blob: Blob) => Promise<unknown>;
 }

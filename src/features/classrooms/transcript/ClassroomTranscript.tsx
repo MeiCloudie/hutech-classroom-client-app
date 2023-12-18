@@ -1,18 +1,41 @@
-import { Box, Button, Typography } from "@mui/material"
-import { observer } from "mobx-react-lite"
-import ScoreTable from "./ScoreTable"
+import { Box, Button, Grid, Typography } from "@mui/material";
+import { observer } from "mobx-react-lite";
+import ScoreTable from "./ScoreTable";
 // import LibraryAddIcon from "@mui/icons-material/LibraryAdd"
-import InputIcon from "@mui/icons-material/Input"
-import OutputIcon from "@mui/icons-material/Output"
+import InputIcon from "@mui/icons-material/Input";
+import OutputIcon from "@mui/icons-material/Output";
+import { ChangeEvent, useState } from "react";
+import { useStore } from "../../../app/stores/store";
+import { useParams } from "react-router-dom";
+import { PaginationParams } from "../../../app/common/models/paginationPrams";
 // import ScoreTypeForm from "./form/ScoreTypeForm"
 // import Modal from "../../common/UI/Modal"
 // import InfoIcon from "@mui/icons-material/Info"
 // import { Link, useParams } from "react-router-dom"
 
 const ClassroomTranscript = () => {
-  // const { classroomId } = useParams<{
-  //   classroomId: string
-  // }>()
+  const { classroomId } = useParams<{
+    classroomId: string;
+  }>();
+  const { classroomStore } = useStore();
+
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files && e.target.files[0];
+
+    if (selectedFile) {
+      if (classroomId) {
+        const isSuccess =
+          await classroomStore.importScoresWithMultipleScoreType(
+            classroomId,
+            selectedFile
+          );
+        if (isSuccess)
+          await classroomStore.loadClassroomClassroomScores(
+            new PaginationParams(1, 100, "")
+          );
+      }
+    }
+  };
 
   return (
     <Box
@@ -65,18 +88,39 @@ const ClassroomTranscript = () => {
           >
             CHI TIẾT
           </Button> */}
-          <Button sx={{ ml: 1 }} variant="contained" startIcon={<InputIcon />}>
-            NHẬP TỆP
-          </Button>
-          <Button sx={{ ml: 1 }} variant="contained" startIcon={<OutputIcon />}>
-            XUẤT TỆP
-          </Button>
+
+          <Box>
+            <input
+              accept=".xls,.xlsx"
+              style={{ display: "none" }}
+              id="transcript-excel-upload"
+              type="file"
+              onChange={handleFileChange}
+            />
+            <label htmlFor="transcript-excel-upload">
+              <Button
+                sx={{ ml: 1 }}
+                variant="contained"
+                component="span"
+                startIcon={<InputIcon />}
+              >
+                NHẬP TỆP
+              </Button>
+            </label>
+            <Button
+              sx={{ ml: 1 }}
+              variant="contained"
+              startIcon={<OutputIcon />}
+            >
+              XUẤT TỆP
+            </Button>
+          </Box>
         </Box>
       </Box>
 
       <ScoreTable />
     </Box>
-  )
-}
+  );
+};
 
-export default observer(ClassroomTranscript)
+export default observer(ClassroomTranscript);
