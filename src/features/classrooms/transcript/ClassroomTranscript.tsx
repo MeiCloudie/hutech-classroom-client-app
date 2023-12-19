@@ -45,6 +45,22 @@ const ClassroomTranscript = () => {
     }
   };
 
+  const handleExportTranscript = async () => {
+    if (classroomId) {
+      await classroomStore.exportScoresWithMultipleScoreType(classroomId);
+      if (classroomStore.exportedFile) {
+        const url = URL.createObjectURL(classroomStore.exportedFile);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `transcript_${classroomStore.selectedItem?.class}_${classroomStore.selectedItem?.subject?.code}.xlsx`); // Set your filename here
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    }
+  }
+  
+
   return (
     <Box
       sx={{
@@ -119,6 +135,7 @@ const ClassroomTranscript = () => {
               sx={{ ml: 1 }}
               variant="contained"
               startIcon={<OutputIcon />}
+              onClick={handleExportTranscript}
             >
               XUẤT TỆP
             </Button>

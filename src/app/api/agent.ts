@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse, ResponseType } from "axios";
 import { PaginationParams } from "../common/models/paginationPrams";
 import {
   ChangeEmailFormValues,
@@ -24,6 +24,7 @@ import {
 } from "./baseResource";
 import { toast } from "react-toastify";
 import { router } from "../router/Routes";
+import { Readable } from "stream";
 
 axios.defaults.baseURL = process.env.REACT_APP_HUTECH_CLASSROOM_BASE_URL;
 
@@ -101,6 +102,10 @@ const requests = {
   get: <T>(url: string, params?: PaginationParams) =>
     axios
       .get<T>(url, { params: params?.toUrlSearchParams() })
+      .then(responseBody),
+  getFile: <T>(url: string, rt: ResponseType, params?: PaginationParams) =>
+    axios
+      .get<T>(url, { params: params?.toUrlSearchParams(), responseType: rt })
       .then(responseBody),
   post: <T>(url: string, body: {}) =>
     axios.post<T>(url, body).then(responseBody),
@@ -300,14 +305,19 @@ const createNonEntityHasManyRelationshipResource = <
         `v1/${firstEntityName}/${firstEntityId}/${secondEntityName}/${secondEntityId}/import`,
         [{ name: "file", blob: blob }]
       ),
-      importMultipleNonEntity: (
-        firstEntityId: TFirstId,
-        blob: Blob
-      ) =>
-        requests.uploadFile(
-          `v1/${firstEntityName}/${firstEntityId}/${secondEntityName}/import`,
-          [{ name: "file", blob: blob }]
-        ),
+    importMultipleNonEntity: (firstEntityId: TFirstId, blob: Blob) =>
+      requests.uploadFile(
+        `v1/${firstEntityName}/${firstEntityId}/${secondEntityName}/import`,
+        [{ name: "file", blob: blob }]
+      ),
+    exportNonEntity: (firstEntityId: TFirstId, secondEntityId: TSecondId) =>
+      requests.get(
+        `v1/${firstEntityName}/${firstEntityId}/${secondEntityName}/${secondEntityId}/export`
+      ),
+    exportMultipleNonEntity: (firstEntityId: TFirstId) =>
+      requests.getFile<Blob>(
+        `v1/${firstEntityName}/${firstEntityId}/${secondEntityName}/export`, 'blob'
+      ),
   };
   return resource;
 };

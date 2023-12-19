@@ -1,3 +1,4 @@
+import { Readable } from "stream";
 import Entity, { BaseEntity, BaseEntityFormValues, EntityFormValues } from "../common/models/Entity";
 import { PaginationParams } from "../common/models/paginationPrams";
 
@@ -71,4 +72,6 @@ TResponse
   removeNonEntities: (firstEntityId: TFirstId, secondEntityIds: TSecondId[]) => Promise<void>;
   importNonEntity: (firstEntityId: TFirstId, secondEntityId: TSecondId, blob: Blob) => Promise<unknown>;
   importMultipleNonEntity: (firstEntityId: TFirstId, blob: Blob) => Promise<unknown>;
+  exportNonEntity: (firstEntityId: TFirstId, secondEntityId: TSecondId) => Promise<Blob>;
+  exportMultipleNonEntity: (firstEntityId: TFirstId) => Promise<Blob>;
 }

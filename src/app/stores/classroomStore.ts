@@ -7,6 +7,7 @@ import agent from "../api/agent";
 import UserRelatedStore from "../common/stores/userRelatedStore";
 import { StudentResult } from "../models/StudentResult";
 import { ClassroomScore } from "../models/ClassroomScore";
+import fs from 'fs';
 
 export default class ClassroomStore extends UserRelatedStore<
   Classroom,
@@ -34,7 +35,11 @@ export default class ClassroomStore extends UserRelatedStore<
       _classroomScores: observable,
       setClassroomScores: action,
       setClassroomScoreListLoading: action,
-      importScoresWithMultipleScoreType: action
+      importScoresWithScoreType: action,
+      importScoresWithMultipleScoreType: action,
+
+      exportedFile: observable,
+      exportScoresWithMultipleScoreType: action
     });
 
     this.classroomUserResource =
@@ -177,6 +182,22 @@ export default class ClassroomStore extends UserRelatedStore<
   ): Promise<boolean> => {
     try {
       await this.classroomScoreResource.importMultipleNonEntity(classroomId, blob);
+      return true;
+    } catch (error) {
+      console.error("Request error:", error);
+      return false;
+    }
+  }
+
+  exportedFile: Blob | undefined = undefined;
+
+  exportScoresWithMultipleScoreType = async (
+    classroomId: string,
+  ): Promise<boolean> => {
+    try {
+      const stream = await this.classroomScoreResource.exportMultipleNonEntity(classroomId);
+      const file = stream
+      this.exportedFile = file;
       return true;
     } catch (error) {
       console.error("Request error:", error);
