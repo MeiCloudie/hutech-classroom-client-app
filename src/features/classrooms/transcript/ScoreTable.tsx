@@ -3,19 +3,19 @@ import {
   GridColDef,
   GridRowsProp,
   GridToolbar,
-} from "@mui/x-data-grid"
-import { useParams } from "react-router-dom"
-import { useEffect, useState } from "react"
-import { useStore } from "../../../app/stores/store"
-import { PaginationParams } from "../../../app/common/models/paginationPrams"
-import { observer } from "mobx-react-lite"
-import TypoLoading from "../../../app/layout/indicators/common/TypoLoading"
-import { Divider } from "@mui/material"
+} from "@mui/x-data-grid";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useStore } from "../../../app/stores/store";
+import { PaginationParams } from "../../../app/common/models/paginationPrams";
+import { observer } from "mobx-react-lite";
+import TypoLoading from "../../../app/layout/indicators/common/TypoLoading";
+import { Divider } from "@mui/material";
 
 const ScoreTable = () => {
-  const { classroomId } = useParams<{ classroomId: string }>()
-  const { classroomStore } = useStore()
-  const [rows, setRows] = useState<GridRowsProp>([])
+  const { classroomId } = useParams<{ classroomId: string }>();
+  const { classroomStore } = useStore();
+  const [rows, setRows] = useState<GridRowsProp>([]);
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "STT", width: 70 },
@@ -41,7 +41,7 @@ const ScoreTable = () => {
       align: "left",
       headerAlign: "left",
     },
-  ]
+  ];
 
   useEffect(() => {
     if (classroomId)
@@ -64,20 +64,21 @@ const ScoreTable = () => {
                         element,
                         index
                       ) => {
-                        dictionary[element.scoreType?.id ?? 0] =
-                          m.scores[index].score
-                        return dictionary
+                        if (m.scores[index].score != -1)
+                          dictionary[element.scoreType?.id ?? 0] =
+                            m.scores[index].score;
+                        return dictionary;
                       },
                       {}
                     ),
-                  }
+                  };
                 })
-              )
-          })
-      })
-  }, [classroomId, classroomStore, classroomStore.classroomScores])
+              );
+          });
+      });
+  }, [classroomId, classroomStore, classroomStore.classroomScores]);
 
-  if (classroomStore.isDetailsLoading) return <TypoLoading />
+  if (classroomStore.isDetailsLoading) return <TypoLoading />;
 
   return (
     <div style={{ height: "100%", width: "100%" }}>
@@ -109,7 +110,7 @@ const ScoreTable = () => {
         }}
       />
     </div>
-  )
-}
+  );
+};
 
-export default observer(ScoreTable)
+export default observer(ScoreTable);
