@@ -28,39 +28,51 @@ const MemberList = () => {
     const { classroomId } = useParams<{ classroomId: string }>();
     const { classroomStore } = useStore();
     const [rows, setRows] = useState<GridRowsProp>([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (classroomId)
-            classroomStore.get(classroomId).then(() => {
-                classroomStore
-                    .loadClassroomUsers(new PaginationParams(1, 100, ''))
-                    .then(() => {
-                        if (classroomStore.classroomUsers)
-                            setRows(
-                                classroomStore.classroomUsers.map((m, i) => {
-                                    return {
-                                        id: i + 1,
-                                        role: m.groups
-                                            .map((g) => g.leader?.id)
-                                            .includes(m.id)
-                                            ? 'Nhóm Trưởng'
-                                            : 'Sinh Viên',
-                                        username: m.userName,
-                                        lastName: `${m.lastName}`,
-                                        firstName: `${m.firstName}`,
-                                        class: `${m.class}`,
-                                        email: m.email,
-                                        groups: m.groups
-                                            .map((g) => g.name)
-                                            .join(', '),
-                                    };
-                                })
-                            );
-                    });
-            });
+        const loadData = async () => {
+            if (!classroomId) return;
+
+            setLoading(true);
+            try {
+                if (!classroomStore.hasClassroom(classroomId)) {
+                    await classroomStore.get(classroomId);
+                }
+
+                const paginationParams = new PaginationParams(1, 100, '');
+                await classroomStore.loadClassroomUsers(paginationParams);
+
+                if (classroomStore.classroomUsers) {
+                    const mappedRows = classroomStore.classroomUsers.map(
+                        (m, i) => ({
+                            id: i + 1,
+                            role: m.groups
+                                .map((g) => g.leader?.id)
+                                .includes(m.id)
+                                ? 'Nhóm Trưởng'
+                                : 'Sinh Viên',
+                            username: m.userName,
+                            lastName: m.lastName,
+                            firstName: m.firstName,
+                            class: m.class,
+                            email: m.email,
+                            groups: m.groups.map((g) => g.name).join(', '),
+                        })
+                    );
+                    setRows(mappedRows);
+                }
+            } catch (error) {
+                console.error('Failed to load classroom data:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadData();
     }, [classroomId, classroomStore]);
 
-    if (classroomStore.isDetailsLoading) return <TypoLoading />;
+    if (loading || classroomStore.isDetailsLoading) return <TypoLoading />;
 
     return (
         <div style={{ height: '100%', width: '100%' }}>
