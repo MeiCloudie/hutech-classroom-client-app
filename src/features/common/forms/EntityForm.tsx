@@ -53,6 +53,9 @@ const EntityForm = <TEntityFormValues extends EntityFormValues>({
     };
 
     const getInputComponent = ([key, value]: [string, any], index: number) => {
+        excludeFields.push('id');
+        excludeFields.push('createDate');
+        excludeFields.push('updateDate');
         const fieldConfig = fieldConfigs.find(
             (field) => field.fieldKey === key
         );
