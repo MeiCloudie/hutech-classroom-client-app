@@ -16,7 +16,6 @@ import agent from '../api/agent';
 import UserRelatedStore from '../common/stores/userRelatedStore';
 import { StudentResult } from '../models/StudentResult';
 import { ClassroomScore } from '../models/ClassroomScore';
-import fs from 'fs';
 
 export default class ClassroomStore extends UserRelatedStore<
     Classroom,
