@@ -28,7 +28,7 @@ const AnswerPage = () => {
                             component={Link}
                             to={`/cr/${classroomId}/ex/${exerciseId}`}
                         >
-                            BÀI TẬP
+                            QUAY VỀ
                         </Button>
                         <Typography
                             variant='h6'

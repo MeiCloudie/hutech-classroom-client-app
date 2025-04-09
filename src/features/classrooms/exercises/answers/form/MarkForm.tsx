@@ -54,7 +54,13 @@ const MarkForm = (props: MarkFormProps) => {
                 >
                     <EntityForm<AnswerFormValues>
                         initialEntityFormValues={
-                            new AnswerFormValues(props.answer)
+                            new AnswerFormValues({
+                                ...props.answer,
+                                score:
+                                    props.answer.score === -1
+                                        ? 0
+                                        : props.answer.score,
+                            })
                         }
                         selectionFields={[]}
                         validateObject={{
