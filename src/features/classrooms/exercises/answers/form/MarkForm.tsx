@@ -15,7 +15,7 @@ const MarkForm = (props: MarkFormProps) => {
         exerciseId: string;
         answerId: string;
     }>();
-    const { answerStore, userStore } = useStore();
+    const { answerStore, exerciseStore, userStore } = useStore();
 
     return (
         <Box>
@@ -74,7 +74,13 @@ const MarkForm = (props: MarkFormProps) => {
                             ),
                             score: Yup.number()
                                 .min(-1, 'Điểm phải lớn hơn 0')
-                                .max(10, 'Điểm phải nhỏ hơn 10')
+                                .max(
+                                    exerciseStore.selectedItem?.totalScore ?? 0,
+                                    `Điểm phải nhỏ hơn ${
+                                        exerciseStore.selectedItem
+                                            ?.totalScore ?? 0
+                                    }`
+                                )
                                 .transform((value, originalValue) => {
                                     return originalValue === undefined
                                         ? -1
@@ -102,7 +108,6 @@ const MarkForm = (props: MarkFormProps) => {
                             'createDate',
                         ]}
                         onSubmit={(entityFormValues) => {
-                            console.log(entityFormValues);
                             if (entityFormValues.id) {
                                 answerStore.update(
                                     entityFormValues.id,
