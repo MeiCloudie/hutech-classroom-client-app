@@ -111,14 +111,20 @@ const MyTextAreaInput = ({ label, icon, ...props }: any) => {
                         ],
                         menubar: false,
                         content_style: `
-                          body {
+                          p {
+                            margin: 0;
+                          }
+                          .mce-content-body {
                             background-color: #f5f5f5;
                             margin: ${icon ? '8px 8px 8px 36px' : '8px'};
                             min-height: 120px;
-                            text-indent: 11px;
+                          }
+                          .mce-content-body p {
+                            padding-left: 11px
                           }
                           .mce-content-body[data-mce-placeholder]:not(.mce-visualblocks)::before {
                             color: #9c9c9c;
+                            padding-left: 11px
                           }
                         `,
                         setup: (editor) => {
