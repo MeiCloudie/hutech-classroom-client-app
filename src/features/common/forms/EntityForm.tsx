@@ -193,7 +193,7 @@ const EntityForm = <TEntityFormValues extends EntityFormValues>({
                                     onClick={onCancel}
                                     variant='contained'
                                     fullWidth
-                                    sx={{ maxWidth: 60 }} // Set a max width to make buttons more proportional
+                                    sx={{ maxWidth: 60 }}
                                 >
                                     HUỶ
                                 </Button>
@@ -202,7 +202,12 @@ const EntityForm = <TEntityFormValues extends EntityFormValues>({
                                     variant='contained'
                                     disabled={isSubmitting}
                                     fullWidth
-                                    sx={{ maxWidth: 60 }} // Set a max width to make buttons more proportional
+                                    sx={{
+                                        maxWidth: initialEntityFormValues.id
+                                            ? 120
+                                            : 60,
+                                        maxHeight: 34,
+                                    }}
                                 >
                                     {initialEntityFormValues.id
                                         ? 'CẬP NHẬT'
