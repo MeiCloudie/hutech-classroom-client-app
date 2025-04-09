@@ -1,6 +1,6 @@
-import Entity, { Auditable } from "../common/models/Entity";
-import Profile from "../common/models/Profile";
-import { Exercise } from "./Exercise";
+import Entity, { Auditable } from '../common/models/Entity';
+import Profile from '../common/models/Profile';
+import { Exercise } from './Exercise';
 
 export interface Answer extends Entity, Auditable {
     id: string;
@@ -13,11 +13,11 @@ export interface Answer extends Entity, Auditable {
 }
 
 export class Answer implements Answer {
-    id = "";
+    id = '';
     createDate = new Date();
-    description = "";
-    link = "";
-    score = -1;
+    description = '';
+    link = '';
+    score = 0;
     user?: Profile = undefined;
     exercise?: Exercise = undefined;
 
@@ -28,11 +28,11 @@ export class Answer implements Answer {
 
 export class AnswerFormValues {
     id?: string;
-    description: string = "";
-    link: string = "";
-    score: number = -1;
-    userId?: string = "";
-    exerciseId?: string = "";
+    description: string = '';
+    link: string = '';
+    score: number = 0;
+    userId?: string = '';
+    exerciseId?: string = '';
 
     constructor(answer?: Answer) {
         if (answer) {
