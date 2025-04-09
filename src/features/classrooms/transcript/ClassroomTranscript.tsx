@@ -1,10 +1,10 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import ScoreTable from "./ScoreTable";
 // import LibraryAddIcon from "@mui/icons-material/LibraryAdd"
 import InputIcon from "@mui/icons-material/Input";
 import OutputIcon from "@mui/icons-material/Output";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
 import { useStore } from "../../../app/stores/store";
 import { useParams } from "react-router-dom";
 import { PaginationParams } from "../../../app/common/models/paginationPrams";
