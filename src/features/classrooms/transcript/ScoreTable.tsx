@@ -17,6 +17,7 @@ const ScoreTable = () => {
     const { classroomId } = useParams<{ classroomId: string }>();
     const { classroomStore } = useStore();
     const [rows, setRows] = useState<GridRowsProp>([]);
+    const [loading, setLoading] = useState(true);
 
     const columns: GridColDef[] = [
         { field: 'id', headerName: 'STT', width: 70 },
@@ -45,53 +46,65 @@ const ScoreTable = () => {
     ];
 
     useEffect(() => {
-        if (classroomId)
-            classroomStore.get(classroomId).then(() => {
-                classroomStore
-                    .loadClassroomClassroomScores(
-                        new PaginationParams(1, 100, '')
-                    )
-                    .then(() => {
-                        if (classroomStore.classroomScores)
-                            setRows(
-                                classroomStore.classroomScores.map((m, i) => {
-                                    return {
-                                        id: i + 1,
-                                        username: m.student?.userName ?? '',
-                                        lastName: `${
-                                            m.student?.lastName ?? ''
-                                        }`,
-                                        firstName: `${
-                                            m.student?.firstName ?? ''
-                                        }`,
-                                        class: `${m.classroom?.class}`,
-                                        ...m.scores.reduce(
-                                            (
-                                                dictionary: {
-                                                    [key: number]: number;
-                                                },
-                                                element,
-                                                index
-                                            ) => {
-                                                if (
-                                                    m.scores[index].score !== -1
-                                                )
-                                                    dictionary[
-                                                        element.scoreType?.id ??
-                                                            0
-                                                    ] = m.scores[index].score;
-                                                return dictionary;
-                                            },
-                                            {}
-                                        ),
-                                    };
-                                })
-                            );
-                    });
-            });
-    }, [classroomId, classroomStore, classroomStore.classroomScores]);
+        let isMounted = true;
 
-    if (classroomStore.isDetailsLoading) return <TypoLoading />;
+        const loadData = async () => {
+            if (!classroomId) return;
+
+            setLoading(true);
+            try {
+                await classroomStore.get(classroomId);
+                const paginationParams = new PaginationParams(1, 100, '');
+                await classroomStore.loadClassroomClassroomScores(
+                    paginationParams
+                );
+
+                if (isMounted && classroomStore.classroomScores) {
+                    const formattedRows = classroomStore.classroomScores.map(
+                        (m, i) => {
+                            return {
+                                id: i + 1,
+                                username: m.student?.userName ?? '',
+                                lastName: m.student?.lastName ?? '',
+                                firstName: m.student?.firstName ?? '',
+                                class: m.classroom?.class ?? '',
+                                ...m.scores.reduce(
+                                    (
+                                        dictionary: { [key: number]: number },
+                                        element
+                                    ) => {
+                                        if (element.score !== -1) {
+                                            dictionary[
+                                                element.scoreType?.id ?? 0
+                                            ] = element.score;
+                                        }
+                                        return dictionary;
+                                    },
+                                    {}
+                                ),
+                            };
+                        }
+                    );
+
+                    setRows(formattedRows);
+                }
+            } catch (error) {
+                console.error('Error loading classroom scores:', error);
+            } finally {
+                if (isMounted) {
+                    setLoading(false);
+                }
+            }
+        };
+
+        loadData();
+
+        return () => {
+            isMounted = false;
+        };
+    }, [classroomId, classroomStore]);
+
+    if (classroomStore.isDetailsLoading || loading) return <TypoLoading />;
 
     return (
         <div style={{ height: '100%', width: '100%' }}>
