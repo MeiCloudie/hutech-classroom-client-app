@@ -49,16 +49,16 @@ const GroupList = () => {
     if (groupStore.isListLoading)
         return (
             <ResponsiveGrid container spacing={2}>
-                <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+                <Grid sx={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                     <GroupCardSkeleton />
                 </Grid>
-                <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+                <Grid sx={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                     <GroupCardSkeleton />
                 </Grid>
-                <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+                <Grid sx={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                     <GroupCardSkeleton />
                 </Grid>
-                <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+                <Grid sx={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                     <GroupCardSkeleton />
                 </Grid>
             </ResponsiveGrid>
@@ -75,7 +75,7 @@ const GroupList = () => {
                 </Box>
             ) : (
                 groups.map((g, index) => (
-                    <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={index}>
+                    <Grid sx={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={index}>
                         <GroupCard key={index} group={g} />
                     </Grid>
                 ))

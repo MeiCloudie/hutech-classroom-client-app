@@ -88,7 +88,7 @@ const UpdateAvatarTab: React.FC = () => {
                 columns={{ xs: 1, md: 12 }}
                 justifyContent={'center'}
             >
-                <Grid size={{ md: 6, xs: 1 }}>
+                <Grid sx={{ md: 6, xs: 1 }}>
                     <Stack
                         direction='row'
                         spacing={2}
@@ -106,7 +106,7 @@ const UpdateAvatarTab: React.FC = () => {
                         />
                     </Stack>
                 </Grid>
-                <Grid size={{ md: 6, xs: 1 }}>
+                <Grid sx={{ md: 6, xs: 1 }}>
                     <Box>
                         <input
                             accept='image/*'

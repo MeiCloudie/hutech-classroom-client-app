@@ -43,28 +43,28 @@ const ClassroomList = () => {
     if (classroomStore.isListLoading)
         return (
             <ResponsiveGrid container spacing={2}>
-                <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+                <Grid sx={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                     <ClassroomCardSkeleton />
                 </Grid>
-                <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+                <Grid sx={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                     <ClassroomCardSkeleton />
                 </Grid>
-                <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+                <Grid sx={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                     <ClassroomCardSkeleton />
                 </Grid>
-                <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+                <Grid sx={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                     <ClassroomCardSkeleton />
                 </Grid>
-                <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+                <Grid sx={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                     <ClassroomCardSkeleton />
                 </Grid>
-                <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+                <Grid sx={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                     <ClassroomCardSkeleton />
                 </Grid>
-                <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+                <Grid sx={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                     <ClassroomCardSkeleton />
                 </Grid>
-                <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+                <Grid sx={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                     <ClassroomCardSkeleton />
                 </Grid>
             </ResponsiveGrid>
@@ -79,7 +79,7 @@ const ClassroomList = () => {
                 />
             ) : (
                 classroomStore.items.map((c, index) => (
-                    <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={index}>
+                    <Grid sx={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={index}>
                         <ClassroomCard key={index} classroom={c} />
                     </Grid>
                 ))

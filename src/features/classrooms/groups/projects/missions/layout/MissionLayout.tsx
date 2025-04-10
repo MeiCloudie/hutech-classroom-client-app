@@ -12,7 +12,7 @@ const MissionLayout = (props: MissionLayoutProps) => {
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
                 <Grid
-                    size={{ xs: 12, md: 4, lg: 3 }}
+                    sx={{ xs: 12, md: 4, lg: 3 }}
                     key='mini-classroom-and-group-and-project-details'
                 >
                     <MiniClassroomDetails />
@@ -20,7 +20,7 @@ const MissionLayout = (props: MissionLayoutProps) => {
                     <MiniProjectDetails />
                 </Grid>
 
-                <Grid size={{ xs: 12, md: 8, lg: 9 }} key='main-mission'>
+                <Grid sx={{ xs: 12, md: 8, lg: 9 }} key='main-mission'>
                     {props.component}
                 </Grid>
             </Grid>

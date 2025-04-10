@@ -1,12 +1,13 @@
 import { Formik } from 'formik';
 import MyPasswordInput from '../../common/forms/MyPasswordInput';
-import { Box, Button, InputAdornment, Stack, Typography } from '@mui/material';
+import { Box, InputAdornment, Stack, Typography } from '@mui/material';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import * as Yup from 'yup';
 import { useStore } from '../../../app/stores/store';
 import MyTextInput from '../../common/forms/MyTextInput';
 import { toast } from 'react-toastify';
 import LoginIcon from '@mui/icons-material/Login';
+import { LoadingButton } from '@mui/lab';
 
 const LoginForm = () => {
     const { userStore } = useStore();
@@ -78,7 +79,7 @@ const LoginForm = () => {
                                 justifyContent: 'end',
                             }}
                         >
-                            <Button
+                            <LoadingButton
                                 loading={userStore.isLoggingIn}
                                 loadingPosition='start'
                                 startIcon={<LoginIcon />}
@@ -89,7 +90,7 @@ const LoginForm = () => {
                                 sx={{ mt: 2 }}
                             >
                                 Đăng Nhập
-                            </Button>
+                            </LoadingButton>
                         </div>
                     </Stack>
                 </Box>

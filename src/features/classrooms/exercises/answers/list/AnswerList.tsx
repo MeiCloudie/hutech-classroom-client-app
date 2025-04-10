@@ -49,16 +49,16 @@ const AnswerList = () => {
     if (answerStore.isListLoading)
         return (
             <ResponsiveGrid container spacing={2}>
-                <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+                <Grid sx={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                     <AnswerCardSkeleton />
                 </Grid>
-                <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+                <Grid sx={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                     <AnswerCardSkeleton />
                 </Grid>
-                <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+                <Grid sx={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                     <AnswerCardSkeleton />
                 </Grid>
-                <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+                <Grid sx={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                     <AnswerCardSkeleton />
                 </Grid>
             </ResponsiveGrid>
@@ -75,7 +75,7 @@ const AnswerList = () => {
                 </Box>
             ) : (
                 answers.map((a, index) => (
-                    <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={index}>
+                    <Grid sx={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={index}>
                         <AnswerCard key={index} answer={a} />
                     </Grid>
                 ))

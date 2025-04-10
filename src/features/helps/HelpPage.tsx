@@ -108,7 +108,7 @@ const HelpPage = () => {
 
             <ResponsiveGrid container spacing={2}>
                 {helpCards.map((hc, index) => (
-                    <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={index}>
+                    <Grid sx={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={index}>
                         <HelpCard
                             key={index}
                             title={hc.title}

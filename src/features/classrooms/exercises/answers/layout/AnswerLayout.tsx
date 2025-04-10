@@ -18,7 +18,7 @@ const AnswerLayout = (props: AnswerLayoutProps) => {
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
                 <Grid
-                    size={{ xs: 12, md: 4, lg: 3 }}
+                    sx={{ xs: 12, md: 4, lg: 3 }}
                     key='mini-classroom-and-exercise-details'
                 >
                     <Box
@@ -50,7 +50,7 @@ const AnswerLayout = (props: AnswerLayoutProps) => {
                     <MiniClassroomDetails />
                 </Grid>
 
-                <Grid size={{ xs: 12, md: 8, lg: 9 }} key='main-answer'>
+                <Grid sx={{ xs: 12, md: 8, lg: 9 }} key='main-answer'>
                     {props.component}
                 </Grid>
             </Grid>

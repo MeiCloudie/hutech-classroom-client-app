@@ -10,14 +10,14 @@ const MiniDetailsLayout = (props: MiniDetailsLayoutProps) => {
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
                 <Grid
-                    size={{ xs: 12, md: 4, lg: 3 }}
+                    sx={{ xs: 12, md: 4, lg: 3 }}
                     key='mini-classroom-details'
                 >
                     <MiniClassroomDetails />
                 </Grid>
 
                 <Grid
-                    size={{ xs: 12, md: 8, lg: 9 }}
+                    sx={{ xs: 12, md: 8, lg: 9 }}
                     key='main-classroom-everybody'
                 >
                     {props.component}

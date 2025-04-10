@@ -9,7 +9,7 @@ const CountdownDatetime = () => {
     const [hours, setHours] = useState(0);
     const [minutes, setMinutes] = useState(0);
     const [seconds, setSeconds] = useState(0);
-    const intervalRef = useRef<NodeJS.Timeout>(undefined);
+    const intervalRef = useRef<NodeJS.Timeout>();
 
     useEffect(() => {
         const targetDate = localStorage.getItem('target');

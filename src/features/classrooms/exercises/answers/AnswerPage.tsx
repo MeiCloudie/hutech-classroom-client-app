@@ -14,7 +14,7 @@ const AnswerPage = () => {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
-                <Grid size={{ xs: 12, md: 4, lg: 3 }} key='layout-info-list'>
+                <Grid sx={{ xs: 12, md: 4, lg: 3 }} key='layout-info-list'>
                     <Box
                         sx={{
                             display: 'flex',
@@ -44,7 +44,7 @@ const AnswerPage = () => {
                     <MiniClassroomDetails />
                 </Grid>
 
-                <Grid size={{ xs: 12, md: 8, lg: 9 }} key='answer-list'>
+                <Grid sx={{ xs: 12, md: 8, lg: 9 }} key='answer-list'>
                     <AnswerList />
                 </Grid>
             </Grid>
